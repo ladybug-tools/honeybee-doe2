@@ -44,3 +44,11 @@ def face_doe2_properties(self):
 def aperture_doe2_properties(self):
     if self._doe2 is None:
         self._doe2 = ApertureDoe2Properties(self.host)
+
+
+# Step 3)
+# add public .ph property methods to the Properties classes
+setattr(ModelProperties, 'doe2', property(model_doe2_properties))
+setattr(RoomProperties, 'doe2', property(room_doe2_properties))
+setattr(FaceProperties, 'doe2', property(face_doe2_properties))
+setattr(ApertureProperties, 'doe2', property(aperture_doe2_properties))
