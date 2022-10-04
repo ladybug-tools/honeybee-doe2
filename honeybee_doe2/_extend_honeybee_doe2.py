@@ -20,7 +20,7 @@ setattr(ModelProperties, '_doe2', None)
 setattr(RoomProperties, '_doe2', None)
 setattr(FaceProperties, '_doe2', None)
 setattr(ApertureProperties, '_doe2', None)
-setattr(ShadeProperties, '_doe2', None)
+#setattr(ShadeProperties, '_doe2', None)
 
 
 def model_doe2_properties(self):
@@ -44,6 +44,7 @@ def face_doe2_properties(self):
 def aperture_doe2_properties(self):
     if self._doe2 is None:
         self._doe2 = ApertureDoe2Properties(self.host)
+    return self._doe2
 
 
 # Step 3)
