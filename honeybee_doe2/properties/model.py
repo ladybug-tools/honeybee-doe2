@@ -13,7 +13,6 @@ class ModelDoe2Properties(object):
 
     def __init__(self, _host):
         self._host = _host
-        self.id_num = 0
 
     @property
     def host(self):
@@ -29,7 +28,6 @@ class ModelDoe2Properties(object):
         # type: (Any) -> ModelDoe2Properties
         _host = new_host or self._host
         new_properties_obj = ModelDoe2Properties(_host)
-        new_properties_obj.id_num = self.id_num
         return new_properties_obj
 
     def __str__(self):
