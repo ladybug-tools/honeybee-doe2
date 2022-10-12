@@ -29,10 +29,10 @@ def model_doe2_properties(self):
     return self._doe2
 
 
-def room_doe2_properties(self):
-    if self._doe2 is None:
-        self._doe2 = RoomDoe2Properties(self.host)
-    return self._doe2
+# def room_doe2_properties(self):
+#    if self._doe2 is None:
+#        self._doe2 = RoomDoe2Properties(self.host)
+#    return self._doe2
 
 
 def face_doe2_properties(self):

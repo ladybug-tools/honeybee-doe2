@@ -30,6 +30,14 @@ class ModelDoe2Properties(object):
         new_properties_obj = ModelDoe2Properties(_host)
         return new_properties_obj
 
+    @property
+    def doe_stories(self):
+        return self._make_doe_stories(self.host)
+
+    @staticmethod
+    def _make_doe_stories(obj):
+        pass
+
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)
 
