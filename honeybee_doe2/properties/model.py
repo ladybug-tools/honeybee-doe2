@@ -38,6 +38,9 @@ class ModelDoe2Properties(object):
     def _make_doe_stories(obj):
         pass
 
+    def to_inp(self):
+        pass
+
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)
 
