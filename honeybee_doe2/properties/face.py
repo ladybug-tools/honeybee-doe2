@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # -*- Python Version: 2.7 -*-
 
-#! og polygon.py
+from ..geometry.polygon import DoePolygon
+
+
 class FaceDoe2Properties(object):
 
     def __init__(self, _host):
@@ -10,6 +12,10 @@ class FaceDoe2Properties(object):
     @property
     def host(self):
         return self._host
+
+    def to_inp(self):
+        my_poly = DoePolygon.from_face(self.host)
+        return str(my_poly.to_inp())
 
     def duplicate(self, new_host=None):
         # type: (Any) -> FaceDoe2Properties

@@ -3,11 +3,11 @@
 """This is called during __init__and extends the base honeybee class Properties with a new ._doe2 slot"""
 
 from honeybee.properties import (
-    ModelProperties,
-    RoomProperties,
+    # ModelProperties,
+    # RoomProperties,
     FaceProperties,
-    ApertureProperties,
-    ShadeProperties
+    # ApertureProperties,
+    # ShadeProperties
 )
 
 from .properties.model import ModelDoe2Properties
@@ -15,11 +15,11 @@ from .properties.room import RoomDoe2Properties
 from .properties.face import FaceDoe2Properties
 from .properties.aperture import ApertureDoe2Properties
 # Step 1)
-# set a private ._ph attribute on each relevant HB-Core Property class to None
-setattr(ModelProperties, '_doe2', None)
-setattr(RoomProperties, '_doe2', None)
+# set a private ._doe2 attribute on each relevant HB-Core Property class to None
+#setattr(ModelProperties, '_doe2', None)
+#setattr(RoomProperties, '_doe2', None)
 setattr(FaceProperties, '_doe2', None)
-setattr(ApertureProperties, '_doe2', None)
+#setattr(ApertureProperties, '_doe2', None)
 #setattr(ShadeProperties, '_doe2', None)
 
 
@@ -49,7 +49,7 @@ def aperture_doe2_properties(self):
 
 # Step 3)
 # add public .ph property methods to the Properties classes
-setattr(ModelProperties, 'doe2', property(model_doe2_properties))
-setattr(RoomProperties, 'doe2', property(room_doe2_properties))
+#setattr(ModelProperties, 'doe2', property(model_doe2_properties))
+#setattr(RoomProperties, 'doe2', property(room_doe2_properties))
 setattr(FaceProperties, 'doe2', property(face_doe2_properties))
-setattr(ApertureProperties, 'doe2', property(aperture_doe2_properties))
+#setattr(ApertureProperties, 'doe2', property(aperture_doe2_properties))
