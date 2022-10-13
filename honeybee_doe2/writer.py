@@ -1,13 +1,17 @@
+from properties.inputils import blocks as fb
+from honeybee.model import Model
 
 
 def model_to_inp(hb_model):
-
+    # type: (Model) -> str
     data = [
         hb_model._header,
         fb.global_params,
-        fb.ttrpddh, hb_model.title.to_inp(), hb_model.run_period.to_inp(),
+        fb.ttrpddh,
+        hb_model.title.to_inp(),
+        hb_model.run_period.to_inp(),  # TODO remove from model properties
         fb.comply,
-        hb_model.compliance_data.to_inp(),
+        hb_model.compliance_data.to_inp(),  # TODO remove from model properties
         hb_model.site_bldg_data.to_inp(),
         hb_model.constructions.to_inp(),
         fb.glzCode,
