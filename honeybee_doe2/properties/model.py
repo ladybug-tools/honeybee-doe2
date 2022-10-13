@@ -35,6 +35,10 @@ class ModelDoe2Properties(object):
     def doe_stories(self):
         return self._make_doe_stories(self.host)
 
+    @property
+    def header(self):
+        return '\n'.join([fb.top_level, fb.abort_diag])
+
     @staticmethod
     def _make_doe_stories(obj):
         pass

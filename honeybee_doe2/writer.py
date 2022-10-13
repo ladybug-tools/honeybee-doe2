@@ -1,6 +1,7 @@
 from properties.inputils import blocks as fb
 from honeybee.model import Model
 from properties.inputils.run_period import RunPeriod
+from properties.inputils.title import Title
 
 
 def model_to_inp(hb_model):
@@ -10,12 +11,12 @@ def model_to_inp(hb_model):
         hb_model._header,
         fb.global_params,
         fb.ttrpddh,
-        hb_model.title.to_inp(),
+        Title(tile=str(hb_model.display_name)).to_inp(),
         rp.to_inp(),  # TODO unhardcode
         fb.comply,
         hb_model.compliance_data.to_inp(),  # TODO remove from model properties
-        hb_model.site_bldg_data.to_inp(),
-        hb_model.constructions.to_inp(),
+        hb_model.site_bldg_data.to_inp(),  # TODO
+        hb_model.constructions.to_inp(),  # TODO
         fb.glzCode,
         '\n'.join(gt.to_inp() for gt in hb_model.glass_types),
         fb.polygons,

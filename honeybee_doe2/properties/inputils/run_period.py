@@ -23,7 +23,7 @@ class RunPeriod(object):
 
         return cls_
 
-    def to_inp(self) -> str:
+    def to_inp(self):
         """Return run period as an inp string."""
         # standard holidays should be exposed.
         return '"Entire Year" = RUN-PERIOD-PD\n   ' \
@@ -37,5 +37,5 @@ class RunPeriod(object):
             '"Standard US Holidays" = HOLIDAYS\n   ' \
             'LIBRARY-ENTRY "US"\n   ..'
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return self.to_inp()
