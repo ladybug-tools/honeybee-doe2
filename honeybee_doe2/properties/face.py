@@ -13,7 +13,7 @@ class FaceDoe2Properties(object):
     def host(self):
         return self._host
 
-    def to_inp(self):
+    def poly(self):
         my_poly = DoePolygon.from_face(self.host)
         return str(my_poly.to_inp())
 
