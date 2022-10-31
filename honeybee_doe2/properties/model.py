@@ -37,7 +37,7 @@ class ModelDoe2Properties(object):
 
     @staticmethod
     def _make_doe_stories(obj):
-        pass  # TODO need to set story by height all hb rooms in model prior to doe2 translation
+        pass  # TODO need to set story by height all hb rooms in model prior to doe2 translation, do in writer
 
     @property
     def header(self):

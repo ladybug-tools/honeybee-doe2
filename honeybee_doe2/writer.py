@@ -24,18 +24,18 @@ def model_to_inp(hb_model):
         fb.comply,
         comp_data.to_inp(),
         sb_data.to_inp(),
-        hb_model.constructions.to_inp(),  # TODO can reuse from hbdoe2
+        hb_model.constructions.to_inp(),  # TODO can reuse from dfdoe2
         fb.glzCode,
-        # TODO Glass types (might be hardcoded in OG)
+        # TODO add glass types to hb model doe2 properties
         '\n'.join(gt.to_inp() for gt in hb_model.glass_types),
         fb.polygons,
-        '\n'.join(pl.to_inp() for pl in hb_model.polygons),
+        '\n'.join(pl.to_inp() for pl in hb_model.polygons),  # TODO
         fb.wallParams,
         # '\n'.join(shd.to_inp() for shd in hb_model.context_shades),  # TODO shade support
         fb.miscCost,
         fb.perfCurve,
         fb.floorNspace,
-        '\n'.join(flr.to_inp() for flr in hb_model.floors),
+        '\n'.join(flr.to_inp() for flr in hb_model.floors),  # TODO floor object
         fb.elecFuelMeter,
         fb.elec_meter,
         fb.fuel_meter,
@@ -59,7 +59,7 @@ def model_to_inp(hb_model):
         fb.chill_meter,
         fb.hvac_sys_zone,
         '\n'.join(hv_sys.to_inp()
-                  for hv_sys in hb_model.hvac_system_zone),  # TODO need to frame up
+                  for hv_sys in hb_model.hvac_system_zone),  # TODO need to frame up hvac
         fb.misc_meter_hvac,
         fb.equip_controls,
         fb.load_manage,
