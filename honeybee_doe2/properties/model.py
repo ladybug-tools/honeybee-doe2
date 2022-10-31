@@ -35,13 +35,13 @@ class ModelDoe2Properties(object):
     def doe_stories(self):
         return self._make_doe_stories(self.host)
 
+    @staticmethod
+    def _make_doe_stories(obj):
+        pass  # TODO need to set story by height all hb rooms in model prior to doe2 translation
+
     @property
     def header(self):
         return '\n'.join([fb.top_level, fb.abort_diag])
-
-    @staticmethod
-    def _make_doe_stories(obj):
-        pass
 
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)

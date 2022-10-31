@@ -31,7 +31,7 @@ def model_to_inp(hb_model):
         fb.polygons,
         '\n'.join(pl.to_inp() for pl in hb_model.polygons),
         fb.wallParams,
-        '\n'.join(shd.to_inp() for shd in hb_model.context_shades),  # TODO shade support
+        # '\n'.join(shd.to_inp() for shd in hb_model.context_shades),  # TODO shade support
         fb.miscCost,
         fb.perfCurve,
         fb.floorNspace,
