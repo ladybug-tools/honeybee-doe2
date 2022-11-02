@@ -36,6 +36,13 @@ class ModelDoe2Properties(object):
         return new_properties_obj
 
     @property
+    def _header(self):
+        """File header.
+        NOTE: The header is currently read-only
+        """
+        return '\n'.join([fb.top_level, fb.abort_diag])
+
+    @property
     def stories(self):
         return self._make_doe_stories(self.host)
 
