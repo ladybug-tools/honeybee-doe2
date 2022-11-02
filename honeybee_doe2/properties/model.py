@@ -35,19 +35,11 @@ class ModelDoe2Properties(object):
         return new_properties_obj
 
     @property
-    def doe_stories(self):
+    def stories(self):
         return self._make_doe_stories(self.host)
 
     @staticmethod
     def _make_doe_stories(obj):
-        """_summary_
-
-        Args:
-            obj (_type_): _description_
-
-        Returns:
-            _type_: _description_
-        """
         grouped_rooms, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
         return grouped_rooms
 
