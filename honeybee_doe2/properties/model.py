@@ -6,6 +6,7 @@ from .inputils import blocks as fb
 from collections import defaultdict
 from honeybee.model import Model
 from honeybee.room import Room
+from honeybee.face import Face
 
 
 class ModelDoe2Properties(object):
@@ -42,6 +43,21 @@ class ModelDoe2Properties(object):
     def _make_doe_stories(obj):
         grouped_rooms, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
         return grouped_rooms
+
+    @property
+    def polygons(self):
+        return self._inp_polyblock_maker(self.host)
+
+    @staticmethod
+    def _inp_polyblock_maker(obj):
+        inp_block = '\n'
+        inp_polys = []
+        for room in obj.rooms:
+            for face in obj.faces:
+                if str(face.boundary_condition) != 'Surface':
+                    inp_polys.append(face.properties.doe2.poly)
+        final_form = inp_block.join(pol for pol in inp_polys)
+        return final_form  # I don't even know what I'm making a reference to tbh
 
     @property
     def header(self):
