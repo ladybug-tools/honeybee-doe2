@@ -60,9 +60,8 @@ class ModelDoe2Properties(object):
         inp_block = '\n'
         inp_polys = []
         for room in obj.rooms:
-            for face in obj.faces:
-                if str(face.boundary_condition) != 'Surface':
-                    inp_polys.append(face.properties.doe2.poly)
+            for face in obj.faces:  # eQuest can have interior walls
+                inp_polys.append(face.properties.doe2.poly)
         final_form = inp_block.join(pol for pol in inp_polys)
         return final_form  # I don't even know what I'm making a reference to tbh
 
