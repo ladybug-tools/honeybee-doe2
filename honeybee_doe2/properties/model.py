@@ -4,6 +4,8 @@
 """ HB-Model Doe2 (eQuest) Properties."""
 from .inputils import blocks as fb
 from collections import defaultdict
+from honeybee.model import Model
+from honeybee.room import Room
 
 
 class ModelDoe2Properties(object):
@@ -38,12 +40,16 @@ class ModelDoe2Properties(object):
 
     @staticmethod
     def _make_doe_stories(obj):
-        obj = obj.assign_stories_by_floor_height()
+        """_summary_
 
-        doe_stories = defaultdict(list)
-        for room in obj.rooms:
-            doe_stories[room.story].append(room)
-        return doe_stories
+        Args:
+            obj (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        grouped_rooms, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
+        return grouped_rooms
 
     @property
     def header(self):
