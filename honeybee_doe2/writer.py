@@ -8,13 +8,13 @@ from honeybee.model import Model
 
 # Finally. Once again into the fray.
 
-comp_data = ComplianceData()  # TODO Un-Hardcode
-sb_data = sbd()  # TODO Un-Hardcode
-
 
 def model_to_inp(hb_model):
     # type: (Model) -> str
     rp = RunPeriod()
+    comp_data = ComplianceData()
+    sb_data = sbd()
+
     data = [
         hb_model._header,
         fb.global_params,

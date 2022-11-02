@@ -3,6 +3,7 @@
 
 """ HB-Model Doe2 (eQuest) Properties."""
 from .inputils import blocks as fb
+from collections import defaultdict
 
 
 class ModelDoe2Properties(object):
@@ -37,7 +38,12 @@ class ModelDoe2Properties(object):
 
     @staticmethod
     def _make_doe_stories(obj):
-        pass  # TODO need to set story by height all hb rooms in model prior to doe2 translation, do in writer
+        obj = obj.assign_stories_by_floor_height()
+
+        doe_stories = defaultdict(list)
+        for room in obj.rooms:
+            doe_stories[room.story].append(room)
+        return doe_stories
 
     @property
     def header(self):
