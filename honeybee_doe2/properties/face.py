@@ -13,8 +13,13 @@ class FaceDoe2Properties(object):
     def host(self):
         return self._host
 
+    @property
     def poly(self):
-        my_poly = DoePolygon.from_face(self.host)
+        return self._make_doe_polys(self.host)
+
+    @staticmethod
+    def _make_doe_polys(obj):
+        my_poly = DoePolygon.from_face(obj)
         return str(my_poly.to_inp())
 
     def duplicate(self, new_host=None):
