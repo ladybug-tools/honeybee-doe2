@@ -1,4 +1,5 @@
 .vscode
+no_disemination/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
