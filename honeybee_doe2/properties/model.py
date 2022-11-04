@@ -55,7 +55,14 @@ class ModelDoe2Properties(object):
     @staticmethod
     def _make_doe_stories(obj):
         grouped_rooms, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
-        return grouped_rooms
+
+        # return grouped_rooms
+        # * output at point:
+        # [[Room: Room 43ee2, Room: Room 28562],
+        # [Room: Room 24600, Room: Room a9bde],
+        # [Room: Room 92ca2, Room: Room ae86c],
+        # [Room: Room 87225, Room: Room 71235],
+        # [Room: Room ae4e3, Room: Room ea9d1]]
 
     @property
     def polygons(self):
