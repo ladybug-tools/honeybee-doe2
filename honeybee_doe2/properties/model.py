@@ -13,6 +13,7 @@ from .inputils.compliance import ComplianceData
 from .inputils.sitebldg import SiteBldgData as sbd
 from .inputils.run_period import RunPeriod
 from .inputils.title import Title
+from pprint import pprint
 
 
 class ModelDoe2Properties(object):
@@ -54,18 +55,24 @@ class ModelDoe2Properties(object):
 
     @staticmethod
     def _make_doe_stories(obj):
-        grouped_rooms, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
+        storygroups, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
 
         floor_geom = []
         floor_spaces = []
 
-        # return grouped_rooms
+        # return storygroups
         # * output at point:
         # [[Room: Room 43ee2, Room: Room 28562],
         # [Room: Room 24600, Room: Room a9bde],
         # [Room: Room 92ca2, Room: Room ae86c],
         # [Room: Room 87225, Room: Room 71235],
         # [Room: Room ae4e3, Room: Room ea9d1]]
+        for story in storygroups:
+            story_geom = []
+            for room in story:
+                # *geometry
+                story_geom.append([face for face in room.faces])
+            floor_geom.append(story_geom)
 
     @property
     def polygons(self):
