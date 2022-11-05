@@ -56,6 +56,9 @@ class ModelDoe2Properties(object):
     def _make_doe_stories(obj):
         grouped_rooms, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
 
+        floor_geom = []
+        floor_spaces = []
+
         # return grouped_rooms
         # * output at point:
         # [[Room: Room 43ee2, Room: Room 28562],
