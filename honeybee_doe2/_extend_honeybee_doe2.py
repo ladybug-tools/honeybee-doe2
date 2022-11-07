@@ -4,7 +4,7 @@
 
 from honeybee.properties import (
     ModelProperties,
-    # RoomProperties,
+    RoomProperties,
     FaceProperties,
     # ApertureProperties,
     # ShadeProperties
@@ -17,7 +17,7 @@ from .properties.aperture import ApertureDoe2Properties
 # Step 1)
 # set a private ._doe2 attribute on each relevant HB-Core Property class to None
 setattr(ModelProperties, '_doe2', None)
-#setattr(RoomProperties, '_doe2', None)
+setattr(RoomProperties, '_doe2', None)
 setattr(FaceProperties, '_doe2', None)
 #setattr(ApertureProperties, '_doe2', None)
 #setattr(ShadeProperties, '_doe2', None)
@@ -29,10 +29,10 @@ def model_doe2_properties(self):
     return self._doe2
 
 
-# def room_doe2_properties(self):
-#    if self._doe2 is None:
-#        self._doe2 = RoomDoe2Properties(self.host)
-#    return self._doe2
+def room_doe2_properties(self):
+    if self._doe2 is None:
+        self._doe2 = RoomDoe2Properties(self.host)
+    return self._doe2
 
 
 def face_doe2_properties(self):
@@ -50,6 +50,6 @@ def aperture_doe2_properties(self):
 # Step 3)
 # add public .ph property methods to the Properties classes
 setattr(ModelProperties, 'doe2', property(model_doe2_properties))
-#setattr(RoomProperties, 'doe2', property(room_doe2_properties))
+setattr(RoomProperties, 'doe2', property(room_doe2_properties))
 setattr(FaceProperties, 'doe2', property(face_doe2_properties))
 #setattr(ApertureProperties, 'doe2', property(aperture_doe2_properties))

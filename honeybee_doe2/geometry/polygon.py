@@ -21,7 +21,7 @@ class DoePolygon(object):
         pass
 
     def to_inp(self) -> str:
-        """Return Room Polygons block input"""
+        """Returns Room Polygons block input"""
         vertices_template = '   V%d\t\t= ( %f, %f )'.replace('\t', '    ')
         vertices = '\n'.join([
             vertices_template % (i + 1, ver.x, ver.y)
