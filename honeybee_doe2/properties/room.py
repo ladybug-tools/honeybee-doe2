@@ -48,3 +48,8 @@ class RoomDoe2Properties(object):
     def door(self):
         pass
     # TODO add door support
+
+    @property
+    def activity_disc(self):
+        pass
+    # TODO add activity disc // loads support etc
