@@ -32,3 +32,19 @@ class RoomDoe2Properties(object):
         obj_lines.append(
             '   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
         return spaceobj.join([l for l in obj_lines])
+
+    @property
+    def poly(self):
+        # * return self's floor's face's poly
+        pass
+    # TODO add space floor poly return
+
+    @property
+    def window(self):
+        pass
+    # TODO add window support
+
+    @property
+    def door(self):
+        pass
+    # TODO add door support
