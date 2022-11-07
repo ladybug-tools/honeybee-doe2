@@ -58,7 +58,7 @@ class ModelDoe2Properties(object):
         storygroups, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
 
         floor_geom = []
-        floor_spaces = []
+        floor_spaces = []  # * doe2: 'spaces/zones/' wierd ass nomenclature block
 
         # return storygroups
         # * output at point:

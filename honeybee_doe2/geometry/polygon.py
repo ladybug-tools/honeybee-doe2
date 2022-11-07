@@ -1,6 +1,7 @@
 from ladybug_geometry.geometry3d.face import Face3D
 from ..utils.doe_formatters import short_name
 from honeybee.face import Face3D
+# TODO this needs to be in properties not external I think, not important but move later
 
 
 class DoePolygon(object):
