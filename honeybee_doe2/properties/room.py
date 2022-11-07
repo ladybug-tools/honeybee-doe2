@@ -17,3 +17,18 @@ class RoomDoe2Properties(object):
         _host = new_host or self._host
         new_properties_obj = RoomDoe2Properties(_host)
         return new_properties_obj
+
+    @property
+    def space(self):
+        return self._make_doe_space_obj(self.host)
+
+    @staticmethod
+    def _make_doe_space_obj(obj):
+        spaceobj = ''
+        obj_lines = []
+        obj_lines.append('"{}" = SPACE\n'.format(obj.display_name))
+        obj_lines.append('   SHAPE           = POLYGON\n')
+        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(obj.display_name))
+        obj_lines.append(
+            '   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
+        return spaceobj.join([l for l in obj_lines])
