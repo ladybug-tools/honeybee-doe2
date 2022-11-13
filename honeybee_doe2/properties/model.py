@@ -73,6 +73,8 @@ class ModelDoe2Properties(object):
                 # *geometry
                 story_geom.append([face for face in room.faces])
             floor_geom.append(story_geom)
+        # ? 1. floor geom | floor/space bs | windows
+        # ? 2. activity description | loads or whatever
 
     @property
     def polygons(self):
@@ -100,3 +102,5 @@ class ModelDoe2Properties(object):
 
     def ToString(self):
         return self.__repr__()
+
+# https://open.spotify.com/track/5P9qFmIiMqE6r2UfwVIdIZ?si=eb8945d1338a45d9

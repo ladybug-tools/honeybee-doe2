@@ -7,7 +7,7 @@ from honeybee.properties import (
     RoomProperties,
     FaceProperties,
     # ApertureProperties,
-    # ShadeProperties
+    # ShadeProperties #* bldg | context disangination important for 90.1 baseline hokeypokey
 )
 
 from .properties.model import ModelDoe2Properties
@@ -48,7 +48,7 @@ def aperture_doe2_properties(self):
 
 
 # Step 3)
-# add public .ph property methods to the Properties classes
+# add public .doe2 property methods to the Properties classes
 setattr(ModelProperties, 'doe2', property(model_doe2_properties))
 setattr(RoomProperties, 'doe2', property(room_doe2_properties))
 setattr(FaceProperties, 'doe2', property(face_doe2_properties))
