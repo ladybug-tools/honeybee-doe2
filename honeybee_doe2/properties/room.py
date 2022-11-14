@@ -40,6 +40,7 @@ class RoomDoe2Properties(object):
 
     @staticmethod
     def _get_floor_poly(obj):
+        # TODO: Temporary will need to handle stuff
         for face in obj.faces:
             if str(face.type) == 'Floor':
                 return face.properties.doe2.poly
