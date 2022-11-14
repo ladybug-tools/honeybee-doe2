@@ -60,27 +60,22 @@ class ModelDoe2Properties(object):
         floor_geom = []
         floor_spaces = []  # * doe2: 'spaces/zones/' wierd ass nomenclature block
 
-        # return storygroups
-        # * output at point:
-        # [[Room: Room 43ee2, Room: Room 28562],
-        # [Room: Room 24600, Room: Room a9bde],
-        # [Room: Room 92ca2, Room: Room ae86c],
-        # [Room: Room 87225, Room: Room 71235],
-        # [Room: Room ae4e3, Room: Room ea9d1]]
         for story in storygroups:
-            story_geom = []
+            # TODO "the floor's geom"; should be non-ish with new methodology
             for room in story:
                 # *geometry
-                story_geom.append([face for face in room.faces])
-            floor_geom.append(story_geom)
+                floor_geom.append(room.properties.doe2.poly)
         # ? 1. floor geom | floor/space bs | windows
         # ? 2. activity description | loads or whatever
 
-    @property
+        lil_newline = '\n'
+        return lil_newline.join(str(f) for f in floor_geom)
+
+    @ property
     def polygons(self):
         return self._inp_polyblock_maker(self.host)
 
-    @staticmethod
+    @ staticmethod
     def _inp_polyblock_maker(obj):
         inp_block = '\n'
         inp_polys = []
@@ -90,7 +85,7 @@ class ModelDoe2Properties(object):
         final_form = inp_block.join(pol for pol in inp_polys)
         return final_form  # I don't even know what I'm making a reference to tbh
 
-    @property
+    @ property
     def header(self):
         return '\n'.join([fb.top_level, fb.abort_diag])
 
