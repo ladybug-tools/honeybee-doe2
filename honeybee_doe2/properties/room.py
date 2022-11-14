@@ -36,8 +36,13 @@ class RoomDoe2Properties(object):
     @property
     def poly(self):
         # * return self's floor's face's poly
-        pass
-    # TODO add space floor poly return
+        return self._get_floor_poly(self.host)
+
+    @staticmethod
+    def _get_floor_poly(obj):
+        for face in obj.faces:
+            if str(face.type) == 'Floor':
+                return face.properties.doe2.poly
 
     @property
     def window(self):
