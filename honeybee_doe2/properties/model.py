@@ -51,6 +51,7 @@ class ModelDoe2Properties(object):
 
     @property
     def stories(self):
+        # * do tuple, (geom, 'space room whatever') for each 'inpblock' per story
         return self._make_doe_stories(self.host)
 
     @staticmethod
