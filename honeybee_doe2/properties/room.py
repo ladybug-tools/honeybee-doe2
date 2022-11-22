@@ -47,20 +47,21 @@ class RoomDoe2Properties(object):
     def _get_floor_poly(obj):
 
         for face in obj.faces:
-            if isinstance(
-                    face, type(face_types.floor)):  # * using isinstance like a grown up I'm so proud of me
+            if isinstance(face, type(face_types.floor)):
                 return face.properties.doe2.poly
 
     @property
     def walls(self):
-        # * Needs to return all the wall related stuff either as tuple of each inp block or list
+        # * Needs to return all the wall related stuff either as tuple of each inp block or list etc
         return self._get_walls(self.host)
 
     @staticmethod
     def _get_walls(obj):
         for face in obj.faces:
-            if str(face.type == 'Wall'):  # ! Import facetypes and isinstance like a grown up
+            if isinstance(face, type(face_types.wall)):
                 pass
+            # TODO: Make wall class first, tailor cls to this, wall class contains all the stuff
+            # TODO: Wall class should handle orientation, azimuth and all that
 
     @property
     def window(self):
