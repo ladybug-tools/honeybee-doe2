@@ -2,6 +2,10 @@
 # -*- Python Version: 2.7 -*-
 
 from honeybee.room import Room
+from ..utils.doe_formatters import short_name
+
+from honeybee.face import Face
+from honeybee.facetype import face_types
 
 
 class RoomDoe2Properties(object):
@@ -26,9 +30,10 @@ class RoomDoe2Properties(object):
     def _make_doe_space_obj(obj):
         spaceobj = ''
         obj_lines = []
-        obj_lines.append('"{}" = SPACE\n'.format(obj.display_name))
+        obj_lines.append('"{}" = SPACE\n'.format(short_name(obj.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
-        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(obj.display_name))
+        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
+            short_name(obj.display_name)))
         obj_lines.append(
             '   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
         return spaceobj.join([l for l in obj_lines])
@@ -40,9 +45,10 @@ class RoomDoe2Properties(object):
 
     @staticmethod
     def _get_floor_poly(obj):
-        # TODO: Temporary will need to handle stuff
+
         for face in obj.faces:
-            if str(face.type) == 'Floor':
+            if isinstance(
+                    face, type(face_types.floor)):  # * using isinstance like a grown up I'm so proud of me
                 return face.properties.doe2.poly
 
     @property
@@ -52,9 +58,9 @@ class RoomDoe2Properties(object):
 
     @staticmethod
     def _get_walls(obj):
-
         for face in obj.faces:
-            if str(face.type == 'Wall'):
+            if str(face.type == 'Wall'):  # ! Import facetypes and isinstance like a grown up
+                pass
 
     @property
     def window(self):

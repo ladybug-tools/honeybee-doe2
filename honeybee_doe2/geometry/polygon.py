@@ -12,14 +12,10 @@ class DoePolygon(object):
         self.vertice = vertices
 
     @classmethod
-    def from_face(cls, face: Face3D):
+    def from_face(cls, face):
         name = face.display_name
         vertices = face.geometry.lower_left_counter_clockwise_vertices
         return cls(name=name, vertices=vertices)
-
-    @classmethod
-    def from_faces():
-        pass
 
     def to_inp(self) -> str:
         """Returns Room Polygons block input"""
