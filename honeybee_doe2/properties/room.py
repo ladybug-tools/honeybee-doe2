@@ -46,6 +46,14 @@ class RoomDoe2Properties(object):
                 return face.properties.doe2.poly
 
     @property
+    def walls(self):
+        pass
+
+    @staticmethod
+    def _get_walls(obj):
+        pass
+
+    @property
     def window(self):
         pass
     # TODO add window support
