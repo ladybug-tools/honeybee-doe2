@@ -52,7 +52,7 @@ class RoomDoe2Properties(object):
 
     @property
     def walls(self):
-        # * Needs to return all the wall related stuff either as tuple of each inp block or list etc
+        # * Needs to return list of DoeWall objects
         return self._get_walls(self.host)
 
     @staticmethod

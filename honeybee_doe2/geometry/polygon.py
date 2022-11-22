@@ -17,7 +17,11 @@ class DoePolygon(object):
         vertices = face.geometry.lower_left_counter_clockwise_vertices
         return cls(name=name, vertices=vertices)
 
-    def to_inp(self) -> str:
+    @classmethod
+    def from_vertices(cls, name, vertices):
+        return cls(name=name, vertices=vertices)
+
+    def to_inp(self):
         """Returns Room Polygons block input"""
         vertices_template = '   V%d\t\t= ( %f, %f )'.replace('\t', '    ')
         vertices = '\n'.join([
