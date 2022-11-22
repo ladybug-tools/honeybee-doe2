@@ -47,11 +47,14 @@ class RoomDoe2Properties(object):
 
     @property
     def walls(self):
-        pass
+        # * Needs to return all the wall related stuff either as tuple of each inp block or list
+        return self._get_walls(self.host)
 
     @staticmethod
     def _get_walls(obj):
-        pass
+
+        for face in obj.faces:
+            if str(face.type == 'Wall'):
 
     @property
     def window(self):
