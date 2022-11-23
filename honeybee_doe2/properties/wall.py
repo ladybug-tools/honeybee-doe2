@@ -3,6 +3,9 @@ from ..utils.doe_formatters import short_name
 from ..geometry.polygon import DoePolygon
 
 
+# ? this feels like it should be somehow linked to honeybee.face_types if that makes sense?
+# ? Like face.properties.doe2.face_obj
+# ? then what's dunder'd out being tentative on the face_type?
 class DoeWall:
     def __init__(self, _face):
         self._face = _face
@@ -34,5 +37,16 @@ class DoeWall:
     def _create_wall_obj(obj):
         p_name = short_name(obj.display_name)
         constr = obj.properties.energy.construction.display_name
-        # tilt
-        # TODO Continue
+        tilt = 90.0  # TODO Un-hardcode wall tilt
+        azimuth = obj.azimuth
+        origin_pt = obj.geometry3d.lower_left_counter_clockwise_vertices[0]
+
+        big_str = '"{}" = {}-WALL'.format() + \
+            '\n  POLYGON           = "{}"'.format() + \
+            '\n  CONSTRUCTION      = "{}"'.format() + \
+            '\n  TILT              = "{}"'.format() + \
+            '\n  AZIMUTH           = "{}"'.format() + \
+            '\n  X                 = "{}"'.format() + \
+            '\n  Y                 = "{}"'.format() + \
+            '\n  Z                 = "{}"'.format() + \
+            '\n..\n'
