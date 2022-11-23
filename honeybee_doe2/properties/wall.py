@@ -40,7 +40,7 @@ class DoeWall:
         tilt = 90.0  # TODO Un-hardcode wall tilt
         azimuth = obj.azimuth
         origin_pt = obj.geometry3d.lower_left_counter_clockwise_vertices[0]
-
+        # TODO add in the formatting stuff,
         big_str = '"{}" = {}-WALL'.format() + \
             '\n  POLYGON           = "{}"'.format() + \
             '\n  CONSTRUCTION      = "{}"'.format() + \
