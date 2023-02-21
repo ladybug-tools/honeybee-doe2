@@ -13,7 +13,7 @@ class DoePolygon(object):
 
     @classmethod
     def from_face(cls, face):
-        name = face.display_name
+        name = short_name(face.display_name)
         vertices = face.geometry.lower_left_counter_clockwise_vertices
         return cls(name=name, vertices=vertices)
 
