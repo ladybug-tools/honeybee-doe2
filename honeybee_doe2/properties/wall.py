@@ -36,21 +36,20 @@ class DoeWall:
     @staticmethod
     def _create_wall_obj(obj):
         p_name = short_name(obj.display_name)
-        #wall_typology = str(type(obj))
+        # wall_typology = str(type(obj))
         constr = obj.properties.energy.construction.display_name
         tilt = 90.0  # TODO Un-hardcode wall tilt
         azimuth = obj.azimuth
         origin_pt = obj.geometry.lower_left_counter_clockwise_vertices[0]
 
         # TODO add in the formatting stuff,
-        big_str = '"{}" = EXTERIOR-WALL'.format(p_name) + \
+
+        return \
+            '"{}" = EXTERIOR-WALL'.format(p_name) + \
             '\n  POLYGON           = "{}"'.format(p_name+' Plg') + \
             '\n  CONSTRUCTION      = "{}"'.format(constr) + \
             '\n  TILT              =  {}'.format(tilt) + \
             '\n  AZIMUTH           =  {}'.format(azimuth) + \
             '\n  X                 =  {}'.format(origin_pt.x) + \
             '\n  Y                 =  {}'.format(origin_pt.y) + \
-            '\n  Z                 =  {}'.format(origin_pt.z) + \
-            '\n..\n'
-
-        return str(big_str)
+            '\n  Z                 =  {}'.format(origin_pt.z) + '\n..\n'
