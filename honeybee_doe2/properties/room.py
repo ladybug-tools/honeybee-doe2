@@ -6,6 +6,7 @@ from ..utils.doe_formatters import short_name
 
 from honeybee.face import Face
 from honeybee.facetype import face_types
+from .wall import DoeWall
 
 
 class RoomDoe2Properties(object):
@@ -57,11 +58,11 @@ class RoomDoe2Properties(object):
 
     @staticmethod
     def _get_walls(obj):
+        walls = []
         for face in obj.faces:
             if isinstance(face, type(face_types.wall)):
-                pass
-            # TODO: Make wall class first, tailor cls to this, wall class contains all the stuff
-            # TODO: Wall class should handle orientation, azimuth and all that
+                walls.append(DoeWall(face))
+        return walls
 
     @property
     def window(self):

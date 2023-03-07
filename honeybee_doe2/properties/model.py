@@ -72,21 +72,21 @@ class ModelDoe2Properties(object):
         lil_newline = '\n'
         return lil_newline.join(str(f) for f in floor_geom)
 
-    @ property
+    @property
     def polygons(self):
         return self._inp_polyblock_maker(self.host)
 
-    @ staticmethod
+    @staticmethod
     def _inp_polyblock_maker(obj):
         inp_block = '\n'
         inp_polys = []
         for room in obj.rooms:
             for face in obj.faces:  # eQuest can have interior walls
                 inp_polys.append(face.properties.doe2.poly)
-        final_form = inp_block.join(pol for pol in inp_polys)
-        return final_form  # I don't even know what I'm making a reference to tbh
+        final = inp_block.join(pol for pol in inp_polys)
+        return final  #
 
-    @ property
+    @property
     def header(self):
         return '\n'.join([fb.top_level, fb.abort_diag])
 
@@ -98,5 +98,3 @@ class ModelDoe2Properties(object):
 
     def ToString(self):
         return self.__repr__()
-
-# https://open.spotify.com/track/5P9qFmIiMqE6r2UfwVIdIZ?si=eb8945d1338a45d9
