@@ -59,7 +59,7 @@ class ModelDoe2Properties(object):
         storygroups, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
 
         floor_geom = []
-        floor_spaces = []  # * doe2: 'spaces/zones/' wierd ass nomenclature block
+        floor_spaces = []  # * doe2: 'spaces/zones/' wierd nomenclature block
 
         for story in storygroups:
             # TODO "the floor's geom"; should be non-ish with new methodology
@@ -78,6 +78,7 @@ class ModelDoe2Properties(object):
 
     @staticmethod
     def _inp_polyblock_maker(obj):
+        # TODO: for story in stories: for room in story: for face in room.faces:
         inp_block = '\n'
         inp_polys = []
         for room in obj.rooms:
