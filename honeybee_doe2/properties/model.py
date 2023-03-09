@@ -13,7 +13,8 @@ from .inputils.compliance import ComplianceData
 from .inputils.sitebldg import SiteBldgData as sbd
 from .inputils.run_period import RunPeriod
 from .inputils.title import Title
-from pprint import pprint
+
+from .story import Doe2Story
 
 
 class ModelDoe2Properties(object):
@@ -59,7 +60,7 @@ class ModelDoe2Properties(object):
         storygroups, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
 
         floor_geom = []
-        floor_spaces = []  # * doe2: 'spaces/zones/' wierd nomenclature block
+        floor_spaces = []  # * doe2: 'spaces/zones/..' nomenclature block
 
         for story in storygroups:
             # TODO "the floor's geom"; should be non-ish with new methodology
