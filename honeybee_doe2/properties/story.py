@@ -12,8 +12,8 @@ from ..utils.doe_formatters import short_name
 
 
 class Doe2Story:
-    def __init__(self, _rooms, _story_no):
-        self.rooms = _rooms
+    def __init__(self, rooms, _story_no):
+        self.rooms = rooms
         self.story_no = _story_no
 
     # TODO Model use doe2story object to get geometry of each story and stories rooms/zones
@@ -24,11 +24,12 @@ class Doe2Story:
     @staticmethod
     def _make_story_poly(objs, story_no):
         floorgeom = []
+
         for room in objs:
             for face in room.faces:
                 if str(face.type) == 'Floor':
                     floorgeom.append(face.geometry)
-    # ? I'm not a fan of this method, but it works for now
+        # ? I'm not a fan of this method, but it works for now
         floor_geom = Polyface3D.from_faces(floorgeom, 0.01)
         seg_vertices = []
         for segment in floor_geom.naked_edges:
@@ -52,7 +53,6 @@ class Doe2Story:
 
         return story_geom.properties.doe2.poly + nl.join(
             str('\n' + f) for f in stry_rm_geom)
-        # ? why did I do it like this lol
 
     @property
     def space_height(self):

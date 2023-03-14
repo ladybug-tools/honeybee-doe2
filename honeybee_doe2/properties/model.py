@@ -57,9 +57,13 @@ class ModelDoe2Properties(object):
 
     @staticmethod
     def _make_doe_stories(obj):
-        storygroups, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
-        lil_newline = '\n'
-        return lil_newline.join(str(f) for f in floor_geom)
+        grouped = Room.group_by_floor_height(obj.rooms, 0.1)
+        stories = []
+        for i, story in enumerate(grouped[0]):
+            stories.append(Doe2Story(story, i))
+        #nl = ''
+        # return str(nl.join(str(s) for s in stories))
+        return stories
 
     @property
     def polygons(self):

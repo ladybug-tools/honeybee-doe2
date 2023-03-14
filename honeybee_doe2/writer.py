@@ -29,13 +29,13 @@ def model_to_inp(hb_model):
         # TODO add glass types to hb model doe2 properties
         #        '\n'.join(gt.to_inp() for gt in hb_model.glass_types),
         fb.polygons,
-        hb_model.properties.doe2.polygons,
+        '\n'.join(s.story_poly for s in hb_model.properties.doe2.stories),
         fb.wallParams,
         # '\n'.join(shd.to_inp() for shd in hb_model.context_shades),  # TODO shade support
         fb.miscCost,
         fb.perfCurve,
         fb.floorNspace,
-        #        '\n'.join(flr.to_inp() for flr in hb_model.floors),  # TODO floor object
+        '\n'.join(s for s in hb_model.properties.doe2.stories),
         fb.elecFuelMeter,
         fb.elec_meter,
         fb.fuel_meter,
