@@ -6,8 +6,6 @@ from .properties.inputils.title import Title
 
 from honeybee.model import Model
 
-# Finally. Once again into the fray.
-
 
 def model_to_inp(hb_model):
     # type: (Model) -> str
@@ -35,7 +33,7 @@ def model_to_inp(hb_model):
         fb.miscCost,
         fb.perfCurve,
         fb.floorNspace,
-        '\n'.join(s for s in hb_model.properties.doe2.stories),
+        '\n'.join(str(story) for story in hb_model.properties.doe2.stories),
         fb.elecFuelMeter,
         fb.elec_meter,
         fb.fuel_meter,
@@ -58,8 +56,8 @@ def model_to_inp(hb_model):
         fb.steam_mtr,
         fb.chill_meter,
         fb.hvac_sys_zone,
-        #        '\n'.join(hv_sys.to_inp()
-        #                  for hv_sys in hb_model.hvac_system_zone),  # TODO need to frame up hvac
+        # '\n'.join(hv_sys.to_inp()
+        # for hv_sys in hb_model.hvac_system_zone),  # TODO need to frame up hvac
         fb.misc_meter_hvac,
         fb.equip_controls,
         fb.load_manage,
