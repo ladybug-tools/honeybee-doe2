@@ -58,18 +58,6 @@ class ModelDoe2Properties(object):
     @staticmethod
     def _make_doe_stories(obj):
         storygroups, flr_hgts = Room.group_by_floor_height(obj.rooms, 0.1)
-
-        floor_geom = []
-        floor_spaces = []  # * doe2: 'spaces/zones/..' nomenclature block
-
-        for story in storygroups:
-            # TODO "the floor's geom"; should be non-ish with new methodology
-            for room in story:
-                # *geometry
-                floor_geom.append(room.properties.doe2.poly)
-        # ? 1. floor geom | floor/space bs | windows
-        # ? 2. activity description | loads or whatever
-
         lil_newline = '\n'
         return lil_newline.join(str(f) for f in floor_geom)
 
@@ -82,11 +70,11 @@ class ModelDoe2Properties(object):
         # TODO: for story in stories: for room in story: for face in room.faces:
         inp_block = '\n'
         inp_polys = []
-        for room in obj.rooms:
-            for face in obj.faces:  # eQuest can have interior walls
-                inp_polys.append(face.properties.doe2.poly)
-        final = inp_block.join(pol for pol in inp_polys)
-        return final  #
+        # for room in obj.rooms:
+        #    for face in obj.faces:  # eQuest can have interior walls
+        #        inp_polys.append(face.properties.doe2.poly)
+        #final = inp_block.join(pol for pol in inp_polys)
+        #return final  #
 
     @property
     def header(self):

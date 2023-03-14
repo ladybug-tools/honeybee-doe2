@@ -16,7 +16,7 @@ class Doe2Story:
         self.rooms = _rooms
         self.story_no = _story_no
 
-    # TODO writer use doe2story object to get geometry of each story and stories rooms/zones
+    # TODO Model use doe2story object to get geometry of each story and stories rooms/zones
     @property
     def story_poly(self):
         return self._make_story_poly(self.rooms, self.story_no)
@@ -43,7 +43,16 @@ class Doe2Story:
             identifier="Level_{}".format(story_no),
             vertices=vertices)
 
-        return story_geom.properties.doe2.poly  # ? why did I do it like this lol
+        stry_rm_geom = []
+
+        for room in objs:
+            for face in room.faces:
+                stry_rm_geom.append(face.properties.doe2.poly)
+        nl = '\n'
+
+        return story_geom.properties.doe2.poly + nl.join(
+            str('\n' + f) for f in stry_rm_geom)
+        # ? why did I do it like this lol
 
     @property
     def space_height(self):
@@ -55,12 +64,16 @@ class Doe2Story:
         return objs[0].average_floor_height
 
     def to_inp(self):
-        return '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
+        room_objs = [f.properties.doe2.space for f in self.rooms]
+
+        inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
             "\n   SHAPE           = POLYGON" + \
             '\n   POLYGON         = "Level_{self.story_no} Plg"'.format(self=self) + \
             '\n   FLOOR-HEIGHT    = {self.space_height}'.format(self=self) + \
             '\n   ..\n'
-        # TODO: add space objects, turn into .join and append
+        nl = '\n'
+
+        return inp_obj + nl.join(str('\n'+f) for f in room_objs)
 
     def __repr__(self):
         return self.to_inp()

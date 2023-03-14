@@ -10,16 +10,18 @@ class DoeWallObj:
     def to_inp(self, face):
 
         p_name = short_name(face.display_name)
-        # wall_typology = str(type(obj))
+        wall_typology = 'EXTERIOR' if str(
+            face.boundary_condition) == 'Outdoors' else 'INTERIOR'
+
         constr = face.properties.energy.construction.display_name
         tilt = 90.0  # TODO Un-hardcode wall tilt
         azimuth = face.azimuth
         origin_pt = face.geometry.lower_left_counter_clockwise_vertices[0]
 
-        # TODO add in the formatting stuff,
+        # TODO lookup wall trype for ext or int wall
 
         return \
-            '"{}" = EXTERIOR-WALL'.format(p_name) + \
+            '"{}" = {}-WALL'.format(p_name, wall_typology) + \
             '\n  POLYGON           = "{}"'.format(p_name+' Plg') + \
             '\n  CONSTRUCTION      = "{}"'.format(constr) + \
             '\n  TILT              =  {}'.format(tilt) + \
@@ -33,7 +35,6 @@ class DoeWallObj:
 
 # ? this feels like it should be somehow linked to honeybee.face_types if that makes sense?
 # ? Like face.properties.doe2.face_obj
-# ? then what's dunder'd out being tentative on the face_type?
 
 
 class DoeWall:

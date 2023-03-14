@@ -6,7 +6,7 @@ from ..utils.doe_formatters import short_name
 
 from honeybee.face import Face
 from honeybee.facetype import face_types
-from .wall import DoeWall
+from .wall import DoeWallObj
 
 
 class RoomDoe2Properties(object):
@@ -44,8 +44,8 @@ class RoomDoe2Properties(object):
     def _get_walls(obj):
         walls = []
         for face in obj.faces:
-            if isinstance(face, type(face_types.wall)):
-                walls.append(DoeWall(face))
+            if str(face.type) == 'Wall':
+                walls.append(DoeWallObj(face))
         return walls
 
     @property
@@ -65,10 +65,10 @@ class RoomDoe2Properties(object):
 
     @property
     def space(self):
-        return self._make_doe_space_obj(self.host)
+        return self._make_doe_space_obj(self.host, self.walls)
 
     @staticmethod
-    def _make_doe_space_obj(obj):
+    def _make_doe_space_obj(obj, walls):
 
         spaceobj = ''
         obj_lines = []
@@ -77,4 +77,7 @@ class RoomDoe2Properties(object):
         obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
             short_name(obj.display_name)))
         #obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
-        return spaceobj.join([l for l in obj_lines])
+        temp_str = spaceobj.join([l for l in obj_lines])
+        nl = '\n'
+
+        return temp_str + nl.join('\n'+str(w) for w in walls)
