@@ -22,10 +22,10 @@ class Doe2Story:
         return self._make_story_poly(self.rooms, self.story_no)
 
     @staticmethod
-    def _make_story_poly(objs, story_no):
+    def _make_story_poly(rooms, story_no):
         floorgeom = []
 
-        for room in objs:
+        for room in rooms:
             for face in room.faces:
                 if str(face.type) == 'Floor':
                     floorgeom.append(face.geometry)
@@ -40,12 +40,14 @@ class Doe2Story:
             for vert in seg:
                 vertices.append(vert)
 
-        story_geom = Face.from_vertices(identifier="Level_{}".format(story_no),
-                                        vertices=vertices[::2])
+        story_geom = Face.from_vertices(
+            identifier="Level_{}".format(story_no),
+            vertices=vertices)
+        story_geom.remove_colinear_vertices(0.01)
 
         stry_rm_geom = []
 
-        for room in objs:
+        for room in rooms:
             for face in room.faces:
                 stry_rm_geom.append(face.properties.doe2.poly)
         nl = '\n'
@@ -62,13 +64,32 @@ class Doe2Story:
         # TODO un-hardcode this
         return objs[0].average_floor_height
 
+    @property
+    def floor_to_floor_height(self):
+        return self._make_floor_to_floor_height(self.rooms)
+
+    @staticmethod
+    def _make_floor_to_floor_height(rooms):
+        ceil_heights = 0
+        ceil_areas = 0
+        for room in rooms:
+            for face in room.faces:
+                if str(face.type) == 'RoofCeiling':
+                    ceil_heights += face.center.z * face.area
+                    ceil_areas += face.area
+
+        ceil_h = ceil_heights / ceil_areas
+        ceil_l = rooms[0].average_floor_height
+        return ceil_h - ceil_l
+
     def to_inp(self):
         room_objs = [f.properties.doe2.space for f in self.rooms]
 
         inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
             "\n   SHAPE           = POLYGON" + \
             '\n   POLYGON         = "Level_{self.story_no} Plg"'.format(self=self) + \
-            '\n   FLOOR-HEIGHT    = {self.space_height}'.format(self=self) + \
+            '\n   SPACE-HEIGHT    = {self.space_height}'.format(self=self) + \
+            '\n   FLOOR-HEIGHT    = {self.floor_to_floor_height}'.format(self=self) + \
             '\n   ..\n'
         nl = '\n'
 

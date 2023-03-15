@@ -6,7 +6,7 @@ from ..utils.doe_formatters import short_name
 
 from honeybee.face import Face
 from honeybee.facetype import face_types
-from .wall import DoeWallObj
+from .wall import DoeWallObj, DoeWall
 
 
 class RoomDoe2Properties(object):
