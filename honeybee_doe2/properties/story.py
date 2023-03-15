@@ -29,7 +29,7 @@ class Doe2Story:
             for face in room.faces:
                 if str(face.type) == 'Floor':
                     floorgeom.append(face.geometry)
-        # ? I'm not a fan of this method, but it works for now
+
         floor_geom = Polyface3D.from_faces(floorgeom, 0.01)
         seg_vertices = []
         for segment in floor_geom.naked_edges:
@@ -40,9 +40,8 @@ class Doe2Story:
             for vert in seg:
                 vertices.append(vert)
 
-        story_geom = Face.from_vertices(
-            identifier="Level_{}".format(story_no),
-            vertices=vertices)
+        story_geom = Face.from_vertices(identifier="Level_{}".format(story_no),
+                                        vertices=vertices[::2])
 
         stry_rm_geom = []
 

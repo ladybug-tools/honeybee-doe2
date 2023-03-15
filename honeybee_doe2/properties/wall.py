@@ -16,7 +16,7 @@ class DoeWallObj:
         constr = face.properties.energy.construction.display_name
         tilt = 90.0  # TODO Un-hardcode wall tilt
         azimuth = face.azimuth
-        origin_pt = face.geometry.lower_left_counter_clockwise_vertices[0]
+        origin_pt = face.geometry.lower_left_corner
 
         # TODO lookup wall trype for ext or int wall
 
@@ -28,7 +28,7 @@ class DoeWallObj:
             '\n  AZIMUTH           =  {}'.format(azimuth) + \
             '\n  X                 =  {}'.format(origin_pt.x) + \
             '\n  Y                 =  {}'.format(origin_pt.y) + \
-            '\n  Z                 =  {}'.format(origin_pt.z) + '\n..\n'
+            '\n  Z                 =  {}'.format(origin_pt.z) + '\n  ..\n'
 
     def __repr__(self):
         return self.to_inp(self._face)
