@@ -14,7 +14,8 @@ class DoePolygon(object):
     @classmethod
     def from_face(cls, face):
         name = short_name(face.display_name)
-        vertices = face.geometry.lower_left_counter_clockwise_vertices
+        # ? SAVE ORIGINAL : vertices = face.geometry.lower_left_counter_clockwise_vertices
+        vertices = face.geometry.polygon2d.vertices
         return cls(name=name, vertices=vertices)
 
     @classmethod

@@ -47,7 +47,7 @@ class DoeWall:
 
     @property
     def wall_poly(self):
-        return self._make_wall_poly(self.face)
+        return self._make_wall_poly(self.face.geometry.polygon2d)
 
     @staticmethod  # M, this one?
     def _make_wall_poly(obj):
