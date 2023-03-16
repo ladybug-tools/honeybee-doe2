@@ -31,9 +31,8 @@ class RoomDoe2Properties(object):
     @staticmethod
     def _get_floor_poly(obj):
 
-        for face in obj.faces:
-            if str(face.type) == 'Floor':
-                return face.properties.doe2.poly
+        floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
+        return floor_face.properties.doe2.poly
 
     @property
     def walls(self):
@@ -70,14 +69,18 @@ class RoomDoe2Properties(object):
     @staticmethod
     def _make_doe_space_obj(obj, walls):
 
+        floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
+        #! Will break with multiple floor polygons
+
         spaceobj = ''
         obj_lines = []
         obj_lines.append('"{}" = SPACE\n'.format(short_name(obj.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
         obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
-            short_name(obj.display_name).replace('Room', 'Face')))
+            short_name(floor_face.display_name)))
+        obj_lines.append('  VOLUME           = {}'.format(obj.volume))
         obj_lines.append('  ..\n')
-        #obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
+        # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
         temp_str = spaceobj.join([l for l in obj_lines])
         nl = '\n'
 

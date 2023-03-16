@@ -23,6 +23,7 @@ class Doe2Story:
 
     @staticmethod
     def _make_story_poly(rooms, story_no):
+
         floorgeom = []
 
         for room in rooms:
@@ -40,9 +41,23 @@ class Doe2Story:
             for vert in seg:
                 vertices.append(vert)
 
+        start_pt = vertices[0]
+        min_y, min_x, pt_i = start_pt.y, start_pt.x, 0
+        # *
+        for i, pt in enumerate(vertices):
+            if pt.y < min_y:
+                min_y, min_x = pt.y, pt.x
+                pt_i = i
+            elif pt.y == min_y:
+                if pt.x < min_x:
+                    min_y, min_x = pt.y, pt.x
+                    pt_i = i
+        routed_vertices = vertices[pt_i:] + vertices[:pt_i]
+        # * Can maybe take out and change bellow variable to vertices
+
         story_geom = Face.from_vertices(
             identifier="Level_{}".format(story_no),
-            vertices=vertices)
+            vertices=routed_vertices)
         story_geom.remove_colinear_vertices(0.01)
 
         stry_rm_geom = []
