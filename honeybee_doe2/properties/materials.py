@@ -13,7 +13,7 @@ class MaterialType(Enum):
 class NoMassMaterial:
     def __init__(self, _name, _resistence):
         self._name = _name
-        self._resistence = resistence
+        self._resistence = _resistence
 
         @property
         def name(self):
