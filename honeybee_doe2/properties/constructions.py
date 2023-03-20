@@ -3,31 +3,32 @@ from enum import unique
 from honeybee_energy.construction.opaque import OpaqueConstruction as OpConstr
 from .materials import Material
 from .inputils.blocks import mats_layers
+from ..utils.doe_formatters import short_name, unit_convertor
 
 
 class Construction:
     def __init__(self, _name, _materials, _absorptance, _roughness):
 
-        self.name = _name
-        self.materials = _materials
-        self.absorptance = _absorptance
-        self.roughness = _roughness
+        self._name = _name
+        self._materials = _materials
+        self._absorptance = _absorptance
+        self._roughness = _roughness
 
     @property
     def name(self):
-        return self.name
+        return self._name
 
     @property
     def materials(self):
-        return self.materials
+        return self._materials
 
     @property
     def absorptance(self):
-        return self.absorptance
+        return self._absorptance
 
     @property
     def roughness(self):
-        return self.roughness
+        return self._roughness
 
     @classmethod
     def from_hb_construction(cls, construction):
@@ -50,12 +51,10 @@ class Construction:
 
             block = ['\n'.join(material.to_inp() for material in self.materials)]
             materials = '\n    '.join(["{}".format(material.name)
-                                       for Material in self.materials])
-            layers_name = '"{}_l"'.format(self.name)
+                                       for material in self.materials])
 
-            consr = ''
             objlines = []
-            objlines = '{} = LAYERS\n'.format(layers_name)
+            objlines.append('{} = LAYERS\n'.format('"{}_l"'.format(self.name)))
             objlines.append(
                 '\n   MATERIAL             = (\n      {}\n   )\n'.format(
                     materials[: -1]))
@@ -66,9 +65,11 @@ class Construction:
                 '\n   ABSORPTANCE          = {self.absorptance}'.format(self=self))
             objlines.append(
                 '\n   ROUGHNESS            = {self.roughness}'.format(self=self))
-            objlines.append('\n   LAYERS               = {layers_name}')
-            objlines.append('   ..\n')
+            objlines.append('\n   LAYERS               = {layers_name}'.format(
+                layers_name='"{}_l"'.format(self.name)))
+            objlines.append('\n   ..\n')
 
+            constr = ''
             construction = constr.join([l for l in objlines])
             block.append(construction)
 

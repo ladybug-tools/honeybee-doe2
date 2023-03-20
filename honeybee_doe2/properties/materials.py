@@ -1,7 +1,7 @@
 from enum import Enum
 from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
 
-from .utils.doe_formatters import short_name, unit_convertor
+from ..utils.doe_formatters import short_name, unit_convertor
 
 
 class MaterialType(Enum):
@@ -15,13 +15,13 @@ class NoMassMaterial:
         self._name = _name
         self._resistence = _resistence
 
-        @property
-        def name(self):
-            return self._name
+    @property
+    def name(self):
+        return self._name
 
-        @property
-        def resistence(self):
-            return self._resistence
+    @property
+    def resistence(self):
+        return self._resistence
 
     @classmethod
     def from_hb_material(cls, material):
@@ -30,13 +30,13 @@ class NoMassMaterial:
         assert isinstance(material, EnergyMaterialNoMass), \
             'Expected EnergyMaterialNoMass. Got {}.'.format(type(material))
         return cls(short_name(material.display_name, 32),
-                   unit_converter([material.r_value],
+                   unit_convertor([material.r_value],
                                   'h-ft2-F/Btu', 'm2-K/W'))
 
     def to_inp(self):
         spc = ''
         obj_lines = []
-        obj_lines.append('\n"{self.name}" = MATERIAL'.format(self=self))
+        obj_lines.append('\n"{self._name}" = MATERIAL'.format(self=self))
         obj_lines.append(
             '\n   TYPE            = {}'.format(MaterialType.no_mass.value))
         obj_lines.append('\n  ..\n')
@@ -49,11 +49,11 @@ class NoMassMaterial:
 
 class MassMaterial:
     def __init__(self, _name, _thickness, _conductivity, _density, _specific_heat):
-        self._name = name
-        self._thickness = thickness
-        self._conductivity = conductivity
-        self._density = density
-        self._specific_heat = specific_heat
+        self._name = _name
+        self._thickness = _thickness
+        self._conductivity = _conductivity
+        self._density = _density
+        self._specific_heat = _specific_heat
 
     @property
     def name(self):
@@ -82,18 +82,16 @@ class MassMaterial:
             'Expected EnergyMaterial. Got {}.'.format(type(material))
 
         return cls(_name=short_name(material.display_name, 32),
-                   _thichness=unit_convertor([material.thickness],
+                   _thickness=unit_convertor([material.thickness],
                                              'ft', 'm'),
                    _conductivity=unit_convertor(
                        [material.conductivity],
-                       'Btu/(hr*ft*F)', 'W/(m*K)'),
-                   _density=round(
-                       unit_convertor([material.density],
-                                      'lb/ft3', 'kg/m3'),
-                       3),
+                       'Btu/h-ft2', 'W/m2'),
+                   _density=round(material.density / 16.018, 3),
+
                    _specific_heat=unit_convertor(
                        [material.specific_heat],
-                       'Btu/(lb*F)', 'J/(kg*K)'))
+                       'Btu/lb', 'J/kg'))
 
     def to_inp(self):
         spc = ''
