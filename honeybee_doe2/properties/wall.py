@@ -18,8 +18,6 @@ class DoeWallObj:
         azimuth = face.azimuth
         origin_pt = face.geometry.lower_left_corner
 
-        # TODO lookup wall trype for ext or int wall
-
         return \
             '"{}" = {}-WALL'.format(p_name, wall_typology) + \
             '\n  POLYGON           = "{}"'.format(p_name+' Plg') + \
@@ -49,11 +47,11 @@ class DoeWall:
     def wall_poly(self):
         return self._make_wall_poly(self.face.geometry.polygon2d)
 
-    @staticmethod  # M, this one?
+    @staticmethod
     def _make_wall_poly(obj):
-        # * 2d geometry
         return DoePolygon.from_vertices(
-            short_name(obj.display_name), obj.geometry.polygon2d.vertices)
+            short_name(obj.display_name),
+            obj.geometry.lower_left_counter_clockwise_vertices)
 
     @property
     def wall_obj(self):
