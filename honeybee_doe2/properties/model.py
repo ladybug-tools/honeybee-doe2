@@ -7,6 +7,7 @@ from collections import defaultdict
 from honeybee.model import Model
 from honeybee.room import Room
 from honeybee.face import Face
+from honeybee_energy.construction.opaque import OpaqueConstruction
 
 from .inputils import blocks as fb
 from .inputils.compliance import ComplianceData
@@ -15,6 +16,7 @@ from .inputils.run_period import RunPeriod
 from .inputils.title import Title
 
 from .story import Doe2Story
+from .constructions import Construction
 
 
 class ModelDoe2Properties(object):
@@ -65,24 +67,37 @@ class ModelDoe2Properties(object):
         # return str(nl.join(str(s) for s in stories))
         return stories
 
-    @property
-    def polygons(self):
-        return self._inp_polyblock_maker(self.host)
+    # @property
+    # def polygons(self):
+    #    return self._inp_polyblock_maker(self.host)
 
-    @staticmethod
-    def _inp_polyblock_maker(obj):
+    # @staticmethod
+    # def _inp_polyblock_maker(obj):
         # TODO: for story in stories: for room in story: for face in room.faces:
-        inp_block = '\n'
-        inp_polys = []
+        #inp_block = '\n'
+        #inp_polys = []
         # for room in obj.rooms:
         #    for face in obj.faces:  # eQuest can have interior walls
         #        inp_polys.append(face.properties.doe2.poly)
         #final = inp_block.join(pol for pol in inp_polys)
-        #return final  #
+        ##return final  #
 
     @property
     def header(self):
         return '\n'.join([fb.top_level, fb.abort_diag])
+
+    @property
+    def mats_cons_layers(self):
+        return self._make_mats_cons_layers(self.host)
+
+    @staticmethod
+    def _make_mats_cons_layers(obj):
+        cons = []
+        for construction in obj.properties.energy.constructions:
+            if isinstance(construction, OpaqueConstruction):
+                cons.append(Construction.from_hb_construction(construction).to_inp())
+
+        return '\n'.join([l for l in cons])
 
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)

@@ -22,7 +22,8 @@ def model_to_inp(hb_model):
         fb.comply,
         comp_data.to_inp(),
         sb_data.to_inp(),
-        #        hb_model.constructions.to_inp(),  # TODO can reuse from dfdoe2
+        fb.mats_layers,
+        hb_model.properties.doe2.mats_cons_layers,
         fb.glzCode,
         # TODO add glass types to hb model doe2 properties
         #        '\n'.join(gt.to_inp() for gt in hb_model.glass_types),

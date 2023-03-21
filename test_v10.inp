@@ -1,0 +1,785 @@
+INPUT ..
+
+
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+
+
+TITLE
+    LINE-1           = *Unnamed*
+    ..
+
+"Entire Year" = RUN-PERIOD-PD
+   BEGIN-MONTH     = 1
+   BEGIN-DAY      = 1
+   BEGIN-YEAR     = 2021
+   END-MONTH      = 12
+   END-DAY        = 31
+   END-YEAR       = 2021
+   ..
+
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+
+
+"Compliance Data" = COMPLIANCE
+   C-PERMIT-SCOPE   = 0
+   C-PROJ-NAME      = *sample_project*
+   C-BUILDING-TYPE  = 32
+   C-CONS-PHASE     = 0
+   C-NR-DHW-INCL    = 1
+   C-CODE-VERSION   = 1
+   C-901-NUM-FLRS   = 1
+   C-901-BLDG-TYPE  = 32
+   ..
+
+$---------------------------------------------------------
+$              Site and Building Data
+$---------------------------------------------------------
+
+"Site Data" = SITE-PARAMETERS
+  ALTITUDE          = 150
+  C-STATE           = 21
+  C-WEATHER-FILE    = *TMY2\HARTFOCT.bin* 
+  C-COUNTRY         = 1
+  C-901-LOCATION    = 1092
+  ..
+"Building Data" = BUILD-PARAMETERS
+  HOLIDAYS        = "Standard US Holidays"
+  ..
+
+
+PROJECT-DATA
+  ..
+
+
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+
+
+
+"Typical Insulation-R4" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Typical Overhead Door-R4_l" = LAYERS
+
+   MATERIAL             = (
+      "Typical Insulation-R",
+   )
+
+   ..
+
+
+"Typical Overhead Door-R4_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Overhead Door-R4_l"
+   ..
+
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Insulation-R35" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Typical Insulated Wood Framed Exterior Floor-R38_l" = LAYERS
+
+   MATERIAL             = (
+      "25mm Stucco
+    5/8 in. Gypsum Board
+    Typical Insulation-R35
+    5/8 in. Gypsum Board
+    Typical Carpet Pa",
+   )
+
+   ..
+
+
+"Typical Insulated Wood Framed Exterior Floor-R38_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Typical Insulated Wood Framed Exterior Floor-R38_l"
+   ..
+
+
+"Typical Insulation-R9" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.42
+   DENSITY         = 114.996
+   SPECIFIC-HEAT   = 0.392
+  ..
+
+
+"Typical Insulated Basement Mass Wall-R10_l" = LAYERS
+
+   MATERIAL             = (
+      "Typical Insulation-R9
+    8 n. Cncrt Blck Bsmnt Wl",
+   )
+
+   ..
+
+
+"Typical Insulated Basement Mass Wall-R10_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Insulated Basement Mass Wall-R10_l"
+   ..
+
+
+"F08 Metal surface" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.003
+   CONDUCTIVITY    = 14.344
+   DENSITY         = 488.452
+   SPECIFIC-HEAT   = 0.215
+  ..
+
+
+"Typical Insulation-R3" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Typical Insulated Metal Door-R3_l" = LAYERS
+
+   MATERIAL             = (
+      "F08 Metal surface
+    Typical Insulation-R",
+   )
+
+   ..
+
+
+"Typical Insulated Metal Door-R3_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Typical Insulated Metal Door-R3_l"
+   ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Insulation-R47" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Typical Wood Joist Attic Floor-R48_l" = LAYERS
+
+   MATERIAL             = (
+      "5/8 in. Gypsum Board
+    Typical Insulation-R4",
+   )
+
+   ..
+
+
+"Typical Wood Joist Attic Floor-R48_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Wood Joist Attic Floor-R48_l"
+   ..
+
+
+"Typical Insulation-R4" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"8 n. Nrmlwght Cncrt Flr" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.732
+   DENSITY         = 144.962
+   SPECIFIC-HEAT   = 0.357
+  ..
+
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Typical Insulated Carpeted 8in Slab Floor-R5_l" = LAYERS
+
+   MATERIAL             = (
+      "Typical Insulation-R4
+    8 n. Nrmlwght Cncrt Flr
+    Typical Carpet Pa",
+   )
+
+   ..
+
+
+"Typical Insulated Carpeted 8in Slab Floor-R5_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Insulated Carpeted 8in Slab Floor-R5_l"
+   ..
+
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Insulation-R19" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Insulated Wood Framed Exterior Wall-R20_l" = LAYERS
+
+   MATERIAL             = (
+      "25mm Stucco
+    5/8 in. Gypsum Board
+    Typical Insulation-R19
+    5/8 in. Gypsum Boar",
+   )
+
+   ..
+
+
+"Typical Insulated Wood Framed Exterior Wall-R20_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Typical Insulated Wood Framed Exterior Wall-R20_l"
+   ..
+
+
+$ ---------------------------------------------------------
+$              Glass Type Codes
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+
+
+"Level_0 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.000000, -6.000000 )
+   V3        = ( 5.000000, -6.000000 )
+   V4        = ( 5.000000, 0.000000 )
+   ..
+"Face e5a9c Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 5.000000, 0.000000 )
+   V3        = ( 5.000000, 5.000000 )
+   V4        = ( 0.000000, 5.000000 )
+   ..
+
+"Face 02716 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 6.000000, 0.000000 )
+   V3        = ( 6.000000, 5.000000 )
+   V4        = ( 0.000000, 5.000000 )
+   ..
+
+"Face 5ffe3 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( -5.000000, 0.000000 )
+   V3        = ( -5.000000, -5.000000 )
+   V4        = ( 0.000000, -5.000000 )
+   ..
+
+"Face 2838b Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( -6.000000, 0.000000 )
+   V3        = ( -6.000000, -5.000000 )
+   V4        = ( 0.000000, -5.000000 )
+   ..
+
+"Face 22955 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.000000, -6.000000 )
+   V3        = ( 5.000000, -6.000000 )
+   V4        = ( 5.000000, 0.000000 )
+   ..
+
+"Face 19b70 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 5.000000, 0.000000 )
+   V3        = ( 5.000000, 6.000000 )
+   V4        = ( 0.000000, 6.000000 )
+   ..
+
+
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Performance Curves                   **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      Floors / Spaces / Walls / Windows / Doors      **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+
+"Level_0"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_0 Plg"
+   SPACE-HEIGHT    = 0.0
+   FLOOR-HEIGHT    = 5.0
+   ..
+
+"Room 9c755" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Face 22955 Plg"
+  VOLUME           = 150.0
+  ..
+
+"Face e5a9c" = EXTERIOR-WALL
+  POLYGON           = "Face e5a9c Plg"
+  CONSTRUCTION      = "Typical Insulated Wood Framed Exterior Wall-R20"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  1.8746997283273223e-32
+  Y                 =  0.0
+  Z                 =  -3.061616997868383e-16
+  ..
+
+
+"Face 02716" = EXTERIOR-WALL
+  POLYGON           = "Face 02716 Plg"
+  CONSTRUCTION      = "Typical Insulated Wood Framed Exterior Wall-R20"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  5.0
+  Y                 =  2.2496396739927864e-32
+  Z                 =  -3.6739403974420594e-16
+  ..
+
+
+"Face 5ffe3" = EXTERIOR-WALL
+  POLYGON           = "Face 5ffe3 Plg"
+  CONSTRUCTION      = "Typical Insulated Wood Framed Exterior Wall-R20"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  5.0
+  Y                 =  6.0
+  Z                 =  -3.061616997868383e-16
+  ..
+
+
+"Face 2838b" = EXTERIOR-WALL
+  POLYGON           = "Face 2838b Plg"
+  CONSTRUCTION      = "Typical Insulated Wood Framed Exterior Wall-R20"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  6.0
+  Z                 =  -3.6739403974420594e-16
+  ..
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **              Electric & Fuel Meters                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      HVAC Circulation Loops / Plant Equipment       **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **            Steam & Chilled Water Meters             **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **               HVAC Systems / Zones                  **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Metering & Misc HVAC                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                    Utility Rates                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                 Output Reporting                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+END ..
+COMPUTE ..
+STOP ..

@@ -1,6 +1,7 @@
 from enum import Enum
 from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
 
+
 from ..utils.doe_formatters import short_name, unit_convertor
 
 
@@ -29,6 +30,7 @@ class NoMassMaterial:
 
         assert isinstance(material, EnergyMaterialNoMass), \
             'Expected EnergyMaterialNoMass. Got {}.'.format(type(material))
+
         return cls(short_name(material.display_name, 32),
                    unit_convertor([material.r_value],
                                   'h-ft2-F/Btu', 'm2-K/W'))

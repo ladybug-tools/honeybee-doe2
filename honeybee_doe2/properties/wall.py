@@ -23,7 +23,7 @@ class DoeWallObj:
         return \
             '"{}" = {}-WALL'.format(p_name, wall_typology) + \
             '\n  POLYGON           = "{}"'.format(p_name+' Plg') + \
-            '\n  CONSTRUCTION      = "{}"'.format(constr) + \
+            '\n  CONSTRUCTION      = "{}_c"'.format(short_name(constr, 30)) + \
             '\n  TILT              =  {}'.format(tilt) + \
             '\n  AZIMUTH           =  {}'.format(azimuth) + \
             '\n  X                 =  {}'.format(origin_pt.x) + \

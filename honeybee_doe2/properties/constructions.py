@@ -16,7 +16,7 @@ class Construction:
 
     @property
     def name(self):
-        return self._name
+        return short_name(self._name, 30)
 
     @property
     def materials(self):
@@ -42,7 +42,7 @@ class Construction:
                      ]
         absorptance = construction.materials[0].solar_absorptance
         roughness = roughdict[construction.materials[0].roughness]
-        cons_name = short_name(construction.display_name, 30)
+        cons_name = construction.display_name
 
         return cls(cons_name, materials, absorptance, roughness)
 
@@ -50,14 +50,17 @@ class Construction:
         if include_materials:
 
             block = ['\n'.join(material.to_inp() for material in self.materials)]
-            materials = '\n    '.join(["{}".format(material.name)
+            materials = '\n    '.join(['"{}",'.format(material.name)
                                        for material in self.materials])
 
             objlines = []
             objlines.append('{} = LAYERS\n'.format('"{}_l"'.format(self.name)))
+
             objlines.append(
                 '\n   MATERIAL             = (\n      {}\n   )\n'.format(
-                    materials[: -1]))
+                    materials[: -1],
+                    ','))
+
             objlines.append('\n   ..\n\n')
             objlines.append('\n"{self.name}_c" = CONSTRUCTION'.format(self=self))
             objlines.append('\n   TYPE                 = LAYERS\n')
