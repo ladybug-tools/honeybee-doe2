@@ -43,7 +43,7 @@ class Doe2Story:
 
         start_pt = vertices[0]
         min_y, min_x, pt_i = start_pt.y, start_pt.x, 0
-        # *
+
         for i, pt in enumerate(vertices):
             if pt.y < min_y:
                 min_y, min_x = pt.y, pt.x
@@ -53,7 +53,6 @@ class Doe2Story:
                     min_y, min_x = pt.y, pt.x
                     pt_i = i
         routed_vertices = vertices[pt_i:] + vertices[:pt_i]
-        # * Can maybe take out and change bellow variable to vertices
 
         story_geom = Face.from_vertices(
             identifier="Level_{}".format(story_no),

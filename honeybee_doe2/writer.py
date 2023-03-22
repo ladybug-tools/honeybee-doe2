@@ -13,6 +13,8 @@ def model_to_inp(hb_model):
     comp_data = ComplianceData()
     sb_data = sbd()
 
+    hb_model.convert_to_units(units='Feet')
+
     data = [
         hb_model.properties.doe2._header,
         fb.global_params,
