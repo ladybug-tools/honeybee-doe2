@@ -1,6 +1,8 @@
 from ladybug_geometry.geometry3d.face import Face3D
 from ..utils.doe_formatters import short_name
 from honeybee.face import Face3D
+from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
+import math
 # TODO this needs to be in properties not external I think, not important but move later
 
 
@@ -15,7 +17,19 @@ class DoePolygon(object):
     def from_face(cls, face):
 
         name = short_name(face.display_name)
-        vertices = face.geometry.polygon2d.vertices
+
+        my_face3d = face.geometry
+
+        rel_plane = my_face3d.plane
+        if rel_plane.n.z == 1 or rel_plane.n.z == -1:  # horizontal Face3D; use world XY
+            ref_plane = Plane(rel_plane.n, my_face3d.lower_left_corner,
+                              Vector3D(1, 0, 0))
+        else:  # vertical or tilted Face3D; orient the Y to the workld Z
+            proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
+            proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
+            ref_plane = Plane(rel_plane.n, my_face3d.lower_left_corner, proj_x)
+        vertices = [ref_plane.xyz_to_xy(pt) for pt in my_face3d]
+        #vertices = face.geometry.polygon2d.vertices
 
         return cls(name=name, vertices=vertices)
 
