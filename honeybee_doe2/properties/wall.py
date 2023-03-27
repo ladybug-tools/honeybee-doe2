@@ -14,7 +14,7 @@ class DoeWallObj:
             face.boundary_condition) == 'Outdoors' else 'INTERIOR'
 
         constr = face.properties.energy.construction.display_name
-        tilt = 90.0  # TODO Un-hardcode wall tilt
+        tilt = face.altitude + 90
         azimuth = face.azimuth
         origin_pt = face.geometry.lower_left_corner
 
