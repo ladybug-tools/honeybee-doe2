@@ -5,18 +5,18 @@ from ..geometry.polygon import DoePolygon
 
 class DoeWallObj:
     def __init__(self, face):
-        self._face = face
+        self.face = face
 
-    def to_inp(self, face):
+    def to_inp(self):
 
-        p_name = short_name(face.display_name)
+        p_name = short_name(self.face.display_name)
         wall_typology = 'EXTERIOR' if str(
-            face.boundary_condition) == 'Outdoors' else 'INTERIOR'
+            self.face.boundary_condition) == 'Outdoors' else 'INTERIOR'
 
-        constr = face.properties.energy.construction.display_name
-        tilt = face.altitude + 90
-        azimuth = face.azimuth
-        origin_pt = face.geometry.lower_left_corner
+        constr = self.face.properties.energy.construction.display_name
+        tilt = self.face.altitude + 90
+        azimuth = self.face.azimuth
+        origin_pt = self.face.geometry.lower_left_corner
 
         return \
             '"{}" = {}-WALL'.format(p_name, wall_typology) + \
@@ -29,7 +29,7 @@ class DoeWallObj:
             '\n  Z                 =  {}'.format(origin_pt.z) + '\n  ..\n'
 
     def __repr__(self):
-        return self.to_inp(self._face)
+        return self.to_inp()
 
 # ? this feels like it should be somehow linked to honeybee.face_types if that makes sense?
 # ? Like face.properties.doe2.face_obj

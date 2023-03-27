@@ -88,39 +88,6 @@ $ ---------------------------------------------------------
 
 
 
-"F08 Metal surface" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.003
-   CONDUCTIVITY    = 14.344
-   DENSITY         = 488.452
-   SPECIFIC-HEAT   = 0.215
-  ..
-
-
-"Typical Insulation-R3" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"Tpcl Insltd Mtl DrR3_l" = LAYERS
-
-   MATERIAL             = (
-      "F08 Metal surface",
-    "Typical Insulation-R3"
-   )
-
-   ..
-
-
-"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
-   ..
-
-
 "25mm Stucco" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.083
@@ -180,6 +147,45 @@ $ ---------------------------------------------------------
    ..
 
 
+"Typical Insulation" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"8 n. Nrmlwght Cncrt Flr" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.732
+   DENSITY         = 144.962
+   SPECIFIC-HEAT   = 0.357
+  ..
+
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Tpcl Insltd Crptd 8n Slb Flr_l" = LAYERS
+
+   MATERIAL             = (
+      "Typical Insulation",
+    "8 n. Nrmlwght Cncrt Flr",
+    "Typical Carpet Pad"
+   )
+
+   ..
+
+
+"Tpcl Insltd Crptd 8n Slb Flr_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Crptd 8n Slb Flr_l"
+   ..
+
+
 "Typical Insulation-R4" = MATERIAL
    TYPE            = RESISTANCE
   ..
@@ -200,6 +206,59 @@ $ ---------------------------------------------------------
    ABSORPTANCE          = 0.7
    ROUGHNESS            = 4
    LAYERS               = "Typical Overhead Door-R4_l"
+   ..
+
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Insulation-R10" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"TpclInsltdWdFrmdExtrrWllR12_l" = LAYERS
+
+   MATERIAL             = (
+      "25mm Stucco",
+    "5/8 in. Gypsum Board",
+    "Typical Insulation-R10",
+    "5/8 in. Gypsum Board"
+   )
+
+   ..
+
+
+"TpclInsltdWdFrmdExtrrWllR12_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdWdFrmdExtrrWllR12_l"
    ..
 
 
@@ -269,95 +328,36 @@ $ ---------------------------------------------------------
    ..
 
 
-"Typical Insulation" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"8 n. Nrmlwght Cncrt Flr" = MATERIAL
+"F08 Metal surface" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.667
-   CONDUCTIVITY    = 0.732
-   DENSITY         = 144.962
-   SPECIFIC-HEAT   = 0.357
+   THICKNESS       = 0.003
+   CONDUCTIVITY    = 14.344
+   DENSITY         = 488.452
+   SPECIFIC-HEAT   = 0.215
   ..
 
 
-"Typical Carpet Pad" = MATERIAL
+"Typical Insulation-R3" = MATERIAL
    TYPE            = RESISTANCE
   ..
 
 
-"Tpcl Insltd Crptd 8n Slb Flr_l" = LAYERS
+"Tpcl Insltd Mtl DrR3_l" = LAYERS
 
    MATERIAL             = (
-      "Typical Insulation",
-    "8 n. Nrmlwght Cncrt Flr",
-    "Typical Carpet Pad"
+      "F08 Metal surface",
+    "Typical Insulation-R3"
    )
 
    ..
 
 
-"Tpcl Insltd Crptd 8n Slb Flr_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Tpcl Insltd Crptd 8n Slb Flr_l"
-   ..
-
-
-"25mm Stucco" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.083
-   CONDUCTIVITY    = 0.228
-   DENSITY         = 115.87
-   SPECIFIC-HEAT   = 0.361
-  ..
-
-
-"5/8 in. Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
-  ..
-
-
-"Typical Insulation-R10" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"5/8 in. Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
-  ..
-
-
-"TpclInsltdWdFrmdExtrrWllR12_l" = LAYERS
-
-   MATERIAL             = (
-      "25mm Stucco",
-    "5/8 in. Gypsum Board",
-    "Typical Insulation-R10",
-    "5/8 in. Gypsum Board"
-   )
-
-   ..
-
-
-"TpclInsltdWdFrmdExtrrWllR12_c" = CONSTRUCTION
+"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
    TYPE                 = LAYERS
 
    ABSORPTANCE          = 0.7
    ROUGHNESS            = 5
-   LAYERS               = "TpclInsltdWdFrmdExtrrWllR12_l"
+   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
    ..
 
 
@@ -800,6 +800,137 @@ $ *********************************************************
   X                 =  -17.951700195969284
   Y                 =  18.10309379428655
   Z                 =  -1.448109150130982e-16
+  ..
+
+"Face 17" = ROOF
+  POLYGON           = "Face 17 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  178.43153918422598
+  AZIMUTH           =  112.50000000000003
+  X                 =  22.61080262132328
+  Y                 =  -20.88936872734054
+  Z                 =  12.723180329774834
+  ..
+
+
+"Face 18" = ROOF
+  POLYGON           = "Face 18 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  178.43153918422598
+  AZIMUTH           =  202.50000000000003
+  X                 =  -20.88936872734054
+  Y                 =  -22.61080262132328
+  Z                 =  12.723180329774834
+  ..
+
+
+"Face 19" = ROOF
+  POLYGON           = "Face 19 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  178.43153918422598
+  AZIMUTH           =  22.500000000000018
+  X                 =  20.88936872734054
+  Y                 =  22.61080262132328
+  Z                 =  12.723180329774834
+  ..
+
+
+"Face 20" = ROOF
+  POLYGON           = "Face 20 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  178.43153918422598
+  AZIMUTH           =  292.5
+  X                 =  -22.61080262132328
+  Y                 =  20.88936872734054
+  Z                 =  12.723180329774834
+  ..
+
+
+"Face 21" = ROOF
+  POLYGON           = "Face 21 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  144.25606378542315
+  AZIMUTH           =  67.49999999999999
+  X                 =  25.444362758167316
+  Y                 =  -0.9842674850735254
+  Z                 =  12.860074435290752
+  ..
+
+
+"Face 22" = ROOF
+  POLYGON           = "Face 22 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  145.12214258722173
+  AZIMUTH           =  112.50000000000003
+  X                 =  18.687863662467468
+  Y                 =  -17.295899236073627
+  Z                 =  12.860074435290757
+  ..
+
+
+"Face 24" = ROOF
+  POLYGON           = "Face 24 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  145.12214258722173
+  AZIMUTH           =  22.500000000000018
+  X                 =  17.295899236073627
+  Y                 =  18.687863662467468
+  Z                 =  12.860074435290757
+  ..
+
+
+"Face 25" = ROOF
+  POLYGON           = "Face 25 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  144.25606378542315
+  AZIMUTH           =  337.5
+  X                 =  0.9842674850735254
+  Y                 =  25.444362758167316
+  Z                 =  12.860074435290752
+  ..
+
+
+"Face 26" = ROOF
+  POLYGON           = "Face 26 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  145.12214258722173
+  AZIMUTH           =  292.5
+  X                 =  -18.687863662467468
+  Y                 =  17.295899236073627
+  Z                 =  12.860074435290757
+  ..
+
+
+"Face 27" = ROOF
+  POLYGON           = "Face 27 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  144.25606378542315
+  AZIMUTH           =  247.49999999999997
+  X                 =  -25.444362758167316
+  Y                 =  0.9842674850735254
+  Z                 =  12.860074435290752
+  ..
+
+
+"Face 28" = ROOF
+  POLYGON           = "Face 28 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  145.12214258722173
+  AZIMUTH           =  202.50000000000003
+  X                 =  -17.295899236073627
+  Y                 =  -18.687863662467468
+  Z                 =  12.860074435290757
+  ..
+
+
+"Face 29" = ROOF
+  POLYGON           = "Face 29 Plg"
+  CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR38_c"
+  TILT              =  144.25606378542315
+  AZIMUTH           =  157.49999999999997
+  X                 =  -0.9842674850735254
+  Y                 =  -25.444362758167316
+  Z                 =  12.860074435290752
   ..
 
 

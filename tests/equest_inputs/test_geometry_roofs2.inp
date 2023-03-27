@@ -88,121 +88,6 @@ $ ---------------------------------------------------------
 
 
 
-"F08 Metal surface" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.003
-   CONDUCTIVITY    = 14.344
-   DENSITY         = 488.452
-   SPECIFIC-HEAT   = 0.215
-  ..
-
-
-"Typical Insulation-R3" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"Tpcl Insltd Mtl DrR3_l" = LAYERS
-
-   MATERIAL             = (
-      "F08 Metal surface",
-    "Typical Insulation-R3"
-   )
-
-   ..
-
-
-"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
-   ..
-
-
-"25mm Stucco" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.083
-   CONDUCTIVITY    = 0.228
-   DENSITY         = 115.87
-   SPECIFIC-HEAT   = 0.361
-  ..
-
-
-"5/8 in. Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
-  ..
-
-
-"Typical Insulation-R28" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"5/8 in. Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
-  ..
-
-
-"Typical Carpet Pad" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"TpclInsltdWdFrmdExtrrFlrR31_l" = LAYERS
-
-   MATERIAL             = (
-      "25mm Stucco",
-    "5/8 in. Gypsum Board",
-    "Typical Insulation-R28",
-    "5/8 in. Gypsum Board",
-    "Typical Carpet Pad"
-   )
-
-   ..
-
-
-"TpclInsltdWdFrmdExtrrFlrR31_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "TpclInsltdWdFrmdExtrrFlrR31_l"
-   ..
-
-
-"Typical Insulation-R4" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"Typical Overhead Door-R4_l" = LAYERS
-
-   MATERIAL             = (
-      "Typical Insulation-R4"
-   )
-
-   ..
-
-
-"Typical Overhead Door-R4_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Typical Overhead Door-R4_l"
-   ..
-
-
 "5/8 in. Gypsum Board" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.052
@@ -269,45 +154,6 @@ $ ---------------------------------------------------------
    ..
 
 
-"Typical Insulation" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"8 n. Nrmlwght Cncrt Flr" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.667
-   CONDUCTIVITY    = 0.732
-   DENSITY         = 144.962
-   SPECIFIC-HEAT   = 0.357
-  ..
-
-
-"Typical Carpet Pad" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"Tpcl Insltd Crptd 8n Slb Flr_l" = LAYERS
-
-   MATERIAL             = (
-      "Typical Insulation",
-    "8 n. Nrmlwght Cncrt Flr",
-    "Typical Carpet Pad"
-   )
-
-   ..
-
-
-"Tpcl Insltd Crptd 8n Slb Flr_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Tpcl Insltd Crptd 8n Slb Flr_l"
-   ..
-
-
 "25mm Stucco" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.083
@@ -358,6 +204,160 @@ $ ---------------------------------------------------------
    ABSORPTANCE          = 0.7
    ROUGHNESS            = 5
    LAYERS               = "TpclInsltdWdFrmdExtrrWllR12_l"
+   ..
+
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Insulation-R28" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"TpclInsltdWdFrmdExtrrFlrR31_l" = LAYERS
+
+   MATERIAL             = (
+      "25mm Stucco",
+    "5/8 in. Gypsum Board",
+    "Typical Insulation-R28",
+    "5/8 in. Gypsum Board",
+    "Typical Carpet Pad"
+   )
+
+   ..
+
+
+"TpclInsltdWdFrmdExtrrFlrR31_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdWdFrmdExtrrFlrR31_l"
+   ..
+
+
+"Typical Insulation" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"8 n. Nrmlwght Cncrt Flr" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.732
+   DENSITY         = 144.962
+   SPECIFIC-HEAT   = 0.357
+  ..
+
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Tpcl Insltd Crptd 8n Slb Flr_l" = LAYERS
+
+   MATERIAL             = (
+      "Typical Insulation",
+    "8 n. Nrmlwght Cncrt Flr",
+    "Typical Carpet Pad"
+   )
+
+   ..
+
+
+"Tpcl Insltd Crptd 8n Slb Flr_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Crptd 8n Slb Flr_l"
+   ..
+
+
+"Typical Insulation-R4" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Typical Overhead Door-R4_l" = LAYERS
+
+   MATERIAL             = (
+      "Typical Insulation-R4"
+   )
+
+   ..
+
+
+"Typical Overhead Door-R4_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Overhead Door-R4_l"
+   ..
+
+
+"F08 Metal surface" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.003
+   CONDUCTIVITY    = 14.344
+   DENSITY         = 488.452
+   SPECIFIC-HEAT   = 0.215
+  ..
+
+
+"Typical Insulation-R3" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Tpcl Insltd Mtl DrR3_l" = LAYERS
+
+   MATERIAL             = (
+      "F08 Metal surface",
+    "Typical Insulation-R3"
+   )
+
+   ..
+
+
+"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
    ..
 
 
@@ -802,6 +802,29 @@ $ *********************************************************
   Z                 =  -1.448109150130982e-16
   ..
 
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EE8E0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EE9A0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EEA00>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EEAC0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EEDC0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EEE20>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EEEE0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EEF40>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C5EEFA0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C602D90>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C602550>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000002227C602E20>
 
 
 

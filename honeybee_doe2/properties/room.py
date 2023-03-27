@@ -7,6 +7,7 @@ from ..utils.doe_formatters import short_name
 from honeybee.face import Face
 from honeybee.facetype import face_types
 from .wall import DoeWallObj, DoeWall
+from .roof import DoeRoofObj
 
 
 class RoomDoe2Properties(object):
@@ -48,6 +49,18 @@ class RoomDoe2Properties(object):
         return walls
 
     @property
+    def roofs(self):
+        return self._get_roofs(self.host)
+
+    @staticmethod
+    def _get_roofs(obj):
+        roofs = []
+        for face in obj.faces:
+            if str(face.type) == 'RoofCeiling':
+                roofs.append(DoeRoofObj(face))
+        return [str(r.to_inp()) for r in roofs]
+
+    @property
     def window(self):
         pass
     # TODO add window support
@@ -64,10 +77,10 @@ class RoomDoe2Properties(object):
 
     @property
     def space(self):
-        return self._make_doe_space_obj(self.host, self.walls)
+        return self._make_doe_space_obj(self.host, self.walls, self.roofs)
 
     @staticmethod
-    def _make_doe_space_obj(obj, walls):
+    def _make_doe_space_obj(obj, walls, roofs):
 
         floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
         #! Will break with multiple floor polygons
@@ -84,4 +97,6 @@ class RoomDoe2Properties(object):
         temp_str = spaceobj.join([l for l in obj_lines])
         nl = '\n'
 
-        return temp_str + nl.join('\n'+str(w) for w in walls)
+        onestring = temp_str + nl.join('\n'+str(w) for w in walls)
+        nnl = '\n'
+        return onestring + nnl.join('\n'+str(r) for r in roofs)

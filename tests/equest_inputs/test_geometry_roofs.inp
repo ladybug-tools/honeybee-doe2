@@ -139,6 +139,82 @@ $ ---------------------------------------------------------
   ..
 
 
+"Typical Insulation-R10" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"TpclInsltdWdFrmdExtrrWllR12_l" = LAYERS
+
+   MATERIAL             = (
+      "25mm Stucco",
+    "5/8 in. Gypsum Board",
+    "Typical Insulation-R10",
+    "5/8 in. Gypsum Board"
+   )
+
+   ..
+
+
+"TpclInsltdWdFrmdExtrrWllR12_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdWdFrmdExtrrWllR12_l"
+   ..
+
+
+"Typical Insulation-R4" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Typical Overhead Door-R4_l" = LAYERS
+
+   MATERIAL             = (
+      "Typical Insulation-R4"
+   )
+
+   ..
+
+
+"Typical Overhead Door-R4_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Overhead Door-R4_l"
+   ..
+
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
 "Typical Insulation-R28" = MATERIAL
    TYPE            = RESISTANCE
   ..
@@ -180,29 +256,6 @@ $ ---------------------------------------------------------
    ..
 
 
-"Typical Insulation-R4" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"Typical Overhead Door-R4_l" = LAYERS
-
-   MATERIAL             = (
-      "Typical Insulation-R4"
-   )
-
-   ..
-
-
-"Typical Overhead Door-R4_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Typical Overhead Door-R4_l"
-   ..
-
-
 "5/8 in. Gypsum Board" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.052
@@ -233,39 +286,6 @@ $ ---------------------------------------------------------
    ABSORPTANCE          = 0.7
    ROUGHNESS            = 4
    LAYERS               = "Tpcl Wd Jst Attc FlrR38_l"
-   ..
-
-
-"Typical Insulation" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.667
-   CONDUCTIVITY    = 0.42
-   DENSITY         = 114.996
-   SPECIFIC-HEAT   = 0.392
-  ..
-
-
-"Tpcl Insltd Bsmnt Mss Wll_l" = LAYERS
-
-   MATERIAL             = (
-      "Typical Insulation",
-    "8 n. Cncrt Blck Bsmnt Wll"
-   )
-
-   ..
-
-
-"Tpcl Insltd Bsmnt Mss Wll_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Tpcl Insltd Bsmnt Mss Wll_l"
    ..
 
 
@@ -308,56 +328,36 @@ $ ---------------------------------------------------------
    ..
 
 
-"25mm Stucco" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.083
-   CONDUCTIVITY    = 0.228
-   DENSITY         = 115.87
-   SPECIFIC-HEAT   = 0.361
-  ..
-
-
-"5/8 in. Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
-  ..
-
-
-"Typical Insulation-R10" = MATERIAL
+"Typical Insulation" = MATERIAL
    TYPE            = RESISTANCE
   ..
 
 
-"5/8 in. Gypsum Board" = MATERIAL
+"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.42
+   DENSITY         = 114.996
+   SPECIFIC-HEAT   = 0.392
   ..
 
 
-"TpclInsltdWdFrmdExtrrWllR12_l" = LAYERS
+"Tpcl Insltd Bsmnt Mss Wll_l" = LAYERS
 
    MATERIAL             = (
-      "25mm Stucco",
-    "5/8 in. Gypsum Board",
-    "Typical Insulation-R10",
-    "5/8 in. Gypsum Board"
+      "Typical Insulation",
+    "8 n. Cncrt Blck Bsmnt Wll"
    )
 
    ..
 
 
-"TpclInsltdWdFrmdExtrrWllR12_c" = CONSTRUCTION
+"Tpcl Insltd Bsmnt Mss Wll_c" = CONSTRUCTION
    TYPE                 = LAYERS
 
    ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "TpclInsltdWdFrmdExtrrWllR12_l"
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Bsmnt Mss Wll_l"
    ..
 
 
@@ -802,6 +802,29 @@ $ *********************************************************
   Z                 =  -1.448109150130982e-16
   ..
 
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7ED910>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7ED9D0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7EDA30>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7EDAF0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7EDDF0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7EDE50>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7EDF10>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7EDF70>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C7EDFD0>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C800580>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C800E50>
+
+<honeybee_doe2.properties.roof.DoeRoofObj object at 0x000001F67C8005E0>
 
 
 

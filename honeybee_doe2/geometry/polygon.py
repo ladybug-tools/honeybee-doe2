@@ -35,6 +35,7 @@ class DoePolygon(object):
 
     @classmethod
     def from_vertices(cls, name, vertices):
+        my_face3d = Face3D
         return cls(name=name, vertices=vertices)
 
     def to_inp(self):
