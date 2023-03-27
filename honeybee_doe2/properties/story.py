@@ -32,20 +32,18 @@ class Doe2Story:
                 if str(face.type) == 'Floor':
                     floorgeom.append(face.geometry)
 
-        floor_geom = Polyface3D.from_faces(floorgeom, 0.01)
-        seg_vertices = []
-        for segment in floor_geom.naked_edges:
-            seg_vertices.append(segment.vertices)
+        if len(floorgeom) == 0:
+            story_geom = floorgeom[0]
+        else:
+            floor_geom = Polyface3D.from_faces(floorgeom, 0.01)
+            vertices = []
+            for segment in floor_geom.naked_edges:
+                vertices.append(segment.vertices[0])
 
-        vertices = []
-        for seg in seg_vertices:
-            for vert in seg:
-                vertices.append(vert)
-
-        story_geom = Face.from_vertices(
-            identifier="Level_{}".format(story_no),
-            vertices=vertices)
-        story_geom.remove_colinear_vertices(0.01)
+            story_geom = Face.from_vertices(
+                identifier="Level_{}".format(story_no),
+                vertices=vertices)
+            story_geom.remove_colinear_vertices(0.01)
 
         stry_rm_geom = []
 

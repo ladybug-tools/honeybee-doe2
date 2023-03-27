@@ -20,14 +20,19 @@ class DoePolygon(object):
         my_face3d = face.geometry
 
         rel_plane = my_face3d.plane
-        if rel_plane.n.z == 1 or rel_plane.n.z == -1:  # horizontal Face3D; use world XY
-            ref_plane = Plane(rel_plane.n, my_face3d.lower_left_corner,
-                              Vector3D(1, 0, 0))
+        # horizontal Face3D; use world XY
+        angle_tolerance = 0.01
+        if rel_plane.n.angle(Vector3D(0, 0, 1)) <= angle_tolerance or \
+                rel_plane.n.angle(Vector3D(0, 0, -1)) <= angle_tolerance:
+            vertices = [
+                Point2D(v[0], v[1]) for v in
+                my_face3d.lower_left_counter_clockwise_vertices
+            ]
         else:  # vertical or tilted Face3D; orient the Y to the workld Z
             proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
             proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
             ref_plane = Plane(rel_plane.n, my_face3d.lower_left_corner, proj_x)
-        vertices = [ref_plane.xyz_to_xy(pt) for pt in my_face3d]
+            vertices = [ref_plane.xyz_to_xy(pt) for pt in my_face3d]
 
         return cls(name=name, vertices=vertices)
 
