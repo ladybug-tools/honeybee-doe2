@@ -73,7 +73,7 @@ class ModelDoe2Properties(object):
 
     # @staticmethod
     # def _inp_polyblock_maker(obj):
-        # TODO: for story in stories: for room in story: for face in room.faces:
+
         #inp_block = '\n'
         #inp_polys = []
         # for room in obj.rooms:

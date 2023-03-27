@@ -14,7 +14,7 @@ class DoeWallObj:
             self.face.boundary_condition) == 'Outdoors' else 'INTERIOR'
 
         constr = self.face.properties.energy.construction.display_name
-        tilt = self.face.altitude + 90
+        tilt = 90 - self.face.altitude
         azimuth = self.face.azimuth
         origin_pt = self.face.geometry.lower_left_corner
 

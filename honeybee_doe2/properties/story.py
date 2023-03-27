@@ -6,6 +6,7 @@ from honeybee.room import Room
 from honeybee.face import Face
 from honeybee.facetype import face_types
 from ladybug_geometry.geometry3d.polyface import Polyface3D
+from ladybug_geometry.geometry3d.pointvector import Point3D
 
 from ..geometry.polygon import DoePolygon
 from ..utils.doe_formatters import short_name
@@ -41,22 +42,9 @@ class Doe2Story:
             for vert in seg:
                 vertices.append(vert)
 
-        start_pt = vertices[0]
-        min_y, min_x, pt_i = start_pt.y, start_pt.x, 0
-
-        for i, pt in enumerate(vertices):
-            if pt.y < min_y:
-                min_y, min_x = pt.y, pt.x
-                pt_i = i
-            elif pt.y == min_y:
-                if pt.x < min_x:
-                    min_y, min_x = pt.y, pt.x
-                    pt_i = i
-        routed_vertices = vertices[pt_i:] + vertices[:pt_i]
-
         story_geom = Face.from_vertices(
             identifier="Level_{}".format(story_no),
-            vertices=routed_vertices)
+            vertices=vertices)
         story_geom.remove_colinear_vertices(0.01)
 
         stry_rm_geom = []

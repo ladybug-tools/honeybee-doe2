@@ -3,7 +3,6 @@ from ..utils.doe_formatters import short_name
 from honeybee.face import Face3D
 from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
 import math
-# TODO this needs to be in properties not external I think, not important but move later
 
 
 class DoePolygon(object):
@@ -29,12 +28,12 @@ class DoePolygon(object):
             proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
             ref_plane = Plane(rel_plane.n, my_face3d.lower_left_corner, proj_x)
         vertices = [ref_plane.xyz_to_xy(pt) for pt in my_face3d]
-        #vertices = face.geometry.polygon2d.vertices
 
         return cls(name=name, vertices=vertices)
 
     @classmethod
     def from_vertices(cls, name, vertices):
+
         return cls(name=name, vertices=vertices)
 
     def to_inp(self):

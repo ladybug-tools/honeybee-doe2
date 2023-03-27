@@ -14,6 +14,7 @@ def model_to_inp(hb_model):
     sb_data = sbd()
 
     hb_model.convert_to_units(units='Feet')
+    # TODO: Add routine to 'reverbose' constr/matters prior to writing to inp
 
     data = [
         hb_model.properties.doe2._header,

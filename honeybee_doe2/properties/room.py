@@ -33,6 +33,7 @@ class RoomDoe2Properties(object):
     def _get_floor_poly(obj):
 
         floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
+
         return floor_face.properties.doe2.poly
 
     @property

@@ -12,7 +12,7 @@ class DoeRoofObj:
         p_name = short_name(self.face.display_name)
 
         constr = self.face.properties.energy.construction.display_name
-        tilt = self.face.altitude + 90 * -1
+        tilt = 90 - self.face.altitude
         azimuth = self.face.azimuth
         origin_pt = self.face.geometry.lower_left_corner
 
