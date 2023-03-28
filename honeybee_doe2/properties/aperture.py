@@ -30,10 +30,10 @@ class Window:
 
         return \
             '"{}" = WINDOW\n'.format(short_name(self.aperture.display_name)) + \
-            "\n  X             = {}".format(round(min_2d.x, 3)) + \
-            "\n  Y             = {}".format(round(max_2d.y, 3)) + \
-            "\n  WIDTH         = {}".format(round(width, 3)) + \
-            "\n  HEIGHT        = {}".format(round(height, 3)) + \
+            "\n  X             = {}".format(min_2d.x) + \
+            "\n  Y             = {}".format(max_2d.y) + \
+            "\n  WIDTH         = {}".format(width, 3) + \
+            "\n  HEIGHT        = {}".format(height, 3) + \
             '\n  GLASS-TYPE    = "{}"'.format(glass_type) + "\n  ..\n"
 
     def __repr__(self):
