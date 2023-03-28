@@ -11,8 +11,6 @@ class DoeWallObj:
 
     def to_inp(self):
 
-        doe_windows = [Window(ap) for ap in self.face.apertures]
-
         p_name = short_name(self.face.display_name)
         wall_typology = 'EXTERIOR' if str(
             self.face.boundary_condition) == 'Outdoors' else 'INTERIOR'
@@ -36,6 +34,10 @@ class DoeWallObj:
         obj_lines.append('\n  ..\n')
 
         temp_str = spc.join([line for line in obj_lines])
+
+        doe_windows = [
+            Window(ap, self.face) for ap in self.face.apertures
+        ]
 
         nl = '\n'
         if doe_windows is not None:
