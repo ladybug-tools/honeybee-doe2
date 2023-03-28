@@ -5,7 +5,7 @@ from honeybee.face import Face
 from honeybee.aperture import Aperture
 
 from ..utils.doe_formatters import short_name
-from ..utils.glass_types import GlassType
+from .inputils.glass_types import GlassType
 
 
 class Window:
@@ -29,9 +29,12 @@ class Window:
         width = max_2d.x - min_2d.x
 
         return \
-            "{} = WINDOW\n".format(self.name) + \
-            "\n  X             = {}".format(origin.x) + \
-            "\n  Y             = {}".format(origin.y) + \
-            "\n  WIDTH         = {}".format(width) + \
-            "\n  HEIGHT        = {}".format(height) + \
+            '"{}" = WINDOW\n'.format(short_name(self.aperture.display_name)) + \
+            "\n  X             = {}".format(round(min_2d.x, 3)) + \
+            "\n  Y             = {}".format(round(max_2d.y, 3)) + \
+            "\n  WIDTH         = {}".format(round(width, 3)) + \
+            "\n  HEIGHT        = {}".format(round(height, 3)) + \
             "\n  GLASS-TYPE    = {}".format(glass_type) + "\n  ..\n"
+
+    def __repr__(self):
+        return self.to_inp()

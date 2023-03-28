@@ -13,7 +13,7 @@ from honeybee.properties import (
 from .properties.model import ModelDoe2Properties
 from .properties.room import RoomDoe2Properties
 from .properties.face import FaceDoe2Properties
-from .properties.aperture import ApertureDoe2Properties
+# from .properties.aperture import ApertureDoe2Properties
 # Step 1)
 # set a private ._doe2 attribute on each relevant HB-Core Property class to None
 setattr(ModelProperties, '_doe2', None)
@@ -41,10 +41,10 @@ def face_doe2_properties(self):
     return self._doe2
 
 
-def aperture_doe2_properties(self):
-    if self._doe2 is None:
-        self._doe2 = ApertureDoe2Properties(self.host)
-    return self._doe2
+# def aperture_doe2_properties(self):
+#     if self._doe2 is None:
+#         self._doe2 = ApertureDoe2Properties(self.host)
+#     return self._doe2
 
 
 # Step 3)
