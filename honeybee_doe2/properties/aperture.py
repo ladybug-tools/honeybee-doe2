@@ -34,7 +34,7 @@ class Window:
             "\n  Y             = {}".format(round(max_2d.y, 3)) + \
             "\n  WIDTH         = {}".format(round(width, 3)) + \
             "\n  HEIGHT        = {}".format(round(height, 3)) + \
-            "\n  GLASS-TYPE    = {}".format(glass_type) + "\n  ..\n"
+            '\n  GLASS-TYPE    = "{}"'.format(glass_type) + "\n  ..\n"
 
     def __repr__(self):
         return self.to_inp()

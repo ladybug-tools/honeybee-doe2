@@ -1,0 +1,1525 @@
+INPUT ..
+
+
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+
+
+TITLE
+    LINE-1           = *Unnamed*
+    ..
+
+"Entire Year" = RUN-PERIOD-PD
+   BEGIN-MONTH     = 1
+   BEGIN-DAY      = 1
+   BEGIN-YEAR     = 2021
+   END-MONTH      = 12
+   END-DAY        = 31
+   END-YEAR       = 2021
+   ..
+
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+
+
+"Compliance Data" = COMPLIANCE
+   C-PERMIT-SCOPE   = 0
+   C-PROJ-NAME      = *sample_project*
+   C-BUILDING-TYPE  = 32
+   C-CONS-PHASE     = 0
+   C-NR-DHW-INCL    = 1
+   C-CODE-VERSION   = 1
+   C-901-NUM-FLRS   = 1
+   C-901-BLDG-TYPE  = 32
+   ..
+
+$---------------------------------------------------------
+$              Site and Building Data
+$---------------------------------------------------------
+
+"Site Data" = SITE-PARAMETERS
+  ALTITUDE          = 150
+  C-STATE           = 21
+  C-WEATHER-FILE    = *TMY2\HARTFOCT.bin* 
+  C-COUNTRY         = 1
+  C-901-LOCATION    = 1092
+  ..
+"Building Data" = BUILD-PARAMETERS
+  HOLIDAYS        = "Standard US Holidays"
+  ..
+
+
+PROJECT-DATA
+  ..
+
+
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+
+
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.005
+   CONDUCTIVITY    = 14.265
+   DENSITY         = 480.085
+   SPECIFIC-HEAT   = 0.176
+  ..
+
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"Generic Exposed Floor_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic Painted Metal",
+    "Generic Ceiling Air Gap",
+    "Generic 50mm Insulation",
+    "Generic LW Concrete"
+   )
+
+   ..
+
+
+"Generic Exposed Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 5
+   LAYERS               = "Generic Exposed Floor_l"
+   ..
+
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+
+"Generic Ground Slab_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+    "Generic HW Concrete"
+   )
+
+   ..
+
+
+"Generic Ground Slab_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Ground Slab_l"
+   ..
+
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"Generic Interior Floor_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic Acoustic Tile",
+    "Generic Ceiling Air Gap",
+    "Generic LW Concrete"
+   )
+
+   ..
+
+
+"Generic Interior Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.2
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Floor_l"
+   ..
+
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+
+"Generic Underground Wall_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+    "Generic HW Concrete",
+    "Generic Wall Air Gap",
+    "Generic Gypsum Board"
+   )
+
+   ..
+
+
+"Generic Underground Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Wall_l"
+   ..
+
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+
+"Generic Interior Wall_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic Gypsum Board",
+    "Generic Wall Air Gap",
+    "Generic Gypsum Board"
+   )
+
+   ..
+
+
+"Generic Interior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Wall_l"
+   ..
+
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.005
+   CONDUCTIVITY    = 14.265
+   DENSITY         = 480.085
+   SPECIFIC-HEAT   = 0.176
+  ..
+
+
+"Generic 25mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.082
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.005
+   CONDUCTIVITY    = 14.265
+   DENSITY         = 480.085
+   SPECIFIC-HEAT   = 0.176
+  ..
+
+
+"Generic Exterior Door_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic Painted Metal",
+    "Generic 25mm Insulation",
+    "Generic Painted Metal"
+   )
+
+   ..
+
+
+"Generic Exterior Door_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 5
+   LAYERS               = "Generic Exterior Door_l"
+   ..
+
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+
+"Generic Interior Ceiling_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic LW Concrete",
+    "Generic Ceiling Air Gap",
+    "Generic Acoustic Tile"
+   )
+
+   ..
+
+
+"Generic Interior Ceiling_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.8
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Interior Ceiling_l"
+   ..
+
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
+  ..
+
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+
+"Generic Exterior Wall_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic Brick",
+    "Generic LW Concrete",
+    "Generic 50mm Insulation",
+    "Generic Wall Air Gap",
+    "Generic Gypsum Board"
+   )
+
+   ..
+
+
+"Generic Exterior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Exterior Wall_l"
+   ..
+
+
+"Generic 25mm Wood" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.048
+   DENSITY         = 37.957
+   SPECIFIC-HEAT   = 0.701
+  ..
+
+
+"Generic Interior Door_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic 25mm Wood"
+   )
+
+   ..
+
+
+"Generic Interior Door_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Door_l"
+   ..
+
+
+"Generic Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.033
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 69.921
+   SPECIFIC-HEAT   = 0.628
+  ..
+
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+
+"Generic Roof_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic Roof Membrane",
+    "Generic 50mm Insulation",
+    "Generic LW Concrete",
+    "Generic Ceiling Air Gap",
+    "Generic Acoustic Tile"
+   )
+
+   ..
+
+
+"Generic Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Roof_l"
+   ..
+
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+
+"Generic Underground Roof_l" = LAYERS
+
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+    "Generic HW Concrete",
+    "Generic Ceiling Air Gap",
+    "Generic Acoustic Tile"
+   )
+
+   ..
+
+
+"Generic Underground Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Roof_l"
+   ..
+
+
+$ ---------------------------------------------------------
+$              Glass Type Codes
+$ ---------------------------------------------------------
+
+
+
+
+"Generic Double Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4874490884111821
+   GLASS-CONDUCT      = 0.297
+   ..
+
+"Generic Single Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.9206277902735016
+   GLASS-CONDUCT      = 1.009
+   ..
+
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+
+
+"Level_0 Plg" = POLYGON
+   V1        = ( 19.672131, -19.672131 )
+   V2        = ( -0.000000, -27.820595 )
+   V3        = ( -19.672131, -19.672131 )
+   V4        = ( -27.820595, 0.000000 )
+   V5        = ( -19.672131, 19.672131 )
+   V6        = ( 0.000000, 27.820595 )
+   V7        = ( 19.672131, 19.672131 )
+   V8        = ( 27.820595, -0.000000 )
+   ..
+"Face 1 Plg" = POLYGON
+   V1        = ( -0.000000, 13.114754 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 21.292961, 0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 2 Plg" = POLYGON
+   V1        = ( 0.000000, 13.114754 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 21.292961, -0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 3 Plg" = POLYGON
+   V1        = ( 0.000000, 12.769007 )
+   V2        = ( 2.991527, 0.000000 )
+   V3        = ( 5.319994, 12.906394 )
+   ..
+
+"Face 4 Plg" = POLYGON
+   V1        = ( -0.000000, 13.114754 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 21.292961, 0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 5 Plg" = POLYGON
+   V1        = ( -0.000000, 13.114754 )
+   V2        = ( -0.000000, 0.000000 )
+   V3        = ( 21.292961, 0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 6 Plg" = POLYGON
+   V1        = ( 2.991527, -0.000000 )
+   V2        = ( 5.319994, 12.906394 )
+   V3        = ( 0.000000, 12.769007 )
+   ..
+
+"Face 7 Plg" = POLYGON
+   V1        = ( -0.000000, 13.114754 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 21.292961, 0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 8 Plg" = POLYGON
+   V1        = ( -0.000000, 13.114754 )
+   V2        = ( -0.000000, 0.000000 )
+   V3        = ( 21.292961, 0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 9 Plg" = POLYGON
+   V1        = ( 2.991527, 0.000000 )
+   V2        = ( 5.319994, 12.906394 )
+   V3        = ( 0.000000, 12.769007 )
+   ..
+
+"Face 10 Plg" = POLYGON
+   V1        = ( -0.000000, 13.114754 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 21.292961, 0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 11 Plg" = POLYGON
+   V1        = ( -0.000000, 13.114754 )
+   V2        = ( -0.000000, 0.000000 )
+   V3        = ( 21.292961, 0.000000 )
+   V4        = ( 21.292961, 13.114754 )
+   ..
+
+"Face 12 Plg" = POLYGON
+   V1        = ( 2.991527, 0.000000 )
+   V2        = ( 5.319994, 12.906394 )
+   V3        = ( 0.000000, 12.769007 )
+   ..
+
+"Face 13 Plg" = POLYGON
+   V1        = ( 0.000000, 12.906394 )
+   V2        = ( 2.328467, 0.000000 )
+   V3        = ( 5.319994, 12.769007 )
+   ..
+
+"Face 14 Plg" = POLYGON
+   V1        = ( 0.000000, 12.906394 )
+   V2        = ( 2.328467, 0.000000 )
+   V3        = ( 5.319994, 12.769007 )
+   ..
+
+"Face 15 Plg" = POLYGON
+   V1        = ( 0.000000, 12.906394 )
+   V2        = ( 2.328467, 0.000000 )
+   V3        = ( 5.319994, 12.769007 )
+   ..
+
+"Face 16 Plg" = POLYGON
+   V1        = ( 0.000000, 12.906394 )
+   V2        = ( 2.328467, 0.000000 )
+   V3        = ( 5.319994, 12.769007 )
+   ..
+
+"Face 17 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 21.292961, -0.000000 )
+   V3        = ( 19.474272, 5.001358 )
+   V4        = ( 1.818689, 5.001358 )
+   ..
+
+"Face 18 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 21.292961, -0.000000 )
+   V3        = ( 19.474272, 5.001358 )
+   V4        = ( 1.818689, 5.001358 )
+   ..
+
+"Face 19 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 21.292961, -0.000000 )
+   V3        = ( 19.474272, 5.001358 )
+   V4        = ( 1.818689, 5.001358 )
+   ..
+
+"Face 20 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 21.292961, -0.000000 )
+   V3        = ( 19.474272, 5.001358 )
+   V4        = ( 1.818689, 5.001358 )
+   ..
+
+"Face 21 Plg" = POLYGON
+   V1        = ( 21.292961, 0.000000 )
+   V2        = ( 10.646481, 28.499067 )
+   V3        = ( -0.000000, 0.000000 )
+   ..
+
+"Face 22 Plg" = POLYGON
+   V1        = ( -0.000000, 0.000000 )
+   V2        = ( 17.655583, -0.000000 )
+   V3        = ( 8.827791, 29.113819 )
+   ..
+
+"Face 23 Plg" = POLYGON
+   V1        = ( 19.672131, -19.672131 )
+   V2        = ( -0.000000, -27.820595 )
+   V3        = ( -19.672131, -19.672131 )
+   V4        = ( -27.820595, 0.000000 )
+   V5        = ( -19.672131, 19.672131 )
+   V6        = ( 0.000000, 27.820595 )
+   V7        = ( 19.672131, 19.672131 )
+   V8        = ( 27.820595, -0.000000 )
+   ..
+
+"Face 24 Plg" = POLYGON
+   V1        = ( -0.000000, 0.000000 )
+   V2        = ( 17.655583, -0.000000 )
+   V3        = ( 8.827791, 29.113819 )
+   ..
+
+"Face 25 Plg" = POLYGON
+   V1        = ( 21.292961, 0.000000 )
+   V2        = ( 10.646481, 28.499067 )
+   V3        = ( -0.000000, 0.000000 )
+   ..
+
+"Face 26 Plg" = POLYGON
+   V1        = ( -0.000000, 0.000000 )
+   V2        = ( 17.655583, -0.000000 )
+   V3        = ( 8.827791, 29.113819 )
+   ..
+
+"Face 27 Plg" = POLYGON
+   V1        = ( 21.292961, 0.000000 )
+   V2        = ( 10.646481, 28.499067 )
+   V3        = ( -0.000000, 0.000000 )
+   ..
+
+"Face 28 Plg" = POLYGON
+   V1        = ( -0.000000, 0.000000 )
+   V2        = ( 17.655583, -0.000000 )
+   V3        = ( 8.827791, 29.113819 )
+   ..
+
+"Face 29 Plg" = POLYGON
+   V1        = ( 21.292961, 0.000000 )
+   V2        = ( 10.646481, 28.499067 )
+   V3        = ( -0.000000, 0.000000 )
+   ..
+
+
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Performance Curves                   **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      Floors / Spaces / Walls / Windows / Doors      **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+
+"Level_0"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_0 Plg"
+   SPACE-HEIGHT    = 0.0
+   FLOOR-HEIGHT    = 19.94153454197054
+   ..
+
+"Room 1" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Face 23 Plg"
+  VOLUME           = 38523.62247011868
+  ..
+
+"Face 1" = EXTERIOR-WALL
+  POLYGON           = "Face 1 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  78.6900675259798
+  AZIMUTH           =  67.5
+  X                 =  27.820594669634662
+  Y                 =  -5.88418203051333e-15
+  Z                 =  -3.552713678800501e-15
+  ..
+
+
+"Face 2" = EXTERIOR-WALL
+  POLYGON           = "Face 2 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  104.03624346792648
+  AZIMUTH           =  112.50000000000003
+  X                 =  19.672131147540984
+  Y                 =  -19.672131147540984
+  Z                 =  0.0
+  ..
+
+
+"Face 3" = EXTERIOR-WALL
+  POLYGON           = "Face 3 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  2.63510594155545
+  X                 =  30.808958053658298
+  Y                 =  -0.13753562699575528
+  Z                 =  -3.552713678800501e-15
+  ..
+
+
+"Face 4" = EXTERIOR-WALL
+  POLYGON           = "Face 4 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  78.69006752597979
+  AZIMUTH           =  337.5
+  X                 =  5.551115123125783e-15
+  Y                 =  27.820594669634662
+  Z                 =  -3.552713678800501e-15
+  ..
+
+
+"Face 5" = EXTERIOR-WALL
+  POLYGON           = "Face 5 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  104.03624346792648
+  AZIMUTH           =  22.500000000000018
+  X                 =  19.67213114754098
+  Y                 =  19.672131147540984
+  Z                 =  -5.329070518200751e-15
+  ..
+"ap" = WINDOW
+
+  X             = 2.799
+  Y             = 0.281
+  WIDTH         = -2.318
+  HEIGHT        = 3.841
+  GLASS-TYPE    = Generic Double Pane
+  ..
+
+"ap1" = WINDOW
+
+  X             = 1.399
+  Y             = 0.141
+  WIDTH         = -1.159
+  HEIGHT        = 5.199
+  GLASS-TYPE    = Generic Double Pane
+  ..
+
+"ap2" = WINDOW
+
+  X             = 6.996
+  Y             = 0.703
+  WIDTH         = -5.796
+  HEIGHT        = 3.045
+  GLASS-TYPE    = Generic Double Pane
+  ..
+
+
+
+"Face 6" = EXTERIOR-WALL
+  POLYGON           = "Face 6 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  272.63510594155554
+  X                 =  0.13753562699575347
+  Y                 =  30.808958053658298
+  Z                 =  -1.8252076763492595e-16
+  ..
+
+
+"Face 7" = EXTERIOR-WALL
+  POLYGON           = "Face 7 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  78.6900675259798
+  AZIMUTH           =  247.49999999999997
+  X                 =  -27.820594669634662
+  Y                 =  5.88418203051333e-15
+  Z                 =  -3.552713678800501e-15
+  ..
+
+
+"Face 8" = EXTERIOR-WALL
+  POLYGON           = "Face 8 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  104.03624346792648
+  AZIMUTH           =  292.5
+  X                 =  -19.672131147540984
+  Y                 =  19.67213114754098
+  Z                 =  -5.329070518200751e-15
+  ..
+
+
+"Face 9" = EXTERIOR-WALL
+  POLYGON           = "Face 9 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  182.63510594155545
+  X                 =  -30.808958053658298
+  Y                 =  0.13753562699575494
+  Z                 =  -1.8252076763492595e-16
+  ..
+
+
+"Face 10" = EXTERIOR-WALL
+  POLYGON           = "Face 10 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  78.6900675259798
+  AZIMUTH           =  157.49999999999997
+  X                 =  -5.88418203051333e-15
+  Y                 =  -27.820594669634662
+  Z                 =  -3.552713678800501e-15
+  ..
+
+
+"Face 11" = EXTERIOR-WALL
+  POLYGON           = "Face 11 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  104.03624346792648
+  AZIMUTH           =  202.50000000000003
+  X                 =  -19.67213114754098
+  Y                 =  -19.672131147540984
+  Z                 =  -5.329070518200751e-15
+  ..
+
+
+"Face 12" = EXTERIOR-WALL
+  POLYGON           = "Face 12 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  92.63510594155552
+  X                 =  -0.13753562699575494
+  Y                 =  -30.808958053658298
+  Z                 =  -1.8252076763492595e-16
+  ..
+
+
+"Face 13" = EXTERIOR-WALL
+  POLYGON           = "Face 13 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  132.3648940584445
+  X                 =  18.103093794286554
+  Y                 =  17.951700195969284
+  Z                 =  0.0
+  ..
+
+
+"Face 14" = EXTERIOR-WALL
+  POLYGON           = "Face 14 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  222.36489405844446
+  X                 =  17.951700195969284
+  Y                 =  -18.103093794286554
+  Z                 =  0.0
+  ..
+
+
+"Face 15" = EXTERIOR-WALL
+  POLYGON           = "Face 15 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  312.36489405844446
+  X                 =  -18.103093794286554
+  Y                 =  -17.951700195969284
+  Z                 =  0.0
+  ..
+
+
+"Face 16" = EXTERIOR-WALL
+  POLYGON           = "Face 16 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  85.14433357135903
+  AZIMUTH           =  42.364894058444484
+  X                 =  -17.951700195969284
+  Y                 =  18.103093794286554
+  Z                 =  0.0
+  ..
+
+"Face 17" = ROOF
+  POLYGON           = "Face 17 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  1.5684608157740314
+  AZIMUTH           =  112.50000000000003
+  X                 =  22.61080262132328
+  Y                 =  -20.889368727340543
+  Z                 =  12.723180329774845
+  ..
+
+
+"Face 18" = ROOF
+  POLYGON           = "Face 18 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  1.5684608157740314
+  AZIMUTH           =  202.50000000000003
+  X                 =  -20.889368727340543
+  Y                 =  -22.61080262132328
+  Z                 =  12.723180329774845
+  ..
+
+
+"Face 19" = ROOF
+  POLYGON           = "Face 19 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  1.5684608157740314
+  AZIMUTH           =  22.500000000000018
+  X                 =  20.889368727340543
+  Y                 =  22.61080262132328
+  Z                 =  12.723180329774845
+  ..
+
+
+"Face 20" = ROOF
+  POLYGON           = "Face 20 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  1.5684608157740314
+  AZIMUTH           =  292.5
+  X                 =  -22.61080262132328
+  Y                 =  20.889368727340543
+  Z                 =  12.723180329774845
+  ..
+
+
+"Face 21" = ROOF
+  POLYGON           = "Face 21 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  35.74393621457684
+  AZIMUTH           =  67.5
+  X                 =  25.44436275816731
+  Y                 =  -0.9842674850735236
+  Z                 =  12.860074435290755
+  ..
+
+
+"Face 22" = ROOF
+  POLYGON           = "Face 22 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  34.877857412778255
+  AZIMUTH           =  112.50000000000003
+  X                 =  18.687863662467464
+  Y                 =  -17.29589923607363
+  Z                 =  12.860074435290754
+  ..
+
+
+"Face 24" = ROOF
+  POLYGON           = "Face 24 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  34.877857412778255
+  AZIMUTH           =  22.500000000000018
+  X                 =  17.29589923607363
+  Y                 =  18.687863662467464
+  Z                 =  12.860074435290754
+  ..
+
+
+"Face 25" = ROOF
+  POLYGON           = "Face 25 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  35.74393621457684
+  AZIMUTH           =  337.5
+  X                 =  0.9842674850735236
+  Y                 =  25.44436275816731
+  Z                 =  12.860074435290755
+  ..
+
+
+"Face 26" = ROOF
+  POLYGON           = "Face 26 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  34.877857412778255
+  AZIMUTH           =  292.5
+  X                 =  -18.687863662467464
+  Y                 =  17.29589923607363
+  Z                 =  12.860074435290754
+  ..
+
+
+"Face 27" = ROOF
+  POLYGON           = "Face 27 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  35.74393621457684
+  AZIMUTH           =  247.49999999999997
+  X                 =  -25.44436275816731
+  Y                 =  0.9842674850735236
+  Z                 =  12.860074435290755
+  ..
+
+
+"Face 28" = ROOF
+  POLYGON           = "Face 28 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  34.877857412778255
+  AZIMUTH           =  202.50000000000003
+  X                 =  -17.29589923607363
+  Y                 =  -18.687863662467464
+  Z                 =  12.860074435290754
+  ..
+
+
+"Face 29" = ROOF
+  POLYGON           = "Face 29 Plg"
+  CONSTRUCTION      = "Generic Roof_c"
+  TILT              =  35.74393621457684
+  AZIMUTH           =  157.49999999999997
+  X                 =  -0.9842674850735236
+  Y                 =  -25.44436275816731
+  Z                 =  12.860074435290755
+  ..
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **              Electric & Fuel Meters                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      HVAC Circulation Loops / Plant Equipment       **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **            Steam & Chilled Water Meters             **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **               HVAC Systems / Zones                  **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Metering & Misc HVAC                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                    Utility Rates                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                 Output Reporting                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+END ..
+COMPUTE ..
+STOP ..
