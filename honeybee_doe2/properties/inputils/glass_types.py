@@ -31,7 +31,7 @@ class GlassType():
         return cls(name=name, shading_coef=shading_coef, glass_cond=glass_cond)
 
     def to_inp(self) -> str:
-        return '"{}" = GLASS-TYPE\n'.format(self.name) + \
+        return '"{}" = GLASS-TYPE\n'.format(short_name(self.name, 32)) + \
                '   TYPE               = SHADING-COEF\n' +\
                '   SHADING-COEF       = {}\n'.format(self.shading_coef) + \
                '   GLASS-CONDUCT      = {}\n   ..\n'.format(self.glass_cond)

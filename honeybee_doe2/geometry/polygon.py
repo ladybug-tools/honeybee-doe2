@@ -2,6 +2,7 @@ from ladybug_geometry.geometry3d.face import Face3D
 from ..utils.doe_formatters import short_name
 from honeybee.face import Face3D
 from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
+from ladybug_geometry.geometry2d import Point2D
 import math
 
 

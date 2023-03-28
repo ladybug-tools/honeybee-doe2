@@ -3,8 +3,10 @@ from .properties.inputils.compliance import ComplianceData
 from .properties.inputils.sitebldg import SiteBldgData as sbd
 from .properties.inputils.run_period import RunPeriod
 from .properties.inputils.title import Title
+from .properties.inputils.glass_types import GlassType
 
 from honeybee.model import Model
+from honeybee_energy.construction.window import WindowConstruction
 
 
 def model_to_inp(hb_model):
@@ -15,6 +17,10 @@ def model_to_inp(hb_model):
 
     hb_model.convert_to_units(units='Feet')
     # TODO: Add routine to 'reverbose' constr/matters prior to writing to inp
+    window_constructions = []
+    for construction in hb_model.properties.energy.constructions:
+        if isinstance(construction, WindowConstruction):
+            window_constructions.append(GlassType.from_hb_window_constr(construction))
 
     data = [
         hb_model.properties.doe2._header,
@@ -28,8 +34,7 @@ def model_to_inp(hb_model):
         fb.mats_layers,
         hb_model.properties.doe2.mats_cons_layers,
         fb.glzCode,
-        # TODO add glass types to hb model doe2 properties
-        #        '\n'.join(gt.to_inp() for gt in hb_model.glass_types),
+        '\n'.join(gt.to_inp() for gt in window_constructions),
         fb.polygons,
         '\n'.join(s.story_poly for s in hb_model.properties.doe2.stories),
         fb.wallParams,
