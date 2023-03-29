@@ -43,7 +43,7 @@ class Doe2Story:
             story_geom = Face.from_vertices(
                 identifier="Level_{}".format(story_no),
                 vertices=vertices)
-            story_geom.remove_colinear_vertices(0.01)
+            story_geom.remove_colinear_vertices(tolerance=0.01)
 
         stry_rm_geom = []
 

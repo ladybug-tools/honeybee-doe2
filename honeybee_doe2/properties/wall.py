@@ -11,7 +11,7 @@ class DoeWallObj:
 
     def to_inp(self):
 
-        p_name = short_name(self.face.display_name)
+        p_name = short_name(self.face.identifier)
         wall_typology = 'EXTERIOR' if str(
             self.face.boundary_condition) == 'Outdoors' else 'INTERIOR'
 

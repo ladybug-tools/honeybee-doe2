@@ -16,7 +16,7 @@ class DoePolygon(object):
     @classmethod
     def from_face(cls, face):
 
-        name = short_name(face.display_name)
+        name = short_name(face.identifier)
 
         my_face3d = face.geometry
 
@@ -33,7 +33,9 @@ class DoePolygon(object):
             proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
             proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
             ref_plane = Plane(rel_plane.n, my_face3d.lower_left_corner, proj_x)
-            vertices = [ref_plane.xyz_to_xy(pt) for pt in my_face3d]
+            vertices = [
+                ref_plane.xyz_to_xy(pt)
+                for pt in my_face3d.lower_left_counter_clockwise_vertices]
 
         return cls(name=name, vertices=vertices)
 
