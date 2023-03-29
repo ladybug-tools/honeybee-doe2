@@ -85,13 +85,14 @@ class RoomDoe2Properties(object):
 
         floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
         #! Will break with multiple floor polygons
+        # TODO: Copy the Story polygon procedure
 
         spaceobj = ''
         obj_lines = []
         obj_lines.append('"{}" = SPACE\n'.format(short_name(obj.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
         obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
-            short_name(floor_face.display_name)))
+            short_name(floor_face.identifier)))
         obj_lines.append('  VOLUME           = {}\n'.format(obj.volume))
         obj_lines.append('  ..\n')
         # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
