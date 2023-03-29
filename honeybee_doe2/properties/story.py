@@ -5,9 +5,8 @@ from honeybee.model import Model
 from honeybee.room import Room
 from honeybee.face import Face
 from honeybee.facetype import face_types
-from ladybug_geometry.geometry3d.polyface import Polyface3D
-from ladybug_geometry.geometry3d.pointvector import Point3D
-
+from ladybug_geometry.geometry3d import Polyface3D, Face3D
+from ladybug_geometry.geometry2d import Polygon2D
 from ..geometry.polygon import DoePolygon
 from ..utils.doe_formatters import short_name
 
@@ -25,25 +24,31 @@ class Doe2Story:
     @staticmethod
     def _make_story_poly(rooms, story_no):
 
-        floorgeom = []
+        floor_geom = []
 
         for room in rooms:
             for face in room.faces:
                 if str(face.type) == 'Floor':
-                    floorgeom.append(face.geometry)
+                    floor_geom.append(face.geometry)
 
-        if len(floorgeom) == 0:
-            story_geom = floorgeom[0]
+        if len(floor_geom) == 0:
+            story_geom = floor_geom[0]
         else:
-            floor_geom = Polyface3D.from_faces(floorgeom, 0.01)
-            vertices = []
-            for segment in floor_geom.naked_edges:
-                vertices.append(segment.vertices[0])
+            # TODO: all these floors must be in the same plane.
+            # we should add a step to find the one that has the lowest Z and project
+            # all the faces to that plane.
+            boundaries = [floor.boundary_polygon2d for floor in floor_geom]
+            # find the union of the boundary polygons
+            boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.1)
+
+            # I don't know if this is the right assumption
+            assert len(boundaries) == 1, \
+                f'Story {story_no} generates more than one polygon ' \
+                '[{len(boundaries)}]. Not in DOE2!'
 
             story_geom = Face.from_vertices(
                 identifier="Level_{}".format(story_no),
-                vertices=vertices)
-            story_geom.remove_colinear_vertices(tolerance=0.01)
+                vertices=boundaries[0].vertices)
 
         stry_rm_geom = []
 
