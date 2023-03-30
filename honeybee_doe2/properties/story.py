@@ -35,8 +35,8 @@ class Doe2Story:
             story_geom = floor_geom[0]
         else:
             # TODO: all these floors must be in the same plane.
-            # we should add a step to find the one that has the lowest Z and project
-            # all the faces to that plane.
+            # * we should add a step to find the one that has the lowest Z and project
+            # * all the faces to that plane.
             boundaries = [floor.boundary_polygon2d for floor in floor_geom]
             # find the union of the boundary polygons
             boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.1)
