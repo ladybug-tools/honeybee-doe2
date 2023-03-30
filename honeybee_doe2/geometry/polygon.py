@@ -29,6 +29,7 @@ class DoePolygon(object):
                 Point2D(v[0], v[1]) for v in
                 my_face3d.lower_left_counter_clockwise_vertices
             ]
+
         else:  # vertical or tilted Face3D; orient the Y to the workld Z
             proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
             proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)

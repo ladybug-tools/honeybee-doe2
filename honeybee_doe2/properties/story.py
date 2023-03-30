@@ -5,8 +5,8 @@ from honeybee.model import Model
 from honeybee.room import Room
 from honeybee.face import Face
 from honeybee.facetype import face_types
-from ladybug_geometry.geometry3d import Polyface3D, Face3D, Plane
-from ladybug_geometry.geometry2d import Polygon2D
+from ladybug_geometry.geometry3d import Point3D
+from ladybug_geometry.geometry2d import Polygon2D, Point2D
 from ..geometry.polygon import DoePolygon
 from ..utils.doe_formatters import short_name
 
@@ -34,20 +34,23 @@ class Doe2Story:
         if len(floor_geom) == 0:
             story_geom = floor_geom[0]
         else:
-            # TODO: all these floors must be in the same plane.
-            # we should add a step to find the one that has the lowest Z and project
-            # all the faces to that plane.
-            boundaries = [floor.boundary_polygon2d for floor in floor_geom]
+            # get the minimum z and use it for all the floors
+            z = min(geo.plane.o.z for geo in floor_geom)
+            # floors are horizontal - let's make them 2D polygons
+            boundaries = [
+                Polygon2D([Point2D(v.x, v.y) for v in floor.vertices])
+                for floor in floor_geom
+            ]
+
             # find the union of the boundary polygons
             boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.1)
-
-            vertices = [floor_geom[0].plane.xy_to_xyz(point)
-                        for point in boundaries[0].vertices]
 
             # I don't know if this is the right assumption
             assert len(boundaries) == 1, \
                 f'Story {story_no} generates more than one polygon ' \
                 '[{len(boundaries)}]. Not in DOE2!'
+
+            vertices = [Point3D(point.x, point.y, z) for point in boundaries[0].vertices]
 
             story_geom = Face.from_vertices(
                 identifier="Level_{}".format(story_no),
