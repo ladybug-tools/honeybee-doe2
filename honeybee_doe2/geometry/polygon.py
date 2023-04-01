@@ -11,7 +11,7 @@ class DoePolygon(object):
 
     def __init__(self, name, vertices):
         self.name = name
-        self.vertice = vertices
+        self.vertices = vertices
 
     @classmethod
     def from_face(cls, face):
@@ -25,12 +25,14 @@ class DoePolygon(object):
         angle_tolerance = 0.01
         if rel_plane.n.angle(Vector3D(0, 0, 1)) <= angle_tolerance or \
                 rel_plane.n.angle(Vector3D(0, 0, -1)) <= angle_tolerance:
+            llc_3d = my_face3d.lower_left_corner
+            llc = Point2D(llc_3d.x, llc_3d.y)
             vertices = [
-                Point2D(v[0], v[1]) for v in
+                llc - Point2D(v[0], v[1]) for v in
                 my_face3d.lower_left_counter_clockwise_vertices
             ]
 
-        else:  # vertical or tilted Face3D; orient the Y to the workld Z
+        else:  # vertical or tilted Face3D; orient the Y to the world Z
             proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
             proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
             ref_plane = Plane(rel_plane.n, my_face3d.lower_left_corner, proj_x)
@@ -50,7 +52,7 @@ class DoePolygon(object):
         vertices_template = '   V%d\t\t= ( %f, %f )'.replace('\t', '    ')
         vertices = '\n'.join([
             vertices_template % (i + 1, ver.x, ver.y)
-            for i, ver in enumerate(self.vertice)
+            for i, ver in enumerate(self.vertices)
         ])
         return f'"{self.name} Plg" = POLYGON\n' \
                f'{vertices}\n' + \
