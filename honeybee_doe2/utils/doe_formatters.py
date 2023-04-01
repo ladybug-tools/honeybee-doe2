@@ -15,10 +15,7 @@ def short_name(name, max_length=32):
     if len(shortened_name) > max_length:
         shortened_name = ''.join(shortened_name.split())
         if len(shortened_name) > max_length:
-            raise ValueError(
-                f'{name} cannot be shorten to fit the eQuest limitation of 32 characters. ',
-                f'Shortens to {shortened_name}\n '
-                'You need to change the name manually to be shorter than 32 characters.')
+            shortened_name = f'{shortened_name[:16]}_{shortened_name[-15:]}'
     return shortened_name
 
 #! DF specific
