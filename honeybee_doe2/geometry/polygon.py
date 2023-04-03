@@ -16,7 +16,7 @@ class DoePolygon(object):
     @classmethod
     def from_face(cls, face):
 
-        name = short_name(face.identifier)
+        name = short_name(face.display_name)
 
         my_face3d = face.geometry
 

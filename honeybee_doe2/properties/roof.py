@@ -9,7 +9,7 @@ class DoeRoofObj:
 
     def to_inp(self):
 
-        p_name = short_name(self.face.identifier)
+        p_name = short_name(self.face.display_name)
 
         constr = self.face.properties.energy.construction.display_name
         tilt = 90 - self.face.altitude

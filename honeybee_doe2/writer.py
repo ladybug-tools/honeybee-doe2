@@ -4,6 +4,7 @@ from .properties.inputils.sitebldg import SiteBldgData as sbd
 from .properties.inputils.run_period import RunPeriod
 from .properties.inputils.title import Title
 from .properties.inputils.glass_types import GlassType
+from .utils.doe_formatters import short_name
 
 from honeybee.model import Model
 from honeybee_energy.construction.window import WindowConstruction
@@ -16,6 +17,32 @@ def model_to_inp(hb_model):
     sb_data = sbd()
 
     hb_model.convert_to_units(units='Feet')
+
+    for i, room in enumerate(hb_model.rooms):
+        room_name = room.display_name
+        for ii, face in enumerate(room.faces):
+            try:
+                face_dir = face.horizontal_orientation()
+            except ZeroDivisionError:
+                thestr = f'{room_name}_{i}_{str(face.type)}{ii}'
+                thestr.replace(' ', '_')
+                thestr.replace('&', '')
+                face.display_name = short_name(thestr)
+
+            else:
+                if 0 <= face_dir < 45 or 270 + 45 <= face_dir:
+                    face_dir = 'N'
+                elif 45 <= face_dir < 90 + 45:
+                    face_dir = 'E'
+                elif 90 + 45 <= face_dir < 180 + 45:
+                    face_dir = 'S'
+                else:
+                    face_dir = 'W'
+                thestr = f'{room_name}_{i}_{str(face.type)}{ii}_{face_dir}'.replace(
+                    ' ', '_')
+                thestr.replace('&', '')
+                face.display_name = short_name(thestr)
+
     # TODO: Add routine to 'reverbose' constr/matters prior to writing to inp
     window_constructions = []
     for construction in hb_model.properties.energy.constructions:

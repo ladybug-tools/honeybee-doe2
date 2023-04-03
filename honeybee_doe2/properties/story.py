@@ -55,6 +55,7 @@ class Doe2Story:
             story_geom = Face.from_vertices(
                 identifier="Level_{}".format(story_no),
                 vertices=vertices)  # boundaries[0].vertices)
+            story_geom.display_name = "Level_{}".format(story_no)
 
         stry_rm_geom = []
 
