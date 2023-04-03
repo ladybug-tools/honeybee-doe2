@@ -100,15 +100,15 @@ class RoomDoe2Properties(object):
 
         floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
         #! Will break with multiple floor polygons
-        # TODO: Copy the Story polygon procedure
-
+        #! eQuest doesn't do multiple floor faces for a single room.. alegedly
         spaceobj = ''
         obj_lines = []
         obj_lines.append('"{}" = SPACE\n'.format(short_name(obj.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
         obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
             floor_face.display_name))
-        obj_lines.append('  VOLUME           = {}\n'.format(obj.volume))
+        obj_lines.append('   AZIMUTH')
+        obj_lines.append('   VOLUME          = {}\n'.format(obj.volume))
         obj_lines.append('  ..\n')
         # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
         temp_str = spaceobj.join([l for l in obj_lines])
