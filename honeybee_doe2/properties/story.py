@@ -64,8 +64,8 @@ class Doe2Story:
                 stry_rm_geom.append(face.properties.doe2.poly)
         nl = '\n'
 
-        return story_geom.properties.doe2.poly + nl.join(
-            str('\n' + f) for f in stry_rm_geom)
+        return (story_geom.properties.doe2.poly + nl.join(
+            str('\n' + f) for f in stry_rm_geom), story_geom)
 
     @property
     def space_height(self):
@@ -96,10 +96,16 @@ class Doe2Story:
 
     def to_inp(self):
         room_objs = [f.properties.doe2.space for f in self.rooms]
+        origin_pt = self.story_poly[1].geometry.lower_left_corner
+        azimuth = 90 - self.story_poly[1].azimuth
 
         inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
             "\n   SHAPE           = POLYGON" + \
             '\n   POLYGON         = "Level_{self.story_no} Plg"'.format(self=self) + \
+            '\n   AZIMUTH        = {}'.format(azimuth) + \
+            '\n   X               = {}'.format(origin_pt.x) + \
+            '\n   Y               = {}'.format(origin_pt.y) + \
+            '\n   Z               = {}'.format(origin_pt.z) + \
             '\n   SPACE-HEIGHT    = {self.space_height}'.format(self=self) + \
             '\n   FLOOR-HEIGHT    = {self.floor_to_floor_height}'.format(self=self) + \
             '\n   ..\n'

@@ -121,39 +121,6 @@ $ ---------------------------------------------------------
    ..
 
 
-"F08 Metal surface" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.003
-   CONDUCTIVITY    = 14.344
-   DENSITY         = 488.452
-   SPECIFIC-HEAT   = 0.215
-  ..
-
-
-"Typical Insulation-R3" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"Tpcl Insltd Mtl DrR3_l" = LAYERS
-
-   MATERIAL             = (
-      "F08 Metal surface",
-    "Typical Insulation-R3"
-   )
-
-   ..
-
-
-"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
-   ..
-
-
 "25mm Stucco" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.083
@@ -213,59 +180,6 @@ $ ---------------------------------------------------------
    ..
 
 
-"25mm Stucco" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.083
-   CONDUCTIVITY    = 0.228
-   DENSITY         = 115.87
-   SPECIFIC-HEAT   = 0.361
-  ..
-
-
-"5/8 in. Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
-  ..
-
-
-"Typical Insulation-R10" = MATERIAL
-   TYPE            = RESISTANCE
-  ..
-
-
-"5/8 in. Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.052
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.468
-  ..
-
-
-"TpclInsltdWdFrmdExtrrWllR12_l" = LAYERS
-
-   MATERIAL             = (
-      "25mm Stucco",
-    "5/8 in. Gypsum Board",
-    "Typical Insulation-R10",
-    "5/8 in. Gypsum Board"
-   )
-
-   ..
-
-
-"TpclInsltdWdFrmdExtrrWllR12_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "TpclInsltdWdFrmdExtrrWllR12_l"
-   ..
-
-
 "Typical Insulation" = MATERIAL
    TYPE            = RESISTANCE
   ..
@@ -302,6 +216,39 @@ $ ---------------------------------------------------------
    ABSORPTANCE          = 0.7
    ROUGHNESS            = 4
    LAYERS               = "Tpcl Insltd Crptd 8n Slb Flr_l"
+   ..
+
+
+"F08 Metal surface" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.003
+   CONDUCTIVITY    = 14.344
+   DENSITY         = 488.452
+   SPECIFIC-HEAT   = 0.215
+  ..
+
+
+"Typical Insulation-R3" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"Tpcl Insltd Mtl DrR3_l" = LAYERS
+
+   MATERIAL             = (
+      "F08 Metal surface",
+    "Typical Insulation-R3"
+   )
+
+   ..
+
+
+"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
    ..
 
 
@@ -361,6 +308,59 @@ $ ---------------------------------------------------------
    ..
 
 
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"Typical Insulation-R10" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+
+"TpclInsltdWdFrmdExtrrWllR12_l" = LAYERS
+
+   MATERIAL             = (
+      "25mm Stucco",
+    "5/8 in. Gypsum Board",
+    "Typical Insulation-R10",
+    "5/8 in. Gypsum Board"
+   )
+
+   ..
+
+
+"TpclInsltdWdFrmdExtrrWllR12_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdWdFrmdExtrrWllR12_l"
+   ..
+
+
 $ ---------------------------------------------------------
 $              Glass Type Codes
 $ ---------------------------------------------------------
@@ -368,10 +368,10 @@ $ ---------------------------------------------------------
 
 
 
-"U0.65SHGC0.25DblRfCHClr6mm6mmAr" = GLASS-TYPE
+"U 0.45 SHGC 0.25 Smpl Glzng Wndw" = GLASS-TYPE
    TYPE               = SHADING-COEF
-   SHADING-COEF       = 0.29264746576856043
-   GLASS-CONDUCT      = 0.508
+   SHADING-COEF       = 0.28735632183908044
+   GLASS-CONDUCT      = 0.45
    ..
 
 "U0.65SHGC0.3SmplGlzngSklght" = GLASS-TYPE
@@ -380,10 +380,10 @@ $ ---------------------------------------------------------
    GLASS-CONDUCT      = 0.65
    ..
 
-"U 0.45 SHGC 0.25 Smpl Glzng Wndw" = GLASS-TYPE
+"U0.65SHGC0.25DblRfCHClr6mm6mmAr" = GLASS-TYPE
    TYPE               = SHADING-COEF
-   SHADING-COEF       = 0.28735632183908044
-   GLASS-CONDUCT      = 0.45
+   SHADING-COEF       = 0.29264746576856043
+   GLASS-CONDUCT      = 0.508
    ..
 
 
@@ -636,6 +636,10 @@ $ *********************************************************
 "Level_0"= FLOOR
    SHAPE           = POLYGON
    POLYGON         = "Level_0 Plg"
+   AZIMUTH        = 90.0
+   X               = -27.820594669634662
+   Y               = -27.820594669634662
+   Z               = 0.0
    SPACE-HEIGHT    = 0.0
    FLOOR-HEIGHT    = 19.941534541970537
    ..
@@ -643,7 +647,7 @@ $ *********************************************************
 "Room 1" = SPACE
    SHAPE           = POLYGON
    POLYGON         = "Room 1_0_Floor22 Plg"
-  VOLUME           = 38523.62247011865
+   VOLUME          = 38523.62247011865
   ..
 
 "Room_1_0_Wall0_E" = EXTERIOR-WALL
@@ -979,9 +983,10 @@ $ *********************************************************
   Z                 =  12.860074435290752
   ..
 
-"Room_df657f7b..Face_17eb4746" = UNDERGROUND-FLOOR
+"Room 1_0_Floor22" = UNDERGROUND-FLOOR
   CONSTRUCTION = "Tpcl Insltd Crptd 8n Slb Flr_c"
   LOCATION     = BOTTOM
+  AREA         = 2189.161547774531
   ..
 
 

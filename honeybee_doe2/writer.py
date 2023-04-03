@@ -63,7 +63,7 @@ def model_to_inp(hb_model):
         fb.glzCode,
         '\n'.join(gt.to_inp() for gt in window_constructions),
         fb.polygons,
-        '\n'.join(s.story_poly for s in hb_model.properties.doe2.stories),
+        '\n'.join(s.story_poly[0] for s in hb_model.properties.doe2.stories),
         fb.wallParams,
         # '\n'.join(shd.to_inp() for shd in hb_model.context_shades),  # TODO shade support
         fb.miscCost,
