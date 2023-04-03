@@ -99,6 +99,8 @@ class RoomDoe2Properties(object):
     def _make_doe_space_obj(obj, walls, roofs, ground_contact):
 
         floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
+        azimuth = 90 - floor_face.azimuth
+        origin_pt = floor_face.geometry.lower_left_corner
         #! Will break with multiple floor polygons
         #! eQuest doesn't do multiple floor faces for a single room.. alegedly
         spaceobj = ''
@@ -107,7 +109,10 @@ class RoomDoe2Properties(object):
         obj_lines.append('   SHAPE           = POLYGON\n')
         obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
             floor_face.display_name))
-        obj_lines.append('   AZIMUTH')
+        obj_lines.append('   AZIMUTH         = {}\n'.format(azimuth))
+        obj_lines.append('   X               = {}\n'.format(origin_pt.x))
+        obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
+        obj_lines.append('   Z               = {}\n'.format(origin_pt.z))
         obj_lines.append('   VOLUME          = {}\n'.format(obj.volume))
         obj_lines.append('  ..\n')
         # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))

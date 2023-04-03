@@ -102,7 +102,7 @@ class Doe2Story:
         inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
             "\n   SHAPE           = POLYGON" + \
             '\n   POLYGON         = "Level_{self.story_no} Plg"'.format(self=self) + \
-            '\n   AZIMUTH        = {}'.format(azimuth) + \
+            '\n   AZIMUTH         = {}'.format(azimuth) + \
             '\n   X               = {}'.format(origin_pt.x) + \
             '\n   Y               = {}'.format(origin_pt.y) + \
             '\n   Z               = {}'.format(origin_pt.z) + \
