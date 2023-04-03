@@ -10,7 +10,7 @@ class GroundFloor:
     def to_inp(self):
         obj_lines = []
         obj_lines.append(
-            '"{}" = UNDERGROUND-FLOOR'.format(short_name(self.face.identifier)))
+            '"{}" = UNDERGROUND-FLOOR'.format(short_name(self.face.display_name)))
         obj_lines.append('\n  CONSTRUCTION = "{}_c"'.format(
             short_name(self.face.properties.energy.construction.display_name)))
         obj_lines.append('\n  LOCATION     = BOTTOM')
