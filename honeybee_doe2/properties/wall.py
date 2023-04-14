@@ -1,4 +1,3 @@
-from ladybug_geometry.geometry3d.face import Face3D
 from ..utils.doe_formatters import short_name
 from ..geometry.polygon import DoePolygon
 
@@ -9,7 +8,7 @@ class DoeWallObj:
     def __init__(self, face):
         self.face = face
 
-    def to_inp(self):
+    def to_inp(self, space_origin):
 
         p_name = short_name(self.face.display_name)
         wall_typology = 'EXTERIOR' if str(
@@ -18,7 +17,7 @@ class DoeWallObj:
         constr = self.face.properties.energy.construction.display_name
         tilt = 90 - self.face.altitude
         azimuth = self.face.azimuth
-        origin_pt = self.face.geometry.lower_left_corner
+        origin_pt = self.face.geometry.lower_left_corner - space_origin
 
         spc = ''
         obj_lines = []
@@ -48,7 +47,7 @@ class DoeWallObj:
             return temp_str
 
     def __repr__(self):
-        return self.to_inp()
+        return f'DOE2 Wall: {self.face.display_name}'
 
 # ? this feels like it should be somehow linked to honeybee.face_types if that makes sense?
 # ? Like face.properties.doe2.face_obj

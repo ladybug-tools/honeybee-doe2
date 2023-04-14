@@ -1,23 +1,37 @@
 # -*- coding: utf-8 -*-
 # -*- Python Version: 2.7 -*-
 
-from honeybee.room import Room
+from typing import List
+from honeybee.room import Room, Point3D
 from ..utils.doe_formatters import short_name
+from ..utils.geometry import get_floor_boundary
 
 from honeybee.face import Face
-from honeybee.facetype import face_types
+from honeybee.facetype import Wall, Floor, RoofCeiling
+from honeybee.boundarycondition import Ground
 from .wall import DoeWallObj, DoeWall
 from .roof import DoeRoofObj
 from .groundcontact import GroundFloor
 
 
 class RoomDoe2Properties(object):
-    def __init__(self, _host):
+    """Properties for a DOE2 Space."""
+    def __init__(self, _host: Room):
         self._host = _host
+        self._boundary = self._get_boundary_geometry(_host)
 
     @property
-    def host(self):
+    def host(self) -> Room:
         return self._host
+
+    @property
+    def boundary(self) -> Face:
+        return self._boundary
+
+    @property
+    def origin(self) -> Point3D:
+        """Origin point of the room."""
+        return self.boundary.geometry.lower_left_corner
 
     def duplicate(self, new_host=None):
 
@@ -28,52 +42,46 @@ class RoomDoe2Properties(object):
     @property
     def poly(self):
         # * return self's floor's face's poly
-        return self._get_floor_poly(self.host)
+        return self.boundary.properties.doe2.poly
 
     @staticmethod
-    def _get_floor_poly(obj):
-
-        floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
-
-        return floor_face.properties.doe2.poly
+    def _get_boundary_geometry(room: Room):
+        """Get the floor boundary for the room after joining them together."""
+        floor_vertices = get_floor_boundary([room])
+        floor_face = [face for face in room.faces if str(face.type) == 'Floor'][0]
+        floor_geom = Face.from_vertices(
+            identifier=floor_face.identifier,
+            vertices=floor_vertices)
+        floor_geom.display_name = floor_face.display_name
+        return floor_geom
 
     @property
-    def walls(self):
+    def walls(self) -> List[DoeWallObj]:
         # * Needs to return list of DoeWall objects
-        return self._get_walls(self.host)
 
-    @staticmethod
-    def _get_walls(obj):
-        walls = []
-        for face in obj.faces:
-            if str(face.type) == 'Wall':
-                walls.append(DoeWallObj(face))
+        walls = [
+            DoeWallObj(face) for face in self.host.faces
+            if isinstance(face.type, Wall)
+        ]
         return walls
 
     @property
-    def roofs(self):
-        return self._get_roofs(self.host)
-
-    @staticmethod
-    def _get_roofs(obj):
-        roofs = []
-        for face in obj.faces:
-            if str(face.type) == 'RoofCeiling':
-                roofs.append(DoeRoofObj(face))
-        return [str(r.to_inp()) for r in roofs]
+    def roofs(self) -> List[DoeRoofObj]:
+        roofs = [
+            DoeRoofObj(face) for face in self.host.faces
+            if isinstance(face.type, RoofCeiling)
+        ]
+        return roofs
 
     @property
     def ground_contact_surfaces(self):
-        return self._get_ground_contact(self.host)
+        ground_contact_faces = [
+            GroundFloor(face) for face in self.host.faces
+            if isinstance(face.type, Floor)
+            and isinstance(face.boundary_condition, Ground)
+        ]
 
-    @staticmethod
-    def _get_ground_contact(obj):
-        ground_contact = []
-        for face in obj.faces:
-            if str(face.type) == 'Floor':
-                if str(face.boundary_condition) == 'Ground':
-                    ground_contact.append(GroundFloor(face))
-        return [str(r.to_inp()) for r in ground_contact]
+        return ground_contact_faces
 
     @property
     def window(self):
@@ -90,37 +98,28 @@ class RoomDoe2Properties(object):
         pass
     # TODO add activity disc // loads support etc
 
-    @property
-    def space(self):
-        return self._make_doe_space_obj(
-            self.host, self.walls, self.roofs, self.ground_contact_surfaces)
+    def space(self, floor_origin):
 
-    @staticmethod
-    def _make_doe_space_obj(obj, walls, roofs, ground_contact):
-
-        floor_face = [face for face in obj.faces if str(face.type) == 'Floor'][0]
-        azimuth = 90 - floor_face.azimuth
-        origin_pt = floor_face.geometry.lower_left_corner
-        #! Will break with multiple floor polygons
-        #! eQuest doesn't do multiple floor faces for a single room.. alegedly
-        spaceobj = ''
+        floor_face = self.boundary
+        azimuth = floor_face.azimuth
+        # this value should be set in relation to the Floor object
+        origin_pt = self.origin - floor_origin
         obj_lines = []
-        obj_lines.append('"{}" = SPACE\n'.format(short_name(obj.display_name)))
+        obj_lines.append('"{}" = SPACE\n'.format(short_name(self.host.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
-        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
-            floor_face.display_name))
+        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(floor_face.display_name))
         obj_lines.append('   AZIMUTH         = {}\n'.format(azimuth))
         obj_lines.append('   X               = {}\n'.format(origin_pt.x))
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
         obj_lines.append('   Z               = {}\n'.format(origin_pt.z))
-        obj_lines.append('   VOLUME          = {}\n'.format(obj.volume))
+        obj_lines.append('   VOLUME          = {}\n'.format(self.host.volume))
         obj_lines.append('  ..\n')
         # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
-        temp_str = spaceobj.join([l for l in obj_lines])
-        nl = '\n'
+        spaces = ''.join(obj_lines)
+        walls = '\n'.join([w.to_inp(self.origin) for w in self.walls])
+        roofs = '\n'.join([r.to_inp(self.origin) for r in self.roofs])
+        ground_floors = '\n'.join(
+            [g.to_inp(self.origin) for g in self.ground_contact_surfaces]
+        )
 
-        onestring = temp_str + nl.join('\n'+str(w) for w in walls)
-        nnl = '\n'
-        newstr = onestring + nnl.join('\n'+str(r) for r in roofs)
-        nnnl = '\n'
-        return newstr + nnnl.join('\n'+str(g) for g in ground_contact)
+        return '\n'.join([spaces, walls, roofs, ground_floors])

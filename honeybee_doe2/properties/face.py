@@ -15,12 +15,9 @@ class FaceDoe2Properties(object):
 
     @property
     def poly(self):
-        return self._make_doe_polys(self.host)
-
-    @staticmethod
-    def _make_doe_polys(obj):
-        my_poly = DoePolygon.from_face(obj)
-        return str(my_poly.to_inp())
+        """Return a DOE2 Polygon object."""
+        my_poly = DoePolygon.from_face(self.host)
+        return my_poly.to_inp()
 
     def duplicate(self, new_host=None):
         # type: (Any) -> FaceDoe2Properties
