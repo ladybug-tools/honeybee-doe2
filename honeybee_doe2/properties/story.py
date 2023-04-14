@@ -1,87 +1,50 @@
 # -*- coding: utf-8 -*-
 # -*- Python Version: 2.7 -*
 """ Doe2 'Story' Object."""
-from honeybee.model import Model
+from typing import List
 from honeybee.room import Room
 from honeybee.face import Face
 from honeybee.facetype import face_types
-from ladybug_geometry.geometry3d import Point3D
-from ladybug_geometry.geometry2d import Polygon2D, Point2D
+
 from ..geometry.polygon import DoePolygon
 from ..utils.doe_formatters import short_name
+from ..utils.geometry import get_floor_boundary
 
 
 class Doe2Story:
-    def __init__(self, rooms, _story_no):
+    """This class represents a DOE2 FLOOR object."""
+    def __init__(self, rooms: List[Room], _story_no: int):
         self.rooms = rooms
         self.story_no = _story_no
+        self.story_poly, self.boundary_geometry = self._story_poly
 
     # TODO Model use doe2story object to get geometry of each story and stories rooms/zones
     @property
-    def story_poly(self):
-        return self._make_story_poly(self.rooms, self.story_no)
+    def _story_poly(self):
+        vertices = get_floor_boundary(self.rooms)
+        story_geom = Face.from_vertices(
+            identifier="Level_{}".format(self.story_no),
+            vertices=vertices)
+        story_geom.display_name = "Level_{}".format(self.story_no)
 
-    @staticmethod
-    def _make_story_poly(rooms, story_no):
+        story_rm_geom = []
 
-        floor_geom = []
-
-        for room in rooms:
+        for room in self.rooms:
             for face in room.faces:
-                if str(face.type) == 'Floor':
-                    floor_geom.append(face.geometry)
+                story_rm_geom.append(face.properties.doe2.poly)
 
-        if len(floor_geom) == 0:
-            story_geom = floor_geom[0]
-        else:
-            # get the minimum z and use it for all the floors
-            z = min(geo.plane.o.z for geo in floor_geom)
-            # floors are horizontal - let's make them 2D polygons
-            boundaries = [
-                Polygon2D([Point2D(v.x, v.y) for v in floor.vertices])
-                for floor in floor_geom
-            ]
+        story_rm_geom = '\n'.join(story_rm_geom)
 
-            # find the union of the boundary polygons
-            boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.1)
-
-            # I don't know if this is the right assumption
-            assert len(boundaries) == 1, \
-                f'Story {story_no} generates more than one polygon ' \
-                '[{len(boundaries)}]. Not in DOE2!'
-
-            vertices = [Point3D(point.x, point.y, z) for point in boundaries[0].vertices]
-
-            story_geom = Face.from_vertices(
-                identifier="Level_{}".format(story_no),
-                vertices=vertices)  # boundaries[0].vertices)
-            story_geom.display_name = "Level_{}".format(story_no)
-
-        stry_rm_geom = []
-
-        for room in rooms:
-            for face in room.faces:
-                stry_rm_geom.append(face.properties.doe2.poly)
-        nl = '\n'
-
-        return (story_geom.properties.doe2.poly + nl.join(
-            str('\n' + f) for f in stry_rm_geom), story_geom)
+        return '\n'.join([story_geom.properties.doe2.poly, story_rm_geom]), story_geom
 
     @property
     def space_height(self):
-        return self._make_space_height(self.rooms)
-
-    @staticmethod
-    def _make_space_height(objs):
         # TODO un-hardcode this
-        return objs[0].average_floor_height
+        return self.rooms[0].average_floor_height
 
     @property
     def floor_to_floor_height(self):
-        return self._make_floor_to_floor_height(self.rooms)
-
-    @staticmethod
-    def _make_floor_to_floor_height(rooms):
+        rooms = self.rooms
         ceil_heights = 0
         ceil_areas = 0
         for room in rooms:
@@ -95,9 +58,9 @@ class Doe2Story:
         return ceil_h - ceil_l
 
     def to_inp(self):
-        room_objs = [f.properties.doe2.space for f in self.rooms]
-        origin_pt = self.story_poly[1].geometry.lower_left_corner
-        azimuth = 90 - self.story_poly[1].azimuth
+        origin_pt = self.boundary_geometry.geometry.lower_left_corner
+        azimuth = self.boundary_geometry.azimuth
+        room_objs = [f.properties.doe2.space(origin_pt) for f in self.rooms]
 
         inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
             "\n   SHAPE           = POLYGON" + \
