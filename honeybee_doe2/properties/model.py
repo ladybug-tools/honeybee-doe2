@@ -26,7 +26,7 @@ class ModelDoe2Properties(object):
         object (_type_): _description_
     """
 
-    def __init__(self, _host):
+    def __init__(self, _host: Model):
         self._host = _host
 
     @property
@@ -63,7 +63,7 @@ class ModelDoe2Properties(object):
         stories = []
         for i, story in enumerate(grouped[0]):
             stories.append(Doe2Story(story, i))
-        #nl = ''
+        # nl = ''
         # return str(nl.join(str(s) for s in stories))
         return stories
 
