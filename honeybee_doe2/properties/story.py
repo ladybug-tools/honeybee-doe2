@@ -13,6 +13,7 @@ from ..utils.geometry import get_floor_boundary
 
 class Doe2Story:
     """This class represents a DOE2 FLOOR object."""
+
     def __init__(self, rooms: List[Room], _story_no: int):
         self.rooms = rooms
         self.story_no = _story_no
@@ -35,7 +36,7 @@ class Doe2Story:
 
         story_rm_geom = '\n'.join(story_rm_geom)
 
-        return '\n'.join([story_geom.properties.doe2.poly, story_rm_geom]), story_geom
+        return '\n'.join([story_rm_geom]), story_geom
 
     @property
     def space_height(self):
@@ -63,8 +64,7 @@ class Doe2Story:
         room_objs = [f.properties.doe2.space(origin_pt) for f in self.rooms]
 
         inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
-            "\n   SHAPE           = POLYGON" + \
-            '\n   POLYGON         = "Level_{self.story_no} Plg"'.format(self=self) + \
+            "\n   SHAPE           = NO-SHAPE" + \
             '\n   AZIMUTH         = {}'.format(azimuth) + \
             '\n   X               = {}'.format(origin_pt.x) + \
             '\n   Y               = {}'.format(origin_pt.y) + \
