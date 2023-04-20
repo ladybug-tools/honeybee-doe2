@@ -8,6 +8,7 @@ from .utils.doe_formatters import short_name
 
 from honeybee.model import Model
 from honeybee_energy.construction.window import WindowConstruction
+from honeybee.boundarycondition import Surface
 
 
 def model_to_inp(hb_model):
@@ -17,6 +18,15 @@ def model_to_inp(hb_model):
     sb_data = sbd()
 
     hb_model.convert_to_units(units='Feet')
+
+    room_mapper = {
+        r.identifier: r.display_name for r in hb_model.rooms
+    }
+
+    for face in hb_model.faces:
+        if isinstance(face.boundary_condition, Surface):
+            adj_room_identifier = face.boundary_condition.boundary_condition_objects[1]
+            face.user_data = {'adjacent_room': room_mapper[adj_room_identifier]}
 
     for i, room in enumerate(hb_model.rooms):
         room_name = room.display_name
