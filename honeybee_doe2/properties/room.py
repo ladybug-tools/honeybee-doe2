@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
-# -*- Python Version: 2.7 -*-
-
 from typing import List
-from honeybee.room import Room, Point3D
+
 from ..utils.doe_formatters import short_name
 from ..utils.geometry import get_floor_boundary
-
-from honeybee.face import Face
-from honeybee.facetype import Wall, Floor, RoofCeiling
-from honeybee.boundarycondition import Ground
 from .wall import DoeWallObj, DoeWall
 from .roof import DoeRoofObj
 from .groundcontact import GroundFloor
 
 
+from honeybee.room import Room, Point3D
+from honeybee.face import Face
+from honeybee.facetype import Wall, Floor, RoofCeiling
+from honeybee.boundarycondition import Ground
+
+
 class RoomDoe2Properties(object):
     """Properties for a DOE2 Space."""
+
     def __init__(self, _host: Room):
         self._host = _host
-        self._boundary = self._get_boundary_geometry(_host)
+        self._boundary = self._get_boundary_geometry(room=_host)
 
     @property
     def host(self) -> Room:
@@ -48,6 +49,7 @@ class RoomDoe2Properties(object):
     def _get_boundary_geometry(room: Room):
         """Get the floor boundary for the room after joining them together."""
         floor_vertices = get_floor_boundary([room])
+        print([face.display_name for face in room.faces])
         floor_face = [face for face in room.faces if str(face.type) == 'Floor'][0]
         floor_geom = Face.from_vertices(
             identifier=floor_face.identifier,
@@ -107,7 +109,8 @@ class RoomDoe2Properties(object):
         obj_lines = []
         obj_lines.append('"{}" = SPACE\n'.format(short_name(self.host.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
-        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(floor_face.display_name))
+        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
+            floor_face.display_name))
         obj_lines.append('   AZIMUTH         = {}\n'.format(azimuth))
         obj_lines.append('   X               = {}\n'.format(origin_pt.x))
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
