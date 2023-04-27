@@ -1,4 +1,7 @@
 import re
+import os
+import shutil
+import subprocess
 from ladybug.datatype import UNITS as lbt_units, TYPESDICT as lbt_td
 
 
@@ -63,3 +66,24 @@ def unit_convertor(value, to_, from_):
 
     value = base_type.to_unit(value, to_, from_)
     return round(value[0], 3)
+
+
+def get_key(x):
+    return x.split('=')[0].replace('\n', '').replace('\"', '').strip()
+
+
+def get_value(x):
+    return x.split(
+        '='
+    )[1].split('\n')[0].strip()
+
+
+def poly_name(polystr):
+    sub = re.sub('\$.*\n', '', polystr)
+    split = sub.split('..')
+    trimmed = {get_key(x): get_value(x) for x in split if len(x.split('=')) > 1
+
+               }
+    # return trimmed
+    for k, v in trimmed.items():
+        return str(k)
