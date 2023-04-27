@@ -59,10 +59,6 @@ def model_to_inp(hb_model):
         if isinstance(construction, WindowConstruction):
             window_constructions.append(GlassType.from_hb_window_constr(construction))
 
-    for room in hb_model.rooms:
-        for face in room.faces:
-            print(face.display_name)
-
     data = [
         hb_model.properties.doe2._header,
         fb.global_params,
