@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from typing import List
 
-from ..utils.doe_formatters import short_name, poly_name
+from ..utils.doe_formatters import short_name
 from ..utils.geometry import get_floor_boundary
 from .wall import DoeWallObj, DoeWall
 from .roof import DoeRoofObj
@@ -19,7 +19,6 @@ class RoomDoe2Properties(object):
 
     def __init__(self, _host: Room):
         self._host = _host
-        self._boundary = self._get_boundary_geometry(room=_host)
 
     @property
     def host(self) -> Room:
@@ -27,7 +26,7 @@ class RoomDoe2Properties(object):
 
     @property
     def boundary(self) -> Face:
-        return self._boundary
+        return self._get_boundary_geometry(self._host)
 
     @property
     def origin(self) -> Point3D:
@@ -108,7 +107,8 @@ class RoomDoe2Properties(object):
         obj_lines = []
         obj_lines.append('"{}" = SPACE\n'.format(short_name(self.host.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
-        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(poly_name(self.poly)))
+        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
+            self.boundary.display_name))  # poly_name(self.poly)))
         obj_lines.append('   AZIMUTH         = {}\n'.format(azimuth))
         obj_lines.append('   X               = {}\n'.format(origin_pt.x))
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
