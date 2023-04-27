@@ -30,6 +30,9 @@ class DoeWallObj:
         obj_lines.append('\n  X                 =  {}'.format(origin_pt.x))
         obj_lines.append('\n  Y                 =  {}'.format(origin_pt.y))
         obj_lines.append('\n  Z                 =  {}'.format(origin_pt.z))
+        if wall_typology == 'INTERIOR':
+            obj_lines.append(
+                '\n  NEXT-TO           =  "{}"'.format(self.face.user_data['adjacent_room']))
         obj_lines.append('\n  ..\n')
 
         temp_str = spc.join([line for line in obj_lines])
