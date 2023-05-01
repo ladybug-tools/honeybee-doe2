@@ -30,6 +30,8 @@ class Doe2Story:
 
         story_rm_geom = []
 
+        story_rm_geom.append(story_geom.properties.doe2.poly)
+
         for room in self.rooms:
             for face in room.faces:
                 story_rm_geom.append(face.properties.doe2.poly)
@@ -64,7 +66,8 @@ class Doe2Story:
         room_objs = [f.properties.doe2.space(origin_pt) for f in self.rooms]
 
         inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
-            "\n   SHAPE           = NO-SHAPE" + \
+            "\n   SHAPE           = POLYGON" + \
+            '\n   POLYGON         = "Level_{self.story_no} Plg"'.format(self=self) + \
             '\n   AZIMUTH         = {}'.format(azimuth) + \
             '\n   X               = {}'.format(origin_pt.x) + \
             '\n   Y               = {}'.format(origin_pt.y) + \
