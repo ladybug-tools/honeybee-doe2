@@ -22,11 +22,12 @@ class GroundFloor:
         obj_lines.append('\n  CONSTRUCTION = "{}_c"'.format(
             short_name(self.face.properties.energy.construction.display_name)))
         obj_lines.append('\n  LOCATION     = BOTTOM')
-        #obj_lines.append('\n  AREA              =  {}'.format(self.face.area))
-        #obj_lines.append('\n  AZIMUTH      = {}'.format(azimuth))
-        #obj_lines.append('\n  X            = {}'.format(origin_pt.x))
-        #obj_lines.append('\n  Y            = {}'.format(origin_pt.y))
-        #obj_lines.append('\n  Z            = {}'.format(origin_pt.z))
+        obj_lines.append('\n  POLYGON      = "{} Plg"'.format(self.face.display_name))
+        #obj_lines.append('\n  AREA         = {}'.format(self.face.area))
+        obj_lines.append('\n  AZIMUTH      = {}'.format(azimuth))
+        obj_lines.append('\n  X            = {}'.format(origin_pt.x))
+        obj_lines.append('\n  Y            = {}'.format(origin_pt.y))
+        obj_lines.append('\n  Z            = {}'.format(origin_pt.z))
         obj_lines.append('\n  ..\n')
 
         return ''.join(obj_lines)

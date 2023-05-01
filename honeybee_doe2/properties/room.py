@@ -48,6 +48,7 @@ class RoomDoe2Properties(object):
     def _get_boundary_geometry(room: Room):
         """Get the floor boundary for the room after joining them together."""
         floor_vertices = get_floor_boundary([room])
+        # ? probably not the best way to do this vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         floor_face = [face for face in room.faces if str(face.type) == 'Floor'][0]
         floor_geom = Face.from_vertices(
             identifier=floor_face.identifier,
@@ -108,7 +109,7 @@ class RoomDoe2Properties(object):
         obj_lines.append('"{}" = SPACE\n'.format(short_name(self.host.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
         obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
-            self.boundary.display_name))  # poly_name(self.poly)))
+            self.boundary.display_name))
         obj_lines.append('   AZIMUTH         = {}\n'.format(azimuth))
         obj_lines.append('   X               = {}\n'.format(origin_pt.x))
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))

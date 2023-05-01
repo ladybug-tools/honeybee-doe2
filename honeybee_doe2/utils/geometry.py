@@ -34,10 +34,10 @@ def get_floor_boundary(rooms):
     # find the union of the boundary polygons
     boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.01)
 
-    # I don't know if this is the right assumption
-    # assert len(boundaries) == 1, \
-    #    'Input story generates more than one polygon ' \
-    #    f'[{len(boundaries)}]. Not in DOE2!'
+    # ? I don't know if this is the right assumption
+    # * assert len(boundaries) == 1, \
+    # *    'Input story generates more than one polygon ' \
+    # *    f'[{len(boundaries)}]. Not in DOE2!'
 
     boundary = [
         Point3D(point.x, point.y, z) for point in boundaries[0].vertices
