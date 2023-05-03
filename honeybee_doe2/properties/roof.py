@@ -1,9 +1,8 @@
 from ladybug_geometry.geometry3d.face import Face3D
 from ..utils.doe_formatters import short_name
-from ..geometry.polygon import DoePolygon
 
 
-class DoeRoofObj:
+class DoeRoof:
     def __init__(self, face):
         self.face = face
 

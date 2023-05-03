@@ -1,10 +1,8 @@
 from ..utils.doe_formatters import short_name
-from ..geometry.polygon import DoePolygon
-
 from .aperture import Window
 
 
-class DoeWallObj:
+class DoeWall:
     def __init__(self, face):
         self.face = face
 
@@ -31,8 +29,14 @@ class DoeWallObj:
         obj_lines.append('\n  Y                 =  {}'.format(origin_pt.y))
         obj_lines.append('\n  Z                 =  {}'.format(origin_pt.z))
         if wall_typology == 'INTERIOR':
-            obj_lines.append(
-                '\n  NEXT-TO           =  "{}"'.format(self.face.user_data['adjacent_room']))
+            if self.face.user_data:
+                next_to = self.face.user_data['adjacent_room']
+                obj_lines.append('\n  NEXT-TO           =  "{}"'.format(next_to))
+            else:
+                print(
+                    f'{self.face.display_name} is an interior face but is missing '
+                    'adjacent room info in user data.'
+                )
         obj_lines.append('\n  ..\n')
 
         temp_str = spc.join([line for line in obj_lines])
@@ -51,38 +55,3 @@ class DoeWallObj:
 
     def __repr__(self):
         return f'DOE2 Wall: {self.face.display_name}'
-
-# ? this feels like it should be somehow linked to honeybee.face_types if that makes sense?
-# ? Like face.properties.doe2.face_obj
-
-
-class DoeWall:
-    def __init__(self, _face):
-        self._face = _face
-
-    @property
-    def face(self):
-        return self._face
-
-    @property
-    def wall_poly(self):
-        return self._make_wall_poly(self.face.geometry.polygon2d)
-
-    @staticmethod
-    def _make_wall_poly(obj):
-        return DoePolygon.from_vertices(
-            short_name(obj.display_name),
-            obj.geometry.lower_left_counter_clockwise_vertices)
-
-    @property
-    def wall_obj(self):
-        """_summary_
-
-        Returns:
-            _type_: _description_
-        """
-        return self._create_wall_obj(self.face)
-
-    @staticmethod
-    def _create_wall_obj(obj):
-        return DoeWallObj(obj)

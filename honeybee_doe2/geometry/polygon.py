@@ -4,18 +4,17 @@ from ladybug_geometry.geometry3d import Vector3D, Plane, Face3D
 from ladybug_geometry.geometry2d import Point2D
 import math
 
-from honeybee.facetype import RoofCeiling
-
 
 class DoePolygon(object):
     "A Doe2 Polygon."
 
-    def __init__(self, name, vertices):
+    def __init__(self, name, vertices, underground_surface=False):
         self.name = name
         self.vertices = vertices
+        self.underground_surface = underground_surface
 
     @classmethod
-    def from_face(cls, face: Face):
+    def from_face(cls, face: Face, underground_surface=False):
         """
         Create a DoePolygon from a Honeybee Face.
 
@@ -38,7 +37,13 @@ class DoePolygon(object):
                 Point2D(v[0] - llc.x, v[1] - llc.y) for v in
                 geometry.lower_left_counter_clockwise_vertices
             ]
-            #vertices = geometry.lower_left_counter_clockwise_vertices
+
+            if not underground_surface and \
+                    rel_plane.n.angle(Vector3D(0, 0, -1)) <= angle_tolerance:
+                # change the order of the vertices. DOE2 expects the vertices to be
+                # CCW from the top view
+                vertices = [vertices[0]] + list(reversed(vertices[1:]))
+
         else:  # vertical or tilted Face3D; orient the Y to the world Z
             proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
             proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
@@ -47,16 +52,21 @@ class DoePolygon(object):
                 Point2D(*ref_plane.xyz_to_xy(pt))
                 for pt in geometry.lower_left_counter_clockwise_vertices]
 
-        return cls(name=name, vertices=vertices)
+        return cls(name=name, vertices=vertices, underground_surface=underground_surface)
 
-    def to_inp(self):
+    def to_inp(self, name=None):
         """Returns Polygons block input."""
         vertices_template = '   V%d\t\t= ( %f, %f )'.replace('\t', '    ')
+        vertices = self.vertices
+        if self.underground_surface:
+            # underground surface should be flipped
+            vertices = [Point2D(v.x, -v.y) for v in vertices]
         vertices = '\n'.join([
             vertices_template % (i + 1, ver.x, ver.y)
-            for i, ver in enumerate(self.vertices)
+            for i, ver in enumerate(vertices)
         ])
-        return f'"{self.name} Plg" = POLYGON\n' \
+        name = name or f'{self.name} Plg'
+        return f'"{name}" = POLYGON\n' \
                f'{vertices}\n' + \
                '   ..'
 
