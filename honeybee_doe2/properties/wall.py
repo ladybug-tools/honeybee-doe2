@@ -29,8 +29,14 @@ class DoeWall:
         obj_lines.append('\n  Y                 =  {}'.format(origin_pt.y))
         obj_lines.append('\n  Z                 =  {}'.format(origin_pt.z))
         if wall_typology == 'INTERIOR':
-            obj_lines.append(
-                '\n  NEXT-TO           =  "{}"'.format(self.face.user_data['adjacent_room']))
+            if self.face.user_data:
+                next_to = self.face.user_data['adjacent_room']
+                obj_lines.append('\n  NEXT-TO           =  "{}"'.format(next_to))
+            else:
+                print(
+                    f'{self.face.display_name} is an interior face but is missing '
+                    'adjacent room info in user data.'
+                )
         obj_lines.append('\n  ..\n')
 
         temp_str = spc.join([line for line in obj_lines])
