@@ -3,8 +3,8 @@ from typing import List
 
 from ..utils.doe_formatters import short_name
 from ..utils.geometry import get_floor_boundary
-from .wall import DoeWallObj, DoeWall
-from .roof import DoeRoofObj
+from .wall import DoeWall
+from .roof import DoeRoof
 from .groundcontact import GroundFloor
 
 
@@ -57,19 +57,19 @@ class RoomDoe2Properties(object):
         return floor_geom
 
     @property
-    def walls(self) -> List[DoeWallObj]:
+    def walls(self) -> List[DoeWall]:
         # * Needs to return list of DoeWall objects
 
         walls = [
-            DoeWallObj(face) for face in self.host.faces
+            DoeWall(face) for face in self.host.faces
             if isinstance(face.type, Wall)
         ]
         return walls
 
     @property
-    def roofs(self) -> List[DoeRoofObj]:
+    def roofs(self) -> List[DoeRoof]:
         roofs = [
-            DoeRoofObj(face) for face in self.host.faces
+            DoeRoof(face) for face in self.host.faces
             if isinstance(face.type, RoofCeiling)
         ]
         return roofs

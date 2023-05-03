@@ -4,10 +4,6 @@
 from typing import List
 from honeybee.room import Room
 from honeybee.face import Face
-from honeybee.facetype import face_types
-
-from ..geometry.polygon import DoePolygon
-from ..utils.doe_formatters import short_name
 from ..utils.geometry import get_floor_boundary
 
 

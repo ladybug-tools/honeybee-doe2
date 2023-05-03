@@ -12,7 +12,6 @@ class GroundFloor:
 
     def to_inp(self, space_origin):
 
-        origin_pt = self.face.geometry.lower_left_corner
         azimuth = 180 if self.face.azimuth == 0 else self.face.azimuth
         origin_pt = self.face.geometry.lower_left_corner - space_origin
 
@@ -23,7 +22,6 @@ class GroundFloor:
             short_name(self.face.properties.energy.construction.display_name)))
         obj_lines.append('\n  LOCATION     = BOTTOM')
         obj_lines.append('\n  POLYGON      = "{} Plg"'.format(self.face.display_name))
-        #obj_lines.append('\n  AREA         = {}'.format(self.face.area))
         obj_lines.append('\n  AZIMUTH      = {}'.format(azimuth))
         obj_lines.append('\n  X            = {}'.format(origin_pt.x))
         obj_lines.append('\n  Y            = {}'.format(origin_pt.y))
