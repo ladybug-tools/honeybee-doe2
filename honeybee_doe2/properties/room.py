@@ -2,7 +2,7 @@
 from typing import List
 
 from ..utils.doe_formatters import short_name
-from ..utils.geometry import get_floor_boundary
+from ..utils.geometry import get_floor_boundary, get_room_rep_poly
 from .wall import DoeWall
 from .roof import DoeRoof
 from .groundcontact import GroundFloor
@@ -46,15 +46,16 @@ class RoomDoe2Properties(object):
 
     @staticmethod
     def _get_boundary_geometry(room: Room):
-        """Get the floor boundary for the room after joining them together."""
-        floor_vertices = get_floor_boundary([room])
-        # ? probably not the best way to do this vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        floor_face = [face for face in room.faces if str(face.type) == 'Floor'][0]
-        floor_geom = Face.from_vertices(
-            identifier=floor_face.identifier,
-            vertices=floor_vertices)
-        floor_geom.display_name = floor_face.display_name
-        return floor_geom
+        # """Get the floor boundary for the room after joining them together."""
+        # floor_vertices = get_floor_boundary([room])
+        # # ? probably not the best way to do this vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        # floor_face = [face for face in room.faces if str(face.type) == 'Floor'][0]
+        # floor_geom = Face.from_vertices(
+        #     identifier=floor_face.identifier,
+        #     vertices=floor_vertices)
+        # floor_geom.display_name = floor_face.display_name
+        # return floor_geom
+        return get_room_rep_poly(room)
 
     @property
     def walls(self) -> List[DoeWall]:

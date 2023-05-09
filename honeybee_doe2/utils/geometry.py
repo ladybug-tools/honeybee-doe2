@@ -1,7 +1,8 @@
 from ladybug_geometry.geometry3d import Point3D, Face3D
 from ladybug_geometry.geometry2d import Polygon2D, Point2D
-
+from honeybee.face import Face
 from honeybee.facetype import Floor
+from uuid import uuid4
 
 
 def get_floor_boundary(rooms):
@@ -49,3 +50,33 @@ def get_floor_boundary(rooms):
     ).lower_left_counter_clockwise_vertices
 
     return vertices
+
+
+def get_room_rep_poly(room):
+    floors = [face for face in room.faces if str(face.type) == 'Floor']
+    z = min(geo.geometry.plane.o.z for geo in floors)
+
+    boundaries = []
+
+    for floor in floors:
+        boundaries.append(
+            Polygon2D(
+                [Point2D(v.x, v.y)
+                 for v in
+                 floor.geometry.lower_left_counter_clockwise_vertices]))
+
+    boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.01)
+
+    boundary = [
+        Point3D(point.x, point.y, z) for point in boundaries[0].vertices
+    ]
+
+    new_face = Face3D(
+        boundary,
+        plane=floors[0].geometry.plane
+    )
+
+    new_face_name = f'{room.display_name}'
+    new_hb_face = Face(identifier=str(uuid4()), geometry=new_face)
+    new_hb_face.display_name = new_face_name
+    return new_hb_face

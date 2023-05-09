@@ -29,6 +29,7 @@ class Doe2Story:
         story_rm_geom.append(story_geom.properties.doe2.poly)
 
         for room in self.rooms:
+            story_rm_geom.append(room.properties.doe2.poly)
             for face in room.faces:
                 story_rm_geom.append(face.properties.doe2.poly)
 
