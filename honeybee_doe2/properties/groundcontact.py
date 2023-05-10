@@ -10,7 +10,7 @@ from ..geometry.polygon import DoePolygon
 class GroundFloor:
     def __init__(self, face):
         self.face = face
-        self.polygon = DoePolygon.from_face(face, underground_surface=True)
+        self.polygon = DoePolygon.from_face(face, flip=True)
 
     def to_inp(self, space_origin):
 

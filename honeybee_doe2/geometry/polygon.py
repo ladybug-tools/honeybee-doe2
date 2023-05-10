@@ -8,13 +8,13 @@ import math
 class DoePolygon(object):
     "A Doe2 Polygon."
 
-    def __init__(self, name, vertices, underground_surface=False):
+    def __init__(self, name, vertices, flip=False):
         self.name = name
         self.vertices = vertices
-        self.underground_surface = underground_surface
+        self.flip = flip
 
     @classmethod
-    def from_face(cls, face: Face, underground_surface=False):
+    def from_face(cls, face: Face, flip=False):
         """
         Create a DoePolygon from a Honeybee Face.
 
@@ -38,7 +38,7 @@ class DoePolygon(object):
                 geometry.lower_left_counter_clockwise_vertices
             ]
 
-            if not underground_surface and \
+            if not flip and \
                     rel_plane.n.angle(Vector3D(0, 0, -1)) <= angle_tolerance:
                 # change the order of the vertices. DOE2 expects the vertices to be
                 # CCW from the top view
@@ -52,13 +52,13 @@ class DoePolygon(object):
                 Point2D(*ref_plane.xyz_to_xy(pt))
                 for pt in geometry.lower_left_counter_clockwise_vertices]
 
-        return cls(name=name, vertices=vertices, underground_surface=underground_surface)
+        return cls(name=name, vertices=vertices, flip=flip)
 
     def to_inp(self, name=None):
         """Returns Polygons block input."""
         vertices_template = '   V%d\t\t= ( %f, %f )'.replace('\t', '    ')
         vertices = self.vertices
-        if self.underground_surface:
+        if self.flip:
             # underground surface should be flipped
             vertices = [Point2D(v.x, -v.y) for v in vertices]
         vertices = '\n'.join([
