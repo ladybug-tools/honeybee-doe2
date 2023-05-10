@@ -10,8 +10,6 @@ class ExposedFloor:
     def to_inp(self, space_origin):
 
         p_name = short_name(self.face.display_name)
-        wall_typology = 'EXTERIOR' if str(
-            self.face.boundary_condition) == 'Outdoors' else 'INTERIOR'
 
         constr = self.face.properties.energy.construction.display_name
         tilt = 90 - self.face.altitude
@@ -23,10 +21,11 @@ class ExposedFloor:
         polygon = self.polygon.to_inp(name=polygon_name) + '\n'
         obj_lines = [polygon]
 
-        obj_lines.append('"{}" = {}-WALL'.format(p_name, wall_typology))
-        obj_lines.append('\n  POLYGON           = "{}"'.format(p_name+' Plg'))
+        obj_lines.append('"{}" = EXTERIOR-WALL'.format(p_name))
         obj_lines.append('\n  CONSTRUCTION      = "{}_c"'.format(short_name(constr, 30)))
-        obj_lines.append('\n  TILT              =  {}'.format(tilt))
+        obj_lines.append('\n  LOCATION          = BOTTOM')
+        obj_lines.append('\n  POLYGON           = "{}"'.format(p_name+' Plg'))
+        #obj_lines.append('\n  TILT              =  {}'.format(tilt))
         obj_lines.append('\n  AZIMUTH           =  {}'.format(azimuth))
         obj_lines.append('\n  X                 =  {}'.format(origin_pt.x))
         obj_lines.append('\n  Y                 =  {}'.format(origin_pt.y))

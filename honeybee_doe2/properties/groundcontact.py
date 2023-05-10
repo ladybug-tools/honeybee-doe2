@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# -*- Python Version: 2.7 -*-
 from ..utils.doe_formatters import short_name
 from ..geometry.polygon import DoePolygon
 
