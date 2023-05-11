@@ -9,8 +9,8 @@ from honeybee.model import Model
 
 def test_model_to_folder():
     runner = CliRunner()
-    input_hb_model = './assets/cubes.hbjson'
-    folder = '.assets/sample_out'
+    input_hb_model = 'tests\\assets\\cubes.hbjson'
+    folder = 'tests\\assets\\sample_out'
     name = 'cli_test'
 
     result = runner.invoke(
@@ -19,4 +19,4 @@ def test_model_to_folder():
 
     assert result.exit_code == 0
     assert os.path.isfile(os.path.join(folder, f'{name}.inp'))
-    #nukedir(folder, True)
+    nukedir(folder, True)
