@@ -1,3 +1,5 @@
+import pathlib
+
 from .properties.inputils import blocks as fb
 from .properties.inputils.compliance import ComplianceData
 from .properties.inputils.sitebldg import SiteBldgData as sbd
@@ -120,3 +122,18 @@ def model_to_inp(hb_model):
         fb.the_end
     ]
     return str('\n\n'.join(data))
+
+
+def honeybee_model_to_inp(
+        model: Model, folder: str = '.', name: str = None) -> pathlib.Path:
+
+    inp_model = model_to_inp(model)
+
+    name = name or model.display_name
+    if not name.lower().endswith('.inp'):
+        name = f'{name}.inp'
+    out_folder = pathlib.Path(folder)
+    out_folder.mkdir(parents=True, exist_ok=True)
+    out_file = out_folder.joinpath(name)
+    out_file.write_text(inp_model)
+    return out_file
