@@ -1,9 +1,4 @@
-doe22/
-tests/equest_inputs/
 .vscode
-eqinp/
-no_disemination/
-samples/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
