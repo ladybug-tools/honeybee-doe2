@@ -67,21 +67,6 @@ class ModelDoe2Properties(object):
         # return str(nl.join(str(s) for s in stories))
         return stories
 
-    # @property
-    # def polygons(self):
-    #    return self._inp_polyblock_maker(self.host)
-
-    # @staticmethod
-    # def _inp_polyblock_maker(obj):
-
-        #inp_block = '\n'
-        #inp_polys = []
-        # for room in obj.rooms:
-        #    for face in obj.faces:  # eQuest can have interior walls
-        #        inp_polys.append(face.properties.doe2.poly)
-        #final = inp_block.join(pol for pol in inp_polys)
-        ##return final  #
-
     @property
     def header(self):
         return '\n'.join([fb.top_level, fb.abort_diag])

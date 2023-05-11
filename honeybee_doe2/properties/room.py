@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
+from honeybee.boundarycondition import Ground, Outdoors
+from honeybee.facetype import Wall, Floor, RoofCeiling
+from honeybee.face import Face
+from honeybee.room import Room, Point3D
 from typing import List
 
 from ..utils.doe_formatters import short_name
-from ..utils.geometry import get_floor_boundary
+from ..utils.geometry import get_floor_boundary, get_room_rep_poly
 from .wall import DoeWall
 from .roof import DoeRoof
 from .groundcontact import GroundFloor
-
-
-from honeybee.room import Room, Point3D
-from honeybee.face import Face
-from honeybee.facetype import Wall, Floor, RoofCeiling
-from honeybee.boundarycondition import Ground
+from.exposedfloor import ExposedFloor
 
 
 class RoomDoe2Properties(object):
@@ -46,15 +45,7 @@ class RoomDoe2Properties(object):
 
     @staticmethod
     def _get_boundary_geometry(room: Room):
-        """Get the floor boundary for the room after joining them together."""
-        floor_vertices = get_floor_boundary([room])
-        # ? probably not the best way to do this vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        floor_face = [face for face in room.faces if str(face.type) == 'Floor'][0]
-        floor_geom = Face.from_vertices(
-            identifier=floor_face.identifier,
-            vertices=floor_vertices)
-        floor_geom.display_name = floor_face.display_name
-        return floor_geom
+        return get_room_rep_poly(room)
 
     @property
     def walls(self) -> List[DoeWall]:
@@ -83,6 +74,15 @@ class RoomDoe2Properties(object):
         ]
 
         return ground_contact_faces
+
+    # @property
+    # def exposed_floor_surfaces(self):
+    #     exposed_floor_surfaces = [
+    #         ExposedFloor(face) for face in self.host.faces
+    #         if isinstance(face.type, Floor)
+    #         and isinstance(face.boundary_condition, Outdoors)
+    #     ]
+    #     return exposed_floor_surfaces
 
     @property
     def window(self):
@@ -123,5 +123,7 @@ class RoomDoe2Properties(object):
         ground_floors = '\n'.join(
             [g.to_inp(self.origin) for g in self.ground_contact_surfaces]
         )
+        # exposed_floors = '\n'.join([ef.to_inp(self.origin)
+        #                             for ef in self.exposed_floor_surfaces])
 
-        return '\n'.join([spaces, walls, roofs, ground_floors])
+        return '\n'.join([spaces, walls, roofs, ground_floors])  # , exposed_floors])

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# -*- Python Version: 2.7 -*-
 from ..utils.doe_formatters import short_name
 from ..geometry.polygon import DoePolygon
 
@@ -10,7 +8,7 @@ from ..geometry.polygon import DoePolygon
 class GroundFloor:
     def __init__(self, face):
         self.face = face
-        self.polygon = DoePolygon.from_face(face, underground_surface=True)
+        self.polygon = DoePolygon.from_face(face, flip=True)
 
     def to_inp(self, space_origin):
 
