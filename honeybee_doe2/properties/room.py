@@ -75,14 +75,14 @@ class RoomDoe2Properties(object):
 
         return ground_contact_faces
 
-    # @property
-    # def exposed_floor_surfaces(self):
-    #     exposed_floor_surfaces = [
-    #         ExposedFloor(face) for face in self.host.faces
-    #         if isinstance(face.type, Floor)
-    #         and isinstance(face.boundary_condition, Outdoors)
-    #     ]
-    #     return exposed_floor_surfaces
+    @property
+    def exposed_floor_surfaces(self):
+        exposed_floor_surfaces = [
+            ExposedFloor(face) for face in self.host.faces
+            if isinstance(face.type, Floor)
+            and isinstance(face.boundary_condition, Outdoors)
+        ]
+        return exposed_floor_surfaces
 
     @property
     def window(self):
@@ -123,7 +123,7 @@ class RoomDoe2Properties(object):
         ground_floors = '\n'.join(
             [g.to_inp(self.origin) for g in self.ground_contact_surfaces]
         )
-        # exposed_floors = '\n'.join([ef.to_inp(self.origin)
-        #                             for ef in self.exposed_floor_surfaces])
-
-        return '\n'.join([spaces, walls, roofs, ground_floors])  # , exposed_floors])
+        exposed_floors = '\n'.join(
+            [ef.to_inp(self.origin) for ef in self.exposed_floor_surfaces]
+        )
+        return '\n'.join([spaces, walls, roofs, ground_floors, exposed_floors])
