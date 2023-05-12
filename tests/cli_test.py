@@ -4,13 +4,12 @@ from click.testing import CliRunner
 from ladybug.futil import nukedir
 
 from honeybee_doe2.cli.translate import hb_model_to_inp_file
-from honeybee.model import Model
 
 
 def test_model_to_folder():
     runner = CliRunner()
-    input_hb_model = 'tests\\assets\\cubes.hbjson'
-    folder = 'tests\\assets\\sample_out'
+    input_hb_model = './tests/assets/cubes.hbjson'
+    folder = './tests/assets/sample_out'
     name = 'cli_test'
 
     result = runner.invoke(
