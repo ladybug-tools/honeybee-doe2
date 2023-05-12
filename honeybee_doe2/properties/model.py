@@ -18,6 +18,8 @@ from .inputils.title import Title
 from .story import Doe2Story
 from .constructions import Construction, ConstructionCollection
 
+from .hvac import HVACSystem, Zone
+
 
 class ModelDoe2Properties(object):
     """_summary_
@@ -83,6 +85,15 @@ class ModelDoe2Properties(object):
                 cons.append(construction)
         return ConstructionCollection.from_hb_constructions(constructions=cons).to_inp()
         # return '\n'.join([l for l in cons])
+
+    @property
+    def hvac_sys_zones(self):
+        return self._get_hvac_sys_zones(self.stories)
+
+    @staticmethod
+    def _get_hvac_sys_zones(stories):
+        hvac_sys_zones = [HVACSystem.from_story(story) for story in stories]
+        return hvac_sys_zones
 
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)

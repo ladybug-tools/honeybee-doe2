@@ -57,12 +57,20 @@ class Doe2Story:
         ceil_l = rooms[0].average_floor_height
         return ceil_h - ceil_l
 
+    @property
+    def display_name(self):
+        return self._get_display_name(self.story_no)
+
+    @staticmethod
+    def _get_display_name(story_no):
+        return "Level_{}".format(story_no)
+
     def to_inp(self):
         origin_pt = self.boundary_geometry.geometry.lower_left_corner
         azimuth = self.boundary_geometry.azimuth
         room_objs = [f.properties.doe2.space(origin_pt) for f in self.rooms]
 
-        inp_obj = '\n"Level_{self.story_no}"= FLOOR'.format(self=self) + \
+        inp_obj = '\n"{self.display_name}"= FLOOR'.format(self=self) + \
             "\n   SHAPE           = POLYGON" + \
             '\n   POLYGON         = "Level_{self.story_no} Plg"'.format(self=self) + \
             '\n   AZIMUTH         = {}'.format(azimuth) + \
