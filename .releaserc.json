@@ -9,5 +9,6 @@
                 "publishCmd": "bash deploy.sh"
             }
         ]
-    ]
+    ],
+    "branches": ["main"]
 }
