@@ -1,0 +1,7 @@
+recursive-exclude tests *
+recursive-exclude docs *
+recursive-exclude equest_docs *
+recursive-exclude .github *
+exclude .gitignore
+exclude .releaserc.json
+exclude deploy.sh

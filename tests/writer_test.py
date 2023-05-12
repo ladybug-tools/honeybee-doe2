@@ -6,8 +6,8 @@ from honeybee.model import Model
 
 def test_hbjson_translate():
     """Test translating a HBJSON file to an inp file."""
-    hb_json = 'tests\\assets\\cubes.hbjson'
-    out_inp = 'tests\\assets\\sample_out'
+    hb_json = './tests/assets/cubes.hbjson'
+    out_inp = './tests/assets/sample_out'
     out_file = pathlib.Path(out_inp, 'test_model.inp')
     # delete if exist
     if out_file.exists():
