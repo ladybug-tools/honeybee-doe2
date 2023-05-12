@@ -20,7 +20,7 @@ setuptools.setup(
     install_requires=requirements,
     include_package_data=True,
     entry_points={
-        "console_scripts": ["honeybee-doe2 = honeybee_doe2.cli:ies"]
+        "console_scripts": ["honeybee-doe2 = honeybee_doe2.cli:doe2"]
     },
     classifiers=[
         "Programming Language :: Python :: 3.7",

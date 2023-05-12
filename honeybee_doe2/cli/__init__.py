@@ -9,3 +9,9 @@ from .translate import translate
 @click.version_option()
 def doe2():
     pass
+
+
+doe2.add_command(translate)
+
+# add doe2 sub-commands
+main.add_command(doe2)
