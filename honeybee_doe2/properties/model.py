@@ -16,7 +16,7 @@ from .inputils.run_period import RunPeriod
 from .inputils.title import Title
 
 from .story import Doe2Story
-from .constructions import Construction
+from .constructions import Construction, ConstructionCollection
 
 
 class ModelDoe2Properties(object):
@@ -80,9 +80,9 @@ class ModelDoe2Properties(object):
         cons = []
         for construction in obj.properties.energy.constructions:
             if isinstance(construction, OpaqueConstruction):
-                cons.append(Construction.from_hb_construction(construction).to_inp())
-
-        return '\n'.join([l for l in cons])
+                cons.append(construction)
+        return ConstructionCollection.from_hb_constructions(constructions=cons).to_inp()
+        # return '\n'.join([l for l in cons])
 
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)
