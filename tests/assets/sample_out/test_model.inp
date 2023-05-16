@@ -1,0 +1,1624 @@
+INPUT ..
+
+
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+
+
+TITLE
+    LINE-1           = *unnamed*
+    ..
+
+"Entire Year" = RUN-PERIOD-PD
+   BEGIN-MONTH     = 1
+   BEGIN-DAY      = 1
+   BEGIN-YEAR     = 2021
+   END-MONTH      = 12
+   END-DAY        = 31
+   END-YEAR       = 2021
+   ..
+
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+
+
+"Compliance Data" = COMPLIANCE
+   C-PERMIT-SCOPE   = 0
+   C-PROJ-NAME      = *sample_project*
+   C-BUILDING-TYPE  = 32
+   C-CONS-PHASE     = 0
+   C-NR-DHW-INCL    = 1
+   C-CODE-VERSION   = 1
+   C-901-NUM-FLRS   = 1
+   C-901-BLDG-TYPE  = 32
+   ..
+
+$---------------------------------------------------------
+$              Site and Building Data
+$---------------------------------------------------------
+
+"Site Data" = SITE-PARAMETERS
+  ALTITUDE          = 150
+  C-STATE           = 21
+  C-WEATHER-FILE    = *TMY2\HARTFOCT.bin* 
+  C-COUNTRY         = 1
+  C-901-LOCATION    = 1092
+  ..
+"Building Data" = BUILD-PARAMETERS
+  HOLIDAYS        = "Standard US Holidays"
+  ..
+
+
+PROJECT-DATA
+  ..
+
+
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+
+
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+"8 n. Nrmlwght Cncrt Flr" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.732
+   DENSITY         = 144.962
+   SPECIFIC-HEAT   = 0.357
+  ..
+
+"Metal Roof Surface" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.003
+   CONDUCTIVITY    = 14.344
+   DENSITY         = 488.452
+   SPECIFIC-HEAT   = 0.215
+  ..
+
+"Typical Insulation-R11" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Typical Insulation-R3" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Typical Insulation-R26" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Typical Insulation-R4" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Typical Insulation-R24" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"F08 Metal surface" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.003
+   CONDUCTIVITY    = 14.344
+   DENSITY         = 488.452
+   SPECIFIC-HEAT   = 0.215
+  ..
+
+"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.42
+   DENSITY         = 114.996
+   SPECIFIC-HEAT   = 0.392
+  ..
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Rf Mmbrn  Hghl Rflctv" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.031
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 70.002
+   SPECIFIC-HEAT   = 0.627
+  ..
+
+"Typical Insulation" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"TpclInsltdStlFrmdExtrrFlrR27_l" = LAYERS
+   MATERIAL             = (
+      "25mm Stucco",
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R24",
+      "5/8 in. Gypsum Board",
+      "Typical Carpet Pad"
+   )
+   ..
+
+"TpclInsltdStlFrmdExtrrFlrR27_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdStlFrmdExtrrFlrR27_l"
+   ..
+
+"Tpcl Insltd Crptd 8n Slb Flr_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation",
+      "8 n. Nrmlwght Cncrt Flr",
+      "Typical Carpet Pad"
+   )
+   ..
+
+"Tpcl Insltd Crptd 8n Slb Flr_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Crptd 8n Slb Flr_l"
+   ..
+
+"Tpcl IEAD Rf  Hghl RflctvR26_l" = LAYERS
+   MATERIAL             = (
+      "Rf Mmbrn  Hghl Rflctv",
+      "Typical Insulation-R26",
+      "Metal Roof Surface"
+   )
+   ..
+
+"Tpcl IEAD Rf  Hghl RflctvR26_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.45
+   ROUGHNESS            = 1
+   LAYERS               = "Tpcl IEAD Rf  Hghl RflctvR26_l"
+   ..
+
+"Tpcl Insltd Mtl DrR3_l" = LAYERS
+   MATERIAL             = (
+      "F08 Metal surface",
+      "Typical Insulation-R3"
+   )
+   ..
+
+"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
+   ..
+
+"Tpcl Insltd Bsmnt Mss Wll_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation",
+      "8 n. Cncrt Blck Bsmnt Wll"
+   )
+   ..
+
+"Tpcl Insltd Bsmnt Mss Wll_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Bsmnt Mss Wll_l"
+   ..
+
+"TpclInsltdStlFrmdExtrrWllR12_l" = LAYERS
+   MATERIAL             = (
+      "25mm Stucco",
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R11",
+      "5/8 in. Gypsum Board"
+   )
+   ..
+
+"TpclInsltdStlFrmdExtrrWllR12_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdStlFrmdExtrrWllR12_l"
+   ..
+
+"Typical Overhead Door-R4_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R4"
+   )
+   ..
+
+"Typical Overhead Door-R4_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Overhead Door-R4_l"
+   ..
+
+
+$ ---------------------------------------------------------
+$              Glass Type Codes
+$ ---------------------------------------------------------
+
+
+
+
+"U 0.45 SHGC 0.25 Smpl Glzng Wndw" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.28735632183908044
+   GLASS-CONDUCT      = 0.45
+   ..
+
+"U0.65SHGC0.25DblRfCHClr6mm6mmAr" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.29264746576856043
+   GLASS-CONDUCT      = 0.508
+   ..
+
+"U0.65SHGC0.3SmplGlzngSklght" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.3448275862068965
+   GLASS-CONDUCT      = 0.65
+   ..
+
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+
+
+"Level_0 Plg" = POLYGON
+   V1        = ( 22.965879, -32.808399 )
+   V2        = ( 22.965879, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -32.808399 )
+   ..
+"Room_4 Plg" = POLYGON
+   V1        = ( 22.965879, -32.808399 )
+   V2        = ( 22.965879, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -32.808399 )
+   ..
+"Room_4_0_Wall0_S Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 22.965879, 0.000000 )
+   V3        = ( 22.965879, 9.842520 )
+   V4        = ( 0.000000, 9.842520 )
+   ..
+"Room_4_0_Wall1_E Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 32.808399, -0.000000 )
+   V3        = ( 32.808399, 9.842520 )
+   V4        = ( 0.000000, 9.842520 )
+   ..
+"Room_4_0_Wall2_N Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 22.965879, 0.000000 )
+   V3        = ( 22.965879, 9.842520 )
+   V4        = ( 0.000000, 9.842520 )
+   ..
+"Room_4_0_Wall3_W Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 32.808399, -0.000000 )
+   V3        = ( 32.808399, 9.842520 )
+   V4        = ( 0.000000, 9.842520 )
+   ..
+"Room_4_0_Floor4 Plg" = POLYGON
+   V1        = ( 22.965879, -32.808399 )
+   V2        = ( 22.965879, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -32.808399 )
+   ..
+"Room_4_0_RoofCeiling5 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 22.965879, 0.000000 )
+   V3        = ( 22.965879, 32.808399 )
+   V4        = ( 0.000000, 32.808399 )
+   ..
+
+
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fixed and Building Shades
+$ ---------------------------------------------------------
+
+
+
+"shade_0 Plg" = POLYGON
+   V1        = ( 7.750984, -0.656168 )
+   V2        = ( 7.750984, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -0.656168 )
+   ..
+
+"shade_0"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_0 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 1.8659776902887133
+   Y                = 0.0
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_1 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_1"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_1 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 9.616961942257218
+   Y                = -0.6561679790026247
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 1.5707963267948966
+   ..
+
+
+"shade_2 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 7.750984, -0.000000 )
+   V3        = ( 7.750984, -0.656168 )
+   V4        = ( 0.000000, -0.656168 )
+   ..
+
+"shade_2"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_2 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 1.8659776902887126
+   Y                = 0.0
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_3 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_3"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_3 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 1.8659776902887133
+   Y                = 0.0
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 4.71238898038469
+   ..
+
+
+"shade_4 Plg" = POLYGON
+   V1        = ( 7.750984, -0.656168 )
+   V2        = ( 7.750984, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -0.656168 )
+   ..
+
+"shade_4"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_4 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 13.348917322834643
+   Y                = 0.0
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_5 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_5"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_5 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 21.099901574803148
+   Y                = -0.6561679790026247
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 1.5707963267948966
+   ..
+
+
+"shade_6 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 7.750984, -0.000000 )
+   V3        = ( 7.750984, -0.656168 )
+   V4        = ( 0.000000, -0.656168 )
+   ..
+
+"shade_6"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_6 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 13.348917322834643
+   Y                = 0.0
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_7 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_7"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_7 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 13.348917322834643
+   Y                = 0.0
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 4.71238898038469
+   ..
+
+
+"shade_8 Plg" = POLYGON
+   V1        = ( 0.656168, -7.381890 )
+   V2        = ( 0.656168, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_8"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_8 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 9.159011373578302
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_9 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_9"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_9 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 23.622047244094485
+   Y                = 9.159011373578302
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 0.0
+   ..
+
+
+"shade_10 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, -7.381890 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_10"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_10 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 9.159011373578302
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_11 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_11"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_11 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 1.7771216097987745
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 3.141592653589793
+   ..
+
+
+"shade_12 Plg" = POLYGON
+   V1        = ( 0.656168, -7.381890 )
+   V2        = ( 0.656168, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_12"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_12 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 20.095144356955377
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_13 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_13"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_13 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 23.622047244094485
+   Y                = 20.095144356955377
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 0.0
+   ..
+
+
+"shade_14 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, -7.381890 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_14"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_14 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 20.095144356955377
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_15 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_15"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_15 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 12.713254593175852
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 3.141592653589793
+   ..
+
+
+"shade_16 Plg" = POLYGON
+   V1        = ( 0.656168, -7.381890 )
+   V2        = ( 0.656168, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_16"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_16 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 31.03127734033245
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_17 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_17"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_17 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 23.622047244094485
+   Y                = 31.03127734033245
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 0.0
+   ..
+
+
+"shade_18 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, -7.381890 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_18"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_18 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 31.03127734033245
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_19 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_19"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_19 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 22.96587926509186
+   Y                = 23.649387576552925
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 3.141592653589793
+   ..
+
+
+"shade_20 Plg" = POLYGON
+   V1        = ( 7.750984, -0.656168 )
+   V2        = ( 7.750984, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -0.656168 )
+   ..
+
+"shade_20"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_20 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 13.348917322834643
+   Y                = 33.46456692913385
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_21 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_21"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_21 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 13.348917322834643
+   Y                = 33.46456692913385
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 4.71238898038469
+   ..
+
+
+"shade_22 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 7.750984, -0.000000 )
+   V3        = ( 7.750984, -0.656168 )
+   V4        = ( 0.000000, -0.656168 )
+   ..
+
+"shade_22"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_22 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 13.348917322834643
+   Y                = 33.46456692913385
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_23 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_23"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_23 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 21.099901574803148
+   Y                = 32.80839895013123
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 1.5707963267948966
+   ..
+
+
+"shade_24 Plg" = POLYGON
+   V1        = ( 7.750984, -0.656168 )
+   V2        = ( 7.750984, 0.000000 )
+   V3        = ( -0.000000, 0.000000 )
+   V4        = ( -0.000000, -0.656168 )
+   ..
+
+"shade_24"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_24 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 1.8659776902887142
+   Y                = 33.46456692913385
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_25 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_25"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_25 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 1.865977690288714
+   Y                = 33.46456692913385
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 4.71238898038469
+   ..
+
+
+"shade_26 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 7.750984, -0.000000 )
+   V3        = ( 7.750984, -0.656168 )
+   V4        = ( 0.000000, -0.656168 )
+   ..
+
+"shade_26"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_26 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 1.865977690288714
+   Y                = 33.46456692913385
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_27 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_27"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_27 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 9.616961942257218
+   Y                = 32.80839895013123
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 1.5707963267948966
+   ..
+
+
+"shade_28 Plg" = POLYGON
+   V1        = ( 0.656168, -7.381890 )
+   V2        = ( 0.656168, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_28"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_28 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 31.03127734033246
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_29 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_29"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_29 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 23.64938757655293
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 3.141592653589793
+   ..
+
+
+"shade_30 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, -7.381890 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_30"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_30 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 31.03127734033246
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_31 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_31"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_31 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 0.0
+   Y                = 31.03127734033246
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 0.0
+   ..
+
+
+"shade_32 Plg" = POLYGON
+   V1        = ( 0.656168, -7.381890 )
+   V2        = ( 0.656168, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_32"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_32 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 20.095144356955377
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_33 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_33"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_33 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 12.713254593175852
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 3.141592653589793
+   ..
+
+
+"shade_34 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, -7.381890 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_34"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_34 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 20.095144356955377
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_35 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_35"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_35 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 0.0
+   Y                = 20.095144356955377
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 0.0
+   ..
+
+
+"shade_36 Plg" = POLYGON
+   V1        = ( 0.656168, -7.381890 )
+   V2        = ( 0.656168, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_36"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_36 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 9.159011373578302
+   Z                = 2.6246719160104988
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_37 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_37"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_37 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 1.7771216097987745
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 3.141592653589793
+   ..
+
+
+"shade_38 Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, -7.381890 )
+   V4        = ( 0.000000, -7.381890 )
+   ..
+
+"shade_38"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_38 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = -0.6561679790026247
+   Y                = 9.159011373578302
+   Z                = 9.186351706036744
+   TILT             = 91.57079632679489
+   AZIMUTH          = 0
+   ..
+
+
+"shade_39 Plg" = POLYGON
+   V1        = ( 0.000000, 0.000000 )
+   V2        = ( 0.656168, -0.000000 )
+   V3        = ( 0.656168, 6.561680 )
+   V4        = ( 0.000000, 6.561680 )
+   ..
+
+"shade_39"        = FIXED-SHADE
+   SHAPE            = POLYGON
+   POLYGON          = "shade_39 Plg"
+   TRANSMITTANCE    = 0.0
+   X                = 0.0
+   Y                = 9.159011373578302
+   Z                = 2.6246719160104988
+   TILT             = 90.0
+   AZIMUTH          = 0.0
+   ..
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Performance Curves                   **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      Floors / Spaces / Walls / Windows / Doors      **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+
+"Level_0"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_0 Plg"
+   AZIMUTH         = 0.0
+   X               = 0.0
+   Y               = 32.80839895013123
+   Z               = 0.0
+   SPACE-HEIGHT    = 0.0
+   FLOOR-HEIGHT    = 9.842519685039369
+   ..
+
+"Room_4" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room_4 Plg"
+   AZIMUTH         = 0.0
+   X               = 0.0
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 7416.0800115126
+  ..
+
+"Room_4_0_Wall0_S" = EXTERIOR-WALL
+  POLYGON           = "Room_4_0_Wall0_S Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR12_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  9.860761315262648e-32
+  Y                 =  -32.80839895013123
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Room_4_da884dfe..Face0_Glz0" = WINDOW
+
+  X             = 1.8659776902887135
+  Y             = 2.6246719160104997
+  WIDTH         = 7.750984251968505
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+"Room_4_da884dfe..Face0_Glz1" = WINDOW
+
+  X             = 13.348917322834643
+  Y             = 2.6246719160104988
+  WIDTH         = 7.7509842519685055
+  HEIGHT        = 6.561679790026245
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+
+"Room_4_0_Wall1_E" = EXTERIOR-WALL
+  POLYGON           = "Room_4_0_Wall1_E Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR12_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  22.96587926509186
+  Y                 =  -32.80839895013123
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Room_4_da884dfe..Face1_Glz0" = WINDOW
+
+  X             = 1.7771216097987748
+  Y             = 2.6246719160104997
+  WIDTH         = 7.381889763779528
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+"Room_4_da884dfe..Face1_Glz1" = WINDOW
+
+  X             = 12.713254593175852
+  Y             = 2.6246719160104988
+  WIDTH         = 7.381889763779524
+  HEIGHT        = 6.561679790026245
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+"Room_4_da884dfe..Face1_Glz2" = WINDOW
+
+  X             = 23.649387576552925
+  Y             = 2.6246719160104983
+  WIDTH         = 7.381889763779526
+  HEIGHT        = 6.561679790026245
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+
+"Room_4_0_Wall2_N" = EXTERIOR-WALL
+  POLYGON           = "Room_4_0_Wall2_N Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR12_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  22.96587926509186
+  Y                 =  0.0
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Room_4_da884dfe..Face2_Glz0" = WINDOW
+
+  X             = 1.8659776902887126
+  Y             = 2.6246719160104997
+  WIDTH         = 7.7509842519685055
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+"Room_4_da884dfe..Face2_Glz1" = WINDOW
+
+  X             = 13.348917322834643
+  Y             = 2.6246719160104988
+  WIDTH         = 7.7509842519685055
+  HEIGHT        = 6.561679790026245
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+
+"Room_4_0_Wall3_W" = EXTERIOR-WALL
+  POLYGON           = "Room_4_0_Wall3_W Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR12_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Room_4_da884dfe..Face3_Glz0" = WINDOW
+
+  X             = 1.7771216097987692
+  Y             = 2.6246719160104997
+  WIDTH         = 7.3818897637795295
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+"Room_4_da884dfe..Face3_Glz1" = WINDOW
+
+  X             = 12.71325459317585
+  Y             = 2.6246719160104988
+  WIDTH         = 7.381889763779522
+  HEIGHT        = 6.561679790026245
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+"Room_4_da884dfe..Face3_Glz2" = WINDOW
+
+  X             = 23.649387576552925
+  Y             = 2.6246719160104983
+  WIDTH         = 7.381889763779526
+  HEIGHT        = 6.561679790026245
+  GLASS-TYPE    = "U 0.45 SHGC 0.25 Smpl Glzng Wndw"
+  ..
+
+
+"Room_4_0_RoofCeiling5" = ROOF
+  POLYGON           = "Room_4_0_RoofCeiling5 Plg"
+  CONSTRUCTION      = "Tpcl IEAD Rf  Hghl RflctvR26_c"
+  TILT              =  0.0
+  AZIMUTH           =  180
+  X                 =  0.0
+  Y                 =  -32.80839895013123
+  Z                 =  9.842519685039369
+  ..
+
+"Room_4_0_Floor4_ug Plg" = POLYGON
+   V1        = ( 22.965879, 32.808399 )
+   V2        = ( 0.000000, 32.808399 )
+   V3        = ( 0.000000, -0.000000 )
+   V4        = ( 22.965879, -0.000000 )
+   ..
+"Room_4_0_Floor4" = UNDERGROUND-WALL
+  CONSTRUCTION = "Tpcl Insltd Crptd 8n Slb Flr_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Room_4_0_Floor4_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **              Electric & Fuel Meters                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      HVAC Circulation Loops / Plant Equipment       **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **            Steam & Chilled Water Meters             **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **               HVAC Systems / Zones                  **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+"Level_0flr_Sys (SUM)" = SYSTEM
+   TYPE             = SUM
+   HEAT-SOURCE      = NONE
+   SYSTEM-REPORTS   = NO
+   ..
+
+"Room_4 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 21.0
+  DESIGN-COOL-T    = 24.0
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room_4"
+  ..
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Metering & Misc HVAC                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                    Utility Rates                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                 Output Reporting                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+END ..
+COMPUTE ..
+STOP ..

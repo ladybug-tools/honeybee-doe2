@@ -24,7 +24,8 @@ def model_to_inp(hb_model):
     room_mapper = {
         r.identifier: r.display_name for r in hb_model.rooms
     }
-
+    for i, shade in enumerate(hb_model.shades):
+        shade.display_name = f'shade_{i}'
     for face in hb_model.faces:
         if isinstance(face.boundary_condition, Surface):
             adj_room_identifier = face.boundary_condition.boundary_condition_objects[1]
@@ -77,7 +78,7 @@ def model_to_inp(hb_model):
         fb.polygons,
         '\n'.join(s.story_poly for s in hb_model.properties.doe2.stories),
         fb.wallParams,
-        # '\n'.join(shd.to_inp() for shd in hb_model.context_shades),  # TODO shade support
+        hb_model.properties.doe2.fixed_shades,
         fb.miscCost,
         fb.perfCurve,
         fb.floorNspace,

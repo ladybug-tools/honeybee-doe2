@@ -8,7 +8,7 @@ from honeybee_doe2.cli.translate import hb_model_to_inp_file
 
 def test_model_to_folder():
     runner = CliRunner()
-    input_hb_model = './tests/assets/cubes.hbjson'
+    input_hb_model = './tests/assets/shade_test.hbjson'
     folder = './tests/assets/sample_out'
     name = 'cli_test'
 
