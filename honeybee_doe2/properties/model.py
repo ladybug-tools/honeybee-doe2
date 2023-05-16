@@ -19,6 +19,7 @@ from .story import Doe2Story
 from .constructions import Construction, ConstructionCollection
 
 from .hvac import HVACSystem, Zone
+from .shades import Doe2Shade, Doe2ShadeCollection
 
 
 class ModelDoe2Properties(object):
@@ -94,6 +95,17 @@ class ModelDoe2Properties(object):
     def _get_hvac_sys_zones(stories):
         hvac_sys_zones = [HVACSystem.from_story(story) for story in stories]
         return hvac_sys_zones
+
+    @property
+    def fixed_shades(self):
+        return self._get_fixed_shades(self.host)
+
+    @staticmethod
+    def _get_fixed_shades(obj):
+        if obj.shades is not None:
+            return Doe2ShadeCollection.from_hb_shades(obj.shades).to_inp()
+        else:
+            return None
 
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)
