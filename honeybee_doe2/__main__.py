@@ -1,4 +1,4 @@
-from honeybee_doe2.cli import main
+from honeybee_doe2.cli import doe2
 
 if __name__ == '__main__':
     doe2()
