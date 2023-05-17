@@ -39,20 +39,26 @@ class Doe2Shade:
     def from_shade(cls, shade: Shade):
         """Generate doe2 fixed shades  shades"""
         name = short_name(shade.display_name)
-        flip = False if shade.geometry.normal.z <= 0 else True
         shade_type = 'FIXED-SHADE'
-        ref_geo = shade.geometry
-        if flip == True:
-            ref_geo = ref_geo.flip()
-        ref = ref_geo.lower_left_corner
+        tolerance = 0.001
+        if abs(shade.altitude + 90) <= tolerance:
+            # horizontal facing down - flip the face so we can deal with them like
+            # upwards facing shades. It doesn't make a difference in the results
+            geometry = shade.geometry.flip()
+            shade = Shade(name, geometry=geometry, is_detached=shade.is_detached)
 
-        tilt = 90 - ref_geo.altitude
-        azimuth = ref_geo.azimuth
+        llc = shade.geometry.lower_left_corner
+        tilt = 90 - shade.altitude
+        azimuth = shade.azimuth
+        if abs(tilt) <= tolerance:
+            # set the azimuth to 180 for all the horizontal shade faces
+            azimuth = 180
 
-        x_ref = ref.x
-        y_ref = ref.y
-        z_ref = ref.z
-        polygon = DoePolygon.from_shade(shade, flip=flip)
+        x_ref = llc.x
+        y_ref = llc.y
+        z_ref = llc.z
+
+        polygon = DoePolygon.from_face(shade)
 
         return cls(
             name=name, shade_type=shade_type, x_ref=x_ref, y_ref=y_ref, z_ref=z_ref,
@@ -62,13 +68,13 @@ class Doe2Shade:
         """Returns *.inp shade object string"""
         obj_lines = [self.polygon.to_inp(), '\n\n']
 
-        obj_lines.append(f'"{self.name}"        = {self.shade_type}\n')
-        obj_lines.append(f'   SHAPE            = POLYGON\n')
+        obj_lines.append(f'"{self.name}"       = {self.shade_type}\n')
+        obj_lines.append('    SHAPE            = POLYGON\n')
         obj_lines.append(f'   POLYGON          = "{self.name} Plg"\n')
         obj_lines.append(f'   TRANSMITTANCE    = {self.transmittance}\n')
-        obj_lines.append(f'   X                = {self.x_ref}\n')
-        obj_lines.append(f'   Y                = {self.y_ref}\n')
-        obj_lines.append(f'   Z                = {self.z_ref}\n')
+        obj_lines.append(f'   X-REF            = {self.x_ref}\n')
+        obj_lines.append(f'   Y-REF            = {self.y_ref}\n')
+        obj_lines.append(f'   Z-REF            = {self.z_ref}\n')
         obj_lines.append(f'   TILT             = {self.tilt}\n')
         obj_lines.append(f'   AZIMUTH          = {self.azimuth}\n   ..\n')
 
