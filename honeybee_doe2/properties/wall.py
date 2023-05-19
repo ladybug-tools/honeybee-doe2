@@ -2,6 +2,25 @@ from ..utils.doe_formatters import short_name
 from .aperture import Window
 
 
+class WallBoundaryCondition:
+    def __init__(self, boundary_condition):
+        self.boundary_condition = boundary_condition
+
+    @property
+    def wall_typology(self):
+        return self._make_wall_type(self.boundary_condition)
+
+    @staticmethod
+    def _make_wall_type(b_c):
+        if b_c is not None:
+            if str(b_c) == 'Outdoors':
+                return 'EXTERIOR-WALL'
+            elif str(b_c) == 'Ground':
+                return 'UNDERGROUND-WALL'
+            elif str(b_c) == 'Surface':
+                return 'INTERIOR-WALL'
+
+
 class DoeWall:
     def __init__(self, face):
         self.face = face
@@ -9,8 +28,7 @@ class DoeWall:
     def to_inp(self, space_origin):
 
         p_name = short_name(self.face.display_name)
-        wall_typology = 'EXTERIOR' if str(
-            self.face.boundary_condition) == 'Outdoors' else 'INTERIOR'
+        wall_typology = WallBoundaryCondition(self.face.boundary_condition).wall_typology
 
         constr = self.face.properties.energy.construction.display_name
         tilt = 90 - self.face.altitude
@@ -20,15 +38,15 @@ class DoeWall:
         spc = ''
         obj_lines = []
 
-        obj_lines.append('"{}" = {}-WALL'.format(p_name, wall_typology))
-        obj_lines.append('\n  POLYGON           = "{}"'.format(p_name+' Plg'))
+        obj_lines.append('"{}" = {}'.format(p_name, wall_typology))
+        obj_lines.append('\n  POLYGON           = "{}"'.format(f'{p_name} Plg'))
         obj_lines.append('\n  CONSTRUCTION      = "{}_c"'.format(short_name(constr, 30)))
         obj_lines.append('\n  TILT              =  {}'.format(tilt))
         obj_lines.append('\n  AZIMUTH           =  {}'.format(azimuth))
         obj_lines.append('\n  X                 =  {}'.format(origin_pt.x))
         obj_lines.append('\n  Y                 =  {}'.format(origin_pt.y))
         obj_lines.append('\n  Z                 =  {}'.format(origin_pt.z))
-        if wall_typology == 'INTERIOR':
+        if wall_typology == 'INTERIOR-WALL':
             if self.face.user_data:
                 next_to = self.face.user_data['adjacent_room']
                 obj_lines.append('\n  NEXT-TO           =  "{}"'.format(next_to))
