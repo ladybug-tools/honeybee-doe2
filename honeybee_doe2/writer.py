@@ -10,6 +10,7 @@ from .utils.doe_formatters import short_name
 
 from honeybee.model import Model
 from honeybee_energy.construction.window import WindowConstruction
+from honeybee_energy.lib.constructionsets import generic_construction_set
 from honeybee.boundarycondition import Surface
 
 
@@ -56,8 +57,9 @@ def model_to_inp(hb_model):
                 thestr.replace('&', '')
                 face.display_name = short_name(thestr)
 
-    # TODO: Add routine to 'reverbose' constr/matters prior to writing to inp
-    window_constructions = []
+    window_constructions = [GlassType.from_hb_window_constr(
+        generic_construction_set.aperture_set.window_construction)]
+
     for construction in hb_model.properties.energy.constructions:
         if isinstance(construction, WindowConstruction):
             window_constructions.append(GlassType.from_hb_window_constr(construction))

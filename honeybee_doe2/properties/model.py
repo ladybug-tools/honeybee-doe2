@@ -8,6 +8,7 @@ from honeybee.model import Model
 from honeybee.room import Room
 from honeybee.face import Face
 from honeybee_energy.construction.opaque import OpaqueConstruction
+from honeybee_energy.lib.constructionsets import generic_construction_set
 
 from .inputils import blocks as fb
 from .inputils.compliance import ComplianceData
@@ -81,11 +82,19 @@ class ModelDoe2Properties(object):
     @staticmethod
     def _make_mats_cons_layers(obj):
         cons = []
+        for construction in generic_construction_set.wall_set.constructions:
+            if isinstance(construction, OpaqueConstruction):
+                cons.append(construction)
+        for construction in generic_construction_set.floor_set.constructions:
+            if isinstance(construction, OpaqueConstruction):
+                cons.append(construction)
+        for construction in generic_construction_set.roof_ceiling_set.constructions:
+            if isinstance(construction, OpaqueConstruction):
+                cons.append(construction)
         for construction in obj.properties.energy.constructions:
             if isinstance(construction, OpaqueConstruction):
                 cons.append(construction)
         return ConstructionCollection.from_hb_constructions(constructions=cons).to_inp()
-        # return '\n'.join([l for l in cons])
 
     @property
     def hvac_sys_zones(self):
