@@ -153,7 +153,7 @@ class Window:
             max_2d = group['max']
             height = max_2d.y - min_2d.y
             width = max_2d.x - min_2d.x
-            name = f'{short_name(self.aperture.display_name)}_{1000 + count}'
+            name = f'{short_name(self.aperture.display_name, 28)}_{100 + count}'
             window = \
                 '"{}" = WINDOW\n'.format(name) + \
                 "\n  X             = {}".format(min_2d.x) + \

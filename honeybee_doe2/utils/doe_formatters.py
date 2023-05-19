@@ -18,10 +18,11 @@ def short_name(name, max_length=32):
     if len(shortened_name) > max_length:
         shortened_name = ''.join(shortened_name.split())
         if len(shortened_name) > max_length:
-            shortened_name = f'{shortened_name[:16]}_{shortened_name[-15:]}'
+            end_length = -1 * (max_length - 17)
+            shortened_name = f'{shortened_name[:16]}_{shortened_name[end_length:]}'
     return shortened_name
 
-#! DF specific
+# ! DF specific
 
 
 def lower_left_properties(room_2d):
