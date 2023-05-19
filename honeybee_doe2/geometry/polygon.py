@@ -1,9 +1,11 @@
-from ..utils.doe_formatters import short_name
+import math
+from typing import List
+
 from honeybee.face import Face
-from honeybee.shade import Shade
 from ladybug_geometry.geometry3d import Vector3D, Plane, Face3D
 from ladybug_geometry.geometry2d import Point2D
-import math
+
+from ..utils.doe_formatters import short_name
 
 
 class DoePolygon(object):
@@ -11,8 +13,27 @@ class DoePolygon(object):
 
     def __init__(self, name, vertices, flip=False):
         self.name = name
-        self.vertices = vertices
+        self.vertices = self._remove_duplicate_vertices(vertices, 0.001)
         self.flip = flip
+
+    @staticmethod
+    def _remove_duplicate_vertices(vertices: List[Point2D], tol=0.001):
+        """Remove identical vertices.
+
+        Since the list is already sorted we only need to check the vertices with the one
+        that comes before it.
+        """
+        unique_vertices = [vertices[0]]
+        for v in vertices[1:]:
+            if v.distance_to_point(unique_vertices[-1]) < tol:
+                continue
+            unique_vertices.append(v)
+
+        # catch the case when the first and the last vertices are the same
+        if unique_vertices[0].distance_to_point(unique_vertices[-1]) < tol:
+            return unique_vertices[:-1]
+
+        return unique_vertices
 
     @classmethod
     def from_face(cls, face: Face, flip=False):
