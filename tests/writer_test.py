@@ -16,4 +16,4 @@ def test_hbjson_translate():
     honeybee_model_to_inp(hb_model, folder=out_inp, name='test_model.inp')
 
     assert out_file.exists()
-    # out_file.unlink()
+    out_file.unlink()
