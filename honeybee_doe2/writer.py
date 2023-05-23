@@ -39,12 +39,18 @@ def model_to_inp(hb_model):
             try:
                 face_dir = face.horizontal_orientation()
             except ZeroDivisionError:
-                face.display_name = short_name(clean_and_id_string(face.display_name))
+                face.display_name = short_name(
+                    clean_and_id_string(face.display_name)).replace(
+                    '..', '_')
             else:
-                face.display_name = short_name(clean_and_id_string(face.display_name))
+                face.display_name = short_name(
+                    clean_and_id_string(face.display_name)).replace(
+                    '..', '_')
 
             for ap in face.apertures:
-                ap.display_name = short_name(clean_and_id_string(ap.display_name))
+                ap.display_name = short_name(
+                    clean_and_id_string(ap.display_name)).replace(
+                    '..', '_')
 
     window_constructions = [GlassType.from_hb_window_constr(
         generic_construction_set.aperture_set.window_construction)]
