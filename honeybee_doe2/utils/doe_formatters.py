@@ -5,7 +5,7 @@ import subprocess
 from ladybug.datatype import UNITS as lbt_units, TYPESDICT as lbt_td
 
 
-def short_name(name, max_length=32):
+def short_name(name, max_length=24):
     if len(name) <= max_length:
         return name
 

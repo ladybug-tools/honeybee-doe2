@@ -12,6 +12,7 @@ from honeybee.model import Model
 from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
 from honeybee.boundarycondition import Surface
+from honeybee.typing import clean_and_id_string
 
 
 def model_to_inp(hb_model):
@@ -38,24 +39,12 @@ def model_to_inp(hb_model):
             try:
                 face_dir = face.horizontal_orientation()
             except ZeroDivisionError:
-                thestr = f'{room_name}_{i}_{str(face.type)}{ii}'
-                thestr.replace(' ', '_')
-                thestr.replace('&', '')
-                face.display_name = short_name(thestr)
-
+                face.display_name = short_name(clean_and_id_string(face.display_name))
             else:
-                if 0 <= face_dir < 45 or 270 + 45 <= face_dir:
-                    face_dir = 'N'
-                elif 45 <= face_dir < 90 + 45:
-                    face_dir = 'E'
-                elif 90 + 45 <= face_dir < 180 + 45:
-                    face_dir = 'S'
-                else:
-                    face_dir = 'W'
-                thestr = f'{room_name}_{i}_{str(face.type)}{ii}_{face_dir}'.replace(
-                    ' ', '_')
-                thestr.replace('&', '')
-                face.display_name = short_name(thestr)
+                face.display_name = short_name(clean_and_id_string(face.display_name))
+
+            for ap in face.apertures:
+                ap.display_name = short_name(clean_and_id_string(ap.display_name))
 
     window_constructions = [GlassType.from_hb_window_constr(
         generic_construction_set.aperture_set.window_construction)]
