@@ -63,8 +63,11 @@ class ModelDoe2Properties(object):
 
     @staticmethod
     def _make_doe_stories(obj):
-        grouped = Room.group_by_floor_height(obj.rooms, 0.1)
         stories = []
+        if not obj.rooms:
+            return stories
+
+        grouped = Room.group_by_floor_height(obj.rooms, 0.1)
         for i, story in enumerate(grouped[0]):
             stories.append(Doe2Story(story, i))
         # nl = ''
