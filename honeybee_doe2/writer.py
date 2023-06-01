@@ -52,12 +52,13 @@ def model_to_inp(hb_model):
                     clean_and_id_string(ap.display_name)).replace(
                     '..', '_')
 
-    window_constructions = [GlassType.from_hb_window_constr(
-        generic_construction_set.aperture_set.window_construction)]
+    window_constructions = [generic_construction_set.aperture_set.window_construction]
 
     for construction in hb_model.properties.energy.constructions:
         if isinstance(construction, WindowConstruction):
-            window_constructions.append(GlassType.from_hb_window_constr(construction))
+            window_constructions.append(construction)
+    wind_con_set = set(window_constructions)
+    win_con_to_inp = [GlassType.from_hb_window_constr(constr) for constr in wind_con_set]
 
     data = [
         hb_model.properties.doe2._header,
@@ -71,7 +72,7 @@ def model_to_inp(hb_model):
         fb.mats_layers,
         hb_model.properties.doe2.mats_cons_layers,
         fb.glzCode,
-        '\n'.join(gt.to_inp() for gt in window_constructions),
+        '\n'.join(gt.to_inp() for gt in win_con_to_inp),
         fb.polygons,
         '\n'.join(s.story_poly for s in hb_model.properties.doe2.stories),
         fb.wallParams,
