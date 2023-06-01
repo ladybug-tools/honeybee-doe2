@@ -77,7 +77,7 @@ class Doe2Story:
             '\n   X               = {}'.format(origin_pt.x) + \
             '\n   Y               = {}'.format(origin_pt.y) + \
             '\n   Z               = {}'.format(origin_pt.z) + \
-            '\n   SPACE-HEIGHT    = {self.space_height}'.format(self=self) + \
+            '\n   SPACE-HEIGHT    = {self.floor_to_floor_height}'.format(self=self) + \
             '\n   FLOOR-HEIGHT    = {self.floor_to_floor_height}'.format(self=self) + \
             '\n   ..\n'
         nl = '\n'
