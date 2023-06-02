@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from honeybee.boundarycondition import Ground, Outdoors
+from honeybee.boundarycondition import Ground, Outdoors, Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
 from honeybee.face import Face
 from honeybee.room import Room, Point3D
@@ -10,7 +10,8 @@ from ..utils.geometry import get_floor_boundary, get_room_rep_poly
 from .wall import DoeWall
 from .roof import DoeRoof
 from .groundcontact import GroundFloor
-from.exposedfloor import ExposedFloor
+from .exposedfloor import ExposedFloor
+from .interiorfloor import InteriorFloor
 
 
 class RoomDoe2Properties(object):
@@ -85,6 +86,15 @@ class RoomDoe2Properties(object):
         return exposed_floor_surfaces
 
     @property
+    def interior_floor_surfaces(self):
+        interior_floor_surfaces = [
+            InteriorFloor(face) for face in self.host.faces
+            if isinstance(face.type, Floor)
+            and isinstance(face.boundary_condition, Surface)
+        ]
+        return interior_floor_surfaces
+
+    @property
     def window(self):
         pass
     # TODO add window support
@@ -126,4 +136,8 @@ class RoomDoe2Properties(object):
         exposed_floors = '\n'.join(
             [ef.to_inp(self.origin) for ef in self.exposed_floor_surfaces]
         )
-        return '\n'.join([spaces, walls, roofs, ground_floors, exposed_floors])
+        interior_floors = '\n'.join(
+            [inf.to_inp(self.origin) for inf in self.interior_floor_surfaces]
+        )
+        return '\n'.join(
+            [spaces, walls, roofs, ground_floors, exposed_floors, interior_floors])
