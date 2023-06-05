@@ -23,6 +23,15 @@ def model_to_inp(hb_model):
 
     hb_model.convert_to_units(units='Feet')
 
+    room_names = {}
+    for room in hb_model.rooms:
+        if room.display_name in room_names:
+            original_name = room.display_name
+            room.display_name = f'{original_name}_{room_names[original_name]}'
+            room_names[original_name] += 1
+        else:
+            room_names[room.display_name] = 1
+
     room_mapper = {
         r.identifier: r.display_name for r in hb_model.rooms
     }
