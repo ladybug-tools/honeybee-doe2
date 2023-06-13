@@ -6,7 +6,7 @@ from honeybee.room import Room, Point3D
 from typing import List
 
 from ..utils.doe_formatters import short_name
-from ..utils.geometry import get_floor_boundary, get_room_rep_poly
+from ..utils.geometry import get_room_rep_poly
 from .wall import DoeWall
 from .roof import DoeRoof
 from .groundcontact import GroundFloor
@@ -110,9 +110,8 @@ class RoomDoe2Properties(object):
     # TODO add activity disc // loads support etc
 
     def space(self, floor_origin):
-
-        floor_face = self.boundary
-        azimuth = floor_face.azimuth
+        # chances that a space is defined by a different azimuth than 0 is very low
+        azimuth = 0
         # this value should be set in relation to the Floor object
         origin_pt = self.origin - floor_origin
         obj_lines = []

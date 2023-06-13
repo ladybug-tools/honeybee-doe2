@@ -13,7 +13,7 @@ class DoeRoof:
 
         constr = self.face.properties.energy.construction.display_name
         tilt = 90 - self.face.altitude
-        azimuth = 180 if self.face.azimuth == 0 and tilt == 0 else self.face.azimuth
+        azimuth = 180 if abs(tilt) <= 0.01 else self.face.azimuth
         origin_pt = self.face.geometry.lower_left_corner - space_origin
 
         spc = ''

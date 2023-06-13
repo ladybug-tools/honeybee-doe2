@@ -11,8 +11,7 @@ class GroundFloor:
         self.polygon = DoePolygon.from_face(face, flip=True)
 
     def to_inp(self, space_origin):
-
-        azimuth = 180 if self.face.azimuth == 0 else self.face.azimuth
+        azimuth = 180
         origin_pt = self.face.geometry.lower_left_corner - space_origin
 
         # create a unique polygon for ground floor faces
