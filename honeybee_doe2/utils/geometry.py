@@ -1,8 +1,36 @@
+from typing import List
+from uuid import uuid4
+
 from ladybug_geometry.geometry3d import Point3D, Face3D
 from ladybug_geometry.geometry2d import Polygon2D, Point2D
 from honeybee.face import Face
+from honeybee.room import Room
 from honeybee.facetype import Floor
-from uuid import uuid4
+
+
+def _try_get_boundary(in_boundaries: List[Polygon2D], small_to_large=False):
+    """Try to get union boundaries from boundaries."""
+    tolerances = [0.01, 0.1, 0.2, 0.5, 1.0, 1.5, 2.0]
+
+    if not small_to_large:
+        tolerances = list(reversed(tolerances))
+
+    for tolerance in tolerances:
+        try:
+            boundaries = Polygon2D.boolean_union_all(in_boundaries, tolerance=tolerance)
+            if not boundaries and tolerance != tolerances[-1]:
+                raise ValueError
+        except Exception as e:
+            if tolerance != tolerances[-1]:
+                continue
+            else:
+                raise ValueError(
+                    f'Failed to merge the floors:\n{str(e)}'
+                )
+        else:
+            break
+
+    return boundaries
 
 
 def get_floor_boundary(rooms):
@@ -22,7 +50,7 @@ def get_floor_boundary(rooms):
 
     # get the minimum z and use it for all the floors
     z = min(geo.plane.o.z for geo in floor_geom)
-    boundaries = []
+    in_boundaries = []
     # floors are most likely horizontal - let's make them 2D polygons
     for floor in floor_geom:
         boundary = Polygon2D(
@@ -30,15 +58,10 @@ def get_floor_boundary(rooms):
                 Point2D(v.x, v.y) for v in floor.lower_left_counter_clockwise_vertices
             ]
         )
-        boundaries.append(boundary)
+        in_boundaries.append(boundary)
 
     # find the union of the boundary polygons
-    boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.01)
-
-    # ? I don't know if this is the right assumption
-    # * assert len(boundaries) == 1, \
-    # *    'Input story generates more than one polygon ' \
-    # *    f'[{len(boundaries)}]. Not in DOE2!'
+    boundaries = _try_get_boundary(in_boundaries, small_to_large=False)
 
     boundary = [
         Point3D(point.x, point.y, z) for point in boundaries[0].vertices
@@ -52,7 +75,7 @@ def get_floor_boundary(rooms):
     return vertices
 
 
-def get_room_rep_poly(room):
+def get_room_rep_poly(room: Room):
     floors = [face for face in room.faces if str(face.type) == 'Floor']
     z = min(geo.geometry.plane.o.z for geo in floors)
 
@@ -65,8 +88,9 @@ def get_room_rep_poly(room):
                  for v in
                  floor.geometry.lower_left_counter_clockwise_vertices]))
 
-    boundaries = Polygon2D.boolean_union_all(boundaries, tolerance=0.01)
-
+    boundaries = _try_get_boundary(boundaries, small_to_large=True)
+    assert len(boundaries) == 1, \
+        f'Failed to find a single boundary for {room.display_name} [{room.identifier}]'
     boundary = [
         Point3D(point.x, point.y, z) for point in boundaries[0].vertices
     ]
