@@ -24,13 +24,33 @@ def model_to_inp(hb_model):
     hb_model.convert_to_units(units='Feet')
 
     room_names = {}
+    face_names = {}
     for room in hb_model.rooms:
+        room.display_name = room.display_name.replace('..', '_')
         if room.display_name in room_names:
             original_name = room.display_name
             room.display_name = f'{original_name}_{room_names[original_name]}'
             room_names[original_name] += 1
         else:
             room_names[room.display_name] = 1
+
+        for face in room.faces:
+            face.display_name = face.display_name.replace('..', '_')
+            if face.display_name in face_names:
+                original_name = face.display_name
+                face.display_name = f'{original_name}_{face_names[original_name]}'
+                face_names[original_name] += 1
+            else:
+                face_names[face.display_name] = 1
+
+            for apt in face.apertures:
+                apt.display_name = apt.display_name.replace('..', '_')
+                if apt.display_name in face_names:
+                    original_name = apt.display_name
+                    apt.display_name = f'{original_name}_{face_names[original_name]}'
+                    face_names[original_name] += 1
+                else:
+                    face_names[face.display_name] = 1
 
     room_mapper = {
         r.identifier: r.display_name for r in hb_model.rooms
