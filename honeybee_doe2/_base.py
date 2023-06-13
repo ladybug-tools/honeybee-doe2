@@ -10,4 +10,4 @@ class _Base(object):
     def __init__(self):
         self._identifier = uuid.uuid4()
         self.user_data = {}
-        self._display_name = self.identifier
+        self._display_name = self._identifier
