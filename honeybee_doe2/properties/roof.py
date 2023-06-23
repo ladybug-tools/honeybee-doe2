@@ -23,11 +23,11 @@ class DoeRoof:
         obj_lines.append('\n   POLYGON           = "{}"'.format(p_name+' Plg'))
         obj_lines.append('\n   CONSTRUCTION      = "{}_c"'.format(
             short_name(constr, 30)))
-        obj_lines.append('\n  TILT              =  {}'.format(tilt))
-        obj_lines.append('\n  AZIMUTH           =  {}'.format(azimuth))
-        obj_lines.append('\n  X                 =  {}'.format(origin_pt.x))
-        obj_lines.append('\n  Y                 =  {}'.format(origin_pt.y))
-        obj_lines.append('\n  Z                 =  {}\n  ..\n'.format(origin_pt.z))
+        obj_lines.append('\n   TILT              =  {}'.format(tilt))
+        obj_lines.append('\n   AZIMUTH           =  {}'.format(azimuth))
+        obj_lines.append('\n   X                 =  {}'.format(origin_pt.x))
+        obj_lines.append('\n   Y                 =  {}'.format(origin_pt.y))
+        obj_lines.append('\n   Z                 =  {}\n  ..\n'.format(origin_pt.z))
         temp_str = spc.join([line for line in obj_lines])
 
         doe_windows = [
