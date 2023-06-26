@@ -16,7 +16,7 @@ class AdiabaticFloor:
         origin_pt = self.face.geometry.lower_left_corner - space_origin
 
         # create a unique polygon for exposed floor faces
-        polygon_name = f'{self.face.display_name}_ef Plg'
+        polygon_name = f'{self.face.display_name}_ad Plg'
         polygon = self.polygon.to_inp(name=polygon_name) + '\n'
         obj_lines = [polygon]
 

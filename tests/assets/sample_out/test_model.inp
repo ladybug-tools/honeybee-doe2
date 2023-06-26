@@ -88,28 +88,12 @@ $ ---------------------------------------------------------
 
 
 
-"Generic HW Concrete" = MATERIAL
+"Generic 50mm Insulation" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.656
-   CONDUCTIVITY    = 0.618
-   DENSITY         = 139.843
-   SPECIFIC-HEAT   = 0.387
-  ..
-
-"Generic LW Concrete" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.168
-   DENSITY         = 79.91
-   SPECIFIC-HEAT   = 0.361
-  ..
-
-"Generic Acoustic Tile" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.066
-   CONDUCTIVITY    = 0.019
-   DENSITY         = 22.974
-   SPECIFIC-HEAT   = 0.254
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
   ..
 
 "Generic Gypsum Board" = MATERIAL
@@ -120,36 +104,12 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.469
   ..
 
-"Generic Ceiling Air Gap" = MATERIAL
+"Generic Acoustic Tile" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.176
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
-  ..
-
-"Generic Wall Air Gap" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.211
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
-  ..
-
-"Generic 50mm Insulation" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.164
-   CONDUCTIVITY    = 0.01
-   DENSITY         = 2.684
-   SPECIFIC-HEAT   = 0.52
-  ..
-
-"Generic Brick" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.285
-   DENSITY         = 119.865
-   SPECIFIC-HEAT   = 0.34
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
   ..
 
 "Generic Roof Membrane" = MATERIAL
@@ -166,6 +126,46 @@ $ ---------------------------------------------------------
    CONDUCTIVITY    = 14.265
    DENSITY         = 480.085
    SPECIFIC-HEAT   = 0.176
+  ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
+  ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
   ..
 
 "Generic Exterior Wall_l" = LAYERS
@@ -343,43 +343,43 @@ $ ---------------------------------------------------------
    V3        = ( 0.000000, 0.000000 )
    V4        = ( 0.000000, -65.616798 )
    ..
-"Face1_b69a48b9 Plg" = POLYGON
+"Face1_eb41564b Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face2_bb1ff997 Plg" = POLYGON
+"Face2_159aa99b Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 65.616798, 0.000000 )
    V3        = ( 65.616798, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face3_75e74ccb Plg" = POLYGON
+"Face3_5d7616db Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face4_160cca87 Plg" = POLYGON
+"Face4_1ce56728 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, -0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face5_e6927c39 Plg" = POLYGON
+"Face5_b74dbb52 Plg" = POLYGON
    V1        = ( 32.808399, -65.616798 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 0.000000, 0.000000 )
    V4        = ( 0.000000, -65.616798 )
    ..
-"Face6_2e3f4f61 Plg" = POLYGON
+"Face6_1a12aae4 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 65.616798 )
    V4        = ( 0.000000, 65.616798 )
    ..
-"Face4_1_6b0f720a Plg" = POLYGON
+"Face4_1_601fc490 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, -0.000000 )
    V3        = ( 32.808399, 13.123360 )
@@ -391,37 +391,37 @@ $ ---------------------------------------------------------
    V3        = ( 0.000000, 0.000000 )
    V4        = ( 0.000000, -32.808399 )
    ..
-"Face1_1_b5be06d4 Plg" = POLYGON
+"Face1_1_4da7722d Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face2_1_d428a293 Plg" = POLYGON
+"Face2_1_b3cd2e54 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face3_1_5ceb5e86 Plg" = POLYGON
+"Face3_1_63766129 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face4_2_7af7a2ae Plg" = POLYGON
+"Face4_2_6f784de5 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face5_1_9e52503e Plg" = POLYGON
+"Face5_1_5032473a Plg" = POLYGON
    V1        = ( 32.808399, -32.808399 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 0.000000, 0.000000 )
    V4        = ( 0.000000, -32.808399 )
    ..
-"Face6_1_90712f5e Plg" = POLYGON
+"Face6_1_5c8c3f69 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 32.808399 )
@@ -433,37 +433,37 @@ $ ---------------------------------------------------------
    V3        = ( 0.000000, 0.000000 )
    V4        = ( 0.000000, -32.808399 )
    ..
-"Face1_2_23289731 Plg" = POLYGON
+"Face1_2_28f0d6ed Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face2_2_70e72b65 Plg" = POLYGON
+"Face2_2_1798ea37 Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face3_2_ef7ee5e0 Plg" = POLYGON
+"Face3_2_b4e775df Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face4_3_5352701f Plg" = POLYGON
+"Face4_3_d8b7b59f Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 13.123360 )
    V4        = ( 0.000000, 13.123360 )
    ..
-"Face5_2_d40cc2c4 Plg" = POLYGON
+"Face5_2_cf9c53ad Plg" = POLYGON
    V1        = ( 32.808399, -32.808399 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 0.000000, 0.000000 )
    V4        = ( 0.000000, -32.808399 )
    ..
-"Face6_2_44fe40a1 Plg" = POLYGON
+"Face6_2_37798a5e Plg" = POLYGON
    V1        = ( 0.000000, 0.000000 )
    V2        = ( 32.808399, 0.000000 )
    V3        = ( 32.808399, 32.808399 )
@@ -534,8 +534,8 @@ $ *********************************************************
    VOLUME          = 28251.733377190856
   ..
 
-"Face1_b69a48b9" = EXTERIOR-WALL
-  POLYGON           = "Face1_b69a48b9 Plg"
+"Face1_eb41564b" = EXTERIOR-WALL
+  POLYGON           = "Face1_eb41564b Plg"
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  180.0
@@ -544,8 +544,8 @@ $ *********************************************************
   Z                 =  -2.0089350379713795e-15
   ..
 
-"Face2_bb1ff997" = EXTERIOR-WALL
-  POLYGON           = "Face2_bb1ff997 Plg"
+"Face2_159aa99b" = EXTERIOR-WALL
+  POLYGON           = "Face2_159aa99b Plg"
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  90.0
@@ -554,8 +554,8 @@ $ *********************************************************
   Z                 =  -4.017870075942759e-15
   ..
 
-"Face3_75e74ccb" = EXTERIOR-WALL
-  POLYGON           = "Face3_75e74ccb Plg"
+"Face3_5d7616db" = EXTERIOR-WALL
+  POLYGON           = "Face3_5d7616db Plg"
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  0.0
@@ -564,8 +564,8 @@ $ *********************************************************
   Z                 =  -2.0089350379713795e-15
   ..
 
-"Face4_160cca87" = INTERIOR-WALL
-  POLYGON           = "Face4_160cca87 Plg"
+"Face4_1ce56728" = INTERIOR-WALL
+  POLYGON           = "Face4_1ce56728 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  270.0
@@ -575,8 +575,8 @@ $ *********************************************************
   NEXT-TO           =  "Room 3"
   ..
 
-"Face4_1_6b0f720a" = INTERIOR-WALL
-  POLYGON           = "Face4_1_6b0f720a Plg"
+"Face4_1_601fc490" = INTERIOR-WALL
+  POLYGON           = "Face4_1_601fc490 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  270.0
@@ -586,8 +586,8 @@ $ *********************************************************
   NEXT-TO           =  "Room 2"
   ..
 
-"Face6_2e3f4f61" = ROOF
-   POLYGON           = "Face6_2e3f4f61 Plg"
+"Face6_1a12aae4" = ROOF
+   POLYGON           = "Face6_1a12aae4 Plg"
    CONSTRUCTION      = "Generic Roof_c"
    TILT              =  0.0
    AZIMUTH           =  180
@@ -596,16 +596,16 @@ $ *********************************************************
    Z                 =  13.123359580052492
   ..
 
-"Face5_e6927c39_ug Plg" = POLYGON
+"Face5_b74dbb52_ug Plg" = POLYGON
    V1        = ( 32.808399, 65.616798 )
    V2        = ( 0.000000, 65.616798 )
    V3        = ( 0.000000, -0.000000 )
    V4        = ( 32.808399, -0.000000 )
    ..
-"Face5_e6927c39" = UNDERGROUND-WALL
+"Face5_b74dbb52" = UNDERGROUND-WALL
   CONSTRUCTION = "Generic Ground Slab_c"
   LOCATION     = BOTTOM
-  POLYGON      = "Face5_e6927c39_ug Plg"
+  POLYGON      = "Face5_b74dbb52_ug Plg"
   AZIMUTH      = 180
   X            = 0.0
   Y            = 0.0
@@ -626,8 +626,8 @@ $ *********************************************************
    VOLUME          = 14125.86668859543
   ..
 
-"Face1_1_b5be06d4" = INTERIOR-WALL
-  POLYGON           = "Face1_1_b5be06d4 Plg"
+"Face1_1_4da7722d" = INTERIOR-WALL
+  POLYGON           = "Face1_1_4da7722d Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  180.0
@@ -638,8 +638,8 @@ $ *********************************************************
   NEXT-TO           =  "Room 2"
   ..
 
-"Face2_1_d428a293" = INTERIOR-WALL
-  POLYGON           = "Face2_1_d428a293 Plg"
+"Face2_1_b3cd2e54" = INTERIOR-WALL
+  POLYGON           = "Face2_1_b3cd2e54 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  90.0
@@ -649,8 +649,8 @@ $ *********************************************************
   NEXT-TO           =  "Room 1"
   ..
 
-"Face3_1_5ceb5e86" = EXTERIOR-WALL
-  POLYGON           = "Face3_1_5ceb5e86 Plg"
+"Face3_1_63766129" = EXTERIOR-WALL
+  POLYGON           = "Face3_1_63766129 Plg"
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  0.0
@@ -659,8 +659,8 @@ $ *********************************************************
   Z                 =  -2.0089350379713795e-15
   ..
 
-"Face4_2_7af7a2ae" = EXTERIOR-WALL
-  POLYGON           = "Face4_2_7af7a2ae Plg"
+"Face4_2_6f784de5" = EXTERIOR-WALL
+  POLYGON           = "Face4_2_6f784de5 Plg"
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  270.0
@@ -669,8 +669,8 @@ $ *********************************************************
   Z                 =  -2.0089350379713795e-15
   ..
 
-"Face6_1_90712f5e" = ROOF
-   POLYGON           = "Face6_1_90712f5e Plg"
+"Face6_1_5c8c3f69" = ROOF
+   POLYGON           = "Face6_1_5c8c3f69 Plg"
    CONSTRUCTION      = "Generic Roof_c"
    TILT              =  0.0
    AZIMUTH           =  180
@@ -682,14 +682,14 @@ $ *********************************************************
 
 
 
-"Face5_1_9e52503e_ef Plg" = POLYGON
+"Face5_1_5032473a_ad Plg" = POLYGON
    V1        = ( 32.808399, 32.808399 )
    V2        = ( 0.000000, 32.808399 )
    V3        = ( 0.000000, -0.000000 )
    V4        = ( 32.808399, -0.000000 )
    ..
-"Face5_1_9e52503e" = INTERIOR-WALL
-  POLYGON           = "Face5_1_9e52503e_ef Plg"
+"Face5_1_5032473a" = INTERIOR-WALL
+  POLYGON           = "Face5_1_5032473a_ad Plg"
   CONSTRUCTION      = "Generic Interior Floor_c"
   NEXT-TO           =  "Room 2"
   INT-WALL-TYPE = ADIABATIC
@@ -711,8 +711,8 @@ $ *********************************************************
    VOLUME          = 14125.86668859543
   ..
 
-"Face1_2_23289731" = EXTERIOR-WALL
-  POLYGON           = "Face1_2_23289731 Plg"
+"Face1_2_28f0d6ed" = EXTERIOR-WALL
+  POLYGON           = "Face1_2_28f0d6ed Plg"
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  180.0
@@ -721,8 +721,8 @@ $ *********************************************************
   Z                 =  -2.0089350379713795e-15
   ..
 
-"Face2_2_70e72b65" = INTERIOR-WALL
-  POLYGON           = "Face2_2_70e72b65 Plg"
+"Face2_2_1798ea37" = INTERIOR-WALL
+  POLYGON           = "Face2_2_1798ea37 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  90.0
@@ -732,8 +732,8 @@ $ *********************************************************
   NEXT-TO           =  "Room 1"
   ..
 
-"Face3_2_ef7ee5e0" = INTERIOR-WALL
-  POLYGON           = "Face3_2_ef7ee5e0 Plg"
+"Face3_2_b4e775df" = INTERIOR-WALL
+  POLYGON           = "Face3_2_b4e775df Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  0.0
@@ -744,8 +744,8 @@ $ *********************************************************
   NEXT-TO           =  "Room 3"
   ..
 
-"Face4_3_5352701f" = EXTERIOR-WALL
-  POLYGON           = "Face4_3_5352701f Plg"
+"Face4_3_d8b7b59f" = EXTERIOR-WALL
+  POLYGON           = "Face4_3_d8b7b59f Plg"
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  270.0
@@ -754,8 +754,8 @@ $ *********************************************************
   Z                 =  -2.0089350379713795e-15
   ..
 
-"Face6_2_44fe40a1" = ROOF
-   POLYGON           = "Face6_2_44fe40a1 Plg"
+"Face6_2_37798a5e" = ROOF
+   POLYGON           = "Face6_2_37798a5e Plg"
    CONSTRUCTION      = "Generic Roof_c"
    TILT              =  0.0
    AZIMUTH           =  180
@@ -764,16 +764,16 @@ $ *********************************************************
    Z                 =  13.123359580052492
   ..
 
-"Face5_2_d40cc2c4_ug Plg" = POLYGON
+"Face5_2_cf9c53ad_ug Plg" = POLYGON
    V1        = ( 32.808399, 32.808399 )
    V2        = ( 0.000000, 32.808399 )
    V3        = ( 0.000000, -0.000000 )
    V4        = ( 32.808399, -0.000000 )
    ..
-"Face5_2_d40cc2c4" = UNDERGROUND-WALL
+"Face5_2_cf9c53ad" = UNDERGROUND-WALL
   CONSTRUCTION = "Generic Ground Slab_c"
   LOCATION     = BOTTOM
-  POLYGON      = "Face5_2_d40cc2c4_ug Plg"
+  POLYGON      = "Face5_2_cf9c53ad_ug Plg"
   AZIMUTH      = 180
   X            = 0.0
   Y            = 0.0
