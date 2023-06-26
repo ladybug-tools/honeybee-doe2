@@ -13,6 +13,7 @@ from .groundcontact import GroundFloor
 from .exposedfloor import ExposedFloor
 from .interiorfloor import InteriorFloor
 from .adiabaticfloor import AdiabaticFloor
+from .adiabaticroof import AdiabaticRoof
 
 
 class RoomDoe2Properties(object):
@@ -64,8 +65,19 @@ class RoomDoe2Properties(object):
         roofs = [
             DoeRoof(face) for face in self.host.faces
             if isinstance(face.type, RoofCeiling)
+            and isinstance(face.boundary_condition, (Outdoors, Surface))
         ]
         return roofs
+
+    @property
+    def adiabatic_roofs(self):
+        adiabatic_roofs = [
+            AdiabaticRoof(face) for face in self.host.faces
+            if isinstance(face.type, RoofCeiling)
+            and isinstance(face.boundary_condition, Adiabatic)
+
+        ]
+        return adiabatic_roofs
 
     @property
     def ground_contact_surfaces(self):
@@ -151,6 +163,9 @@ class RoomDoe2Properties(object):
         adiabatic_floors = '\n'.join(
             [af.to_inp(self.origin) for af in self.adiabatic_floor_surfaces]
         )
+        adiabatic_roofs = '\n'.join(
+            [ar.to_inp(self.origin) for ar in self.adiabatic_roofs]
+        )
         return '\n'.join(
-            [spaces, walls, roofs, ground_floors, exposed_floors, interior_floors,
-             adiabatic_floors])
+            [spaces, walls, roofs, adiabatic_roofs, ground_floors, exposed_floors,
+             interior_floors, adiabatic_floors])
