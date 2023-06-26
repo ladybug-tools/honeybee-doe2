@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from honeybee.boundarycondition import Ground, Outdoors, Surface
+from honeybee.boundarycondition import Ground, Outdoors, Surface, Adiabatic
 from honeybee.facetype import Wall, Floor, RoofCeiling
 from honeybee.face import Face
 from honeybee.room import Room, Point3D
@@ -12,6 +12,7 @@ from .roof import DoeRoof
 from .groundcontact import GroundFloor
 from .exposedfloor import ExposedFloor
 from .interiorfloor import InteriorFloor
+from .adiabaticfloor import AdiabaticFloor
 
 
 class RoomDoe2Properties(object):
@@ -95,6 +96,15 @@ class RoomDoe2Properties(object):
         return interior_floor_surfaces
 
     @property
+    def adiabatic_floor_surfaces(self):
+        adiabatic_floor_surfaces = [
+            AdiabaticFloor(face) for face in self.host.faces
+            if isinstance(face.type, Floor)
+            and isinstance(face.boundary_condition, Adiabatic)
+        ]
+        return adiabatic_floor_surfaces
+
+    @property
     def window(self):
         pass
     # TODO add window support
@@ -138,5 +148,9 @@ class RoomDoe2Properties(object):
         interior_floors = '\n'.join(
             [inf.to_inp(self.origin) for inf in self.interior_floor_surfaces]
         )
+        adiabatic_floors = '\n'.join(
+            [af.to_inp(self.origin) for af in self.adiabatic_floor_surfaces]
+        )
         return '\n'.join(
-            [spaces, walls, roofs, ground_floors, exposed_floors, interior_floors])
+            [spaces, walls, roofs, ground_floors, exposed_floors, interior_floors,
+             adiabatic_floors])
