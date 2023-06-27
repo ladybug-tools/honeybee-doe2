@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from honeybee.boundarycondition import Ground, Outdoors, Surface, Adiabatic
+from honeybee_energy.boundarycondition import Adiabatic
+
+from honeybee.boundarycondition import Ground, Outdoors, Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
 from honeybee.face import Face
 from honeybee.room import Room, Point3D
