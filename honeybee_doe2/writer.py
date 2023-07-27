@@ -21,7 +21,11 @@ def model_to_inp(hb_model):
     comp_data = ComplianceData()
     sb_data = sbd()
 
-    hb_model.convert_to_units(units='Feet')
+    hb_model = hb_model.duplicate()
+
+    if hb_model.units != 'Feet':
+        hb_model.convert_to_units(units='Feet')
+    hb_model.remove_degenerate_geometry()
     hb_model.rectangularize_apertures(subdivision_distance=0.5, max_separation=0.1)
 
     room_names = {}
