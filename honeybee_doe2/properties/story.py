@@ -4,7 +4,6 @@
 from typing import List
 from honeybee.room import Room
 from honeybee.face import Face
-from ..utils.geometry import get_floor_boundary
 
 
 class Doe2Story:
@@ -15,10 +14,19 @@ class Doe2Story:
         self.story_no = _story_no
         self.story_poly, self.boundary_geometry = self._story_poly
 
-    # TODO Model use doe2story object to get geometry of each story and stories rooms/zones
+    # TODO: pass the tolerance value from the model
     @property
     def _story_poly(self):
-        vertices = get_floor_boundary(self.rooms)
+        tol = 0.001
+        boundaries = Room.grouped_horizontal_boundary(self.rooms, tolerance=tol)
+        if len(boundaries) != 1:
+            raise ValueError(
+                'Failed to create the boundary using grouped horizontal boundary.'
+                f'for Level {self.story_no} using a tolerance value of {tol}. Check '
+                'The input model and ensure there are any gaps between the rooms.'
+            )
+
+        vertices = boundaries[0].boundary  # use boundary to ignore holes if any
         story_geom = Face.from_vertices(
             identifier="Level_{}".format(self.story_no),
             vertices=vertices)

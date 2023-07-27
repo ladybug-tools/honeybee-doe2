@@ -6,9 +6,9 @@ from honeybee.facetype import Wall, Floor, RoofCeiling
 from honeybee.face import Face
 from honeybee.room import Room, Point3D
 from typing import List
+from uuid import uuid4
 
 from ..utils.doe_formatters import short_name
-from ..utils.geometry import get_room_rep_poly
 from .wall import DoeWall
 from .roof import DoeRoof
 from .groundcontact import GroundFloor
@@ -28,9 +28,15 @@ class RoomDoe2Properties(object):
     def host(self) -> Room:
         return self._host
 
+    # TODO: Find a way to pass the tolerance downstream
     @property
     def boundary(self) -> Face:
-        return self._get_boundary_geometry(self._host)
+        tol = 0.001
+        _boundary = self._host.horizontal_boundary(match_walls=False, tolerance=tol)
+        _boundary = _boundary.remove_colinear_vertices(tolerance=tol)
+        boundary_face = Face(identifier=str(uuid4()), geometry=_boundary)
+        boundary_face.display_name = self._host.display_name
+        return boundary_face
 
     @property
     def origin(self) -> Point3D:
@@ -47,10 +53,6 @@ class RoomDoe2Properties(object):
     def poly(self):
         # * return self's floor's face's poly
         return self.boundary.properties.doe2.poly
-
-    @staticmethod
-    def _get_boundary_geometry(room: Room):
-        return get_room_rep_poly(room)
 
     @property
     def walls(self) -> List[DoeWall]:
