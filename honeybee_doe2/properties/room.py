@@ -4,7 +4,7 @@ from honeybee_energy.boundarycondition import Adiabatic
 from honeybee.boundarycondition import Ground, Outdoors, Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
 from honeybee.face import Face
-from honeybee.room import Room, Point3D
+from honeybee.room import Room
 from typing import List
 from uuid import uuid4
 
@@ -23,25 +23,22 @@ class RoomDoe2Properties(object):
 
     def __init__(self, _host: Room):
         self._host = _host
+        self._boundary = None
 
     @property
     def host(self) -> Room:
         return self._host
 
-    # TODO: Find a way to pass the tolerance downstream
-    @property
-    def boundary(self) -> Face:
-        tol = 0.001
+    def boundary(self, tolerance) -> Face:
+        if self._boundary:
+            return self._boundary
+        tol = tolerance
         _boundary = self._host.horizontal_boundary(match_walls=False, tolerance=tol)
         _boundary = _boundary.remove_colinear_vertices(tolerance=tol)
         boundary_face = Face(identifier=str(uuid4()), geometry=_boundary)
         boundary_face.display_name = self._host.display_name
+        self._boundary = boundary_face
         return boundary_face
-
-    @property
-    def origin(self) -> Point3D:
-        """Origin point of the room."""
-        return self.boundary.geometry.lower_left_corner
 
     def duplicate(self, new_host=None):
 
@@ -49,10 +46,9 @@ class RoomDoe2Properties(object):
         new_properties_obj = RoomDoe2Properties(_host)
         return new_properties_obj
 
-    @property
-    def poly(self):
+    def poly(self, tolerance):
         # * return self's floor's face's poly
-        return self.boundary.properties.doe2.poly
+        return self.boundary(tolerance).properties.doe2.poly
 
     @property
     def walls(self) -> List[DoeWall]:
@@ -139,12 +135,18 @@ class RoomDoe2Properties(object):
         # chances that a space is defined by a different azimuth than 0 is very low
         azimuth = 0
         # this value should be set in relation to the Floor object
-        origin_pt = self.origin - floor_origin
+        if not self._boundary:
+            raise ValueError(
+                'You must call the `poly` method to create the boundary before calling '
+                'this method.'
+            )
+        origin = self._boundary.geometry.lower_left_corner
+        origin_pt = origin - floor_origin
         obj_lines = []
         obj_lines.append('"{}" = SPACE\n'.format(short_name(self.host.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
         obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
-            self.boundary.display_name))
+            self.host.display_name))
         obj_lines.append('   AZIMUTH         = {}\n'.format(azimuth))
         obj_lines.append('   X               = {}\n'.format(origin_pt.x))
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
@@ -153,22 +155,22 @@ class RoomDoe2Properties(object):
         obj_lines.append('  ..\n')
         # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
         spaces = ''.join(obj_lines)
-        walls = '\n'.join([w.to_inp(self.origin) for w in self.walls])
-        roofs = '\n'.join([r.to_inp(self.origin) for r in self.roofs])
+        walls = '\n'.join([w.to_inp(origin) for w in self.walls])
+        roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])
         ground_floors = '\n'.join(
-            [g.to_inp(self.origin) for g in self.ground_contact_surfaces]
+            [g.to_inp(origin) for g in self.ground_contact_surfaces]
         )
         exposed_floors = '\n'.join(
-            [ef.to_inp(self.origin) for ef in self.exposed_floor_surfaces]
+            [ef.to_inp(origin) for ef in self.exposed_floor_surfaces]
         )
         interior_floors = '\n'.join(
-            [inf.to_inp(self.origin) for inf in self.interior_floor_surfaces]
+            [inf.to_inp(origin) for inf in self.interior_floor_surfaces]
         )
         adiabatic_floors = '\n'.join(
-            [af.to_inp(self.origin) for af in self.adiabatic_floor_surfaces]
+            [af.to_inp(origin) for af in self.adiabatic_floor_surfaces]
         )
         adiabatic_roofs = '\n'.join(
-            [ar.to_inp(self.origin) for ar in self.adiabatic_roofs]
+            [ar.to_inp(origin) for ar in self.adiabatic_roofs]
         )
         return '\n'.join(
             [spaces, walls, roofs, adiabatic_roofs, ground_floors, exposed_floors,

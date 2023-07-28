@@ -9,15 +9,15 @@ from honeybee.face import Face
 class Doe2Story:
     """This class represents a DOE2 FLOOR object."""
 
-    def __init__(self, rooms: List[Room], _story_no: int):
+    def __init__(self, rooms: List[Room], story_number: int, tolerance: float):
         self.rooms = rooms
-        self.story_no = _story_no
+        self.story_no = story_number
+        self.tolerance = tolerance
         self.story_poly, self.boundary_geometry = self._story_poly
 
-    # TODO: pass the tolerance value from the model
     @property
     def _story_poly(self):
-        tol = 0.001
+        tol = self.tolerance
         boundaries = Room.grouped_horizontal_boundary(self.rooms, tolerance=tol)
         if len(boundaries) != 1:
             raise ValueError(
@@ -37,10 +37,9 @@ class Doe2Story:
         story_rm_geom.append(story_geom.properties.doe2.poly)
 
         for room in self.rooms:
-            story_rm_geom.append(room.properties.doe2.poly)
+            story_rm_geom.append(room.properties.doe2.poly(tol))
             for face in room.faces:
                 story_rm_geom.append(face.properties.doe2.poly)
-
         story_rm_geom = '\n'.join(story_rm_geom)
 
         return '\n'.join([story_rm_geom]), story_geom
@@ -67,11 +66,7 @@ class Doe2Story:
 
     @property
     def display_name(self):
-        return self._get_display_name(self.story_no)
-
-    @staticmethod
-    def _get_display_name(story_no):
-        return "Level_{}".format(story_no)
+        return "Level_{}".format(self.story_no)
 
     def to_inp(self):
         origin_pt = self.boundary_geometry.geometry.lower_left_corner
