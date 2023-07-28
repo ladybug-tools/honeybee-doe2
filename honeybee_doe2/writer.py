@@ -26,7 +26,7 @@ def model_to_inp(hb_model):
     if hb_model.units != 'Feet':
         hb_model.convert_to_units(units='Feet')
     hb_model.remove_degenerate_geometry()
-    hb_model.rectangularize_apertures(subdivision_distance=0.5, max_separation=0.1)
+    hb_model.rectangularize_apertures(subdivision_distance=0.5, max_separation=0)
 
     room_names = {}
     face_names = {}
@@ -68,10 +68,9 @@ def model_to_inp(hb_model):
             face.user_data = {'adjacent_room': room_mapper[adj_room_identifier]}
 
     for i, room in enumerate(hb_model.rooms):
-        room_name = room.display_name
-        for ii, face in enumerate(room.faces):
+        for face in room.faces:
             try:
-                face_dir = face.horizontal_orientation()
+                _ = face.horizontal_orientation()
             except ZeroDivisionError:
                 face.display_name = short_name(
                     clean_and_id_string(face.display_name)).replace(
