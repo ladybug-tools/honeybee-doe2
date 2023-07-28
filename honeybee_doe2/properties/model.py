@@ -59,19 +59,15 @@ class ModelDoe2Properties(object):
     @property
     def stories(self):
         # * do tuple, (geom, 'space room whatever') for each 'inpblock' per story
-        return self._make_doe_stories(self.host)
-
-    @staticmethod
-    def _make_doe_stories(obj):
         stories = []
-        if not obj.rooms:
+        model = self.host
+        tol = model.tolerance
+        if not model.rooms:
             return stories
-
-        grouped = Room.group_by_floor_height(obj.rooms, 0.1)
+        grouped = Room.group_by_floor_height(model.rooms, 0.1)
         for i, story in enumerate(grouped[0]):
-            stories.append(Doe2Story(story, i))
-        # nl = ''
-        # return str(nl.join(str(s) for s in stories))
+            stories.append(Doe2Story(story, i, tolerance=tol))
+
         return stories
 
     @property
