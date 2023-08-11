@@ -12,7 +12,7 @@ from honeybee.model import Model
 from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
 from honeybee.boundarycondition import Surface
-from honeybee.typing import clean_and_id_string
+from honeybee.typing import clean_string
 
 
 def model_to_inp(hb_model):
@@ -31,7 +31,8 @@ def model_to_inp(hb_model):
     room_names = {}
     face_names = {}
     for room in hb_model.rooms:
-        room.display_name = room.display_name.replace('..', '_')
+        room.display_name = clean_string(room.display_name).replace('..', '_')
+        room.display_name = short_name(room.display_name)
         if room.display_name in room_names:
             original_name = room.display_name
             room.display_name = f'{original_name}_{room_names[original_name]}'
@@ -40,7 +41,8 @@ def model_to_inp(hb_model):
             room_names[room.display_name] = 1
 
         for face in room.faces:
-            face.display_name = face.display_name.replace('..', '_')
+            face.display_name = clean_string(face.display_name).replace('..', '_')
+            face.display_name = short_name(face.display_name)
             if face.display_name in face_names:
                 original_name = face.display_name
                 face.display_name = f'{original_name}_{face_names[original_name]}'
@@ -49,13 +51,14 @@ def model_to_inp(hb_model):
                 face_names[face.display_name] = 1
 
             for apt in face.apertures:
-                apt.display_name = apt.display_name.replace('..', '_')
+                apt.display_name = clean_string(apt.display_name).replace('..', '_')
+                apt.display_name = short_name(apt.display_name)
                 if apt.display_name in face_names:
                     original_name = apt.display_name
                     apt.display_name = f'{original_name}_{face_names[original_name]}'
                     face_names[original_name] += 1
                 else:
-                    face_names[face.display_name] = 1
+                    face_names[apt.display_name] = 1
 
     room_mapper = {
         r.identifier: r.display_name for r in hb_model.rooms
@@ -67,25 +70,12 @@ def model_to_inp(hb_model):
             adj_room_identifier = face.boundary_condition.boundary_condition_objects[1]
             face.user_data = {'adjacent_room': room_mapper[adj_room_identifier]}
 
-    for i, room in enumerate(hb_model.rooms):
-        for face in room.faces:
-            try:
-                _ = face.horizontal_orientation()
-            except ZeroDivisionError:
-                face.display_name = short_name(
-                    clean_and_id_string(face.display_name)).replace(
-                    '..', '_')
-            else:
-                face.display_name = short_name(
-                    clean_and_id_string(face.display_name)).replace(
-                    '..', '_')
-
-            for ap in face.apertures:
-                ap.display_name = short_name(
-                    clean_and_id_string(ap.display_name)).replace(
-                    '..', '_')
-
-    window_constructions = [generic_construction_set.aperture_set.window_construction]
+    window_constructions = [
+        generic_construction_set.aperture_set.window_construction,
+        generic_construction_set.aperture_set.interior_construction,
+        generic_construction_set.aperture_set.operable_construction,
+        generic_construction_set.aperture_set.skylight_construction
+    ]
 
     for construction in hb_model.properties.energy.constructions:
         if isinstance(construction, WindowConstruction):
