@@ -26,7 +26,9 @@ def model_to_inp(hb_model):
     if hb_model.units != 'Feet':
         hb_model.convert_to_units(units='Feet')
     hb_model.remove_degenerate_geometry()
-    hb_model.rectangularize_apertures(subdivision_distance=0.5, max_separation=0)
+    hb_model.rectangularize_apertures(
+        subdivision_distance=0.5, max_separation=0.0, merge_all=True
+    )
 
     room_names = {}
     face_names = {}
