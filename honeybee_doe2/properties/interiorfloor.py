@@ -5,7 +5,10 @@ from ..geometry.polygon import DoePolygon
 class InteriorFloor:
     def __init__(self, face):
         self.face = face
-        self.polygon = DoePolygon.from_face(face, flip=True)
+        # only flip horizontal floors
+        flip = True if abs(self.face.altitude + 90) <= 0.01 \
+            else False
+        self.polygon = DoePolygon.from_face(face, flip=flip)
 
     def to_inp(self, space_origin):
         p_name = short_name(self.face.display_name)
