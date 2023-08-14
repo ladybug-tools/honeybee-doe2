@@ -19,6 +19,14 @@ mats_layers = '{sd_brk}$              Materials / Layers / Constructions\n{sd_br
     sd_brk=sd_brk, spacer=spacer)
 glzCode = '{sd_brk}$              Glass Type Codes\n{sd_brk}{spacer}'.format(
     sd_brk=sd_brk, spacer=spacer)
+
+# Creating a generic hard-coded construction for doors. This should be
+# updated to use the assigned construction to the door
+doorCode = f'{sd_brk}$              Door Construction\n{sd_brk}{spacer}' \
+    '"Generic Door" = CONSTRUCTION\n' \
+    '   TYPE               = U-VALUE\n' \
+    '   U-VALUE            = 0.5\n..\n'
+
 glzTyp = '{sd_brk}$              Glass Types\n{sd_brk}{spacer}\n\n'.format(
     sd_brk=sd_brk, spacer=spacer) +\
     '"WT1" = GLASS-TYPE\n  '\

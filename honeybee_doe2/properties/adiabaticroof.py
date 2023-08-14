@@ -1,6 +1,6 @@
+from .aperture import Window
 from ..utils.doe_formatters import short_name
 from ..geometry.polygon import DoePolygon
-from ladybug_geometry.geometry3d.face import Face3D
 
 
 class AdiabaticRoof:

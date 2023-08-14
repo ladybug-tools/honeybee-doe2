@@ -1,5 +1,6 @@
 from ..utils.doe_formatters import short_name
 from .aperture import Window
+from .door import Door
 
 
 class WallBoundaryCondition:
@@ -69,16 +70,19 @@ class DoeWall:
         temp_str = spc.join([line for line in obj_lines])
 
         doe_windows = [
-            Window(ap, self.face) for ap in self.face.apertures
+            Window(ap, self.face).to_inp() for ap in self.face.apertures
         ]
 
-        nl = '\n'
-        if doe_windows is not None:
-            for window in doe_windows:
-                temp_str += window.to_inp() + nl
-            return temp_str
-        else:
-            return temp_str
+        temp_str += '\n'.join(doe_windows)
+        
+        if wall_typology == 'EXTERIOR-WALL':
+            # Doors can only be part of exterior walls
+            doe_doors = [
+                Door(dr, self.face).to_inp() for dr in self.face.doors
+            ]
+            temp_str += '\n'.join(doe_doors)
+
+        return temp_str
 
     def __repr__(self):
         return f'DOE2 Wall: {self.face.display_name}'
