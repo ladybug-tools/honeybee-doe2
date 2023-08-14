@@ -98,6 +98,7 @@ def model_to_inp(hb_model):
         hb_model.properties.doe2.mats_cons_layers,
         fb.glzCode,
         '\n'.join(gt.to_inp() for gt in win_con_to_inp),
+        fb.doorCode,
         fb.polygons,
         '\n'.join(s.story_poly for s in hb_model.properties.doe2.stories),
         fb.wallParams,
