@@ -34,7 +34,13 @@ class RoomDoe2Properties(object):
             return self._boundary
         tol = tolerance
         _boundary = self._host.horizontal_boundary(match_walls=False, tolerance=tol)
+        if _boundary.has_holes:
+            print(
+                f'{self.host.display_name} has {len(_boundary.holes)} holes.'
+                ' They will be removed.')
+        _boundary._holes = [] # remove holes
         _boundary = _boundary.remove_colinear_vertices(tolerance=tol)
+        _boundary = _boundary.remove_duplicate_vertices(tolerance=tol)
         boundary_face = Face(identifier=str(uuid4()), geometry=_boundary)
         boundary_face.display_name = self._host.display_name
         self._boundary = boundary_face
