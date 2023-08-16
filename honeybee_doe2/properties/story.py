@@ -18,16 +18,16 @@ class Doe2Story:
     @property
     def _story_poly(self):
         tol = self.tolerance
-        boundaries = Room.grouped_horizontal_boundary(self.rooms, tolerance=tol)
-        if len(boundaries) != 1:
-            boundaries = [boundaries[0]]
-            # raise ValueError(
-            #     'Failed to create the boundary using grouped horizontal boundary.'
-            #     f'for Level {self.story_no} using a tolerance value of {tol}. Check '
-            #     'The input model and ensure there are any gaps between the rooms.'
-            # )
 
-        vertices = boundaries[0].boundary  # use boundary to ignore holes if any
+        boundaries = Room.grouped_horizontal_boundary(
+            self.rooms, tolerance=tol, floors_only=True
+        )
+
+        # pick the firt boundary to represent the story
+        vertices = boundaries[0] \
+            .remove_colinear_vertices(tol) \
+            .remove_duplicate_vertices(tol).boundary  # use boundary to ignore holes if any
+
         story_geom = Face.from_vertices(
             identifier="Level_{}".format(self.story_no),
             vertices=vertices)
