@@ -1,0 +1,920 @@
+INPUT ..
+
+
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+
+
+TITLE
+    LINE-1           = *Unnamed*
+    ..
+
+"Entire Year" = RUN-PERIOD-PD
+   BEGIN-MONTH     = 1
+   BEGIN-DAY      = 1
+   BEGIN-YEAR     = 2021
+   END-MONTH      = 12
+   END-DAY        = 31
+   END-YEAR       = 2021
+   ..
+
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+
+
+"Compliance Data" = COMPLIANCE
+   C-PERMIT-SCOPE   = 0
+   C-PROJ-NAME      = *sample_project*
+   C-BUILDING-TYPE  = 32
+   C-CONS-PHASE     = 0
+   C-NR-DHW-INCL    = 1
+   C-CODE-VERSION   = 1
+   C-901-NUM-FLRS   = 1
+   C-901-BLDG-TYPE  = 32
+   ..
+
+$---------------------------------------------------------
+$              Site and Building Data
+$---------------------------------------------------------
+
+"Site Data" = SITE-PARAMETERS
+  ALTITUDE          = 150
+  C-STATE           = 21
+  C-WEATHER-FILE    = *TMY2\HARTFOCT.bin* 
+  C-COUNTRY         = 1
+  C-901-LOCATION    = 1092
+  ..
+"Building Data" = BUILD-PARAMETERS
+  HOLIDAYS        = "Standard US Holidays"
+  ..
+
+
+PROJECT-DATA
+  ..
+
+
+
+$ ---------------------------------------------------------
+$              Day Schedules
+$ ---------------------------------------------------------
+
+
+
+
+"Hospital BLDG_LIGHT_EXTD_SCH_Default" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.7, 0.7,
+0.7, 0.7, 0.7, 0.7,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"Hospital BLDG_LIGHT_EXTD_SCH_Sat" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hospital BLDG_LIGHT_EXTD_SCH_Wkdy" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hospital BLDG_OCC_EXTD_SCH_Default" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.4,
+0.6, 0.6, 0.6, 0.6,
+0.6, 0.6, 0.6, 0.6,
+0.4, 0.4, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.4)
+   ..
+"Hospital BLDG_OCC_EXTD_SCH_SmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hospital BLDG_OCC_EXTD_SCH_WntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"Hospital BLDG_OCC_EXTD_SCH_Sat" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.5,
+0.6, 0.6, 0.6, 0.6,
+0.6, 0.6, 0.6, 0.6,
+0.6, 0.5, 0.5, 0.4,
+0.4, 0.4, 0.4, 0.4)
+   ..
+"Hospital BLDG_OCC_EXTD_SCH_Wkdy" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.5,
+0.6, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.6, 0.5, 0.5,
+0.4, 0.4, 0.4, 0.4)
+   ..
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+
+
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
+  ..
+
+"Generic Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.033
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 69.921
+   SPECIFIC-HEAT   = 0.628
+  ..
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.005
+   CONDUCTIVITY    = 14.265
+   DENSITY         = 480.085
+   SPECIFIC-HEAT   = 0.176
+  ..
+
+"Generic Exterior Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic Brick",
+      "Generic LW Concrete",
+      "Generic 50mm Insulation",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Exterior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Exterior Wall_l"
+   ..
+
+"Generic Interior Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic Gypsum Board",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Interior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Wall_l"
+   ..
+
+"Generic Underground Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Underground Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Wall_l"
+   ..
+
+"Generic Exposed Floor_l" = LAYERS
+   MATERIAL             = (
+      "Generic Painted Metal",
+      "Generic Ceiling Air Gap",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete"
+   )
+   ..
+
+"Generic Exposed Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 5
+   LAYERS               = "Generic Exposed Floor_l"
+   ..
+
+"Generic Interior Floor_l" = LAYERS
+   MATERIAL             = (
+      "Generic Acoustic Tile",
+      "Generic Ceiling Air Gap",
+      "Generic LW Concrete"
+   )
+   ..
+
+"Generic Interior Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.2
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Floor_l"
+   ..
+
+"Generic Ground Slab_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete"
+   )
+   ..
+
+"Generic Ground Slab_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Ground Slab_l"
+   ..
+
+"Generic Roof_l" = LAYERS
+   MATERIAL             = (
+      "Generic Roof Membrane",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Roof_l"
+   ..
+
+"Generic Interior Ceiling_l" = LAYERS
+   MATERIAL             = (
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Interior Ceiling_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.8
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Interior Ceiling_l"
+   ..
+
+"Generic Underground Roof_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Underground Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Roof_l"
+   ..
+
+
+$ ---------------------------------------------------------
+$              Glass Type Codes
+$ ---------------------------------------------------------
+
+
+
+
+"Generic Double Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4874490884111821
+   GLASS-CONDUCT      = 0.297
+   ..
+
+"Generic Single Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.9206277902735016
+   GLASS-CONDUCT      = 1.009
+   ..
+
+
+$ ---------------------------------------------------------
+$              Door Construction
+$ ---------------------------------------------------------
+
+
+"Generic Door" = CONSTRUCTION
+   TYPE               = U-VALUE
+   U-VALUE            = 0.5
+..
+
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+
+
+"Level_0 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 32.808399, -32.808399 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Room1 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 32.808399, -32.808399 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face2 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face4 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face5 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 32.808399, -32.808399 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face6 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 32.808399 )
+   ..
+
+
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fixed and Building Shades
+$ ---------------------------------------------------------
+
+
+
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Performance Curves                   **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      Floors / Spaces / Walls / Windows / Doors      **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+
+"Level_0"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_0 Plg"
+   AZIMUTH         = 0.0
+   X               = 0.0
+   Y               = 32.80839895013123
+   Z               = 0.0
+   SPACE-HEIGHT    = 9.842519685039369
+   FLOOR-HEIGHT    = 9.842519685039369
+   ..
+
+"Room1" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room1 Plg"
+   AZIMUTH         = 0
+   X               = 0.0
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 10594.400016446572
+   ZONE-TYPE = UNCONDITIONED
+   NUMBER-OF-PEOPLE = 231.72363468800185
+   PEOPLE-SCHEDULE = "Hospital BLDG_OCC_EXTD_SCH"
+   LIGHTING-W/AREA = 15.069459999999998
+   LIGHTING-SCHEDULE = "Hospital BLDG_LIGHT_EXTD_SCH"
+  ..
+
+"Face1" = EXTERIOR-WALL
+  POLYGON           = "Face1 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  1.2301179319733081e-31
+  Y                 =  -32.80839895013123
+  Z                 =  -2.0089350379713795e-15
+  ..
+
+"Face2" = EXTERIOR-WALL
+  POLYGON           = "Face2 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  32.80839895013123
+  Y                 =  -32.80839895013123
+  Z                 =  -2.0089350379713795e-15
+  ..
+
+"Face3" = EXTERIOR-WALL
+  POLYGON           = "Face3 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  32.80839895013123
+  Y                 =  0.0
+  Z                 =  -2.0089350379713795e-15
+  ..
+
+"Face4" = EXTERIOR-WALL
+  POLYGON           = "Face4 Plg"
+  CONSTRUCTION      = "Generic Exterior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  -2.0089350379713795e-15
+  ..
+
+"Face6" = ROOF
+   POLYGON           = "Face6 Plg"
+   CONSTRUCTION      = "Generic Roof_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -32.80839895013123
+   Z                 =  9.842519685039369
+  ..
+
+
+"Face5_ug Plg" = POLYGON
+   V1        = ( 32.808399, -0.000000 )
+   V2        = ( 32.808399, 32.808399 )
+   V3        = ( 0.000000, 32.808399 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face5" = UNDERGROUND-WALL
+  CONSTRUCTION = "Generic Ground Slab_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Face5_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **              Electric & Fuel Meters                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      HVAC Circulation Loops / Plant Equipment       **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **            Steam & Chilled Water Meters             **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **               HVAC Systems / Zones                  **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+"Level_0flr_Sys (SUM)" = SYSTEM
+   TYPE             = SUM
+   HEAT-SOURCE      = NONE
+   SYSTEM-REPORTS   = NO
+   ..
+
+"Room1 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 72
+  DESIGN-COOL-T    = 75
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room1"
+  ..
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Metering & Misc HVAC                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                    Utility Rates                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                 Output Reporting                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+END ..
+COMPUTE ..
+STOP ..

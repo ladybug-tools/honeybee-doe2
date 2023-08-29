@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from enum import Enum
 from honeybee_energy.boundarycondition import Adiabatic
 
 from honeybee.boundarycondition import Ground, Outdoors, Surface
@@ -16,6 +17,16 @@ from .exposedfloor import ExposedFloor
 from .interiorfloor import InteriorFloor
 from .adiabaticfloor import AdiabaticFloor
 from .adiabaticroof import AdiabaticRoof
+
+
+class ZoneType(Enum):
+
+    CONDITIONED = 'CONDITIONED'
+    """Space is heated and/or cooled."""
+    UNCONDITIONED = 'UNCONDITIONED'
+    """Space is neither heated nor cooled."""
+    PLENUM = 'PLENUM'
+    """Space is a return air plenum."""
 
 
 class RoomDoe2Properties(object):
@@ -38,7 +49,7 @@ class RoomDoe2Properties(object):
             print(
                 f'{self.host.display_name} has {len(_boundary.holes)} holes.'
                 ' They will be removed.')
-        _boundary._holes = [] # remove holes
+        _boundary._holes = []  # remove holes
         _boundary = _boundary.remove_colinear_vertices(tolerance=tol)
         _boundary = _boundary.remove_duplicate_vertices(tolerance=tol)
         boundary_face = Face(identifier=str(uuid4()), geometry=_boundary)
@@ -148,8 +159,6 @@ class RoomDoe2Properties(object):
 
         return doe_energy_properties
 
-
-
     def space(self, floor_origin):
         # chances that a space is defined by a different azimuth than 0 is very low
         azimuth = 0
@@ -174,7 +183,7 @@ class RoomDoe2Properties(object):
         for prop in self.space_energy_properties:
             obj_lines.append(prop)
         obj_lines.append('  ..\n')
-        
+
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
         roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])

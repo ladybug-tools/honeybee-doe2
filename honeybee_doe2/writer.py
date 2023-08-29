@@ -94,6 +94,8 @@ def model_to_inp(hb_model):
         fb.comply,
         comp_data.to_inp(),
         sb_data.to_inp(),
+        fb.daySch,
+        hb_model.properties.doe2.day_scheduels,
         fb.mats_layers,
         hb_model.properties.doe2.mats_cons_layers,
         fb.glzCode,
