@@ -123,19 +123,32 @@ class RoomDoe2Properties(object):
         return adiabatic_floor_surfaces
 
     @property
-    def window(self):
-        pass
-    # TODO add window support
+    def space_energy_properties(self):
+        return self._convert_energy_properties(self.host)
 
-    @property
-    def door(self):
-        pass
-    # TODO add door support
+    @staticmethod
+    def _convert_energy_properties(host: Room) -> List[str]:
+        doe_energy_properties = []
+        if host.properties.energy.is_conditioned:
+            doe_energy_properties.append(
+                f'   ZONE-TYPE = {ZoneType.CONDITIONED.value}\n')
+        else:
+            doe_energy_properties.append(
+                f'   ZONE-TYPE = {ZoneType.UNCONDITIONED.value}\n')
+        if host.properties.energy.people:
+            doe_energy_properties.append(
+                f'   NUMBER-OF-PEOPLE = {host.properties.energy.people.people_per_area*host.floor_area}\n')
+            doe_energy_properties.append(
+                f'   PEOPLE-SCHEDULE = "{host.properties.energy.people.occupancy_schedule.display_name}"\n')
+        if host.properties.energy.lighting:
+            doe_energy_properties.append(
+                f'   LIGHTING-W/AREA = {host.properties.energy.lighting.watts_per_area}\n')
+            doe_energy_properties.append(
+                f'   LIGHTING-SCHEDULE = "{host.properties.energy.lighting.schedule.display_name}"\n')
 
-    @property
-    def activity_disc(self):
-        pass
-    # TODO add activity disc // loads support etc
+        return doe_energy_properties
+
+
 
     def space(self, floor_origin):
         # chances that a space is defined by a different azimuth than 0 is very low
@@ -158,8 +171,10 @@ class RoomDoe2Properties(object):
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
         obj_lines.append('   Z               = {}\n'.format(origin_pt.z))
         obj_lines.append('   VOLUME          = {}\n'.format(self.host.volume))
+        for prop in self.space_energy_properties:
+            obj_lines.append(prop)
         obj_lines.append('  ..\n')
-        # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
+        
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
         roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])
