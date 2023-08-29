@@ -22,8 +22,20 @@ class Doe2Story:
         boundaries = Room.grouped_horizontal_boundary(
             self.rooms, tolerance=tol, floors_only=True
         )
+        if not boundaries:
+            # try to create the boundary with the whole volume. This is an edge case
+            # that can happen in a few instances including when all the floor are air
+            # boundaries
+            boundaries = Room.grouped_horizontal_boundary(
+                self.rooms, tolerance=tol, floors_only=False
+            )
 
-        # pick the firt boundary to represent the story
+        if not boundaries:
+            raise ValueError(
+                f'Failed to create the floor for floor {self.story_no} that includes '
+                f'{self.rooms[0]} and {self.rooms[1]}'
+            )
+        # pick the first boundary to represent the story
         vertices = boundaries[0] \
             .remove_colinear_vertices(tol) \
             .remove_duplicate_vertices(tol).boundary  # use boundary to ignore holes if any
