@@ -21,7 +21,7 @@ from .constructions import Construction, ConstructionCollection
 
 from .hvac import HVACSystem, Zone
 from .shades import Doe2Shade, Doe2ShadeCollection
-from .activitydescription import DayScheduleDoe, DayScheduleType
+from .activitydescription import DayScheduleDoe, DayScheduleType, WeekScheduleDoe
 
 
 class ModelDoe2Properties(object):
@@ -59,7 +59,6 @@ class ModelDoe2Properties(object):
 
     @property
     def stories(self):
-        # * do tuple, (geom, 'space room whatever') for each 'inpblock' per story
         stories = []
         model = self.host
         tol = model.tolerance
@@ -115,6 +114,33 @@ class ModelDoe2Properties(object):
             return Doe2ShadeCollection.from_hb_shades(obj.shades).to_inp()
         else:
             return None
+
+    @property
+    def week_scheduels(self):
+        return self._get_week_scheduels(self.host)
+
+    @staticmethod
+    def _get_week_scheduels(obj):
+
+        translated_schedules = []
+        for room in obj.rooms:
+
+            if room.properties.energy.lighting is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.lighting.schedule,
+                        stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.people is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.people.occupancy_schedule,
+                        stype=DayScheduleType.FRACTION))
+
+        if len(translated_schedules) > 0:
+            return '\n'.join([schedule.to_inp() for schedule in translated_schedules])
+        elif len(translated_schedules) == 0:
+            return '\n'
 
     @property
     def day_scheduels(self):

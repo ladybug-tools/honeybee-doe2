@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from enum import Enum
 import textwrap
+from honeybee_energy.schedule.ruleset import ScheduleRuleset
+from typing import List
+
 from ..utils.doe_formatters import short_name
 
 
@@ -14,7 +17,7 @@ class DayScheduleType(Enum):
     """
     FRACTION = 'FRACTION'
     """ accepts values between and including 0.0 and 1.0. Examples include lighting,
-        people, etc 
+        people, etc
     """
     MULTIPLIER = 'MULTIPLIER'
     """accepts values 0.0 and above. Examples, include lighting, people, etc"""
@@ -67,7 +70,7 @@ class DayScheduleType(Enum):
         defines a relationship between the outside air temperature and a temperature
         setpoint, such as supply air temperature. Refer to the section below on “Reset
         Schedules” for more information. Note: TYPE = RESET-TEMP and RESET-RATIO work only in DAY-
-        SCHEDULE-PD; not DAY-SCHEDULE. They replace the original DAY-RESET-SCH command that was used 
+        SCHEDULE-PD; not DAY-SCHEDULE. They replace the original DAY-RESET-SCH command that was used
         prior to the development of user interfaces.
     """
     RESETRATIO = 'RESET-RATIO'
@@ -91,6 +94,7 @@ class DayScheduleDoe:
     @classmethod
     def from_day_schedule(cls, day_schedule, stype):
         """Create a DaySchedule from a DaySchedule."""
+        # TODO: format the output to look better, follow indent rules etc.
 
         mywrap = textwrap.TextWrapper(width=20)
 
@@ -107,6 +111,128 @@ class DayScheduleDoe:
         obj_lines.append(f'"{self.name}" = DAY-SCHEDULE')
         obj_lines.append(f'\n   TYPE    = {self.stype.value}')
         obj_lines.append(f'\n   (1,24)    ({self.values})')
+        obj_lines.append(f'\n   ..')
+
+        return ''.join([line for line in obj_lines])
+
+    def __repr__(self):
+        return self.to_inp()
+
+
+class Days(Enum):
+
+    MON = "MON"
+    """Monday"""
+    TUE = "TUE"
+    """Tuesday"""
+    WED = "WED"
+    """Wednesday"""
+    THUR = "THUR"
+    """Thursday"""
+    FRI = "FRI"
+    """Friday"""
+    SAT = "SAT"
+    """Saterday"""
+    SUN = "SUN"
+    """Sunday"""
+    HOL = "HOL"
+    """Holidays"""
+    WD = "WD"
+    """Weekdays (Mon-Fri)"""
+    WEH = "WEH"
+    """Weekends and holidays (Sat, Sun, Hol)"""
+    HDD = "HDD"
+    """Heating Design Day"""
+    CDD = "CDD"
+    """Cooling Design Day"""
+    ALL = "ALL"
+    """All 10 days in the week schedule (Mon-Sun, Hol, HDD, CDD)"""
+
+
+@dataclass
+class WeekScheduleDoe:
+    name: str = None
+    stype: DayScheduleType = None
+    values: List = None
+
+    @classmethod
+    def from_schedule_ruleset(
+            cls, schedule_ruleset: ScheduleRuleset, stype: DayScheduleType):
+        """ Create a doe2 Week Schedule from a honeybee ScheduleRuleset."""
+        days_of_the_week = [Days.SUN.value, Days.MON.value, Days.TUE.value,
+                            Days.WED.value, Days.THUR.value, Days.FRI.value, Days.SAT.value]
+        ruleset_daylib = []
+
+        name = schedule_ruleset.display_name
+        stype = stype
+
+        values = []
+
+        if schedule_ruleset.summer_designday_schedule:
+            values.append(
+                [[Days.CDD.value],
+                 f'"{schedule_ruleset.summer_designday_schedule.display_name}"'])
+        if schedule_ruleset.winter_designday_schedule:
+            values.append(
+                [[Days.HDD.value],
+                 f'"{schedule_ruleset.winter_designday_schedule.display_name}"'])
+
+        for rule in schedule_ruleset.schedule_rules:
+            sch_days = []
+
+            if 'saturday'.upper() in (obj.upper() for obj in rule.days_applied):
+                sch_days.append(Days.SAT.value)
+                ruleset_daylib.append(Days.SAT.value)
+            if 'monday'.upper() in (obj.upper() for obj in rule.days_applied):
+                sch_days.append(Days.MON.value)
+                ruleset_daylib.append(Days.MON.value)
+            if 'tuesday'.upper() in (obj.upper() for obj in rule.days_applied):
+                sch_days.append(Days.TUE.value)
+                ruleset_daylib.append(Days.TUE.value)
+            if 'wednesday'.upper() in (obj.upper() for obj in rule.days_applied):
+                sch_days.append(Days.WED.value)
+                ruleset_daylib.append(Days.WED.value)
+            if 'thursday'.upper() in (obj.upper() for obj in rule.days_applied):
+                sch_days.append(Days.THUR.value)
+                ruleset_daylib.append(Days.THUR.value)
+            if 'friday'.upper() in (obj.upper() for obj in rule.days_applied):
+                sch_days.append(Days.FRI.value)
+                ruleset_daylib.append(Days.FRI.value)
+            if 'sunday'.upper() in (obj.upper() for obj in rule.days_applied):
+                sch_days.append(Days.SUN.value)
+                ruleset_daylib.append(Days.SUN.value)
+
+            if len(sch_days) >= 2:
+                values.append([[sch_days[0], sch_days[-1]],
+                               f'"{rule.schedule_day.display_name}"'])
+            elif len(sch_days) == 1:
+                values.append([sch_days, f'"{rule.schedule_day.display_name}"'])
+
+            default_days = [
+                day for day in sorted(days_of_the_week)
+                if day not in sorted(ruleset_daylib)]
+
+            # if len(default_days) >= 2:
+            #     values.append(
+            #         [[default_days[0],
+            #           default_days[-1]],
+            #          f'"{schedule_ruleset.default_day_schedule.display_name}"'])
+
+            if len(default_days) == 1:
+                values.append(
+                    [default_days,
+                     f'"{schedule_ruleset.default_day_schedule.display_name}"'])
+
+        return cls(name=name, stype=stype, values=values)
+
+    def to_inp(self):
+
+        obj_lines = []
+        obj_lines.append(f'"{self.name}" = WEEK-SCHEDULE')
+        obj_lines.append(f'\n   TYPE     = {self.stype.value}')
+        for obj in self.values:
+            objstr = ', '.join([str(val) for val in obj[0]])
+            obj_lines.append(f'\n     ({objstr})  {obj[1]}')
         obj_lines.append(f'\n   ..')
 
         return ''.join([line for line in obj_lines])
