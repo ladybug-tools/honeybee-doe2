@@ -177,6 +177,16 @@ class WeekScheduleDoe:
                 [[Days.HDD.value],
                  f'"{schedule_ruleset.winter_designday_schedule.display_name}"'])
 
+        if schedule_ruleset.holiday_schedule:
+            values.append(
+                [[Days.HOL.value],
+                 f'"{schedule_ruleset.holiday_schedule.display_name}"'])
+
+        if schedule_ruleset.holiday_schedule == None:
+            values.append(
+                [[Days.HOL.value],
+                 f'"{schedule_ruleset.default_day_schedule.display_name}"'])
+
         for rule in schedule_ruleset.schedule_rules:
             sch_days = []
 
