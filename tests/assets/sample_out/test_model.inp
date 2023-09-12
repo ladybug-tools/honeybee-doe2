@@ -189,17 +189,31 @@ $ ---------------------------------------------------------
    TYPE     = FRACTION
      (CDD)  "Hospital BLDG_LIGHT_EXTD_SCH_SmrDsn"
      (HDD)  "Hospital BLDG_LIGHT_EXTD_SCH_WntrDsn"
+     (HOL)  "Hospital BLDG_LIGHT_EXTD_SCH_Default"
      (SAT)  "Hospital BLDG_LIGHT_EXTD_SCH_Sat"
      (MON, FRI)  "Hospital BLDG_LIGHT_EXTD_SCH_Wkdy"
      (SUN)  "Hospital BLDG_LIGHT_EXTD_SCH_Default"
+   ..
+"Hospital BLDG_LIGHT_EXTD_SCH_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital BLDG_LIGHT_EXTD_SCH"
    ..
 "Hospital BLDG_OCC_EXTD_SCH" = WEEK-SCHEDULE
    TYPE     = FRACTION
      (CDD)  "Hospital BLDG_OCC_EXTD_SCH_SmrDsn"
      (HDD)  "Hospital BLDG_OCC_EXTD_SCH_WntrDsn"
+     (HOL)  "Hospital BLDG_OCC_EXTD_SCH_Default"
      (SAT)  "Hospital BLDG_OCC_EXTD_SCH_Sat"
      (MON, FRI)  "Hospital BLDG_OCC_EXTD_SCH_Wkdy"
      (SUN)  "Hospital BLDG_OCC_EXTD_SCH_Default"
+   ..
+"Hospital BLDG_OCC_EXTD_SCH_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital BLDG_OCC_EXTD_SCH"
    ..
 
 $ ---------------------------------------------------------
@@ -209,22 +223,6 @@ $ ---------------------------------------------------------
 
 
 
-
-"Generic Ceiling Air Gap" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.176
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
-  ..
-
-"Generic LW Concrete" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.168
-   DENSITY         = 79.91
-   SPECIFIC-HEAT   = 0.361
-  ..
 
 "Generic Roof Membrane" = MATERIAL
    TYPE            = PROPERTIES
@@ -240,6 +238,30 @@ $ ---------------------------------------------------------
    CONDUCTIVITY    = 0.051
    DENSITY         = 49.944
    SPECIFIC-HEAT   = 0.469
+  ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
   ..
 
 "Generic Acoustic Tile" = MATERIAL
@@ -258,14 +280,6 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.52
   ..
 
-"Generic Brick" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.285
-   DENSITY         = 119.865
-   SPECIFIC-HEAT   = 0.34
-  ..
-
 "Generic Painted Metal" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.005
@@ -274,20 +288,20 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.176
   ..
 
-"Generic Wall Air Gap" = MATERIAL
+"Generic Ceiling Air Gap" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.211
+   CONDUCTIVITY    = 0.176
    DENSITY         = 0.08
    SPECIFIC-HEAT   = 0.43
   ..
 
-"Generic HW Concrete" = MATERIAL
+"Generic Brick" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.656
-   CONDUCTIVITY    = 0.618
-   DENSITY         = 139.843
-   SPECIFIC-HEAT   = 0.387
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
   ..
 
 "Generic Exterior Wall_l" = LAYERS
@@ -583,9 +597,9 @@ $ *********************************************************
    VOLUME          = 10594.400016446572
    ZONE-TYPE = UNCONDITIONED
    NUMBER-OF-PEOPLE = 231.72363468800185
-   PEOPLE-SCHEDULE = "Hospital BLDG_OCC_EXTD_SCH"
+   PEOPLE-SCHEDULE = "Hospital BLDG_OCC_EXTD_SCH_"
    LIGHTING-W/AREA = 15.069459999999998
-   LIGHTING-SCHEDULE = "Hospital BLDG_LIGHT_EXTD_SCH"
+   LIGHTING-SCHEDULE = "Hospital BLDG_LIGHT_EXTD_SCH_"
   ..
 
 "Face1" = EXTERIOR-WALL

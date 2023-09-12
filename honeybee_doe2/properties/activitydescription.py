@@ -244,8 +244,40 @@ class WeekScheduleDoe:
             objstr = ', '.join([str(val) for val in obj[0]])
             obj_lines.append(f'\n     ({objstr})  {obj[1]}')
         obj_lines.append(f'\n   ..')
+        obj_lines.append('\n')
+        obj_lines.append(f'"{self.name}_" = SCHEDULE-PD')
+        obj_lines.append(f'\n   TYPE     = {self.stype.value}')
+        obj_lines.append(f'\n   MONTH    = 12')
+        obj_lines.append(f'\n   DAY      = 31')
+        obj_lines.append(f'\n   WEEK-SCHEDULES = "{self.name}"')
+        obj_lines.append(f'\n   ..')
 
         return ''.join([line for line in obj_lines])
 
     def __repr__(self):
         return self.to_inp()
+
+
+@dataclass
+class AnnualSchedule:
+    """SCHEDULE-PD Object"""
+    name: str = None
+    stype: DayScheduleType = None
+
+    @classmethod
+    def from_schedule_ruleset(cls, schedule_ruleset: ScheduleRuleset):
+        """ Create a doe2 Annual Schedule from a honeybee ScheduleRuleset."""
+        name = schedule_ruleset.display_name
+        return cls(name=name)
+
+    def to_inp(self):
+
+        obj_lines = []
+        obj_lines.append(f'"{self.name}_" = SCHEDULE-PD')
+        obj_lines.append(f'\n   TYPE     = {self.stype.value}')
+        obj_lines.append(f'\n   MONTH = 12')
+        obj_lines.append(f'\n   DAY = 31')
+        obj_lines.append(f'\n   WEEK-SCHEDULES = "{self.name}"')
+        obj_lines.append(f'\n   ..')
+
+        return ''.join([line for line in obj_lines])

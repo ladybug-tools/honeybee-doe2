@@ -150,12 +150,12 @@ class RoomDoe2Properties(object):
             doe_energy_properties.append(
                 f'   NUMBER-OF-PEOPLE = {host.properties.energy.people.people_per_area*host.floor_area}\n')
             doe_energy_properties.append(
-                f'   PEOPLE-SCHEDULE = "{host.properties.energy.people.occupancy_schedule.display_name}"\n')
+                f'   PEOPLE-SCHEDULE = "{host.properties.energy.people.occupancy_schedule.display_name}_"\n')
         if host.properties.energy.lighting:
             doe_energy_properties.append(
                 f'   LIGHTING-W/AREA = {host.properties.energy.lighting.watts_per_area}\n')
             doe_energy_properties.append(
-                f'   LIGHTING-SCHEDULE = "{host.properties.energy.lighting.schedule.display_name}"\n')
+                f'   LIGHTING-SCHEDULE = "{host.properties.energy.lighting.schedule.display_name}_"\n')
 
         return doe_energy_properties
 
