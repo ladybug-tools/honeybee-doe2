@@ -148,14 +148,46 @@ class RoomDoe2Properties(object):
                 f'   ZONE-TYPE = {ZoneType.UNCONDITIONED.value}\n')
         if host.properties.energy.people:
             doe_energy_properties.append(
-                f'   NUMBER-OF-PEOPLE = {host.properties.energy.people.people_per_area*host.floor_area}\n')
+                f'   NUMBER-OF-PEOPLE = {host.properties.energy.people.people_per_area*host.floor_area}\n'
+            )
             doe_energy_properties.append(
-                f'   PEOPLE-SCHEDULE = "{host.properties.energy.people.occupancy_schedule.display_name}_"\n')
+                f'   PEOPLE-SCHEDULE = "{short_name(host.properties.energy.people.occupancy_schedule.display_name)}_"\n'
+            )
+
         if host.properties.energy.lighting:
             doe_energy_properties.append(
-                f'   LIGHTING-W/AREA = {host.properties.energy.lighting.watts_per_area}\n')
+                f'   LIGHTING-W/AREA = {host.properties.energy.lighting.watts_per_area}\n'
+            )
             doe_energy_properties.append(
-                f'   LIGHTING-SCHEDULE = "{host.properties.energy.lighting.schedule.display_name}_"\n')
+                f'   LIGHTING-SCHEDULE = "{short_name(host.properties.energy.lighting.schedule.display_name)}_"\n'
+            )
+
+        if host.properties.energy.electric_equipment:
+            doe_energy_properties.append(
+                f'   EQUIP-SCHEDULE = ("{short_name(host.properties.energy.electric_equipment.schedule.display_name)}_")\n'
+            )
+            doe_energy_properties.append(
+                f'   EQUIPMENT-W/AREA = {host.properties.energy.electric_equipment.watts_per_area}\n'
+            )
+
+            doe_energy_properties.append(
+                f'   EQUIP-SENSIBLE = {1 - host.properties.energy.electric_equipment.lost_fraction - host.properties.energy.electric_equipment.latent_fraction}\n'
+            )
+            doe_energy_properties.append(
+                f'   EQUIP-RAD-FRAC = {host.properties.energy.electric_equipment.radiant_fraction}\n'
+            )
+            doe_energy_properties.append(
+                f'   EQUIP-LATENT = {host.properties.energy.electric_equipment.latent_fraction}\n'
+            )
+
+        if host.properties.energy.infiltration:
+            doe_energy_properties.append(
+                f'   INF-SCHEDULE = "{short_name(host.properties.energy.infiltration.schedule.display_name)}_"\n'
+            )
+            doe_energy_properties.append('   INF-METHOD = AIR-CHANGE\n')
+            doe_energy_properties.append(
+                f'   INF-FLOW/AREA = {host.properties.energy.infiltration.flow_per_exterior_area}\n'
+            )
 
         return doe_energy_properties
 

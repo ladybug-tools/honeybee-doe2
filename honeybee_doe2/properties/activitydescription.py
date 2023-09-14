@@ -102,7 +102,7 @@ class DayScheduleDoe:
         vals = ", ".join([str(val) for val in vals])
         vals = mywrap.fill(vals)
 
-        return cls(name=day_schedule.display_name,
+        return cls(name=short_name(day_schedule.display_name),
                    values=vals,
                    stype=stype)
 
@@ -163,7 +163,8 @@ class WeekScheduleDoe:
                             Days.WED.value, Days.THUR.value, Days.FRI.value, Days.SAT.value]
         ruleset_daylib = []
 
-        name = schedule_ruleset.display_name
+        name = short_name(schedule_ruleset.display_name)
+
         stype = stype
 
         values = []
@@ -171,21 +172,21 @@ class WeekScheduleDoe:
         if schedule_ruleset.summer_designday_schedule:
             values.append(
                 [[Days.CDD.value],
-                 f'"{schedule_ruleset.summer_designday_schedule.display_name}"'])
+                 f'"{short_name(schedule_ruleset.summer_designday_schedule.display_name)}"'])
         if schedule_ruleset.winter_designday_schedule:
             values.append(
                 [[Days.HDD.value],
-                 f'"{schedule_ruleset.winter_designday_schedule.display_name}"'])
+                 f'"{short_name(schedule_ruleset.winter_designday_schedule.display_name)}"'])
 
         if schedule_ruleset.holiday_schedule:
             values.append(
                 [[Days.HOL.value],
-                 f'"{schedule_ruleset.holiday_schedule.display_name}"'])
+                 f'"{short_name(schedule_ruleset.holiday_schedule.display_name)}"'])
 
         if schedule_ruleset.holiday_schedule == None:
             values.append(
                 [[Days.HOL.value],
-                 f'"{schedule_ruleset.default_day_schedule.display_name}"'])
+                 f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
 
         for rule in schedule_ruleset.schedule_rules:
             sch_days = []
@@ -213,10 +214,18 @@ class WeekScheduleDoe:
                 ruleset_daylib.append(Days.SUN.value)
 
             if len(sch_days) >= 2:
-                values.append([[sch_days[0], sch_days[-1]],
-                               f'"{rule.schedule_day.display_name}"'])
+                two_days = [sch_days[0], sch_days[-1]]
+                if sch_days[0] == Days.SAT.value and sch_days[-1] == Days.FRI.value:
+                    two_days = [Days.MON.value, Days.SAT.value]
+                    values.append(
+                        [two_days, f'"{short_name(rule.schedule_day.display_name)}"'])
+                else:
+                    values.append([[sch_days[0], sch_days[-1]],
+                                   f'"{short_name(rule.schedule_day.display_name)}"'])
+
             elif len(sch_days) == 1:
-                values.append([sch_days, f'"{rule.schedule_day.display_name}"'])
+                values.append(
+                    [sch_days, f'"{short_name(rule.schedule_day.display_name)}"'])
 
             default_days = [
                 day for day in sorted(days_of_the_week)
@@ -231,7 +240,7 @@ class WeekScheduleDoe:
             if len(default_days) == 1:
                 values.append(
                     [default_days,
-                     f'"{schedule_ruleset.default_day_schedule.display_name}"'])
+                     f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
 
         return cls(name=name, stype=stype, values=values)
 
@@ -243,14 +252,17 @@ class WeekScheduleDoe:
         for obj in self.values:
             objstr = ', '.join([str(val) for val in obj[0]])
             obj_lines.append(f'\n     ({objstr})  {obj[1]}')
-        obj_lines.append(f'\n   ..')
-        obj_lines.append('\n')
+        obj_lines.append(f'\n   ..\n')
+        # **********  PD SCHEDULE == Annual schedule  **********
+        # Currently to make the logic work from HB to DOE:
+        # PD schedule is created for each week schedule, and the PD schedule is
+        # Hard coded to be months 1-12 and till the last day of month 12
         obj_lines.append(f'"{self.name}_" = SCHEDULE-PD')
         obj_lines.append(f'\n   TYPE     = {self.stype.value}')
         obj_lines.append(f'\n   MONTH    = 12')
         obj_lines.append(f'\n   DAY      = 31')
         obj_lines.append(f'\n   WEEK-SCHEDULES = "{self.name}"')
-        obj_lines.append(f'\n   ..')
+        obj_lines.append(f'\n   ..\n')
 
         return ''.join([line for line in obj_lines])
 

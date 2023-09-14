@@ -137,8 +137,22 @@ class ModelDoe2Properties(object):
                         schedule_ruleset=room.properties.energy.people.occupancy_schedule,
                         stype=DayScheduleType.FRACTION))
 
+            if room.properties.energy.electric_equipment is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.electric_equipment.schedule,
+                        stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.infiltration is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.infiltration.schedule,
+                        stype=DayScheduleType.MULTIPLIER)
+                )
+
         if len(translated_schedules) > 0:
-            return '\n'.join([schedule.to_inp() for schedule in translated_schedules])
+            return '\n'.join(
+                set([schedule.to_inp() for schedule in translated_schedules]))
         elif len(translated_schedules) == 0:
             return '\n'
 
@@ -164,8 +178,21 @@ class ModelDoe2Properties(object):
                         DayScheduleDoe.from_day_schedule(
                             day_schedule=sch, stype=DayScheduleType.FRACTION))
 
+            if room.properties.energy.electric_equipment is not None:
+                for sch in room.properties.energy.electric_equipment.schedule.day_schedules:
+                    translated_schedules.append(
+                        DayScheduleDoe.from_day_schedule(
+                            day_schedule=sch, stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.infiltration is not None:
+                for sch in room.properties.energy.infiltration.schedule.day_schedules:
+                    translated_schedules.append(
+                        DayScheduleDoe.from_day_schedule(
+                            day_schedule=sch, stype=DayScheduleType.MULTIPLIER))
+
         if len(translated_schedules) > 0:
-            return '\n'.join([schedule.to_inp() for schedule in translated_schedules])
+            return '\n'.join(
+                set([schedule.to_inp() for schedule in translated_schedules]))
         elif len(translated_schedules) == 0:
             return '\n'
 
