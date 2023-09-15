@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from enum import Enum
 from honeybee_energy.boundarycondition import Adiabatic
 
 from honeybee.boundarycondition import Ground, Outdoors, Surface
@@ -16,6 +17,16 @@ from .exposedfloor import ExposedFloor
 from .interiorfloor import InteriorFloor
 from .adiabaticfloor import AdiabaticFloor
 from .adiabaticroof import AdiabaticRoof
+
+
+class ZoneType(Enum):
+
+    CONDITIONED = 'CONDITIONED'
+    """Space is heated and/or cooled."""
+    UNCONDITIONED = 'UNCONDITIONED'
+    """Space is neither heated nor cooled."""
+    PLENUM = 'PLENUM'
+    """Space is a return air plenum."""
 
 
 class RoomDoe2Properties(object):
@@ -38,7 +49,7 @@ class RoomDoe2Properties(object):
             print(
                 f'{self.host.display_name} has {len(_boundary.holes)} holes.'
                 ' They will be removed.')
-        _boundary._holes = [] # remove holes
+        _boundary._holes = []  # remove holes
         _boundary = _boundary.remove_colinear_vertices(tolerance=tol)
         _boundary = _boundary.remove_duplicate_vertices(tolerance=tol)
         boundary_face = Face(identifier=str(uuid4()), geometry=_boundary)
@@ -123,19 +134,62 @@ class RoomDoe2Properties(object):
         return adiabatic_floor_surfaces
 
     @property
-    def window(self):
-        pass
-    # TODO add window support
+    def space_energy_properties(self):
+        return self._convert_energy_properties(self.host)
 
-    @property
-    def door(self):
-        pass
-    # TODO add door support
+    @staticmethod
+    def _convert_energy_properties(host: Room) -> List[str]:
+        doe_energy_properties = []
+        if host.properties.energy.is_conditioned:
+            doe_energy_properties.append(
+                f'   ZONE-TYPE = {ZoneType.CONDITIONED.value}\n')
+        else:
+            doe_energy_properties.append(
+                f'   ZONE-TYPE = {ZoneType.UNCONDITIONED.value}\n')
+        if host.properties.energy.people:
+            doe_energy_properties.append(
+                f'   NUMBER-OF-PEOPLE = {host.properties.energy.people.people_per_area*host.floor_area}\n'
+            )
+            doe_energy_properties.append(
+                f'   PEOPLE-SCHEDULE = "{short_name(host.properties.energy.people.occupancy_schedule.display_name)}_"\n'
+            )
 
-    @property
-    def activity_disc(self):
-        pass
-    # TODO add activity disc // loads support etc
+        if host.properties.energy.lighting:
+            doe_energy_properties.append(
+                f'   LIGHTING-W/AREA = {host.properties.energy.lighting.watts_per_area}\n'
+            )
+            doe_energy_properties.append(
+                f'   LIGHTING-SCHEDULE = "{short_name(host.properties.energy.lighting.schedule.display_name)}_"\n'
+            )
+
+        if host.properties.energy.electric_equipment:
+            doe_energy_properties.append(
+                f'   EQUIP-SCHEDULE = ("{short_name(host.properties.energy.electric_equipment.schedule.display_name)}_")\n'
+            )
+            doe_energy_properties.append(
+                f'   EQUIPMENT-W/AREA = {host.properties.energy.electric_equipment.watts_per_area}\n'
+            )
+
+            doe_energy_properties.append(
+                f'   EQUIP-SENSIBLE = {1 - host.properties.energy.electric_equipment.lost_fraction - host.properties.energy.electric_equipment.latent_fraction}\n'
+            )
+            doe_energy_properties.append(
+                f'   EQUIP-RAD-FRAC = {host.properties.energy.electric_equipment.radiant_fraction}\n'
+            )
+            doe_energy_properties.append(
+                f'   EQUIP-LATENT = {host.properties.energy.electric_equipment.latent_fraction}\n'
+            )
+
+        if host.properties.energy.infiltration:
+            doe_energy_properties.append(
+                f'   INF-SCHEDULE = "{short_name(host.properties.energy.infiltration.schedule.display_name)}_"\n'
+            )
+            doe_energy_properties.append('   INF-METHOD = AIR-CHANGE\n')
+            doe_energy_properties.append(
+                f'   INF-FLOW/AREA = {host.properties.energy.infiltration.flow_per_exterior_area}\n'
+            )
+
+        return doe_energy_properties
 
     def space(self, floor_origin):
         # chances that a space is defined by a different azimuth than 0 is very low
@@ -158,8 +212,10 @@ class RoomDoe2Properties(object):
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
         obj_lines.append('   Z               = {}\n'.format(origin_pt.z))
         obj_lines.append('   VOLUME          = {}\n'.format(self.host.volume))
+        for prop in self.space_energy_properties:
+            obj_lines.append(prop)
         obj_lines.append('  ..\n')
-        # obj_lines.append('   C-ACTIVITY-DESC = *{}*\n   ..\n'.format(str(obj.properties.energy.program_type)))
+
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
         roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])

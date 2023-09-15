@@ -21,6 +21,7 @@ from .constructions import Construction, ConstructionCollection
 
 from .hvac import HVACSystem, Zone
 from .shades import Doe2Shade, Doe2ShadeCollection
+from .activitydescription import DayScheduleDoe, DayScheduleType, WeekScheduleDoe
 
 
 class ModelDoe2Properties(object):
@@ -58,7 +59,6 @@ class ModelDoe2Properties(object):
 
     @property
     def stories(self):
-        # * do tuple, (geom, 'space room whatever') for each 'inpblock' per story
         stories = []
         model = self.host
         tol = model.tolerance
@@ -114,6 +114,87 @@ class ModelDoe2Properties(object):
             return Doe2ShadeCollection.from_hb_shades(obj.shades).to_inp()
         else:
             return None
+
+    @property
+    def week_scheduels(self):
+        return self._get_week_scheduels(self.host)
+
+    @staticmethod
+    def _get_week_scheduels(obj):
+
+        translated_schedules = []
+        for room in obj.rooms:
+
+            if room.properties.energy.lighting is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.lighting.schedule,
+                        stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.people is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.people.occupancy_schedule,
+                        stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.electric_equipment is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.electric_equipment.schedule,
+                        stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.infiltration is not None:
+                translated_schedules.append(
+                    WeekScheduleDoe.from_schedule_ruleset(
+                        schedule_ruleset=room.properties.energy.infiltration.schedule,
+                        stype=DayScheduleType.MULTIPLIER)
+                )
+
+        if len(translated_schedules) > 0:
+            return '\n'.join(
+                set([schedule.to_inp() for schedule in translated_schedules]))
+        elif len(translated_schedules) == 0:
+            return '\n'
+
+    @property
+    def day_scheduels(self):
+        return self._get_day_scheduels(self.host)
+
+    @staticmethod
+    def _get_day_scheduels(obj):
+
+        translated_schedules = []
+        for room in obj.rooms:
+
+            if room.properties.energy.lighting is not None:
+                for sch in room.properties.energy.lighting.schedule.day_schedules:
+                    translated_schedules.append(
+                        DayScheduleDoe.from_day_schedule(
+                            day_schedule=sch, stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.people is not None:
+                for sch in room.properties.energy.people.occupancy_schedule.day_schedules:
+                    translated_schedules.append(
+                        DayScheduleDoe.from_day_schedule(
+                            day_schedule=sch, stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.electric_equipment is not None:
+                for sch in room.properties.energy.electric_equipment.schedule.day_schedules:
+                    translated_schedules.append(
+                        DayScheduleDoe.from_day_schedule(
+                            day_schedule=sch, stype=DayScheduleType.FRACTION))
+
+            if room.properties.energy.infiltration is not None:
+                for sch in room.properties.energy.infiltration.schedule.day_schedules:
+                    translated_schedules.append(
+                        DayScheduleDoe.from_day_schedule(
+                            day_schedule=sch, stype=DayScheduleType.MULTIPLIER))
+
+        if len(translated_schedules) > 0:
+            return '\n'.join(
+                set([schedule.to_inp() for schedule in translated_schedules]))
+        elif len(translated_schedules) == 0:
+            return '\n'
 
     def __str__(self):
         return "Model Doe2 Properties: [host: {}]".format(self.host.display_name)
