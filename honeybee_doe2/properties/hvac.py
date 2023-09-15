@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import List
 from uuid import uuid4
 
+from honeybee.model import Model as HBModel
 from honeybee.room import Room
 
 
@@ -60,18 +61,40 @@ class HVACSystem:
     zones: List[Zone]
 
     @classmethod
+    def from_model(cls, model: HBModel):
+        if not isinstance(model, HBModel):
+            raise ValueError(
+                f'Unsupported type: {type(model)}\n'
+                'Expected honeybee.model.Model'
+            )
+        name = model.display_name
+        zones = [Zone.from_room(room) for room in model.rooms]
+        return cls(name=name, zones=zones)
+
+    @classmethod
     def from_story(cls, story: Doe2Story):
         if not isinstance(story, Doe2Story):
             raise ValueError(
                 f'Unsupported type: {type(story)}\n'
-                'Expected dragonfly.story.Story'
+                'Expected Doe2Story'
             )
         name = story.display_name
         zones = [Zone.from_room(room) for room in story.rooms]
         return cls(name=name, zones=zones)
 
+    @classmethod
+    def from_room(cls, room: Room):
+        if not isinstance(room, Room):
+            raise ValueError(
+                f'Unsupported type: {type(room)}\n'
+                'Expected honeybee.room.Room'
+            )
+        name = room.display_name
+        zones = [Zone.from_room(room)]
+        return cls(name=name, zones=zones)
+
     def to_inp(self):
-        sys_str = f'"{self.name}flr_Sys (SUM)" = SYSTEM\n' \
+        sys_str = f'"{self.name}_Sys (SUM)" = SYSTEM\n' \
             '   TYPE             = SUM\n' \
             '   HEAT-SOURCE      = NONE\n' \
             '   SYSTEM-REPORTS   = NO\n   ..\n'

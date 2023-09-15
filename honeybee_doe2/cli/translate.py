@@ -19,6 +19,9 @@ def translate():
 @click.argument('hb-json', type=click.Path(
     exists=True, file_okay=True, dir_okay=False, resolve_path=True)
 )
+@click.option('--hvac_grouping', '-hg',
+              help='HVAC grouping method, room, story or model', default='story',
+              show_default=True)
 @click.option('--name', '-n', help='Name of the output file.', default="model",
               show_default=True
               )
@@ -26,13 +29,14 @@ def translate():
     exists=False, file_okay=False, resolve_path=True, dir_okay=True),
     default='.', show_default=True
 )
-def hb_model_to_inp_file(hb_json, name, folder):
+def hb_model_to_inp_file(hb_json, hvac_grouping, name, folder):
     """Translate a HBJSON into a DOE2.2 *.inp file."""
     try:
+        hvac_grouping
         hb_model = Model.from_file(hb_json)
         folder = pathlib.Path(folder)
         folder.mkdir(parents=True, exist_ok=True)
-        honeybee_model_to_inp(hb_model, folder, name)
+        honeybee_model_to_inp(hb_model, hvac_grouping, folder, name)
     except Exception as e:
         _logger.exception(f'Model translation failed:\n{e}')
         sys.exit(1)
