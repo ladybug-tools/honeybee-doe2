@@ -97,29 +97,17 @@ class ModelDoe2Properties(object):
 
     @property
     def hvac_sys_zones_by_model(self):
-        return self._get_hvac_sys_by_model(self.host)
-
-    @staticmethod
-    def _get_hvac_sys_by_model(obj):
         hvac_sys = [HVACSystem.from_model(obj)]
         return hvac_sys
 
     @property
     def hvac_sys_zones_by_story(self):
-        return self._get_hvac_sys_zones_by_story(self.stories)
-
-    @staticmethod
-    def _get_hvac_sys_zones_by_story(stories):
-        hvac_sys_zones = [HVACSystem.from_story(story) for story in stories]
+        hvac_sys_zones = [HVACSystem.from_story(story) for story in self.stories]
         return hvac_sys_zones
 
     @property
     def hvac_sys_zones_by_room(self):
-        return self._get_hvac_sys_zones_by_room(self.host)
-
-    @staticmethod
-    def _get_hvac_sys_zones_by_room(obj):
-        hvac_sys_zones = [HVACSystem.from_room(room) for room in obj.rooms]
+        hvac_sys_zones = [HVACSystem.from_room(room) for room in self.host.rooms]
         return hvac_sys_zones
 
     @property
