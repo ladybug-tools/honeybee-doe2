@@ -15,7 +15,7 @@ from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
 
 
-def model_to_inp(hb_model, hvac_mapping):
+def model_to_inp(hb_model, hvac_mapping='story'):
     # type: (Model) -> str
     """
         args:
