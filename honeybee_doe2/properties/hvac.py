@@ -55,7 +55,9 @@ class HVACSystem:
         name: story display name
         zones: list of doe2.hvac.Zone objects serviced by the system
     Init method(s):
-        1. from_story(story: DFStory) -> doe2_system:
+        1. from_model(model: HBModel) -> doe2_system
+        2. from_story(story: Doe2Story) -> doe2_system
+        3. from_room(room: Room) -> doe2_system
     """
     name: str
     zones: List[Zone]
