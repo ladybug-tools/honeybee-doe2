@@ -22,6 +22,13 @@ def model_to_inp(hb_model, hvac_mapping):
             hb_model: Honeybee model
             hvac_mapping: accepts: 'room', 'story', 'model'
     """
+
+    mapper_options = ['room', 'story', 'model']
+    if hvac_mapping not in mapper_options:
+        raise ValueError(
+            f'Invalid hvac_mapping input: {hvac_mapping}\n'
+            f'Expected one of the following: {mapper_options}'
+        )
     hvac_maps = None
     if hvac_mapping == 'room':
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_room
