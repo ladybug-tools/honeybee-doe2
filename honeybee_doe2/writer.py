@@ -15,20 +15,20 @@ from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
 
 
-def model_to_inp(hb_model, hvac_grouping):
+def model_to_inp(hb_model, hvac_mapping):
     # type: (Model) -> str
     """
         args:
             hb_model: Honeybee model
-            hvac_grouping: accepts: 'room', 'story', 'model'
+            hvac_mapping: accepts: 'room', 'story', 'model'
     """
-    hvac_groups = None
-    if hvac_grouping == 'room':
-        hvac_groups = hb_model.properties.doe2.hvac_sys_zones_by_room
-    elif hvac_grouping == 'story':
-        hvac_groups = hb_model.properties.doe2.hvac_sys_zones_by_story
-    elif hvac_grouping == 'model':
-        hvac_groups = hb_model.properties.doe2.hvac_sys_zones_by_model
+    hvac_maps = None
+    if hvac_mapping == 'room':
+        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_room
+    elif hvac_mapping == 'story':
+        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_story
+    elif hvac_mapping == 'model':
+        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_model
 
     rp = RunPeriod()
     comp_data = ComplianceData()
@@ -156,7 +156,7 @@ def model_to_inp(hb_model, hvac_grouping):
         fb.chill_meter,
         fb.hvac_sys_zone,
         '\n'.join(hv_sys.to_inp()
-                  for hv_sys in hvac_groups),  # * change to variable
+                  for hv_sys in hvac_maps),  # * change to variable
         fb.misc_meter_hvac,
         fb.equip_controls,
         fb.load_manage,
@@ -176,10 +176,10 @@ def model_to_inp(hb_model, hvac_grouping):
 
 
 def honeybee_model_to_inp(
-        model: Model, hvac_grouping: str = 'story',
+        model: Model, hvac_mapping: str = 'story',
         folder: str = '.', name: str = None) -> pathlib.Path:
 
-    inp_model = model_to_inp(model, hvac_grouping=hvac_grouping)
+    inp_model = model_to_inp(model, hvac_mapping=hvac_mapping)
 
     name = name or model.display_name
     if not name.lower().endswith('.inp'):
