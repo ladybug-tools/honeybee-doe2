@@ -15,8 +15,28 @@ from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
 
 
-def model_to_inp(hb_model):
+def model_to_inp(hb_model, hvac_mapping='story'):
     # type: (Model) -> str
+    """
+        args:
+            hb_model: Honeybee model
+            hvac_mapping: accepts: 'room', 'story', 'model'
+    """
+
+    mapper_options = ['room', 'story', 'model']
+    if hvac_mapping not in mapper_options:
+        raise ValueError(
+            f'Invalid hvac_mapping input: {hvac_mapping}\n'
+            f'Expected one of the following: {mapper_options}'
+        )
+    hvac_maps = None
+    if hvac_mapping == 'room':
+        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_room
+    elif hvac_mapping == 'story':
+        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_story
+    elif hvac_mapping == 'model':
+        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_model
+
     rp = RunPeriod()
     comp_data = ComplianceData()
     sb_data = sbd()
@@ -143,7 +163,7 @@ def model_to_inp(hb_model):
         fb.chill_meter,
         fb.hvac_sys_zone,
         '\n'.join(hv_sys.to_inp()
-                  for hv_sys in hb_model.properties.doe2.hvac_sys_zones),  # TODO need to frame up hvac
+                  for hv_sys in hvac_maps),  # * change to variable
         fb.misc_meter_hvac,
         fb.equip_controls,
         fb.load_manage,
@@ -163,9 +183,10 @@ def model_to_inp(hb_model):
 
 
 def honeybee_model_to_inp(
-        model: Model, folder: str = '.', name: str = None) -> pathlib.Path:
+        model: Model, hvac_mapping: str = 'story',
+        folder: str = '.', name: str = None) -> pathlib.Path:
 
-    inp_model = model_to_inp(model)
+    inp_model = model_to_inp(model, hvac_mapping=hvac_mapping)
 
     name = name or model.display_name
     if not name.lower().endswith('.inp'):
