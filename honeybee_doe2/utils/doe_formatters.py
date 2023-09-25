@@ -10,6 +10,7 @@ def short_name(name, max_length=24):
         return name
 
     shortened_name = ''.join(re.split("[aeiouy\\-\\_/]", name))
+    shortened_name = shortened_name.replace(' ', '')
 
     if len(shortened_name) <= max_length:
         return shortened_name
