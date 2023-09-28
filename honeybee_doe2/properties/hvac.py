@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from honeybee.model import Model as HBModel
 from honeybee.room import Room
+from honeybee.typing import clean_string
 
 
 @dataclass
@@ -23,7 +24,8 @@ class Zone:
                 'Expected honeybee room'
             )
 
-        name = room.display_name
+        name = clean_string(value=room.display_name).replace(' ', '')
+
         if room.properties.energy.is_conditioned:
             heating_setpoint = room.properties.energy.program_type.setpoint.heating_setpoint
             cooling_setpoint = room.properties.energy.program_type.setpoint.cooling_setpoint
@@ -35,12 +37,12 @@ class Zone:
                    cooling_setpoint=cooling_setpoint)
 
     def to_inp(self):
-        inp_str = f'"{self.name} Zn"   = ZONE\n  ' \
+        inp_str = f'"{short_name(self.name)} Zn"   = ZONE\n  ' \
             'TYPE             = UNCONDITIONED\n  ' \
             f'DESIGN-HEAT-T    = {self.heating_setpoint}\n  ' \
             f'DESIGN-COOL-T    = {self.cooling_setpoint}\n  ' \
             'SIZING-OPTION    = ADJUST-LOADS\n  ' \
-            f'SPACE            = "{self.name}"\n  ..\n'
+            f'SPACE            = "{short_name(self.name)}"\n  ..\n'
         return inp_str
 
     def __repr__(self) -> str:
@@ -69,7 +71,7 @@ class HVACSystem:
                 f'Unsupported type: {type(model)}\n'
                 'Expected honeybee.model.Model'
             )
-        name = model.display_name
+        name = short_name(model.display_name)
         zones = [Zone.from_room(room) for room in model.rooms]
         return cls(name=name, zones=zones)
 
@@ -80,7 +82,7 @@ class HVACSystem:
                 f'Unsupported type: {type(story)}\n'
                 'Expected Doe2Story'
             )
-        name = story.display_name
+        name = short_name(story.display_name)
         zones = [Zone.from_room(room) for room in story.rooms]
         return cls(name=name, zones=zones)
 
@@ -91,12 +93,12 @@ class HVACSystem:
                 f'Unsupported type: {type(room)}\n'
                 'Expected honeybee.room.Room'
             )
-        name = room.display_name
+        name = short_name(room.display_name)
         zones = [Zone.from_room(room)]
         return cls(name=name, zones=zones)
 
     def to_inp(self):
-        sys_str = f'"{self.name}_Sys (SUM)" = SYSTEM\n' \
+        sys_str = f'"{short_name(self.name)}_Sys (SUM)" = SYSTEM\n' \
             '   TYPE             = SUM\n' \
             '   HEAT-SOURCE      = NONE\n' \
             '   SYSTEM-REPORTS   = NO\n   ..\n'
