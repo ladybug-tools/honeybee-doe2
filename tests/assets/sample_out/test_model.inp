@@ -1,0 +1,2564 @@
+INPUT ..
+
+
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+
+
+TITLE
+    LINE-1           = *Unnamed*
+    ..
+
+"Entire Year" = RUN-PERIOD-PD
+   BEGIN-MONTH     = 1
+   BEGIN-DAY      = 1
+   BEGIN-YEAR     = 2021
+   END-MONTH      = 12
+   END-DAY        = 31
+   END-YEAR       = 2021
+   ..
+
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+
+
+"Compliance Data" = COMPLIANCE
+   C-PERMIT-SCOPE   = 0
+   C-PROJ-NAME      = *sample_project*
+   C-BUILDING-TYPE  = 32
+   C-CONS-PHASE     = 0
+   C-NR-DHW-INCL    = 1
+   C-CODE-VERSION   = 1
+   C-901-NUM-FLRS   = 1
+   C-901-BLDG-TYPE  = 32
+   ..
+
+$---------------------------------------------------------
+$              Site and Building Data
+$---------------------------------------------------------
+
+"Site Data" = SITE-PARAMETERS
+  ALTITUDE          = 150
+  C-STATE           = 21
+  C-WEATHER-FILE    = *TMY2\HARTFOCT.bin* 
+  C-COUNTRY         = 1
+  C-901-LOCATION    = 1092
+  ..
+"Building Data" = BUILD-PARAMETERS
+  HOLIDAYS        = "Standard US Holidays"
+  ..
+
+
+PROJECT-DATA
+  ..
+
+
+
+$ ---------------------------------------------------------
+$              Day Schedules
+$ ---------------------------------------------------------
+
+
+
+
+"Hsptl Crtcl EqpSn|St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.8, 0.8,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hsptl Admn EqpmntSn|St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl Crtcl OccSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.65, 0.65, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.65,
+0.65, 0.65, 0.65,
+0.4, 0.4)
+   ..
+"Hsptl Admn LghtWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
+   ..
+"Hsptl Admn EqpmntWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl Crtcl LghtWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.7, 0.7,
+0.7, 0.7, 0.5, 0.5)
+   ..
+"HsptlBLDGLIGHTCO_WntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"Hsptl BLDGEQUIPSCHWkd" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.6818012803,
+0.8766016461,
+0.8766016461,
+0.8766016461,
+0.8766016461,
+0.8766016461,
+0.8766016461,
+0.8766016461,
+0.8766016461,
+0.584401097,
+0.584401097,
+0.584401097,
+0.584401097,
+0.584401097,
+0.584401097,
+0.5239023396,
+0.3492682264)
+   ..
+"Hsptl Crtcl LghtSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.7, 0.7,
+0.7, 0.7, 0.5, 0.5)
+   ..
+"Hospital Admin Light_Sun" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.1,
+0.1, 0.1, 0.1, 0.1,
+0.1, 0.1, 0.1, 0.1,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05)
+   ..
+"Hsptl INFILSCHPNNLDflt" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"Hsptl Admn LghtDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
+   ..
+"Hsptl BLDGOCCSCHWkd" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.1,
+0.5, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.5, 0.3, 0.3,
+0.2, 0.2, 0.0, 0.0)
+   ..
+"Hsptl Crtcl EqpDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.8, 0.8,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"HsptlBLDGLIGHTCO_SCHDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.7, 0.7,
+0.7, 0.7, 0.7, 0.7,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hsptl Crtcl OccSn|St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.65, 0.65, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.65,
+0.65, 0.65, 0.65,
+0.4, 0.4)
+   ..
+"Hsptl Crtcl LghtSn|St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.7, 0.7,
+0.7, 0.7, 0.5, 0.5)
+   ..
+"HsptlInflQrtrOnWntrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hsptl Crtcl EqpSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.8, 0.8,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hsptl Admn LghtSn|St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
+   ..
+"Hsptl Admn EqpmntSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.5,
+0.5, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"HsptlBLDGEQUIPSCHWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"Hsptl BLDGEQUIPSCHSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hsptl Crtcl EqpWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl INFILSCHPNNLSmrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"Hsptl Admn EqpmntDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl Infl Qrtr OnSmrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hsptl BLDGOCCSCHWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"Hsptl Admn LghtSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
+   ..
+"Hsptl Crtcl OccWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.65, 0.65, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.65,
+0.65, 0.65, 0.65,
+0.4, 0.4)
+   ..
+"HsptlBLDGLIGHTCO_HSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hsptl Infl Qrtr OnSn|St" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"HsptlINFILSCHPNNLWntrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"Hsptl Crtcl LghtDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.7, 0.7,
+0.7, 0.7, 0.5, 0.5)
+   ..
+"Hsptl BLDGOCCSCHSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.1,
+0.3, 0.4, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.4,
+0.4, 0.1, 0.1, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"Hsptl INFILSCHPNNLSt|Wkd" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"Hsptl BLDGOCCSCHSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hsptl Admn EqpmntSn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl BLDGEQUIPSCHDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698,
+0.2619511698)
+   ..
+"HsptlBLDGLIGHTCO_ORSCHSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hsptl BLDGOCCSCHDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0)
+   ..
+"Hsptl Admn EqpmntSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hospital Admin Light_Sat" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.1, 0.1, 0.1, 0.3,
+0.3, 0.3, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.1, 0.1, 0.1, 0.1)
+   ..
+"HsptlBLDGLIGHTCO_RSCHWkd" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hsptl BLDGEQUIPSCHSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.4870009145,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.63310118885,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264,
+0.3492682264)
+   ..
+"Hsptl Infl Qrtr OnDflt" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"Hsptl Crtcl OccDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.65, 0.65, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.65,
+0.65, 0.65, 0.65,
+0.4, 0.4)
+   ..
+
+$ ---------------------------------------------------------
+$              Week Schedules
+$ ---------------------------------------------------------
+
+
+
+
+"Hospital BLDG_OCC_SCH" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "Hsptl BLDGOCCSCHSmrDsn"
+     (HDD)  "Hsptl BLDGOCCSCHWntrDsn"
+     (HOL)  "Hsptl BLDGOCCSCHDflt"
+     (SAT)  "Hsptl BLDGOCCSCHSt"
+     (MON, FRI)  "Hsptl BLDGOCCSCHWkd"
+     (SUN)  "Hsptl BLDGOCCSCHDflt"
+   ..
+"Hospital BLDG_OCC_SCH_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital BLDG_OCC_SCH"
+   ..
+
+"Hospital Admin Light" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "Hsptl Admn LghtSmrDsn"
+     (HDD)  "Hsptl Admn LghtWntrDsn"
+     (HOL)  "Hsptl Admn LghtDflt"
+     (SAT, SUN)  "Hsptl Admn LghtSn|St"
+     (SAT)  "Hospital Admin Light_Sat"
+     (SUN)  "Hospital Admin Light_Sun"
+   ..
+"Hospital Admin Light_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Admin Light"
+   ..
+
+"Hospital BLDG_EQUIP_SCH" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "Hsptl BLDGEQUIPSCHSmrDsn"
+     (HDD)  "HsptlBLDGEQUIPSCHWntrDsn"
+     (HOL)  "Hsptl BLDGEQUIPSCHDflt"
+     (SAT)  "Hsptl BLDGEQUIPSCHSt"
+     (MON, FRI)  "Hsptl BLDGEQUIPSCHWkd"
+     (SUN)  "Hsptl BLDGEQUIPSCHDflt"
+   ..
+"Hospital BLDG_EQUIP_SCH_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital BLDG_EQUIP_SCH"
+   ..
+
+"Hospital Critical Equip" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "Hsptl Crtcl EqpSmrDsn"
+     (HDD)  "Hsptl Crtcl EqpWntrDsn"
+     (HOL)  "Hsptl Crtcl EqpDflt"
+     (SAT, SUN)  "Hsptl Crtcl EqpSn|St"
+   ..
+"Hospital Critical Equip_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Critical Equip"
+   ..
+
+"Hsptl Infl Qrtr On" = WEEK-SCHEDULE
+   TYPE     = MULTIPLIER
+     (CDD)  "Hsptl Infl Qrtr OnSmrDsn"
+     (HDD)  "HsptlInflQrtrOnWntrDsn"
+     (HOL)  "Hsptl Infl Qrtr OnDflt"
+     (SAT, SUN)  "Hsptl Infl Qrtr OnSn|St"
+   ..
+"Hsptl Infl Qrtr On_" = SCHEDULE-PD
+   TYPE     = MULTIPLIER
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hsptl Infl Qrtr On"
+   ..
+
+"Hospital Critical Occ" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "Hsptl Crtcl OccSmrDsn"
+     (HDD)  "Hsptl Crtcl OccWntrDsn"
+     (HOL)  "Hsptl Crtcl OccDflt"
+     (SAT, SUN)  "Hsptl Crtcl OccSn|St"
+   ..
+"Hospital Critical Occ_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Critical Occ"
+   ..
+
+"Hospital Critical Light" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "Hsptl Crtcl LghtSmrDsn"
+     (HDD)  "Hsptl Crtcl LghtWntrDsn"
+     (HOL)  "Hsptl Crtcl LghtDflt"
+     (SAT, SUN)  "Hsptl Crtcl LghtSn|St"
+   ..
+"Hospital Critical Light_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Critical Light"
+   ..
+
+"HsptlBLDGLIGHTCO_IDORSCH" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "HsptlBLDGLIGHTCO_HSmrDsn"
+     (HDD)  "HsptlBLDGLIGHTCO_WntrDsn"
+     (HOL)  "HsptlBLDGLIGHTCO_SCHDflt"
+     (SAT)  "HsptlBLDGLIGHTCO_ORSCHSt"
+     (MON, FRI)  "HsptlBLDGLIGHTCO_RSCHWkd"
+     (SUN)  "HsptlBLDGLIGHTCO_SCHDflt"
+   ..
+"HsptlBLDGLIGHTCO_IDORSCH_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "HsptlBLDGLIGHTCO_IDORSCH"
+   ..
+
+"Hospital Admin Equipment" = WEEK-SCHEDULE
+   TYPE     = FRACTION
+     (CDD)  "Hsptl Admn EqpmntSmrDsn"
+     (HDD)  "Hsptl Admn EqpmntWntrDsn"
+     (HOL)  "Hsptl Admn EqpmntDflt"
+     (SAT, SUN)  "Hsptl Admn EqpmntSn|St"
+     (SAT)  "Hsptl Admn EqpmntSt"
+     (SUN)  "Hsptl Admn EqpmntSn"
+   ..
+"Hospital Admin Equipment_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Admin Equipment"
+   ..
+
+"Hospital INFIL_SCH_PNNL" = WEEK-SCHEDULE
+   TYPE     = MULTIPLIER
+     (CDD)  "Hsptl INFILSCHPNNLSmrDsn"
+     (HDD)  "HsptlINFILSCHPNNLWntrDsn"
+     (HOL)  "Hsptl INFILSCHPNNLDflt"
+     (MON, SAT)  "Hsptl INFILSCHPNNLSt|Wkd"
+     (SUN)  "Hsptl INFILSCHPNNLDflt"
+   ..
+"Hospital INFIL_SCH_PNNL_" = SCHEDULE-PD
+   TYPE     = MULTIPLIER
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital INFIL_SCH_PNNL"
+   ..
+
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+
+
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+"Generic Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.033
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 69.921
+   SPECIFIC-HEAT   = 0.628
+  ..
+
+"Typical Insulation-R28" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Typical Insulation-R19" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+"Typical Insulation-R47" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Typical Insulation-R7" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Typical Insulation-R4" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
+  ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"F08 Metal surface" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.003
+   CONDUCTIVITY    = 14.344
+   DENSITY         = 488.452
+   SPECIFIC-HEAT   = 0.215
+  ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"8 n. Nrmlwght Cncrt Flr" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.732
+   DENSITY         = 144.962
+   SPECIFIC-HEAT   = 0.357
+  ..
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.005
+   CONDUCTIVITY    = 14.265
+   DENSITY         = 480.085
+   SPECIFIC-HEAT   = 0.176
+  ..
+
+"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.42
+   DENSITY         = 114.996
+   SPECIFIC-HEAT   = 0.392
+  ..
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Typical Insulation-R3" = MATERIAL
+   TYPE            = RESISTANCE
+  ..
+
+"Generic Exterior Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic Brick",
+      "Generic LW Concrete",
+      "Generic 50mm Insulation",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Exterior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Exterior Wall_l"
+   ..
+
+"Generic Interior Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic Gypsum Board",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Interior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Wall_l"
+   ..
+
+"Generic Underground Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Underground Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Wall_l"
+   ..
+
+"Generic Exposed Floor_l" = LAYERS
+   MATERIAL             = (
+      "Generic Painted Metal",
+      "Generic Ceiling Air Gap",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete"
+   )
+   ..
+
+"Generic Exposed Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 5
+   LAYERS               = "Generic Exposed Floor_l"
+   ..
+
+"Generic Interior Floor_l" = LAYERS
+   MATERIAL             = (
+      "Generic Acoustic Tile",
+      "Generic Ceiling Air Gap",
+      "Generic LW Concrete"
+   )
+   ..
+
+"Generic Interior Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.2
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Floor_l"
+   ..
+
+"Generic Ground Slab_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete"
+   )
+   ..
+
+"Generic Ground Slab_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Ground Slab_l"
+   ..
+
+"Generic Roof_l" = LAYERS
+   MATERIAL             = (
+      "Generic Roof Membrane",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Roof_l"
+   ..
+
+"Generic Interior Ceiling_l" = LAYERS
+   MATERIAL             = (
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Interior Ceiling_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.8
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Interior Ceiling_l"
+   ..
+
+"Generic Underground Roof_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Underground Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Roof_l"
+   ..
+
+"TpclInsltdWdFrmdExtrrFlrR31_l" = LAYERS
+   MATERIAL             = (
+      "25mm Stucco",
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R28",
+      "5/8 in. Gypsum Board",
+      "Typical Carpet Pad"
+   )
+   ..
+
+"TpclInsltdWdFrmdExtrrFlrR31_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdWdFrmdExtrrFlrR31_l"
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR8_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R7",
+      "8 n. Cncrt Blck Bsmnt Wll"
+   )
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR8_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Bsmnt Mss WllR8_l"
+   ..
+
+"Tpcl Insltd Mtl DrR3_l" = LAYERS
+   MATERIAL             = (
+      "F08 Metal surface",
+      "Typical Insulation-R3"
+   )
+   ..
+
+"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
+   ..
+
+"Typical Overhead Door-R4_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R4"
+   )
+   ..
+
+"Typical Overhead Door-R4_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Overhead Door-R4_l"
+   ..
+
+"TpclInsltdWdFrmdExtrrWllR20_l" = LAYERS
+   MATERIAL             = (
+      "25mm Stucco",
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R19",
+      "5/8 in. Gypsum Board"
+   )
+   ..
+
+"TpclInsltdWdFrmdExtrrWllR20_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdWdFrmdExtrrWllR20_l"
+   ..
+
+"Tpcl Wd Jst Attc FlrR48_l" = LAYERS
+   MATERIAL             = (
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R47"
+   )
+   ..
+
+"Tpcl Wd Jst Attc FlrR48_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Wd Jst Attc FlrR48_l"
+   ..
+
+"Tpcl Insltd Crptd 8n Slb FlrR5_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R4",
+      "8 n. Nrmlwght Cncrt Flr",
+      "Typical Carpet Pad"
+   )
+   ..
+
+"Tpcl Insltd Crptd 8n Slb FlrR5_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Crptd 8n Slb FlrR5_l"
+   ..
+
+
+$ ---------------------------------------------------------
+$              Glass Type Codes
+$ ---------------------------------------------------------
+
+
+
+
+"Generic Single Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.9206277902735016
+   GLASS-CONDUCT      = 1.009
+   ..
+
+"U 0.5 SHGC 0.4 Smpl Glzng Sklght" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4597701149425288
+   GLASS-CONDUCT      = 0.5
+   ..
+
+"Generic Double Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4874490884111821
+   GLASS-CONDUCT      = 0.297
+   ..
+
+"U0.44SHGC0.26DblRfBHClr6mm13mmAr" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.318658941545642
+   GLASS-CONDUCT      = 0.437
+   ..
+
+"U 0.36 SHGC 0.38 Smpl Glzng Wndw" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4367816091954023
+   GLASS-CONDUCT      = 0.36
+   ..
+
+
+$ ---------------------------------------------------------
+$              Door Construction
+$ ---------------------------------------------------------
+
+
+"Generic Door" = CONSTRUCTION
+   TYPE               = U-VALUE
+   U-VALUE            = 0.5
+..
+
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+
+
+"Level_0 Plg" = POLYGON
+   V1        = ( 0.000000, -65.616798 )
+   V2        = ( 65.616798, -65.616798 )
+   V3        = ( 65.616798, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Room1 Plg" = POLYGON
+   V1        = ( 0.000000, -16.404199 )
+   V2        = ( 65.616798, -16.404199 )
+   V3        = ( 49.212598, 0.000000 )
+   V4        = ( 16.404199, 0.000000 )
+   ..
+"Face1 Plg" = POLYGON
+   V1        = ( 0.000000, -16.404199 )
+   V2        = ( 65.616798, -16.404199 )
+   V3        = ( 49.212598, 0.000000 )
+   V4        = ( 16.404199, 0.000000 )
+   ..
+"Face2 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face4 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face5 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 65.616798, 0.000000 )
+   V4        = ( 65.616798, 9.842520 )
+   ..
+"Face6 Plg" = POLYGON
+   V1        = ( 16.404199, 16.404199 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 65.616798, 0.000000 )
+   V4        = ( 49.212598, 16.404199 )
+   ..
+"Room2 Plg" = POLYGON
+   V1        = ( 0.000000, -49.212598 )
+   V2        = ( 16.404199, -65.616798 )
+   V3        = ( 16.404199, 0.000000 )
+   V4        = ( 0.000000, -16.404199 )
+   ..
+"Face1_1 Plg" = POLYGON
+   V1        = ( 0.000000, -49.212598 )
+   V2        = ( 16.404199, -65.616798 )
+   V3        = ( 16.404199, 0.000000 )
+   V4        = ( 0.000000, -16.404199 )
+   ..
+"Face2_1 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face3_1 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face4_1 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face5_1 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 65.616798, 0.000000 )
+   V4        = ( 65.616798, 9.842520 )
+   ..
+"Face6_1 Plg" = POLYGON
+   V1        = ( 0.000000, 16.404199 )
+   V2        = ( 16.404199, 0.000000 )
+   V3        = ( 16.404199, 65.616798 )
+   V4        = ( 0.000000, 49.212598 )
+   ..
+"Room3 Plg" = POLYGON
+   V1        = ( 16.404199, -16.404199 )
+   V2        = ( 49.212598, -16.404199 )
+   V3        = ( 65.616798, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1_2 Plg" = POLYGON
+   V1        = ( 49.212598, -16.404199 )
+   V2        = ( 65.616798, 0.000000 )
+   V3        = ( 0.000000, 0.000000 )
+   V4        = ( 16.404199, -16.404199 )
+   ..
+"Face2_2 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face3_2 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face4_2 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face5_2 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 65.616798, 0.000000 )
+   V4        = ( 65.616798, 9.842520 )
+   ..
+"Face6_2 Plg" = POLYGON
+   V1        = ( 65.616798, 16.404199 )
+   V2        = ( 0.000000, 16.404199 )
+   V3        = ( 16.404199, 0.000000 )
+   V4        = ( 49.212598, 0.000000 )
+   ..
+"Room4 Plg" = POLYGON
+   V1        = ( 0.000000, -65.616798 )
+   V2        = ( 16.404199, -49.212598 )
+   V3        = ( 16.404199, -16.404199 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1_3 Plg" = POLYGON
+   V1        = ( 0.000000, -65.616798 )
+   V2        = ( 16.404199, -49.212598 )
+   V3        = ( 16.404199, -16.404199 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face2_3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face3_3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face4_3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 23.199041, 0.000000 )
+   V4        = ( 23.199041, 9.842520 )
+   ..
+"Face5_3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 65.616798, 0.000000 )
+   V4        = ( 65.616798, 9.842520 )
+   ..
+"Face6_3 Plg" = POLYGON
+   V1        = ( 0.000000, 65.616798 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 16.404199, 16.404199 )
+   V4        = ( 16.404199, 49.212598 )
+   ..
+"Room5 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 32.808399, -32.808399 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1_4 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 32.808399, -32.808399 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face2_4 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face3_4 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face4_4 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face5_4 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face6_4 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 32.808399 )
+   ..
+
+
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fixed and Building Shades
+$ ---------------------------------------------------------
+
+
+
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Performance Curves                   **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      Floors / Spaces / Walls / Windows / Doors      **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+
+"Level_0"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_0 Plg"
+   AZIMUTH         = 0.0
+   X               = 0.0
+   Y               = 65.61679790026245
+   Z               = 0.0
+   SPACE-HEIGHT    = 9.842519685039369
+   FLOOR-HEIGHT    = 9.842519685039369
+   ..
+
+"Room1" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room1 Plg"
+   AZIMUTH         = 0
+   X               = 0.0
+   Y               = -49.212598425196845
+   Z               = 0.0
+   VOLUME          = 7945.800012334929
+   ZONE-TYPE = CONDITIONED
+   NUMBER-OF-PEOPLE = 8.68963630080007
+   PEOPLE-SCHEDULE = "Hospital BLDG_OCC_SCH_"
+   LIGHTING-W/AREA = 10.7639
+   LIGHTING-SCHEDULE = "HsptlBLDGLIGHTCO_IDORSCH_"
+   EQUIP-SCHEDULE = ("Hospital BLDG_EQUIP_SCH_")
+   EQUIPMENT-W/AREA = 0.0
+   EQUIP-SENSIBLE = 1.0
+   EQUIP-RAD-FRAC = 0.5
+   EQUIP-LATENT = 0.0
+   INF-SCHEDULE = "Hospital INFIL_SCH_PNNL_"
+   INF-METHOD = AIR-CHANGE
+   INF-FLOW/AREA = 0.00030226
+  ..
+
+"Face2" = INTERIOR-WALL
+  POLYGON           = "Face2 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  45.00000000000001
+  X                 =  65.61679790026245
+  Y                 =  -16.404199475065614
+  Z                 =  -1.4205315883128168e-15
+  NEXT-TO           =  "Room2"
+  ..
+
+"Face3" = INTERIOR-WALL
+  POLYGON           = "Face3 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  49.212598425196845
+  Y                 =  0.0
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room5"
+  ..
+
+"Face4" = INTERIOR-WALL
+  POLYGON           = "Face4 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  315.0
+  X                 =  16.404199475065614
+  Y                 =  0.0
+  Z                 =  -1.4205315883128174e-15
+  NEXT-TO           =  "Room4"
+  ..
+
+"Face5" = EXTERIOR-WALL
+  POLYGON           = "Face5 Plg"
+  CONSTRUCTION      = "TpclInsltdWdFrmdExtrrWllR20_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  2.4602358639466163e-31
+  Y                 =  -16.404199475065614
+  Z                 =  -4.017870075942759e-15
+  ..
+"Aperture1_0" = WINDOW
+
+  X             = 0.6561679790026227
+  Y             = 6.38156837538165
+  WIDTH         = 64.30446194225722
+  HEIGHT        = 3.264100915956937
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_1" = WINDOW
+
+  X             = 0.6561679790026224
+  Y             = 2.6246719160104988
+  WIDTH         = 64.30446194225722
+  HEIGHT        = 3.264100915956938
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face6" = ROOF
+   POLYGON           = "Face6 Plg"
+   CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR48_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -16.404199475065614
+   Z                 =  9.842519685039369
+  ..
+
+
+"Face1_ug Plg" = POLYGON
+   V1        = ( 49.212598, -0.000000 )
+   V2        = ( 65.616798, 16.404199 )
+   V3        = ( 0.000000, 16.404199 )
+   V4        = ( 16.404199, -0.000000 )
+   ..
+"Face1" = UNDERGROUND-WALL
+  CONSTRUCTION = "TpclInsltdCrptd8_lbFlrR5_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Face1_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+"Room2" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room2 Plg"
+   AZIMUTH         = 0
+   X               = 49.212598425196845
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 7945.800012334927
+   ZONE-TYPE = CONDITIONED
+   NUMBER-OF-PEOPLE = 8.689636300800068
+   PEOPLE-SCHEDULE = "Hospital Critical Occ_"
+   LIGHTING-W/AREA = 14.208348
+   LIGHTING-SCHEDULE = "Hospital Admin Light_"
+   EQUIP-SCHEDULE = ("Hospital Admin Equipment_")
+   EQUIPMENT-W/AREA = 0.0
+   EQUIP-SENSIBLE = 1.0
+   EQUIP-RAD-FRAC = 0.5
+   EQUIP-LATENT = 0.0
+   INF-SCHEDULE = "Hsptl Infl Qrtr On_"
+   INF-METHOD = AIR-CHANGE
+   INF-FLOW/AREA = 0.0011338560000000001
+  ..
+
+"Face2_1" = INTERIOR-WALL
+  POLYGON           = "Face2_1 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  315.0
+  X                 =  16.40419947506561
+  Y                 =  0.0
+  Z                 =  -1.4205315883128172e-15
+  NEXT-TO           =  "Room3"
+  ..
+
+"Face3_1" = INTERIOR-WALL
+  POLYGON           = "Face3_1 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  -16.40419947506561
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room5"
+  ..
+
+"Face4_1" = INTERIOR-WALL
+  POLYGON           = "Face4_1 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  225.0
+  X                 =  0.0
+  Y                 =  -49.212598425196845
+  Z                 =  -1.4205315883128168e-15
+  NEXT-TO           =  "Room1"
+  ..
+
+"Face5_1" = EXTERIOR-WALL
+  POLYGON           = "Face5_1 Plg"
+  CONSTRUCTION      = "TpclInsltdWdFrmdExtrrWllR20_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  16.40419947506561
+  Y                 =  -65.61679790026245
+  Z                 =  -4.017870075942759e-15
+  ..
+"Aperture1_0_1" = WINDOW
+
+  X             = 0.6561679790026227
+  Y             = 6.88373774706733
+  WIDTH         = 64.30446194225722
+  HEIGHT        = 2.7619315442712553
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_1_1" = WINDOW
+
+  X             = 0.6561679790026224
+  Y             = 2.6246719160104988
+  WIDTH         = 64.30446194225722
+  HEIGHT        = 2.7619315442712553
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face6_1" = ROOF
+   POLYGON           = "Face6_1 Plg"
+   CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR48_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -65.61679790026245
+   Z                 =  9.842519685039369
+  ..
+
+
+"Face1_1_ug Plg" = POLYGON
+   V1        = ( 16.404199, -0.000000 )
+   V2        = ( 16.404199, 65.616798 )
+   V3        = ( 0.000000, 49.212598 )
+   V4        = ( 0.000000, 16.404199 )
+   ..
+"Face1_1" = UNDERGROUND-WALL
+  CONSTRUCTION = "TpclInsltdCrptd8_lbFlrR5_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Face1_1_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+"Room3" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room3 Plg"
+   AZIMUTH         = 0
+   X               = 0.0
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 7945.800012334927
+   ZONE-TYPE = CONDITIONED
+   NUMBER-OF-PEOPLE = 8.689636300800068
+   PEOPLE-SCHEDULE = "Hospital Critical Occ_"
+   LIGHTING-W/AREA = 14.208348
+   LIGHTING-SCHEDULE = "Hospital Admin Light_"
+   EQUIP-SCHEDULE = ("Hospital Admin Equipment_")
+   EQUIPMENT-W/AREA = 0.0
+   EQUIP-SENSIBLE = 1.0
+   EQUIP-RAD-FRAC = 0.5
+   EQUIP-LATENT = 0.0
+   INF-SCHEDULE = "Hsptl Infl Qrtr On_"
+   INF-METHOD = AIR-CHANGE
+   INF-FLOW/AREA = 0.0011338560000000001
+  ..
+
+"Face2_2" = INTERIOR-WALL
+  POLYGON           = "Face2_2 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  224.99999999999997
+  X                 =  6.150589659866543e-32
+  Y                 =  0.0
+  Z                 =  -1.4205315883128168e-15
+  NEXT-TO           =  "Room4"
+  ..
+
+"Face3_2" = INTERIOR-WALL
+  POLYGON           = "Face3_2 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  16.404199475065614
+  Y                 =  -16.40419947506561
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room5"
+  ..
+
+"Face4_2" = INTERIOR-WALL
+  POLYGON           = "Face4_2 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  135.0
+  X                 =  49.212598425196845
+  Y                 =  -16.40419947506561
+  Z                 =  -1.4205315883128172e-15
+  NEXT-TO           =  "Room2"
+  ..
+
+"Face5_2" = EXTERIOR-WALL
+  POLYGON           = "Face5_2 Plg"
+  CONSTRUCTION      = "TpclInsltdWdFrmdExtrrWllR20_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  65.61679790026245
+  Y                 =  0.0
+  Z                 =  -4.017870075942759e-15
+  ..
+"Aperture1_0_2" = WINDOW
+
+  X             = 21.091113610798644
+  Y             = 2.624671916010501
+  WIDTH         = 4.6869141357330335
+  HEIGHT        = 2.460629921259843
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_1_2" = WINDOW
+
+  X             = 39.83877015373077
+  Y             = 2.6246719160105005
+  WIDTH         = 4.6869141357330335
+  HEIGHT        = 2.4606299212598417
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_2" = WINDOW
+
+  X             = 21.091113610798644
+  Y             = 7.185039370078744
+  WIDTH         = 4.6869141357330335
+  HEIGHT        = 2.4606299212598426
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_3" = WINDOW
+
+  X             = 30.46494188226471
+  Y             = 7.185039370078743
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.4606299212598417
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_4" = WINDOW
+
+  X             = 49.21259842519684
+  Y             = 2.624671916010499
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.460629921259843
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_5" = WINDOW
+
+  X             = 58.58642669666289
+  Y             = 2.624671916010499
+  WIDTH         = 4.6869141357330335
+  HEIGHT        = 2.460629921259842
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_6" = WINDOW
+
+  X             = 39.83877015373077
+  Y             = 7.1850393700787425
+  WIDTH         = 4.6869141357330335
+  HEIGHT        = 2.460629921259841
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_7" = WINDOW
+
+  X             = 49.21259842519684
+  Y             = 7.1850393700787425
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.4606299212598426
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_8" = WINDOW
+
+  X             = 58.58642669666289
+  Y             = 7.185039370078742
+  WIDTH         = 4.6869141357330335
+  HEIGHT        = 2.4606299212598417
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_9" = WINDOW
+
+  X             = 2.343457067866517
+  Y             = 7.185039370078745
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.4606299212598417
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_10" = WINDOW
+
+  X             = 11.717285339332584
+  Y             = 2.624671916010502
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.460629921259842
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_11" = WINDOW
+
+  X             = 11.717285339332584
+  Y             = 7.185039370078744
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.460629921259841
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_12" = WINDOW
+
+  X             = 2.3434570678665168
+  Y             = 2.6246719160105023
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.4606299212598426
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_13" = WINDOW
+
+  X             = 30.46494188226471
+  Y             = 2.6246719160105005
+  WIDTH         = 4.686914135733026
+  HEIGHT        = 2.4606299212598426
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face6_2" = ROOF
+   POLYGON           = "Face6_2 Plg"
+   CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR48_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -16.40419947506561
+   Z                 =  9.842519685039369
+  ..
+
+
+"Face1_2_ug Plg" = POLYGON
+   V1        = ( 0.000000, -0.000000 )
+   V2        = ( 65.616798, -0.000000 )
+   V3        = ( 49.212598, 16.404199 )
+   V4        = ( 16.404199, 16.404199 )
+   ..
+"Face1_2" = UNDERGROUND-WALL
+  CONSTRUCTION = "TpclInsltdCrptd8_lbFlrR5_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Face1_2_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+"Room4" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room4 Plg"
+   AZIMUTH         = 0
+   X               = 0.0
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 7945.800012334929
+   ZONE-TYPE = CONDITIONED
+   NUMBER-OF-PEOPLE = 8.68963630080007
+   PEOPLE-SCHEDULE = "Hospital Critical Occ_"
+   LIGHTING-W/AREA = 14.208348
+   LIGHTING-SCHEDULE = "Hospital Admin Light_"
+   EQUIP-SCHEDULE = ("Hospital Admin Equipment_")
+   EQUIPMENT-W/AREA = 0.0
+   EQUIP-SENSIBLE = 1.0
+   EQUIP-RAD-FRAC = 0.5
+   EQUIP-LATENT = 0.0
+   INF-SCHEDULE = "Hsptl Infl Qrtr On_"
+   INF-METHOD = AIR-CHANGE
+   INF-FLOW/AREA = 0.0011338560000000001
+  ..
+
+"Face2_3" = INTERIOR-WALL
+  POLYGON           = "Face2_3 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  135.0
+  X                 =  6.150589659866543e-32
+  Y                 =  -65.61679790026245
+  Z                 =  -1.4205315883128174e-15
+  NEXT-TO           =  "Room1"
+  ..
+
+"Face3_3" = INTERIOR-WALL
+  POLYGON           = "Face3_3 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  16.404199475065614
+  Y                 =  -49.212598425196845
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room5"
+  ..
+
+"Face4_3" = INTERIOR-WALL
+  POLYGON           = "Face4_3 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  44.999999999999986
+  X                 =  16.404199475065614
+  Y                 =  -16.40419947506561
+  Z                 =  -1.4205315883128168e-15
+  NEXT-TO           =  "Room3"
+  ..
+
+"Face5_3" = EXTERIOR-WALL
+  POLYGON           = "Face5_3 Plg"
+  CONSTRUCTION      = "TpclInsltdWdFrmdExtrrWllR20_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  -4.017870075942759e-15
+  ..
+"Aperture1_0_3" = WINDOW
+
+  X             = 56.711661042369684
+  Y             = 7.185039370078742
+  WIDTH         = 8.43644544431946
+  HEIGHT        = 2.4606299212598417
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_1_3" = WINDOW
+
+  X             = 0.4686914135732967
+  Y             = 7.185039370078745
+  WIDTH         = 8.436445444319467
+  HEIGHT        = 2.4606299212598435
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_2_1" = WINDOW
+
+  X             = 0.4686914135732964
+  Y             = 2.6246719160105023
+  WIDTH         = 8.436445444319467
+  HEIGHT        = 2.4606299212598426
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_3_1" = WINDOW
+
+  X             = 19.216347956505423
+  Y             = 7.185039370078743
+  WIDTH         = 8.43644544431946
+  HEIGHT        = 2.4606299212598435
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_4_1" = WINDOW
+
+  X             = 19.216347956505423
+  Y             = 2.6246719160105005
+  WIDTH         = 8.43644544431946
+  HEIGHT        = 2.4606299212598435
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_5_1" = WINDOW
+
+  X             = 37.96400449943755
+  Y             = 2.6246719160105005
+  WIDTH         = 8.43644544431946
+  HEIGHT        = 2.4606299212598417
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_6_1" = WINDOW
+
+  X             = 56.711661042369684
+  Y             = 2.6246719160104988
+  WIDTH         = 8.43644544431946
+  HEIGHT        = 2.4606299212598426
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_7_1" = WINDOW
+
+  X             = 37.96400449943755
+  Y             = 7.1850393700787425
+  WIDTH         = 8.43644544431946
+  HEIGHT        = 2.460629921259841
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_8_1" = WINDOW
+
+  X             = 9.842519685039363
+  Y             = 7.185039370078744
+  WIDTH         = 8.436445444319453
+  HEIGHT        = 2.460629921259841
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_9_1" = WINDOW
+
+  X             = 47.33783277090362
+  Y             = 7.185039370078742
+  WIDTH         = 8.436445444319453
+  HEIGHT        = 2.4606299212598435
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_10_1" = WINDOW
+
+  X             = 28.59017622797149
+  Y             = 2.6246719160105005
+  WIDTH         = 8.436445444319453
+  HEIGHT        = 2.4606299212598426
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_11_1" = WINDOW
+
+  X             = 28.59017622797149
+  Y             = 7.185039370078743
+  WIDTH         = 8.436445444319453
+  HEIGHT        = 2.4606299212598435
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_12_1" = WINDOW
+
+  X             = 9.842519685039363
+  Y             = 2.6246719160105023
+  WIDTH         = 8.436445444319453
+  HEIGHT        = 2.4606299212598417
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Aperture1_13_1" = WINDOW
+
+  X             = 47.33783277090362
+  Y             = 2.6246719160104988
+  WIDTH         = 8.436445444319453
+  HEIGHT        = 2.4606299212598435
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face6_3" = ROOF
+   POLYGON           = "Face6_3 Plg"
+   CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR48_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -65.61679790026245
+   Z                 =  9.842519685039369
+  ..
+
+
+"Face1_3_ug Plg" = POLYGON
+   V1        = ( 16.404199, 16.404199 )
+   V2        = ( 16.404199, 49.212598 )
+   V3        = ( 0.000000, 65.616798 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face1_3" = UNDERGROUND-WALL
+  CONSTRUCTION = "TpclInsltdCrptd8_lbFlrR5_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Face1_3_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+"Room5" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room5 Plg"
+   AZIMUTH         = 0
+   X               = 16.40419947506561
+   Y               = -16.40419947506561
+   Z               = 0.0
+   VOLUME          = 10594.400016446574
+   ZONE-TYPE = CONDITIONED
+   NUMBER-OF-PEOPLE = 231.72363468800194
+   PEOPLE-SCHEDULE = "Hospital Critical Occ_"
+   LIGHTING-W/AREA = 41.3441399
+   LIGHTING-SCHEDULE = "Hospital Critical Light_"
+   EQUIP-SCHEDULE = ("Hospital Critical Equip_")
+   EQUIPMENT-W/AREA = 43.0556
+   EQUIP-SENSIBLE = 1.0
+   EQUIP-RAD-FRAC = 0.5
+   EQUIP-LATENT = 0.0
+   INF-SCHEDULE = "Hsptl Infl Qrtr On_"
+   INF-METHOD = AIR-CHANGE
+   INF-FLOW/AREA = 0.0011338560000000001
+  ..
+
+"Face2_4" = INTERIOR-WALL
+  POLYGON           = "Face2_4 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  32.808398950131235
+  Y                 =  -32.808398950131235
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room2"
+  ..
+
+"Face3_4" = INTERIOR-WALL
+  POLYGON           = "Face3_4 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  32.808398950131235
+  Y                 =  0.0
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room3"
+  ..
+
+"Face4_4" = INTERIOR-WALL
+  POLYGON           = "Face4_4 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  3.552713678800501e-15
+  Y                 =  0.0
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room4"
+  ..
+
+"Face5_4" = INTERIOR-WALL
+  POLYGON           = "Face5_4 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  3.552713678800501e-15
+  Y                 =  -32.808398950131235
+  Z                 =  -2.00893503797138e-15
+  NEXT-TO           =  "Room1"
+  ..
+
+"Face6_4" = ROOF
+   POLYGON           = "Face6_4 Plg"
+   CONSTRUCTION      = "Tpcl Wd Jst Attc FlrR48_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -32.808398950131235
+   Z                 =  9.842519685039369
+  ..
+
+
+"Face1_4_ug Plg" = POLYGON
+   V1        = ( 32.808399, -0.000000 )
+   V2        = ( 32.808399, 32.808399 )
+   V3        = ( 0.000000, 32.808399 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face1_4" = UNDERGROUND-WALL
+  CONSTRUCTION = "TpclInsltdCrptd8_lbFlrR5_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Face1_4_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **              Electric & Fuel Meters                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      HVAC Circulation Loops / Plant Equipment       **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **            Steam & Chilled Water Meters             **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **               HVAC Systems / Zones                  **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+"Ideal Air System_Sys (SUM)" = SYSTEM
+   TYPE             = SUM
+   HEAT-SOURCE      = NONE
+   SYSTEM-REPORTS   = NO
+   ..
+
+"Room2 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 21.1
+  DESIGN-COOL-T    = 22.2
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room2"
+  ..
+
+"Sys01_PTAC_practice_Sys (SUM)" = SYSTEM
+   TYPE             = SUM
+   HEAT-SOURCE      = NONE
+   SYSTEM-REPORTS   = NO
+   ..
+
+"Room1 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 21.0
+  DESIGN-COOL-T    = 24.0
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room1"
+  ..
+
+"Room3 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 21.1
+  DESIGN-COOL-T    = 22.2
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room3"
+  ..
+
+"Room4 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 21.1
+  DESIGN-COOL-T    = 22.2
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room4"
+  ..
+
+"Room5 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 21.1
+  DESIGN-COOL-T    = 21.1
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room5"
+  ..
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Metering & Misc HVAC                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                    Utility Rates                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                 Output Reporting                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+END ..
+COMPUTE ..
+STOP ..

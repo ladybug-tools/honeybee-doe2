@@ -124,9 +124,12 @@ class HVACSystem:
 def hb_hvac_mapper(model):
     hvac_systems = []
 
-    hvac_names = set([model.hvacs.display_name for hvac in model.hvacs])
+    hvac_names = []
+    #set([model.properties.energy.hvacs.display_name for hvac in model.properties.energy.hvacs])
+    for hvac in model.properties.energy.hvacs:
+        hvac_names.append(hvac.display_name)
 
-    for name in hvac_names:
+    for name in set(hvac_names):
         pre_zones = []
         for room in model.rooms:
             if room.properties.energy.hvac.display_name == name:

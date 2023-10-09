@@ -19,7 +19,7 @@ from .inputils.title import Title
 from .story import Doe2Story
 from .constructions import Construction, ConstructionCollection
 
-from .hvac import HVACSystem, Zone
+from .hvac import HVACSystem, Zone, hb_hvac_mapper
 from .shades import Doe2Shade, Doe2ShadeCollection
 from .activitydescription import DayScheduleDoe, DayScheduleType, WeekScheduleDoe
 
@@ -109,6 +109,10 @@ class ModelDoe2Properties(object):
     def hvac_sys_zones_by_room(self):
         hvac_sys_zones = [HVACSystem.from_room(room) for room in self.host.rooms]
         return hvac_sys_zones
+
+    @property
+    def hvac_sys_zones_by_hb_hvac(self):
+        return hb_hvac_mapper(self.host)
 
     @property
     def fixed_shades(self):
