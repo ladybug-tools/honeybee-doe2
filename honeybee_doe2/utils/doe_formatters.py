@@ -10,7 +10,9 @@ def short_name(name, max_length=24):
         return name
 
     shortened_name = ''.join(re.split("[aeiouy\\-\\_/]", name))
-    shortened_name = shortened_name.replace(' ', '')
+
+    shortened_name = shortened_name.replace(' ', '') if len(
+        shortened_name) > max_length else shortened_name
 
     if len(shortened_name) <= max_length:
         return shortened_name
@@ -22,8 +24,6 @@ def short_name(name, max_length=24):
             end_length = -1 * (max_length - 17)
             shortened_name = f'{shortened_name[:16]}_{shortened_name[end_length:]}'
     return shortened_name
-
-# ! DF specific
 
 
 def lower_left_properties(room_2d):
