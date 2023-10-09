@@ -24,7 +24,7 @@ class Zone:
                 'Expected honeybee room'
             )
 
-        name = clean_string(value=room.display_name).replace(' ', '')
+        name = short_name(clean_string(value=room.display_name).replace(' ', ''))
 
         if room.properties.energy.is_conditioned:
             heating_setpoint = room.properties.energy.program_type.setpoint.heating_setpoint
@@ -37,12 +37,12 @@ class Zone:
                    cooling_setpoint=cooling_setpoint)
 
     def to_inp(self):
-        inp_str = f'"{short_name(self.name)} Zn"   = ZONE\n  ' \
+        inp_str = f'"{self.name} Zn"   = ZONE\n  ' \
             'TYPE             = UNCONDITIONED\n  ' \
             f'DESIGN-HEAT-T    = {self.heating_setpoint}\n  ' \
             f'DESIGN-COOL-T    = {self.cooling_setpoint}\n  ' \
             'SIZING-OPTION    = ADJUST-LOADS\n  ' \
-            f'SPACE            = "{short_name(self.name)}"\n  ..\n'
+            f'SPACE            = "{self.name}"\n  ..\n'
         return inp_str
 
     def __repr__(self) -> str:
@@ -98,7 +98,7 @@ class HVACSystem:
         return cls(name=name, zones=zones)
 
     def to_inp(self):
-        sys_str = f'"{short_name(self.name)}_Sys (SUM)" = SYSTEM\n' \
+        sys_str = f'"{self.name}_Sys (SUM)" = SYSTEM\n' \
             '   TYPE             = SUM\n' \
             '   HEAT-SOURCE      = NONE\n' \
             '   SYSTEM-REPORTS   = NO\n   ..\n'
