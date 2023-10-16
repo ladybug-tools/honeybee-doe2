@@ -194,21 +194,27 @@ class WeekScheduleDoe:
             if 'saturday'.upper() in (obj.upper() for obj in rule.days_applied):
                 sch_days.append(Days.SAT.value)
                 ruleset_daylib.append(Days.SAT.value)
+
             if 'monday'.upper() in (obj.upper() for obj in rule.days_applied):
                 sch_days.append(Days.MON.value)
                 ruleset_daylib.append(Days.MON.value)
+
             if 'tuesday'.upper() in (obj.upper() for obj in rule.days_applied):
                 sch_days.append(Days.TUE.value)
                 ruleset_daylib.append(Days.TUE.value)
+
             if 'wednesday'.upper() in (obj.upper() for obj in rule.days_applied):
                 sch_days.append(Days.WED.value)
                 ruleset_daylib.append(Days.WED.value)
+
             if 'thursday'.upper() in (obj.upper() for obj in rule.days_applied):
                 sch_days.append(Days.THUR.value)
                 ruleset_daylib.append(Days.THUR.value)
+
             if 'friday'.upper() in (obj.upper() for obj in rule.days_applied):
                 sch_days.append(Days.FRI.value)
                 ruleset_daylib.append(Days.FRI.value)
+
             if 'sunday'.upper() in (obj.upper() for obj in rule.days_applied):
                 sch_days.append(Days.SUN.value)
                 ruleset_daylib.append(Days.SUN.value)
@@ -231,16 +237,16 @@ class WeekScheduleDoe:
                 day for day in sorted(days_of_the_week)
                 if day not in sorted(ruleset_daylib)]
 
-            # if len(default_days) >= 2:
-            #     values.append(
-            #         [[default_days[0],
-            #           default_days[-1]],
-            #          f'"{schedule_ruleset.default_day_schedule.display_name}"'])
-
             if len(default_days) == 1:
                 values.append(
                     [default_days,
-                     f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
+                        f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
+
+        # if len(default_days) >= 2:
+        #     values.append(
+        #         [[default_days[0],
+        #             default_days[-1]],
+        #             f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
 
         return cls(name=name, stype=stype, values=values)
 
