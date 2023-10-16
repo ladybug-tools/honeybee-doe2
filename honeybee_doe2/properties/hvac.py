@@ -7,6 +7,7 @@ from uuid import uuid4
 from honeybee.model import Model as HBModel
 from honeybee.room import Room
 from honeybee.typing import clean_string
+# TODO: clean up HVACSystem class methods
 
 
 @dataclass
@@ -87,14 +88,25 @@ class HVACSystem:
         return cls(name=name, zones=zones)
 
     @classmethod
-    def from_room(cls, room: Room):
+    def from_room(cls, room: Room, name: str = None):
         if not isinstance(room, Room):
             raise ValueError(
                 f'Unsupported type: {type(room)}\n'
                 'Expected honeybee.room.Room'
             )
-        name = short_name(room.display_name)
+        name = short_name(room.display_name) if name is None else name
         zones = [Zone.from_room(room)]
+        return cls(name=name, zones=zones)
+
+    @classmethod
+    def from_zone_groups(cls, zone_group: List[Room], name: str):
+        if not isinstance(zone_group, list):
+            raise ValueError(
+                f'Unsupported type: {type(zone_group)}\n'
+                'Expected list of honeybee.room.Room'
+            )
+        name = short_name(name)
+        zones = [Zone.from_room(room) for room in zone_group]
         return cls(name=name, zones=zones)
 
     def to_inp(self):
@@ -108,3 +120,23 @@ class HVACSystem:
 
     def __repr__(self):
         return self.to_inp()
+
+
+def hb_hvac_mapper(model):
+    hvac_systems = []
+    hvac_names = []
+
+    if model.properties.energy.hvacs is not None:
+        for hvac in model.properties.energy.hvacs:
+            hvac_names.append(hvac.display_name)
+
+        for name in set(hvac_names):
+            pre_zones = []
+            for room in model.rooms:
+                if room.properties.energy.hvac.display_name == name:
+                    pre_zones.append(room)
+
+            hvac_systems.append(HVACSystem.from_zone_groups(
+                zone_group=pre_zones, name=name))
+
+    return hvac_systems
