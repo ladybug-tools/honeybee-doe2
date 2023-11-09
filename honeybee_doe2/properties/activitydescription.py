@@ -3,6 +3,7 @@ from enum import Enum
 import textwrap
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from typing import List
+from typing import Set
 
 from ..utils.doe_formatters import short_name
 
@@ -153,7 +154,7 @@ class Days(Enum):
 class WeekScheduleDoe:
     name: str = None
     stype: DayScheduleType = None
-    values: List = None
+    values: Set = None
 
     @classmethod
     def from_schedule_ruleset(
@@ -161,6 +162,7 @@ class WeekScheduleDoe:
         """ Create a doe2 Week Schedule from a honeybee ScheduleRuleset."""
         days_of_the_week = [Days.SUN.value, Days.MON.value, Days.TUE.value,
                             Days.WED.value, Days.THUR.value, Days.FRI.value, Days.SAT.value]
+
         ruleset_daylib = []
 
         name = short_name(schedule_ruleset.display_name)
@@ -225,6 +227,7 @@ class WeekScheduleDoe:
                     two_days = [Days.MON.value, Days.SAT.value]
                     values.append(
                         [two_days, f'"{short_name(rule.schedule_day.display_name)}"'])
+                # * Add new acception here
                 else:
                     values.append([[sch_days[0], sch_days[-1]],
                                    f'"{short_name(rule.schedule_day.display_name)}"'])
@@ -234,19 +237,16 @@ class WeekScheduleDoe:
                     [sch_days, f'"{short_name(rule.schedule_day.display_name)}"'])
 
             default_days = [
-                day for day in sorted(days_of_the_week)
-                if day not in sorted(ruleset_daylib)]
+                day for day in days_of_the_week
+                if day not in ruleset_daylib]
 
-            if len(default_days) == 1:
+            if len(default_days) >= 1:
+                two_days = [default_days[0], default_days[-1]]
+                if default_days[0] == Days.SAT.value and default_days[-1] == Days.FRI.value:
+                    two_days = [Days.MON.value, Days.SAT.value]
                 values.append(
-                    [default_days,
-                        f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
-
-        # if len(default_days) >= 2:
-        #     values.append(
-        #         [[default_days[0],
-        #             default_days[-1]],
-        #             f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
+                    [two_days,
+                     f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
 
         return cls(name=name, stype=stype, values=values)
 
@@ -255,6 +255,7 @@ class WeekScheduleDoe:
         obj_lines = []
         obj_lines.append(f'"{self.name}" = WEEK-SCHEDULE')
         obj_lines.append(f'\n   TYPE     = {self.stype.value}')
+
         for obj in self.values:
             objstr = ', '.join([str(val) for val in obj[0]])
             obj_lines.append(f'\n     ({objstr})  {obj[1]}')
