@@ -87,6 +87,167 @@ $ ---------------------------------------------------------
 
 
 
+"Hsptl Crtcl OccSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.65, 0.65, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.65,
+0.65, 0.65, 0.65,
+0.4, 0.4)
+   ..
+"Hsptl Crtcl OccDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.65, 0.65, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.65,
+0.65, 0.65, 0.65,
+0.4, 0.4)
+   ..
+"Hsptl Crtcl LghtWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.7, 0.7,
+0.7, 0.7, 0.5, 0.5)
+   ..
+"Hsptl INFILSCHPNNLSt|Wkd" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"Hsptl Crtcl EqpDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.8, 0.8,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"HsptlBLDGLIGHTCO_ORSCHSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hsptl INFILSCHPNNLSmrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
+   ..
+"Hospital Admin Light_Sat" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.1, 0.1, 0.1, 0.3,
+0.3, 0.3, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.1, 0.1, 0.1, 0.1)
+   ..
+"Hsptl Admn LghtDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
+   ..
+"HsptlBLDGLIGHTCO_RSCHWkd" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hsptl Admn LghtWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
+   ..
+"Hsptl BLDGOCCSCHSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.1,
+0.3, 0.4, 0.4, 0.4,
+0.4, 0.4, 0.4, 0.4,
+0.4, 0.1, 0.1, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"HsptlBLDGLIGHTCO_SCHDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.7, 0.7,
+0.7, 0.7, 0.7, 0.7,
+0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 0.5, 0.5)
+   ..
+"Hospital Admin Light_Sun" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.1,
+0.1, 0.1, 0.1, 0.1,
+0.1, 0.1, 0.1, 0.1,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05)
+   ..
+"Hsptl Admn EqpmntSn|St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl Admn LghtSn|St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.1, 0.1, 0.1, 0.1,
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
+   ..
+"HsptlBLDGLIGHTCO_WntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
 "HsptlINFILSCHPNNLWntrDsn" = DAY-SCHEDULE
    TYPE    = MULTIPLIER
    (1,24)    (0.25, 0.25, 0.25,
@@ -98,16 +259,14 @@ $ ---------------------------------------------------------
 0.25, 0.25, 0.25,
 0.25, 0.25, 0.25)
    ..
-"Hsptl Infl Qrtr OnSn|St" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25)
+"Hsptl BLDGOCCSCHWkd" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.1,
+0.5, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.8,
+0.8, 0.5, 0.3, 0.3,
+0.2, 0.2, 0.0, 0.0)
    ..
 "Hsptl Crtcl LghtSn|St" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -117,6 +276,69 @@ $ ---------------------------------------------------------
 0.9, 0.9, 0.9, 0.9,
 0.9, 0.9, 0.7, 0.7,
 0.7, 0.7, 0.5, 0.5)
+   ..
+"Hsptl Admn EqpmntWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl Crtcl LghtSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.5, 0.5, 0.5, 0.5,
+0.7, 0.7, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.7, 0.7,
+0.7, 0.7, 0.5, 0.5)
+   ..
+"Hsptl BLDGEQUIPSCHSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"Hsptl BLDGOCCSCHWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"Hsptl Crtcl EqpWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"HsptlInflQrtrOnWntrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"HsptlBLDGEQUIPSCHWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
    ..
 "Hsptl Crtcl OccSn|St" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -128,31 +350,32 @@ $ ---------------------------------------------------------
 0.65, 0.65, 0.65,
 0.4, 0.4)
    ..
-"HsptlBLDGLIGHTCO_SCHDflt" = DAY-SCHEDULE
+"Hsptl Crtcl LghtDflt" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.5, 0.5, 0.5, 0.5,
-0.7, 0.7, 0.7, 0.7,
-0.7, 0.7, 0.7, 0.7,
-0.5, 0.5, 0.5, 0.5,
-0.5, 0.5, 0.5, 0.5)
+0.7, 0.7, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.7, 0.7,
+0.7, 0.7, 0.5, 0.5)
    ..
-"Hsptl BLDGOCCSCHWkd" = DAY-SCHEDULE
+"Hsptl BLDGOCCSCHDflt" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.1,
-0.5, 0.8, 0.8, 0.8,
-0.8, 0.8, 0.8, 0.8,
-0.8, 0.5, 0.3, 0.3,
-0.2, 0.2, 0.0, 0.0)
+0.0, 0.0, 0.0, 0.0,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0)
    ..
-"HsptlBLDGLIGHTCO_RSCHWkd" = DAY-SCHEDULE
+"Hsptl Crtcl EqpSn|St" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.5, 0.5, 0.5, 0.5,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.5, 0.5, 0.5, 0.5,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.8, 0.8,
 0.5, 0.5, 0.5, 0.5)
    ..
 "Hsptl BLDGEQUIPSCHDflt" = DAY-SCHEDULE
@@ -182,51 +405,6 @@ $ ---------------------------------------------------------
 0.2619511698,
 0.2619511698)
    ..
-"Hsptl Crtcl LghtDflt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.7, 0.7, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.7, 0.7,
-0.7, 0.7, 0.5, 0.5)
-   ..
-"Hsptl Admn LghtWntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.1, 0.1, 0.1, 0.1,
-0.3, 0.3, 0.6, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.6, 0.6,
-0.6, 0.3, 0.3, 0.1)
-   ..
-"Hsptl Admn EqpmntSn|St" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.3, 0.3, 0.3, 0.3,
-0.5, 0.5, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.5, 0.5,
-0.3, 0.3, 0.3, 0.3)
-   ..
-"Hsptl BLDGOCCSCHWntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0)
-   ..
-"Hsptl BLDGOCCSCHSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0)
-   ..
 "Hsptl Admn EqpmntSn" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.3, 0.3, 0.3, 0.3,
@@ -236,14 +414,14 @@ $ ---------------------------------------------------------
 0.5, 0.3, 0.3, 0.3,
 0.3, 0.3, 0.3, 0.3)
    ..
-"Hsptl Crtcl LghtSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.7, 0.7, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.7, 0.7,
-0.7, 0.7, 0.5, 0.5)
+"Hsptl Infl Qrtr OnSmrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
    ..
 "Hsptl BLDGEQUIPSCHWkd" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -272,157 +450,7 @@ $ ---------------------------------------------------------
 0.5239023396,
 0.3492682264)
    ..
-"Hsptl Admn LghtSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.1, 0.1, 0.1, 0.1,
-0.3, 0.3, 0.6, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.6, 0.6,
-0.6, 0.3, 0.3, 0.1)
-   ..
-"HsptlBLDGEQUIPSCHWntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0)
-   ..
-"HsptlBLDGLIGHTCO_WntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0)
-   ..
-"Hsptl Admn LghtSn|St" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.1, 0.1, 0.1, 0.1,
-0.3, 0.3, 0.6, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.6, 0.6,
-0.6, 0.3, 0.3, 0.1)
-   ..
-"Hsptl Admn EqpmntSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.3, 0.3, 0.3, 0.3,
-0.5, 0.5, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.5, 0.5,
-0.3, 0.3, 0.3, 0.3)
-   ..
-"Hsptl Crtcl EqpWntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.3, 0.3, 0.3, 0.3,
-0.3, 0.3, 0.3, 0.3,
-0.3, 0.3, 0.3, 0.3,
-0.3, 0.3, 0.3, 0.3,
-0.3, 0.3, 0.3, 0.3,
-0.3, 0.3, 0.3, 0.3)
-   ..
-"HsptlBLDGLIGHTCO_ORSCHSt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.5, 0.5, 0.5, 0.5,
-0.8, 0.8, 0.8, 0.8,
-0.8, 0.8, 0.8, 0.8,
-0.8, 0.8, 0.5, 0.5,
-0.5, 0.5, 0.5, 0.5)
-   ..
-"Hsptl Crtcl LghtWntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.7, 0.7, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.7, 0.7,
-0.7, 0.7, 0.5, 0.5)
-   ..
 "Hsptl Crtcl EqpSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.5, 0.5, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.8, 0.8,
-0.5, 0.5, 0.5, 0.5)
-   ..
-"Hospital Admin Light_Sun" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.05, 0.05, 0.05,
-0.05, 0.05, 0.05,
-0.05, 0.05, 0.1,
-0.1, 0.1, 0.1, 0.1,
-0.1, 0.1, 0.1, 0.1,
-0.05, 0.05, 0.05,
-0.05, 0.05, 0.05,
-0.05)
-   ..
-"Hsptl Crtcl OccDflt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.4, 0.4, 0.4, 0.4,
-0.65, 0.65, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.65,
-0.65, 0.65, 0.65,
-0.4, 0.4)
-   ..
-"Hsptl Admn EqpmntSt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.3, 0.3, 0.3, 0.3,
-0.3, 0.3, 0.3, 0.5,
-0.5, 0.8, 0.8, 0.8,
-0.8, 0.8, 0.8, 0.5,
-0.5, 0.5, 0.5, 0.5,
-0.3, 0.3, 0.3, 0.3)
-   ..
-"Hsptl Infl Qrtr OnSmrDsn" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0)
-   ..
-"Hsptl Crtcl EqpDflt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.5, 0.5, 0.5, 0.5,
-0.5, 0.5, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.8, 0.8,
-0.5, 0.5, 0.5, 0.5)
-   ..
-"Hsptl Crtcl OccWntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.4, 0.4, 0.4, 0.4,
-0.65, 0.65, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.65,
-0.65, 0.65, 0.65,
-0.4, 0.4)
-   ..
-"Hsptl INFILSCHPNNLSt|Wkd" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25)
-   ..
-"Hsptl Crtcl EqpSn|St" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.5, 0.5, 0.5, 0.5,
 0.5, 0.5, 1.0, 1.0,
@@ -439,54 +467,6 @@ $ ---------------------------------------------------------
 1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0)
-   ..
-"Hsptl Admn LghtDflt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.1, 0.1, 0.1, 0.1,
-0.3, 0.3, 0.6, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.6, 0.6,
-0.6, 0.3, 0.3, 0.1)
-   ..
-"Hsptl BLDGOCCSCHSt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.1,
-0.3, 0.4, 0.4, 0.4,
-0.4, 0.4, 0.4, 0.4,
-0.4, 0.1, 0.1, 0.0,
-0.0, 0.0, 0.0, 0.0)
-   ..
-"Hsptl Infl Qrtr OnDflt" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25)
-   ..
-"Hsptl Crtcl OccSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.4, 0.4, 0.4, 0.4,
-0.65, 0.65, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.9,
-0.9, 0.9, 0.9, 0.65,
-0.65, 0.65, 0.65,
-0.4, 0.4)
-   ..
-"Hsptl Admn EqpmntWntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.3, 0.3, 0.3, 0.3,
-0.5, 0.5, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.5, 0.5,
-0.3, 0.3, 0.3, 0.3)
    ..
 "Hsptl BLDGEQUIPSCHSt" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -515,7 +495,17 @@ $ ---------------------------------------------------------
 0.3492682264,
 0.3492682264)
    ..
-"Hsptl INFILSCHPNNLSmrDsn" = DAY-SCHEDULE
+"Hsptl Crtcl OccWntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.4, 0.4, 0.4, 0.4,
+0.65, 0.65, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.65,
+0.65, 0.65, 0.65,
+0.4, 0.4)
+   ..
+"Hsptl Infl Qrtr OnDflt" = DAY-SCHEDULE
    TYPE    = MULTIPLIER
    (1,24)    (0.25, 0.25, 0.25,
 0.25, 0.25, 0.25,
@@ -526,8 +516,26 @@ $ ---------------------------------------------------------
 0.25, 0.25, 0.25,
 0.25, 0.25, 0.25)
    ..
-"HsptlInflQrtrOnWntrDsn" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
+"Hsptl Admn EqpmntSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.3, 0.3, 0.3, 0.5,
+0.5, 0.8, 0.8, 0.8,
+0.8, 0.8, 0.8, 0.5,
+0.5, 0.5, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl Admn EqpmntSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.3, 0.3, 0.3, 0.3,
+0.5, 0.5, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.5, 0.5,
+0.3, 0.3, 0.3, 0.3)
+   ..
+"Hsptl BLDGOCCSCHSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
    (1,24)    (1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0,
@@ -546,24 +554,25 @@ $ ---------------------------------------------------------
 0.25, 0.25, 0.25,
 0.25, 0.25, 0.25)
    ..
-"Hsptl BLDGOCCSCHDflt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.05, 0.05, 0.05,
-0.05, 0.05, 0.05,
-0.05, 0.05, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0)
+"Hsptl Infl Qrtr OnSn|St" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25)
    ..
-"Hospital Admin Light_Sat" = DAY-SCHEDULE
+"Hsptl Admn LghtSmrDsn" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.1, 0.1, 0.1, 0.1,
-0.1, 0.1, 0.1, 0.3,
-0.3, 0.3, 0.4, 0.4,
-0.4, 0.4, 0.4, 0.3,
-0.3, 0.3, 0.3, 0.3,
-0.1, 0.1, 0.1, 0.1)
+0.3, 0.3, 0.6, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.9, 0.9,
+0.9, 0.9, 0.6, 0.6,
+0.6, 0.3, 0.3, 0.1)
    ..
 "Hsptl Admn EqpmntDflt" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -574,15 +583,6 @@ $ ---------------------------------------------------------
 1.0, 1.0, 0.5, 0.5,
 0.3, 0.3, 0.3, 0.3)
    ..
-"Hsptl BLDGEQUIPSCHSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0)
-   ..
 
 $ ---------------------------------------------------------
 $              Week Schedules
@@ -591,155 +591,194 @@ $ ---------------------------------------------------------
 
 
 
-"HsptlBLDGLIGHTCO_IDORSCH" = WEEK-SCHEDULE
-   TYPE     = FRACTION
-     (CDD)  "HsptlBLDGLIGHTCO_HSmrDsn"
-     (HDD)  "HsptlBLDGLIGHTCO_WntrDsn"
-     (HOL)  "HsptlBLDGLIGHTCO_SCHDflt"
-     (SAT)  "HsptlBLDGLIGHTCO_ORSCHSt"
-     (MON, FRI)  "HsptlBLDGLIGHTCO_RSCHWkd"
-     (SUN)  "HsptlBLDGLIGHTCO_SCHDflt"
-   ..
-"HsptlBLDGLIGHTCO_IDORSCH_" = SCHEDULE-PD
-   TYPE     = FRACTION
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "HsptlBLDGLIGHTCO_IDORSCH"
-   ..
-
-"Hospital Admin Light" = WEEK-SCHEDULE
-   TYPE     = FRACTION
-     (CDD)  "Hsptl Admn LghtSmrDsn"
-     (HDD)  "Hsptl Admn LghtWntrDsn"
-     (HOL)  "Hsptl Admn LghtDflt"
-     (SAT, SUN)  "Hsptl Admn LghtSn|St"
-     (SAT)  "Hospital Admin Light_Sat"
-     (SUN)  "Hospital Admin Light_Sun"
-   ..
-"Hospital Admin Light_" = SCHEDULE-PD
-   TYPE     = FRACTION
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "Hospital Admin Light"
-   ..
-
-"Hospital BLDG_OCC_SCH" = WEEK-SCHEDULE
-   TYPE     = FRACTION
-     (CDD)  "Hsptl BLDGOCCSCHSmrDsn"
-     (HDD)  "Hsptl BLDGOCCSCHWntrDsn"
-     (HOL)  "Hsptl BLDGOCCSCHDflt"
-     (SAT)  "Hsptl BLDGOCCSCHSt"
-     (MON, FRI)  "Hsptl BLDGOCCSCHWkd"
-     (SUN)  "Hsptl BLDGOCCSCHDflt"
-   ..
-"Hospital BLDG_OCC_SCH_" = SCHEDULE-PD
-   TYPE     = FRACTION
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "Hospital BLDG_OCC_SCH"
-   ..
-
-"Hospital Critical Occ" = WEEK-SCHEDULE
-   TYPE     = FRACTION
-     (CDD)  "Hsptl Crtcl OccSmrDsn"
-     (HDD)  "Hsptl Crtcl OccWntrDsn"
-     (HOL)  "Hsptl Crtcl OccDflt"
-     (SAT, SUN)  "Hsptl Crtcl OccSn|St"
-   ..
-"Hospital Critical Occ_" = SCHEDULE-PD
-   TYPE     = FRACTION
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "Hospital Critical Occ"
-   ..
-
-"Hsptl Infl Qrtr On" = WEEK-SCHEDULE
-   TYPE     = MULTIPLIER
-     (CDD)  "Hsptl Infl Qrtr OnSmrDsn"
-     (HDD)  "HsptlInflQrtrOnWntrDsn"
-     (HOL)  "Hsptl Infl Qrtr OnDflt"
-     (SAT, SUN)  "Hsptl Infl Qrtr OnSn|St"
-   ..
-"Hsptl Infl Qrtr On_" = SCHEDULE-PD
-   TYPE     = MULTIPLIER
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "Hsptl Infl Qrtr On"
-   ..
-
-"Hospital INFIL_SCH_PNNL" = WEEK-SCHEDULE
-   TYPE     = MULTIPLIER
-     (CDD)  "Hsptl INFILSCHPNNLSmrDsn"
-     (HDD)  "HsptlINFILSCHPNNLWntrDsn"
-     (HOL)  "Hsptl INFILSCHPNNLDflt"
-     (MON, SAT)  "Hsptl INFILSCHPNNLSt|Wkd"
-     (SUN)  "Hsptl INFILSCHPNNLDflt"
-   ..
-"Hospital INFIL_SCH_PNNL_" = SCHEDULE-PD
-   TYPE     = MULTIPLIER
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "Hospital INFIL_SCH_PNNL"
-   ..
-
-"Hospital Admin Equipment" = WEEK-SCHEDULE
-   TYPE     = FRACTION
-     (CDD)  "Hsptl Admn EqpmntSmrDsn"
-     (HDD)  "Hsptl Admn EqpmntWntrDsn"
-     (HOL)  "Hsptl Admn EqpmntDflt"
-     (SAT, SUN)  "Hsptl Admn EqpmntSn|St"
-     (SAT)  "Hsptl Admn EqpmntSt"
-     (SUN)  "Hsptl Admn EqpmntSn"
-   ..
-"Hospital Admin Equipment_" = SCHEDULE-PD
-   TYPE     = FRACTION
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "Hospital Admin Equipment"
-   ..
-
-"Hospital Critical Equip" = WEEK-SCHEDULE
-   TYPE     = FRACTION
-     (CDD)  "Hsptl Crtcl EqpSmrDsn"
-     (HDD)  "Hsptl Crtcl EqpWntrDsn"
-     (HOL)  "Hsptl Crtcl EqpDflt"
-     (SAT, SUN)  "Hsptl Crtcl EqpSn|St"
-   ..
-"Hospital Critical Equip_" = SCHEDULE-PD
+"Hospital Critical Equip"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "Hsptl Crtcl EqpSn|St", $ Monday
+                     "Hsptl Crtcl EqpDflt", $ Tuesday
+                     "Hsptl Crtcl EqpDflt", $ Wednesday
+                     "Hsptl Crtcl EqpDflt", $ Thursday
+                     "Hsptl Crtcl EqpDflt", $ Friday
+                     "Hsptl Crtcl EqpDflt", $ Saturday
+                     "Hsptl Crtcl EqpSn|St", $ Sunday
+                     "Hsptl Crtcl EqpDflt", $ Holiday
+                     "Hsptl Crtcl EqpWntrDsn", $ Winter Design Day
+                     "Hsptl Crtcl EqpSmrDsn", $ Summer Design Day
+                    )"Hospital Critical Equip" = SCHEDULE-PD
    TYPE     = FRACTION
    MONTH    = 12
    DAY      = 31
    WEEK-SCHEDULES = "Hospital Critical Equip"
    ..
 
-"Hospital BLDG_EQUIP_SCH" = WEEK-SCHEDULE
+"Hospital Critical Occ"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "Hsptl Crtcl OccSn|St", $ Monday
+                     "Hsptl Crtcl OccDflt", $ Tuesday
+                     "Hsptl Crtcl OccDflt", $ Wednesday
+                     "Hsptl Crtcl OccDflt", $ Thursday
+                     "Hsptl Crtcl OccDflt", $ Friday
+                     "Hsptl Crtcl OccDflt", $ Saturday
+                     "Hsptl Crtcl OccSn|St", $ Sunday
+                     "Hsptl Crtcl OccDflt", $ Holiday
+                     "Hsptl Crtcl OccWntrDsn", $ Winter Design Day
+                     "Hsptl Crtcl OccSmrDsn", $ Summer Design Day
+                    )"Hospital Critical Occ" = SCHEDULE-PD
    TYPE     = FRACTION
-     (CDD)  "Hsptl BLDGEQUIPSCHSmrDsn"
-     (HDD)  "HsptlBLDGEQUIPSCHWntrDsn"
-     (HOL)  "Hsptl BLDGEQUIPSCHDflt"
-     (SAT)  "Hsptl BLDGEQUIPSCHSt"
-     (MON, FRI)  "Hsptl BLDGEQUIPSCHWkd"
-     (SUN)  "Hsptl BLDGEQUIPSCHDflt"
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Critical Occ"
    ..
-"Hospital BLDG_EQUIP_SCH_" = SCHEDULE-PD
+
+"Hospital Critical Light"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "Hsptl Crtcl LghtSn|St", $ Monday
+                     "Hsptl Crtcl LghtDflt", $ Tuesday
+                     "Hsptl Crtcl LghtDflt", $ Wednesday
+                     "Hsptl Crtcl LghtDflt", $ Thursday
+                     "Hsptl Crtcl LghtDflt", $ Friday
+                     "Hsptl Crtcl LghtDflt", $ Saturday
+                     "Hsptl Crtcl LghtSn|St", $ Sunday
+                     "Hsptl Crtcl LghtDflt", $ Holiday
+                     "Hsptl Crtcl LghtWntrDsn", $ Winter Design Day
+                     "Hsptl Crtcl LghtSmrDsn", $ Summer Design Day
+                    )"Hospital Critical Light" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Critical Light"
+   ..
+
+"Hospital INFIL_SCH_PNNL"      = WEEK-SCHEDULE-PD
+   TYPE          = MULTIPLIER
+   DAY-SCHEDULES = ( "Hsptl INFILSCHPNNLDflt", $ Monday
+                     "Hsptl INFILSCHPNNLSt|Wkd", $ Tuesday
+                     "Hsptl INFILSCHPNNLSt|Wkd", $ Wednesday
+                     "Hsptl INFILSCHPNNLSt|Wkd", $ Thursday
+                     "Hsptl INFILSCHPNNLSt|Wkd", $ Friday
+                     "Hsptl INFILSCHPNNLSt|Wkd", $ Saturday
+                     "Hsptl INFILSCHPNNLSt|Wkd", $ Sunday
+                     "Hsptl INFILSCHPNNLDflt", $ Holiday
+                     "HsptlINFILSCHPNNLWntrDsn", $ Winter Design Day
+                     "Hsptl INFILSCHPNNLSmrDsn", $ Summer Design Day
+                    )"Hospital INFIL_SCH_PNNL" = SCHEDULE-PD
+   TYPE     = MULTIPLIER
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital INFIL_SCH_PNNL"
+   ..
+
+"HsptlBLDGLIGHTCO_IDORSCH"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "HsptlBLDGLIGHTCO_SCHDflt", $ Monday
+                     "HsptlBLDGLIGHTCO_SCHDflt", $ Tuesday
+                     "HsptlBLDGLIGHTCO_SCHDflt", $ Wednesday
+                     "HsptlBLDGLIGHTCO_SCHDflt", $ Thursday
+                     "HsptlBLDGLIGHTCO_SCHDflt", $ Friday
+                     "HsptlBLDGLIGHTCO_SCHDflt", $ Saturday
+                     "HsptlBLDGLIGHTCO_ORSCHSt", $ Sunday
+                     "HsptlBLDGLIGHTCO_SCHDflt", $ Holiday
+                     "HsptlBLDGLIGHTCO_RSCHWkd", $ Winter Design Day
+                     "HsptlBLDGLIGHTCO_RSCHWkd", $ Summer Design Day
+                    )"HsptlBLDGLIGHTCO_IDORSCH" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "HsptlBLDGLIGHTCO_IDORSCH"
+   ..
+
+"Hospital BLDG_OCC_SCH"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "Hsptl BLDGOCCSCHDflt", $ Monday
+                     "Hsptl BLDGOCCSCHDflt", $ Tuesday
+                     "Hsptl BLDGOCCSCHDflt", $ Wednesday
+                     "Hsptl BLDGOCCSCHDflt", $ Thursday
+                     "Hsptl BLDGOCCSCHDflt", $ Friday
+                     "Hsptl BLDGOCCSCHDflt", $ Saturday
+                     "Hsptl BLDGOCCSCHSt", $ Sunday
+                     "Hsptl BLDGOCCSCHDflt", $ Holiday
+                     "Hsptl BLDGOCCSCHWkd", $ Winter Design Day
+                     "Hsptl BLDGOCCSCHWkd", $ Summer Design Day
+                    )"Hospital BLDG_OCC_SCH" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital BLDG_OCC_SCH"
+   ..
+
+"Hospital BLDG_EQUIP_SCH"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "Hsptl BLDGEQUIPSCHDflt", $ Monday
+                     "Hsptl BLDGEQUIPSCHDflt", $ Tuesday
+                     "Hsptl BLDGEQUIPSCHDflt", $ Wednesday
+                     "Hsptl BLDGEQUIPSCHDflt", $ Thursday
+                     "Hsptl BLDGEQUIPSCHDflt", $ Friday
+                     "Hsptl BLDGEQUIPSCHDflt", $ Saturday
+                     "Hsptl BLDGEQUIPSCHSt", $ Sunday
+                     "Hsptl BLDGEQUIPSCHDflt", $ Holiday
+                     "Hsptl BLDGEQUIPSCHWkd", $ Winter Design Day
+                     "Hsptl BLDGEQUIPSCHWkd", $ Summer Design Day
+                    )"Hospital BLDG_EQUIP_SCH" = SCHEDULE-PD
    TYPE     = FRACTION
    MONTH    = 12
    DAY      = 31
    WEEK-SCHEDULES = "Hospital BLDG_EQUIP_SCH"
    ..
 
-"Hospital Critical Light" = WEEK-SCHEDULE
-   TYPE     = FRACTION
-     (CDD)  "Hsptl Crtcl LghtSmrDsn"
-     (HDD)  "Hsptl Crtcl LghtWntrDsn"
-     (HOL)  "Hsptl Crtcl LghtDflt"
-     (SAT, SUN)  "Hsptl Crtcl LghtSn|St"
-   ..
-"Hospital Critical Light_" = SCHEDULE-PD
+"Hospital Admin Light"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "Hsptl Admn LghtSn|St", $ Monday
+                     "Hsptl Admn LghtDflt", $ Tuesday
+                     "Hsptl Admn LghtDflt", $ Wednesday
+                     "Hsptl Admn LghtDflt", $ Thursday
+                     "Hsptl Admn LghtDflt", $ Friday
+                     "Hsptl Admn LghtDflt", $ Saturday
+                     "Hsptl Admn LghtSn|St", $ Sunday
+                     "Hsptl Admn LghtDflt", $ Holiday
+                     "Hsptl Admn LghtDflt", $ Winter Design Day
+                     "Hsptl Admn LghtDflt", $ Summer Design Day
+                    )"Hospital Admin Light" = SCHEDULE-PD
    TYPE     = FRACTION
    MONTH    = 12
    DAY      = 31
-   WEEK-SCHEDULES = "Hospital Critical Light"
+   WEEK-SCHEDULES = "Hospital Admin Light"
+   ..
+
+"Hsptl Infl Qrtr On"      = WEEK-SCHEDULE-PD
+   TYPE          = MULTIPLIER
+   DAY-SCHEDULES = ( "Hsptl Infl Qrtr OnSn|St", $ Monday
+                     "Hsptl Infl Qrtr OnDflt", $ Tuesday
+                     "Hsptl Infl Qrtr OnDflt", $ Wednesday
+                     "Hsptl Infl Qrtr OnDflt", $ Thursday
+                     "Hsptl Infl Qrtr OnDflt", $ Friday
+                     "Hsptl Infl Qrtr OnDflt", $ Saturday
+                     "Hsptl Infl Qrtr OnSn|St", $ Sunday
+                     "Hsptl Infl Qrtr OnDflt", $ Holiday
+                     "HsptlInflQrtrOnWntrDsn", $ Winter Design Day
+                     "Hsptl Infl Qrtr OnSmrDsn", $ Summer Design Day
+                    )"Hsptl Infl Qrtr On" = SCHEDULE-PD
+   TYPE     = MULTIPLIER
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hsptl Infl Qrtr On"
+   ..
+
+"Hospital Admin Equipment"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "Hsptl Admn EqpmntSn|St", $ Monday
+                     "Hsptl Admn EqpmntDflt", $ Tuesday
+                     "Hsptl Admn EqpmntDflt", $ Wednesday
+                     "Hsptl Admn EqpmntDflt", $ Thursday
+                     "Hsptl Admn EqpmntDflt", $ Friday
+                     "Hsptl Admn EqpmntDflt", $ Saturday
+                     "Hsptl Admn EqpmntSn|St", $ Sunday
+                     "Hsptl Admn EqpmntDflt", $ Holiday
+                     "Hsptl Admn EqpmntDflt", $ Winter Design Day
+                     "Hsptl Admn EqpmntDflt", $ Summer Design Day
+                    )"Hospital Admin Equipment" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "Hospital Admin Equipment"
    ..
 
 
@@ -751,28 +790,12 @@ $ ---------------------------------------------------------
 
 
 
-"Generic Gypsum Board" = MATERIAL
+"Generic 50mm Insulation" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.042
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.469
-  ..
-
-"Generic Painted Metal" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.005
-   CONDUCTIVITY    = 14.265
-   DENSITY         = 480.085
-   SPECIFIC-HEAT   = 0.176
-  ..
-
-"Generic Acoustic Tile" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.066
-   CONDUCTIVITY    = 0.019
-   DENSITY         = 22.974
-   SPECIFIC-HEAT   = 0.254
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
   ..
 
 "Generic HW Concrete" = MATERIAL
@@ -783,52 +806,12 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.387
   ..
 
-"Generic Roof Membrane" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.033
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 69.921
-   SPECIFIC-HEAT   = 0.628
-  ..
-
-"Generic 50mm Insulation" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.164
-   CONDUCTIVITY    = 0.01
-   DENSITY         = 2.684
-   SPECIFIC-HEAT   = 0.52
-  ..
-
-"Generic Brick" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.285
-   DENSITY         = 119.865
-   SPECIFIC-HEAT   = 0.34
-  ..
-
 "Generic Ceiling Air Gap" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.328
    CONDUCTIVITY    = 0.176
    DENSITY         = 0.08
    SPECIFIC-HEAT   = 0.43
-  ..
-
-"Generic LW Concrete" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.168
-   DENSITY         = 79.91
-   SPECIFIC-HEAT   = 0.361
-  ..
-
-"Generic 25mm Wood" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.083
-   CONDUCTIVITY    = 0.048
-   DENSITY         = 37.957
-   SPECIFIC-HEAT   = 0.701
   ..
 
 "Generic 25mm Insulation" = MATERIAL
@@ -845,6 +828,62 @@ $ ---------------------------------------------------------
    CONDUCTIVITY    = 0.211
    DENSITY         = 0.08
    SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.005
+   CONDUCTIVITY    = 14.265
+   DENSITY         = 480.085
+   SPECIFIC-HEAT   = 0.176
+  ..
+
+"Generic Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.033
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 69.921
+   SPECIFIC-HEAT   = 0.628
+  ..
+
+"Generic 25mm Wood" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.048
+   DENSITY         = 37.957
+   SPECIFIC-HEAT   = 0.701
+  ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
   ..
 
 "Generic Exterior Wall_l" = LAYERS
@@ -988,6 +1027,19 @@ $ ---------------------------------------------------------
    LAYERS               = "Generic Underground Roof_l"
    ..
 
+"Generic Interior Door_l" = LAYERS
+   MATERIAL             = (
+      "Generic 25mm Wood"
+   )
+   ..
+
+"Generic Interior Door_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Door_l"
+   ..
+
 "Generic Exterior Door_l" = LAYERS
    MATERIAL             = (
       "Generic Painted Metal",
@@ -1003,19 +1055,6 @@ $ ---------------------------------------------------------
    LAYERS               = "Generic Exterior Door_l"
    ..
 
-"Generic Interior Door_l" = LAYERS
-   MATERIAL             = (
-      "Generic 25mm Wood"
-   )
-   ..
-
-"Generic Interior Door_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.5
-   ROUGHNESS            = 4
-   LAYERS               = "Generic Interior Door_l"
-   ..
-
 
 $ ---------------------------------------------------------
 $              Glass Type Codes
@@ -1024,16 +1063,16 @@ $ ---------------------------------------------------------
 
 
 
-"Generic Double Pane" = GLASS-TYPE
-   TYPE               = SHADING-COEF
-   SHADING-COEF       = 0.4874490884111821
-   GLASS-CONDUCT      = 0.297
-   ..
-
 "Generic Single Pane" = GLASS-TYPE
    TYPE               = SHADING-COEF
    SHADING-COEF       = 0.9206277902735016
    GLASS-CONDUCT      = 1.009
+   ..
+
+"Generic Double Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4874490884111821
+   GLASS-CONDUCT      = 0.297
    ..
 
 

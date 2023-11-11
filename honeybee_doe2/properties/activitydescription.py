@@ -153,118 +153,62 @@ class Days(Enum):
 @dataclass
 class WeekScheduleDoe:
     name: str = None
-    stype: DayScheduleType = None
-    values: List = None
+    stype: str = DayScheduleType
+    day_schedules: List = None
 
     @classmethod
-    def from_schedule_ruleset(
-            cls, schedule_ruleset: ScheduleRuleset, stype: DayScheduleType):
-        """ Create a doe2 Week Schedule from a honeybee ScheduleRuleset."""
-        days_of_the_week = [Days.SUN.value, Days.MON.value, Days.TUE.value,
-                            Days.WED.value, Days.THUR.value, Days.FRI.value, Days.SAT.value]
-        ruleset_daylib = []
-
+    def from_schedule_ruleset(cls, stype, schedule_ruleset):
+        """Create a WeekScheduleDoe from a ScheduleRuleset."""
+        myruleset = schedule_ruleset
         name = short_name(schedule_ruleset.display_name)
-
         stype = stype
 
-        values = []
+        days_of_the_week = ['sunday', 'monday', 'tuesday',
+                            'wednesday', 'thursday', 'friday', 'saturday']
 
-        if schedule_ruleset.summer_designday_schedule:
-            values.append(
-                [[Days.CDD.value],
-                 f'"{short_name(schedule_ruleset.summer_designday_schedule.display_name)}"'])
-        if schedule_ruleset.winter_designday_schedule:
-            values.append(
-                [[Days.HDD.value],
-                 f'"{short_name(schedule_ruleset.winter_designday_schedule.display_name)}"'])
-
-        if schedule_ruleset.holiday_schedule:
-            values.append(
-                [[Days.HOL.value],
-                 f'"{short_name(schedule_ruleset.holiday_schedule.display_name)}"'])
-
-        if schedule_ruleset.holiday_schedule == None:
-            values.append(
-                [[Days.HOL.value],
-                 f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
-
-        for rule in schedule_ruleset.schedule_rules:
-            sch_days = []
-
-            if 'saturday'.upper() in (obj.upper() for obj in rule.days_applied):
-                sch_days.append(Days.SAT.value)
-                ruleset_daylib.append(Days.SAT.value)
-
-            if 'monday'.upper() in (obj.upper() for obj in rule.days_applied):
-                sch_days.append(Days.MON.value)
-                ruleset_daylib.append(Days.MON.value)
-
-            if 'tuesday'.upper() in (obj.upper() for obj in rule.days_applied):
-                sch_days.append(Days.TUE.value)
-                ruleset_daylib.append(Days.TUE.value)
-
-            if 'wednesday'.upper() in (obj.upper() for obj in rule.days_applied):
-                sch_days.append(Days.WED.value)
-                ruleset_daylib.append(Days.WED.value)
-
-            if 'thursday'.upper() in (obj.upper() for obj in rule.days_applied):
-                sch_days.append(Days.THUR.value)
-                ruleset_daylib.append(Days.THUR.value)
-
-            if 'friday'.upper() in (obj.upper() for obj in rule.days_applied):
-                sch_days.append(Days.FRI.value)
-                ruleset_daylib.append(Days.FRI.value)
-
-            if 'sunday'.upper() in (obj.upper() for obj in rule.days_applied):
-                sch_days.append(Days.SUN.value)
-                ruleset_daylib.append(Days.SUN.value)
-
-            if len(sch_days) >= 2:
-                two_days = [sch_days[0], sch_days[-1]]
-                if sch_days[0] == Days.SAT.value and sch_days[-1] == Days.FRI.value:
-                    two_days = [Days.MON.value, Days.SAT.value]
-                    values.append(
-                        [two_days, f'"{short_name(rule.schedule_day.display_name)}"'])
+        days = []
+        for rule in myruleset:
+            for day in days_of_the_week:
+                if day in rule.days_applied:
+                    days.append(short_name(rule.schedule_day.display_name)) if rule.schedule_day.display_name \
+                        is not None else short_name(myruleset.default_day_schedule.display_name)
                 else:
-                    values.append([[sch_days[0], sch_days[-1]],
-                                   f'"{short_name(rule.schedule_day.display_name)}"'])
+                    days.append(short_name(myruleset.default_day_schedule.display_name))
 
-            elif len(sch_days) == 1:
-                values.append(
-                    [sch_days, f'"{short_name(rule.schedule_day.display_name)}"'])
+        if myruleset.holiday_schedule is not None:
+            days.append(short_name(myruleset.holiday_schedule.display_name))
+        else:
+            days.append(short_name(myruleset.default_day_schedule.display_name))
 
-            default_days = [
-                day for day in sorted(days_of_the_week)
-                if day not in sorted(ruleset_daylib)]
+        days.append(short_name(myruleset.winter_designday_schedule.display_name)) if myruleset.winter_designday_schedule.display_name is not None else [
+            short_name(myruleset.default_day_schedule.display_name), 'HDD']
 
-            if len(default_days) == 1:
-                values.append(
-                    [default_days,
-                        f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
+        days.append(short_name(myruleset.summer_designday_schedule.display_name)) if myruleset.summer_designday_schedule.display_name \
+            is not None else short_name(myruleset.default_day_schedule.display_name)
 
-        # if len(default_days) >= 2:
-        #     values.append(
-        #         [[default_days[0],
-        #             default_days[-1]],
-        #             f'"{short_name(schedule_ruleset.default_day_schedule.display_name)}"'])
-
-        return cls(name=name, stype=stype, values=values)
+        return cls(name=name, stype=stype, day_schedules=days)
 
     def to_inp(self):
 
         obj_lines = []
-        obj_lines.append(f'"{self.name}" = WEEK-SCHEDULE')
-        obj_lines.append(f'\n   TYPE     = {self.stype.value}')
-        for obj in self.values:
-            objstr = ', '.join([str(val) for val in obj[0]])
-            obj_lines.append(f'\n     ({objstr})  {obj[1]}')
-        obj_lines.append(f'\n   ..\n')
-        # **********  PD SCHEDULE == Annual schedule  **********
-        # Currently to make the logic work from HB to DOE:
-        # PD schedule is created for each week schedule, and the PD schedule is
-        # Hard coded to be months 1-12 and till the last day of month 12
-        obj_lines.append(f'"{self.name}_" = SCHEDULE-PD')
+        obj_lines.append(f'"{self.name}"      = WEEK-SCHEDULE-PD')
+        obj_lines.append(f'\n   TYPE          = {self.stype.value}')
+        obj_lines.append(f'\n   DAY-SCHEDULES = ( "{self.day_schedules[0]}", $ Monday')
+        obj_lines.append(f'\n                     "{self.day_schedules[1]}", $ Tuesday')
+        obj_lines.append(
+            f'\n                     "{self.day_schedules[2]}", $ Wednesday')
+        obj_lines.append(f'\n                     "{self.day_schedules[3]}", $ Thursday')
+        obj_lines.append(f'\n                     "{self.day_schedules[4]}", $ Friday')
+        obj_lines.append(f'\n                     "{self.day_schedules[5]}", $ Saturday')
+        obj_lines.append(f'\n                     "{self.day_schedules[6]}", $ Sunday')
+        obj_lines.append(f'\n                     "{self.day_schedules[7]}", $ Holiday')
+        obj_lines.append(
+            f'\n                     "{self.day_schedules[8]}", $ Winter Design Day')
+        obj_lines.append(
+            f'\n                     "{self.day_schedules[9]}", $ Summer Design Day')
+        obj_lines.append(f'\n                    )')
+
+        obj_lines.append(f'"{self.name}" = SCHEDULE-PD')
         obj_lines.append(f'\n   TYPE     = {self.stype.value}')
         obj_lines.append(f'\n   MONTH    = 12')
         obj_lines.append(f'\n   DAY      = 31')
