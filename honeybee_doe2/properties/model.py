@@ -135,25 +135,25 @@ class ModelDoe2Properties(object):
         translated_schedules = []
         for room in obj.rooms:
 
-            if room.properties.energy.lighting is not None:
+            if room.properties.energy.lighting is not None and room.properties.energy.lighting.schedule.is_single_week:
                 translated_schedules.append(
                     WeekScheduleDoe.from_schedule_ruleset(
                         schedule_ruleset=room.properties.energy.lighting.schedule,
                         stype=DayScheduleType.FRACTION))
 
-            if room.properties.energy.people is not None:
+            if room.properties.energy.people is not None and room.properties.energy.people.occupancy_schedule.is_single_week:
                 translated_schedules.append(
                     WeekScheduleDoe.from_schedule_ruleset(
                         schedule_ruleset=room.properties.energy.people.occupancy_schedule,
                         stype=DayScheduleType.FRACTION))
 
-            if room.properties.energy.electric_equipment is not None:
+            if room.properties.energy.electric_equipment is not None and room.properties.energy.electric_equipment.schedule.is_single_week:
                 translated_schedules.append(
                     WeekScheduleDoe.from_schedule_ruleset(
                         schedule_ruleset=room.properties.energy.electric_equipment.schedule,
                         stype=DayScheduleType.FRACTION))
 
-            if room.properties.energy.infiltration is not None:
+            if room.properties.energy.infiltration is not None and room.properties.energy.infiltration.schedule.is_single_week:
                 translated_schedules.append(
                     WeekScheduleDoe.from_schedule_ruleset(
                         schedule_ruleset=room.properties.energy.infiltration.schedule,
