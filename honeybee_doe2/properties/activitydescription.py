@@ -208,7 +208,9 @@ class WeekScheduleDoe:
             f'\n                     "{self.day_schedules[9]}", $ Summer Design Day')
         obj_lines.append(f'\n                    )')
 
-        obj_lines.append(f'"{self.name}" = SCHEDULE-PD')
+        obj_lines.append(f'\n   ..\n')
+
+        obj_lines.append(f'"{self.name}_" = SCHEDULE-PD')
         obj_lines.append(f'\n   TYPE     = {self.stype.value}')
         obj_lines.append(f'\n   MONTH    = 12')
         obj_lines.append(f'\n   DAY      = 31')
