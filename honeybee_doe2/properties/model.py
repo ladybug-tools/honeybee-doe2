@@ -178,27 +178,31 @@ class ModelDoe2Properties(object):
 
             if room.properties.energy.lighting is not None:
                 for sch in room.properties.energy.lighting.schedule.day_schedules:
-                    translated_schedules.append(
-                        DayScheduleDoe.from_day_schedule(
-                            day_schedule=sch, stype=DayScheduleType.FRACTION))
+                    if room.properties.energy.lighting.schedule.is_single_week:
+                        translated_schedules.append(
+                            DayScheduleDoe.from_day_schedule(
+                                day_schedule=sch, stype=DayScheduleType.FRACTION))
 
             if room.properties.energy.people is not None:
                 for sch in room.properties.energy.people.occupancy_schedule.day_schedules:
-                    translated_schedules.append(
-                        DayScheduleDoe.from_day_schedule(
-                            day_schedule=sch, stype=DayScheduleType.FRACTION))
+                    if room.properties.energy.people.occupancy_schedule.is_single_week:
+                        translated_schedules.append(
+                            DayScheduleDoe.from_day_schedule(
+                                day_schedule=sch, stype=DayScheduleType.FRACTION))
 
             if room.properties.energy.electric_equipment is not None:
                 for sch in room.properties.energy.electric_equipment.schedule.day_schedules:
-                    translated_schedules.append(
-                        DayScheduleDoe.from_day_schedule(
-                            day_schedule=sch, stype=DayScheduleType.FRACTION))
+                    if room.properties.energy.electric_equipment.schedule.is_single_week:
+                        translated_schedules.append(
+                            DayScheduleDoe.from_day_schedule(
+                                day_schedule=sch, stype=DayScheduleType.FRACTION))
 
             if room.properties.energy.infiltration is not None:
                 for sch in room.properties.energy.infiltration.schedule.day_schedules:
-                    translated_schedules.append(
-                        DayScheduleDoe.from_day_schedule(
-                            day_schedule=sch, stype=DayScheduleType.MULTIPLIER))
+                    if room.properties.energy.infiltration.schedule.is_single_week:
+                        translated_schedules.append(
+                            DayScheduleDoe.from_day_schedule(
+                                day_schedule=sch, stype=DayScheduleType.MULTIPLIER))
 
         if len(translated_schedules) > 0:
             return '\n'.join(

@@ -163,8 +163,8 @@ class WeekScheduleDoe:
         name = short_name(schedule_ruleset.display_name)
         stype = stype
 
-        days_of_the_week = ['sunday', 'monday', 'tuesday',
-                            'wednesday', 'thursday', 'friday', 'saturday']
+        days_of_the_week = ['monday', 'tuesday',
+                            'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
         days = []
         for rule in myruleset:
