@@ -122,7 +122,6 @@ class DayScheduleDoe:
 
 
 class Days(Enum):
-
     MON = "MON"
     """Monday"""
     TUE = "TUE"
