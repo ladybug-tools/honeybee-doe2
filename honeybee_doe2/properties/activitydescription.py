@@ -94,7 +94,8 @@ class DayScheduleDoe:
 
     @classmethod
     def from_day_schedule(cls, day_schedule, stype):
-        """Create a DaySchedule from a DaySchedule."""
+        """Create a DaySchedule from a DaySchedule.
+        """
         # TODO: format the output to look better, follow indent rules etc.
 
         mywrap = textwrap.TextWrapper(width=20)
