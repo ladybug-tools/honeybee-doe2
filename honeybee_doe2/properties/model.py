@@ -25,11 +25,7 @@ from .activitydescription import DayScheduleDoe, DayScheduleType, WeekScheduleDo
 
 
 class ModelDoe2Properties(object):
-    """_summary_
-
-    Args:
-        object (_type_): _description_
-    """
+    """HB-Model Doe2 (eQuest) Properties."""
 
     def __init__(self, _host: Model):
         self._host = _host
@@ -97,7 +93,8 @@ class ModelDoe2Properties(object):
 
     @property
     def hvac_sys_zones_by_model(self):
-        hvac_sys = [HVACSystem.from_model(obj)]
+
+        hvac_sys = [HVACSystem.from_model(self.host)]
         return hvac_sys
 
     @property
