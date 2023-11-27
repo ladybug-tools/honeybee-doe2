@@ -19,10 +19,12 @@ def translate():
 @click.argument('hb-json', type=click.Path(
     exists=True, file_okay=True, dir_okay=False, resolve_path=True)
 )
-@click.option('--hvac_mapping', '-hg',
-              help='HVAC mapping method, room, story or model', default='story',
-              show_default=True)
-@click.option('--name', '-n', help='Name of the output file.', default="model",
+@click.option(
+    '--hvac-mapping', '-hm', help='HVAC mapping method. Options are room, story, model '
+    'or assigned-hvac.',
+    default='story', show_default=True, type=click.Choice(
+    ['room', 'story', 'model', 'assigned-hvac'], case_sensitive=False))
+@click.option('--name', '-n', help='Name of the output file.', default='model',
               show_default=True
               )
 @click.option('--folder', '-f', help='Path to target folder.', type=click.Path(
