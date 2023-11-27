@@ -93,7 +93,6 @@ class ModelDoe2Properties(object):
 
     @property
     def hvac_sys_zones_by_model(self):
-
         hvac_sys = [HVACSystem.from_model(self.host)]
         return hvac_sys
 
