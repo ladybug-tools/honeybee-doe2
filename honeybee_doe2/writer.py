@@ -20,10 +20,10 @@ def model_to_inp(hb_model, hvac_mapping='story'):
     """
         args:
             hb_model: Honeybee model
-            hvac_mapping: accepts: 'room', 'story', 'model', 'hb_hvac'
+            hvac_mapping: accepts: 'room', 'story', 'model', 'assigned-hvac'
     """
 
-    mapper_options = ['room', 'story', 'model', 'hb_hvac']
+    mapper_options = ['room', 'story', 'model', 'assigned-hvac']
     if hvac_mapping not in mapper_options:
         raise ValueError(
             f'Invalid hvac_mapping input: {hvac_mapping}\n'
@@ -36,7 +36,7 @@ def model_to_inp(hb_model, hvac_mapping='story'):
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_story
     elif hvac_mapping == 'model':
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_model
-    elif hvac_mapping == 'hb_hvac':
+    elif hvac_mapping == 'assigned-hvac':
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_hb_hvac
 
     rp = RunPeriod()
