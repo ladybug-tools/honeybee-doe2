@@ -174,14 +174,20 @@ class WeekScheduleDoe:
                         is not None else short_name(myruleset.default_day_schedule.display_name)
                 else:
                     days.append(short_name(myruleset.default_day_schedule.display_name))
-
+                    
+        if len(myruleset.schedule_rules) == 0:
+            if len(myruleset.day_schedules) == 3:
+                for day in days_of_the_week:
+                    days.append(short_name(myruleset.default_day_schedule.display_name))
+            
+        
         if myruleset.holiday_schedule is not None:
             days.append(short_name(myruleset.holiday_schedule.display_name))
         else:
             days.append(short_name(myruleset.default_day_schedule.display_name))
 
-        days.append(short_name(myruleset.winter_designday_schedule.display_name)) if myruleset.winter_designday_schedule.display_name is not None else [
-            short_name(myruleset.default_day_schedule.display_name), 'HDD']
+        days.append(short_name(myruleset.winter_designday_schedule.display_name)) if myruleset.winter_designday_schedule.display_name \
+            is not None else short_name(myruleset.default_day_schedule.display_name)
 
         days.append(short_name(myruleset.summer_designday_schedule.display_name)) if myruleset.summer_designday_schedule.display_name \
             is not None else short_name(myruleset.default_day_schedule.display_name)
@@ -195,8 +201,7 @@ class WeekScheduleDoe:
         obj_lines.append(f'\n   TYPE          = {self.stype.value}')
         obj_lines.append(f'\n   DAY-SCHEDULES = ( "{self.day_schedules[0]}", $ Monday')
         obj_lines.append(f'\n                     "{self.day_schedules[1]}", $ Tuesday')
-        obj_lines.append(
-            f'\n                     "{self.day_schedules[2]}", $ Wednesday')
+        obj_lines.append(f'\n                     "{self.day_schedules[2]}", $ Wednesday')
         obj_lines.append(f'\n                     "{self.day_schedules[3]}", $ Thursday')
         obj_lines.append(f'\n                     "{self.day_schedules[4]}", $ Friday')
         obj_lines.append(f'\n                     "{self.day_schedules[5]}", $ Saturday')
