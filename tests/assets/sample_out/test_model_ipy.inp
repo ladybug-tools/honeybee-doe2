@@ -108,44 +108,12 @@ $ ---------------------------------------------------------
 
 
 
-"Generic Wall Air Gap" = MATERIAL
+"Generic Ceiling Air Gap" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.211
+   CONDUCTIVITY    = 0.176
    DENSITY         = 0.08
    SPECIFIC-HEAT   = 0.43
-  ..
-
-"Generic Acoustic Tile" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.066
-   CONDUCTIVITY    = 0.019
-   DENSITY         = 22.974
-   SPECIFIC-HEAT   = 0.254
-  ..
-
-"Generic 50mm Insulation" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.164
-   CONDUCTIVITY    = 0.01
-   DENSITY         = 2.684
-   SPECIFIC-HEAT   = 0.52
-  ..
-
-"Generic Brick" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.285
-   DENSITY         = 119.865
-   SPECIFIC-HEAT   = 0.34
-  ..
-
-"Generic 25mm Wood" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.083
-   CONDUCTIVITY    = 0.048
-   DENSITY         = 37.957
-   SPECIFIC-HEAT   = 0.701
   ..
 
 "Generic 25mm Insulation" = MATERIAL
@@ -154,22 +122,6 @@ $ ---------------------------------------------------------
    CONDUCTIVITY    = 0.01
    DENSITY         = 2.684
    SPECIFIC-HEAT   = 0.52
-  ..
-
-"Generic HW Concrete" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.656
-   CONDUCTIVITY    = 0.618
-   DENSITY         = 139.843
-   SPECIFIC-HEAT   = 0.387
-  ..
-
-"Generic Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.042
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.469
   ..
 
 "Generic Roof Membrane" = MATERIAL
@@ -188,17 +140,65 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.361
   ..
 
-"Generic Ceiling Air Gap" = MATERIAL
+"Generic HW Concrete" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.176
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+"Generic 25mm Wood" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.048
+   DENSITY         = 37.957
+   SPECIFIC-HEAT   = 0.701
+  ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
   ..
 
 "Generic Painted Metal" = MATERIAL
    TYPE            = RESISTANCE
    RESISTANCE      = 0.00018927544456666666
+  ..
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
+  ..
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
   ..
 
 "Generic Exterior Wall_l" = LAYERS
@@ -342,19 +342,6 @@ $ ---------------------------------------------------------
    LAYERS               = "Generic Underground Roof_l"
    ..
 
-"Generic Interior Door_l" = LAYERS
-   MATERIAL             = (
-      "Generic 25mm Wood"
-   )
-   ..
-
-"Generic Interior Door_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.5
-   ROUGHNESS            = 4
-   LAYERS               = "Generic Interior Door_l"
-   ..
-
 "Generic Exterior Door_l" = LAYERS
    MATERIAL             = (
       "Generic Painted Metal",
@@ -368,6 +355,19 @@ $ ---------------------------------------------------------
    ABSORPTANCE          = 0.5
    ROUGHNESS            = 5
    LAYERS               = "Generic Exterior Door_l"
+   ..
+
+"Generic Interior Door_l" = LAYERS
+   MATERIAL             = (
+      "Generic 25mm Wood"
+   )
+   ..
+
+"Generic Interior Door_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Door_l"
    ..
 
 

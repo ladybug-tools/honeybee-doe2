@@ -242,12 +242,10 @@ class RoomDoe2Properties(object):
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
         
         if self.interior_wall_toggle == False:
-            print('No interior Walls')
             interior_walls = '\n'.join([''])
         elif self.interior_wall_toggle == True:
-            print('Yes Interior Walls')
             interior_walls = '\n'.join([w.to_inp(origin) for w in self.interior_walls])
-        print(type(self.interior_wall_toggle))
+        
         
         roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])  
         ground_floors = '\n'.join(
