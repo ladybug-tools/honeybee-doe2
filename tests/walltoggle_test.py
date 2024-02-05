@@ -12,13 +12,17 @@ def test_hbjson_translate():
     hb_json = standard_test
 
     out_inp = './tests/assets/sample_out'
-    out_file = pathlib.Path(out_inp, 'test_model.inp')
+    out_file = pathlib.Path(out_inp, 'test_model_toggle.inp')
     # delete if exists
     if out_file.exists():
         out_file.unlink()
     hb_model = Model.from_file(hb_json)
-    honeybee_model_to_inp(hb_model, hvac_mapping='model', interior_wall_toggle=True,
-                          folder=out_inp, name='test_model.inp')
+    honeybee_model_to_inp(hb_model, hvac_mapping='model', interior_wall_toggle=False,
+                          folder=out_inp, name='test_model_toggle.inp')
 
     assert out_file.exists()
+    
+    with open(out_file, 'r') as file:
+        content = file.read()
+        assert 'INTERIOR-WALL' not in content
     #out_file.unlink()

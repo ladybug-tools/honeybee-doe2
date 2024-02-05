@@ -35,6 +35,7 @@ class RoomDoe2Properties(object):
     def __init__(self, _host: Room):
         self._host = _host
         self._boundary = None
+        self._interior_wall_toggle = None
 
     @property
     def host(self) -> Room:
@@ -57,8 +58,18 @@ class RoomDoe2Properties(object):
         self._boundary = boundary_face
         return boundary_face
 
-    def duplicate(self, new_host=None):
+    @property
+    def interior_wall_toggle(self):
+        return self._interior_wall_toggle
 
+    @interior_wall_toggle.setter
+    def interior_wall_toggle(self, value):
+        self._interior_wall_toggle = value if value is not None else self.interior_wall_toggle
+    
+    
+
+
+    def duplicate(self, new_host=None):
         _host = new_host or self._host
         new_properties_obj = RoomDoe2Properties(_host)
         return new_properties_obj
@@ -74,8 +85,19 @@ class RoomDoe2Properties(object):
         walls = [
             DoeWall(face) for face in self.host.faces
             if isinstance(face.type, Wall)
+            and isinstance(face.boundary_condition, Outdoors)
         ]
         return walls
+    
+    @property
+    def interior_walls(self):
+       
+        interior_walls = [
+            DoeWall(face) for face in self.host.faces
+            if isinstance(face.type, Wall)
+            and isinstance(face.boundary_condition, (Surface, Adiabatic))
+        ]
+        return interior_walls
 
     @property
     def roofs(self) -> List[DoeRoof]:
@@ -206,8 +228,7 @@ class RoomDoe2Properties(object):
         obj_lines = []
         obj_lines.append('"{}" = SPACE\n'.format(short_name(self.host.display_name)))
         obj_lines.append('   SHAPE           = POLYGON\n')
-        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(
-            self.host.display_name))
+        obj_lines.append('   POLYGON         = "{} Plg"\n'.format(self.host.display_name))
         obj_lines.append('   AZIMUTH         = {}\n'.format(azimuth))
         obj_lines.append('   X               = {}\n'.format(origin_pt.x))
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
@@ -219,15 +240,23 @@ class RoomDoe2Properties(object):
 
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
-        roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])
+        
+        if self.interior_wall_toggle == False:
+            print('No interior Walls')
+            interior_walls = '\n'.join([''])
+        elif self.interior_wall_toggle == True:
+            print('Yes Interior Walls')
+            interior_walls = '\n'.join([w.to_inp(origin) for w in self.interior_walls])
+        print(type(self.interior_wall_toggle))
+        
+        roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])  
         ground_floors = '\n'.join(
             [g.to_inp(origin) for g in self.ground_contact_surfaces]
         )
         exposed_floors = '\n'.join(
             [ef.to_inp(origin) for ef in self.exposed_floor_surfaces]
         )
-        interior_floors = '\n'.join(
-            [inf.to_inp(origin) for inf in self.interior_floor_surfaces]
+        interior_floors = '\n'.join([inf.to_inp(origin) for inf in self.interior_floor_surfaces]
         )
         adiabatic_floors = '\n'.join(
             [af.to_inp(origin) for af in self.adiabatic_floor_surfaces]
@@ -236,5 +265,5 @@ class RoomDoe2Properties(object):
             [ar.to_inp(origin) for ar in self.adiabatic_roofs]
         )
         return '\n'.join(
-            [spaces, walls, roofs, adiabatic_roofs, ground_floors, exposed_floors,
-             interior_floors, adiabatic_floors])
+            [spaces, walls, interior_walls, roofs, adiabatic_roofs, ground_floors, exposed_floors,
+                interior_floors, adiabatic_floors])

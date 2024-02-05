@@ -1,7 +1,7 @@
 from ..utils.doe_formatters import short_name
 from .aperture import Window
 from .door import Door
-
+from honeybee.facetype import Wall, Floor, RoofCeiling
 
 class WallBoundaryCondition:
     def __init__(self, boundary_condition):
@@ -32,7 +32,6 @@ class DoeWall:
 
         p_name = short_name(self.face.display_name)
         wall_typology = WallBoundaryCondition(self.face.boundary_condition).wall_typology
-
         constr = self.face.properties.energy.construction.display_name
         tilt = 90 - self.face.altitude
         azimuth = self.face.azimuth
@@ -64,7 +63,6 @@ class DoeWall:
             obj_lines.append('\n  INT-WALL-TYPE = ADIABATIC')
             next_to = self.face.parent.display_name
             obj_lines.append('\n  NEXT-TO           =  "{}"'.format(next_to))
-
         obj_lines.append('\n  ..\n')
 
         temp_str = spc.join([line for line in obj_lines])

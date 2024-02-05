@@ -87,6 +87,16 @@ $ ---------------------------------------------------------
 
 
 
+"MdrsAprtmntAprtm_WntrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 0.85,
+0.39, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.3,
+0.52, 0.87, 0.87,
+0.87, 1.0, 1.0, 1.0)
+   ..
 "MdrsAprtmnt InflDflt" = DAY-SCHEDULE
    TYPE    = MULTIPLIER
    (1,24)    (1.0, 1.0, 1.0, 1.0,
@@ -107,59 +117,16 @@ $ ---------------------------------------------------------
 0.93, 0.89, 0.85,
 0.71, 0.58)
    ..
-"MdrsAprtmntAprtm_tSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.067, 0.067, 0.067,
-0.067, 0.187, 0.394,
-0.44, 0.393, 0.172,
-0.119, 0.119, 0.119,
-0.119, 0.119, 0.119,
-0.206, 0.439, 0.616,
-0.829, 0.986, 1.0,
-0.692, 0.384, 0.16)
+"MdrsAprtmnt InflSmrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
    ..
 "MdrsAprtmntAprtm_WntrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 0.85,
-0.39, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.3,
-0.52, 0.87, 0.87,
-0.87, 1.0, 1.0, 1.0)
-   ..
-"MdrsAprtmntAprtm_OccDflt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 0.85,
-0.39, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.3,
-0.52, 0.87, 0.87,
-0.87, 1.0, 1.0, 1.0)
-   ..
-"MdrsAprtmntAprtm_cSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 0.85,
-0.39, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.3,
-0.52, 0.87, 0.87,
-0.87, 1.0, 1.0, 1.0)
-   ..
-"AprtmntMdRsEQPAPTSCHDflt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.45, 0.41, 0.39,
-0.38, 0.38, 0.43,
-0.54, 0.65, 0.66,
-0.67, 0.69, 0.7,
-0.69, 0.66, 0.65,
-0.68, 0.8, 1.0, 1.0,
-0.93, 0.89, 0.85,
-0.71, 0.58)
-   ..
-"MdrsAprtmntAprtm_ghtDflt" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.067, 0.067, 0.067,
 0.067, 0.187, 0.394,
@@ -181,14 +148,37 @@ $ ---------------------------------------------------------
 0.93, 0.89, 0.85,
 0.71, 0.58)
    ..
-"MdrsAprtmnt InflSmrDsn" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
+"MdrsAprtmntAprtm_cSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
    (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0)
+1.0, 1.0, 1.0, 0.85,
+0.39, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.3,
+0.52, 0.87, 0.87,
+0.87, 1.0, 1.0, 1.0)
+   ..
+"MdrsAprtmntAprtm_tSmrDsn" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.067, 0.067, 0.067,
+0.067, 0.187, 0.394,
+0.44, 0.393, 0.172,
+0.119, 0.119, 0.119,
+0.119, 0.119, 0.119,
+0.206, 0.439, 0.616,
+0.829, 0.986, 1.0,
+0.692, 0.384, 0.16)
+   ..
+"AprtmntMdRsEQPAPTSCHDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.45, 0.41, 0.39,
+0.38, 0.38, 0.43,
+0.54, 0.65, 0.66,
+0.67, 0.69, 0.7,
+0.69, 0.66, 0.65,
+0.68, 0.8, 1.0, 1.0,
+0.93, 0.89, 0.85,
+0.71, 0.58)
    ..
 "MdrsAprtmnt InflWntrDsn" = DAY-SCHEDULE
    TYPE    = MULTIPLIER
@@ -199,7 +189,17 @@ $ ---------------------------------------------------------
 1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0)
    ..
-"MdrsAprtmntAprtm_WntrDsn" = DAY-SCHEDULE
+"MdrsAprtmntAprtm_OccDflt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 0.85,
+0.39, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.3,
+0.52, 0.87, 0.87,
+0.87, 1.0, 1.0, 1.0)
+   ..
+"MdrsAprtmntAprtm_ghtDflt" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.067, 0.067, 0.067,
 0.067, 0.187, 0.394,
@@ -217,27 +217,6 @@ $ ---------------------------------------------------------
 
 
 
-
-"MdrsAprtmnt Aprtmnt Lght"      = WEEK-SCHEDULE-PD
-   TYPE          = FRACTION
-   DAY-SCHEDULES = ( "MdrsAprtmntAprtm_ghtDflt", $ Monday
-                     "MdrsAprtmntAprtm_ghtDflt", $ Tuesday
-                     "MdrsAprtmntAprtm_ghtDflt", $ Wednesday
-                     "MdrsAprtmntAprtm_ghtDflt", $ Thursday
-                     "MdrsAprtmntAprtm_ghtDflt", $ Friday
-                     "MdrsAprtmntAprtm_ghtDflt", $ Saturday
-                     "MdrsAprtmntAprtm_ghtDflt", $ Sunday
-                     "MdrsAprtmntAprtm_ghtDflt", $ Holiday
-                     "MdrsAprtmntAprtm_WntrDsn", $ Winter Design Day
-                     "MdrsAprtmntAprtm_tSmrDsn", $ Summer Design Day
-                    )
-   ..
-"MdrsAprtmnt Aprtmnt Lght_" = SCHEDULE-PD
-   TYPE     = FRACTION
-   MONTH    = 12
-   DAY      = 31
-   WEEK-SCHEDULES = "MdrsAprtmnt Aprtmnt Lght"
-   ..
 
 "AprtmntMdRs EQPAPTSCH"      = WEEK-SCHEDULE-PD
    TYPE          = FRACTION
@@ -258,6 +237,27 @@ $ ---------------------------------------------------------
    MONTH    = 12
    DAY      = 31
    WEEK-SCHEDULES = "AprtmntMdRs EQPAPTSCH"
+   ..
+
+"MdrsAprtmnt Aprtmnt Lght"      = WEEK-SCHEDULE-PD
+   TYPE          = FRACTION
+   DAY-SCHEDULES = ( "MdrsAprtmntAprtm_ghtDflt", $ Monday
+                     "MdrsAprtmntAprtm_ghtDflt", $ Tuesday
+                     "MdrsAprtmntAprtm_ghtDflt", $ Wednesday
+                     "MdrsAprtmntAprtm_ghtDflt", $ Thursday
+                     "MdrsAprtmntAprtm_ghtDflt", $ Friday
+                     "MdrsAprtmntAprtm_ghtDflt", $ Saturday
+                     "MdrsAprtmntAprtm_ghtDflt", $ Sunday
+                     "MdrsAprtmntAprtm_ghtDflt", $ Holiday
+                     "MdrsAprtmntAprtm_WntrDsn", $ Winter Design Day
+                     "MdrsAprtmntAprtm_tSmrDsn", $ Summer Design Day
+                    )
+   ..
+"MdrsAprtmnt Aprtmnt Lght_" = SCHEDULE-PD
+   TYPE     = FRACTION
+   MONTH    = 12
+   DAY      = 31
+   WEEK-SCHEDULES = "MdrsAprtmnt Aprtmnt Lght"
    ..
 
 "MdrsAprtmnt Aprtmnt Occ"      = WEEK-SCHEDULE-PD
@@ -311,37 +311,22 @@ $ ---------------------------------------------------------
 
 
 
-"Generic Painted Metal" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 0.00018927544456666666
-  ..
-
-"Generic LW Concrete" = MATERIAL
+"Generic Wall Air Gap" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.168
-   DENSITY         = 79.91
-   SPECIFIC-HEAT   = 0.361
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
   ..
 
-"Typical Insulation" = MATERIAL
+"Typical Carpet Pad" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 0.160253209849202
-  ..
-
-"Typical Insulation-R15" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 15.0
+   RESISTANCE      = 1.22923037424
   ..
 
 "Typical Insulation-R22" = MATERIAL
    TYPE            = RESISTANCE
    RESISTANCE      = 22.0
-  ..
-
-"Metal Roof Surface" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 0.00010038981005248146
   ..
 
 "Generic HW Concrete" = MATERIAL
@@ -352,17 +337,9 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.387
   ..
 
-"Generic Wall Air Gap" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.211
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
-  ..
-
-"F08 Metal surface" = MATERIAL
+"Typical Insulation" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 0.00010038981005248146
+   RESISTANCE      = 0.160253209849202
   ..
 
 "25mm Stucco" = MATERIAL
@@ -373,41 +350,33 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.361
   ..
 
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 0.00018927544456666666
+  ..
+
+"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.42
+   DENSITY         = 114.996
+   SPECIFIC-HEAT   = 0.392
+  ..
+
 "6 n. Nrmlwght Cncrt Flr" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.5
    CONDUCTIVITY    = 0.732
    DENSITY         = 144.962
    SPECIFIC-HEAT   = 0.357
-  ..
-
-"Generic 50mm Insulation" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.164
-   CONDUCTIVITY    = 0.01
-   DENSITY         = 2.684
-   SPECIFIC-HEAT   = 0.52
-  ..
-
-"Typical Carpet Pad" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 1.22923037424
-  ..
-
-"Generic Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.042
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.469
-  ..
-
-"Roof Membrane" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.031
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 70.002
-   SPECIFIC-HEAT   = 0.627
   ..
 
 "Generic Roof Membrane" = MATERIAL
@@ -418,6 +387,14 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.628
   ..
 
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
 "5/8 in. Gypsum Board" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.052
@@ -426,9 +403,22 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.468
   ..
 
-"Typical Insulation-R24" = MATERIAL
+"Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.031
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 70.002
+   SPECIFIC-HEAT   = 0.627
+  ..
+
+"Metal Roof Surface" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 23.999999999999996
+   RESISTANCE      = 0.00010038981005248146
+  ..
+
+"F08 Metal surface" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 0.00010038981005248146
   ..
 
 "Generic Brick" = MATERIAL
@@ -439,20 +429,17 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.34
   ..
 
-"Generic Ceiling Air Gap" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.176
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
+"Typical Insulation-R24" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 23.999999999999996
   ..
 
-"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
+"Generic Gypsum Board" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.667
-   CONDUCTIVITY    = 0.42
-   DENSITY         = 114.996
-   SPECIFIC-HEAT   = 0.392
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
   ..
 
 "Typical Insulation-R12" = MATERIAL
@@ -466,6 +453,19 @@ $ ---------------------------------------------------------
    CONDUCTIVITY    = 0.019
    DENSITY         = 22.974
    SPECIFIC-HEAT   = 0.254
+  ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+"Typical Insulation-R15" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 15.0
   ..
 
 "Generic Exterior Wall_l" = LAYERS
@@ -609,6 +609,33 @@ $ ---------------------------------------------------------
    LAYERS               = "Generic Underground Roof_l"
    ..
 
+"ext-slab_l" = LAYERS
+   MATERIAL             = (
+      "6 n. Nrmlwght Cncrt Flr"
+   )
+   ..
+
+"ext-slab_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "ext-slab_l"
+   ..
+
+"Typical Insulated Metal Door_l" = LAYERS
+   MATERIAL             = (
+      "F08 Metal surface",
+      "Typical Insulation"
+   )
+   ..
+
+"Typical Insulated Metal Door_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Typical Insulated Metal Door_l"
+   ..
+
 "TpclInsltdStlFrmdExtrrFlrR27_l" = LAYERS
    MATERIAL             = (
       "25mm Stucco",
@@ -624,19 +651,6 @@ $ ---------------------------------------------------------
    ABSORPTANCE          = 0.7
    ROUGHNESS            = 5
    LAYERS               = "TpclInsltdStlFrmdExtrrFlrR27_l"
-   ..
-
-"Typical Overhead Door_l" = LAYERS
-   MATERIAL             = (
-      "Typical Insulation"
-   )
-   ..
-
-"Typical Overhead Door_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Typical Overhead Door_l"
    ..
 
 "TpclInsltdStlFrmdExtrrWllR16_l" = LAYERS
@@ -655,47 +669,6 @@ $ ---------------------------------------------------------
    LAYERS               = "TpclInsltdStlFrmdExtrrWllR16_l"
    ..
 
-"Tpcl Insltd Bsmnt Mss WllR13_l" = LAYERS
-   MATERIAL             = (
-      "Typical Insulation-R12",
-      "8 n. Cncrt Blck Bsmnt Wll"
-   )
-   ..
-
-"Tpcl Insltd Bsmnt Mss WllR13_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Tpcl Insltd Bsmnt Mss WllR13_l"
-   ..
-
-"Typical Insulated Metal Door_l" = LAYERS
-   MATERIAL             = (
-      "F08 Metal surface",
-      "Typical Insulation"
-   )
-   ..
-
-"Typical Insulated Metal Door_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "Typical Insulated Metal Door_l"
-   ..
-
-"ext-slab_l" = LAYERS
-   MATERIAL             = (
-      "6 n. Nrmlwght Cncrt Flr"
-   )
-   ..
-
-"ext-slab_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 3
-   LAYERS               = "ext-slab_l"
-   ..
-
 "Typical IEAD Roof-R23_l" = LAYERS
    MATERIAL             = (
       "Roof Membrane",
@@ -711,6 +684,33 @@ $ ---------------------------------------------------------
    LAYERS               = "Typical IEAD Roof-R23_l"
    ..
 
+"Typical Overhead Door_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation"
+   )
+   ..
+
+"Typical Overhead Door_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Overhead Door_l"
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR13_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R12",
+      "8 n. Cncrt Blck Bsmnt Wll"
+   )
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR13_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Bsmnt Mss WllR13_l"
+   ..
+
 
 $ ---------------------------------------------------------
 $              Glass Type Codes
@@ -719,16 +719,22 @@ $ ---------------------------------------------------------
 
 
 
-"U1.17SHGC0.49SmplGlzngSklght" = GLASS-TYPE
-   TYPE               = SHADING-COEF
-   SHADING-COEF       = 0.5632183908045977
-   GLASS-CONDUCT      = 1.17
-   ..
-
 "U0.88SHGC0.16SglRfALClr6mm" = GLASS-TYPE
    TYPE               = SHADING-COEF
    SHADING-COEF       = 0.16920951523265845
    GLASS-CONDUCT      = 0.78
+   ..
+
+"Generic Single Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.9206277902735016
+   GLASS-CONDUCT      = 1.009
+   ..
+
+"U1.17SHGC0.49SmplGlzngSklght" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.5632183908045977
+   GLASS-CONDUCT      = 1.17
    ..
 
 "U 0.52 SHGC 0.39 Smpl Glzng Wndw" = GLASS-TYPE
@@ -741,12 +747,6 @@ $ ---------------------------------------------------------
    TYPE               = SHADING-COEF
    SHADING-COEF       = 0.4874490884111821
    GLASS-CONDUCT      = 0.297
-   ..
-
-"Generic Single Pane" = GLASS-TYPE
-   TYPE               = SHADING-COEF
-   SHADING-COEF       = 0.9206277902735016
-   GLASS-CONDUCT      = 1.009
    ..
 
 
@@ -1050,12 +1050,6 @@ $ ---------------------------------------------------------
    V3        = ( 8.397146, -0.000000 )
    V4        = ( 8.397146, 9.842520 )
    ..
-"Rm6c360bd4c3b130_4ccFc60 Plg" = POLYGON
-   V1        = ( 0.000000, 0.003281 )
-   V2        = ( 0.000000, 0.000000 )
-   V3        = ( 7.740978, 0.000000 )
-   V4        = ( 7.740978, 0.003281 )
-   ..
 "Rm6c360bd4c3b130_4ccFc61 Plg" = POLYGON
    V1        = ( 0.000000, 8.393865 )
    V2        = ( 0.000000, 0.000000 )
@@ -1179,12 +1173,6 @@ $ ---------------------------------------------------------
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 10.370735, -0.000000 )
    V4        = ( 10.370735, 1.804462 )
-   ..
-"Rm6c360bd4c3b130_c9Fc100 Plg" = POLYGON
-   V1        = ( 0.000000, 0.003281 )
-   V2        = ( 0.000000, 0.000000 )
-   V3        = ( 10.370735, 0.000000 )
-   V4        = ( 10.370735, 0.003281 )
    ..
 "Rm6c360bd4c3b130_c9Fc101 Plg" = POLYGON
    V1        = ( 10.308399, 15.291995 )
@@ -4405,7 +4393,6 @@ $ ---------------------------------------------------------
    V3        = ( 5.096835, -0.000000 )
    V4        = ( 5.096835, 10.826772 )
    V5        = ( 0.175575, 10.826772 )
-   V6        = ( 0.175575, 10.554019 )
    ..
 
 "shade_133"       = FIXED-SHADE
@@ -4443,9 +4430,8 @@ $ ---------------------------------------------------------
    V1        = ( 0.000000, 0.662730 )
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 5.096835, 0.000000 )
-   V4        = ( 5.096835, 0.072178 )
-   V5        = ( 4.921260, 0.072178 )
-   V6        = ( 4.921260, 0.662730 )
+   V4        = ( 4.921260, 0.072178 )
+   V5        = ( 4.921260, 0.662730 )
    ..
 
 "shade_135"       = FIXED-SHADE
@@ -4485,7 +4471,6 @@ $ ---------------------------------------------------------
    V3        = ( 0.662730, -0.000000 )
    V4        = ( 0.662730, 10.554019 )
    V5        = ( 0.072178, 9.985895 )
-   V6        = ( 0.072178, 10.826772 )
    ..
 
 "shade_137"       = FIXED-SHADE
@@ -4756,8 +4741,7 @@ $ ---------------------------------------------------------
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 5.085302, -0.000000 )
    V4        = ( 5.085302, 10.543382 )
-   V5        = ( 4.921260, 10.543382 )
-   V6        = ( 4.921260, 10.826772 )
+   V5        = ( 4.921260, 10.826772 )
    ..
 
 "shade_151"       = FIXED-SHADE
@@ -4795,9 +4779,6 @@ $ ---------------------------------------------------------
    V1        = ( 0.000000, 0.662730 )
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 4.921260, 0.000000 )
-   V4        = ( 4.921260, 0.590551 )
-   V5        = ( 5.085302, 0.590551 )
-   V6        = ( 5.085302, 0.662730 )
    ..
 
 "shade_153"       = FIXED-SHADE
@@ -4817,8 +4798,7 @@ $ ---------------------------------------------------------
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 0.662730, -0.000000 )
    V4        = ( 0.662730, 10.826772 )
-   V5        = ( 0.590551, 10.826772 )
-   V6        = ( 0.590551, 9.929518 )
+   V5        = ( 0.590551, 9.929518 )
    ..
 
 "shade_154"       = FIXED-SHADE
@@ -4834,7 +4814,7 @@ $ ---------------------------------------------------------
 
 
 "shade_155 Plg" = POLYGON
-   V1        = ( 0.000000, 10.826772 )
+   V1        = ( 0.000000, 10.810410 )
    V2        = ( 0.000000, -0.000000 )
    V3        = ( 0.662730, -0.000000 )
    V4        = ( 0.662730, 10.826772 )
@@ -7650,7 +7630,6 @@ $ ---------------------------------------------------------
    V3        = ( 5.096835, -0.000000 )
    V4        = ( 5.096835, 10.826772 )
    V5        = ( 0.175575, 10.826772 )
-   V6        = ( 0.175575, 10.554019 )
    ..
 
 "shade_302"       = FIXED-SHADE
@@ -7688,9 +7667,8 @@ $ ---------------------------------------------------------
    V1        = ( 0.000000, 0.662730 )
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 5.096835, 0.000000 )
-   V4        = ( 5.096835, 0.072178 )
-   V5        = ( 4.921260, 0.072178 )
-   V6        = ( 4.921260, 0.662730 )
+   V4        = ( 4.921260, 0.072178 )
+   V5        = ( 4.921260, 0.662730 )
    ..
 
 "shade_304"       = FIXED-SHADE
@@ -7730,7 +7708,6 @@ $ ---------------------------------------------------------
    V3        = ( 0.662730, -0.000000 )
    V4        = ( 0.662730, 10.554019 )
    V5        = ( 0.072178, 9.985895 )
-   V6        = ( 0.072178, 10.826772 )
    ..
 
 "shade_306"       = FIXED-SHADE
@@ -8001,8 +7978,7 @@ $ ---------------------------------------------------------
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 5.085302, -0.000000 )
    V4        = ( 5.085302, 10.543382 )
-   V5        = ( 4.921260, 10.543382 )
-   V6        = ( 4.921260, 10.826772 )
+   V5        = ( 4.921260, 10.826772 )
    ..
 
 "shade_320"       = FIXED-SHADE
@@ -8040,9 +8016,6 @@ $ ---------------------------------------------------------
    V1        = ( 0.000000, 0.662730 )
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 4.921260, 0.000000 )
-   V4        = ( 4.921260, 0.590551 )
-   V5        = ( 5.085302, 0.590551 )
-   V6        = ( 5.085302, 0.662730 )
    ..
 
 "shade_322"       = FIXED-SHADE
@@ -8062,8 +8035,7 @@ $ ---------------------------------------------------------
    V2        = ( 0.000000, 0.000000 )
    V3        = ( 0.662730, -0.000000 )
    V4        = ( 0.662730, 10.826772 )
-   V5        = ( 0.590551, 10.826772 )
-   V6        = ( 0.590551, 9.929518 )
+   V5        = ( 0.590551, 9.929518 )
    ..
 
 "shade_323"       = FIXED-SHADE
@@ -8079,7 +8051,7 @@ $ ---------------------------------------------------------
 
 
 "shade_324 Plg" = POLYGON
-   V1        = ( 0.000000, 10.826772 )
+   V1        = ( 0.000000, 10.810410 )
    V2        = ( 0.000000, -0.000000 )
    V3        = ( 0.662730, -0.000000 )
    V4        = ( 0.662730, 10.826772 )
@@ -8529,16 +8501,6 @@ $ *********************************************************
   GLASS-TYPE    = "U 0.52 SHGC 0.39 Smpl Glzng Wndw"
   ..
 
-"Rm6c360bd4c3b130_0Fc4Blw" = UNDERGROUND-WALL
-  POLYGON           = "Rm6c360bd4c3b130_0Fc4Blw Plg"
-  CONSTRUCTION      = "Tpcl Insltd Bsmnt Mss WllR13_c"
-  TILT              =  90.0
-  AZIMUTH           =  0.0
-  X                 =  20.34776902887146
-  Y                 =  -6.572520305780927e-14
-  Z                 =  -6.661338147750939e-16
-  ..
-
 "Rm6c360bd4c3b130_15d0Fc4" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_15d0Fc4 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -8550,16 +8512,6 @@ $ *********************************************************
   NEXT-TO           =  "105-Hall"
   ..
 
-"Rm6c360bd4c3b130_0Fc5Blw" = UNDERGROUND-WALL
-  POLYGON           = "Rm6c360bd4c3b130_0Fc5Blw Plg"
-  CONSTRUCTION      = "Tpcl Insltd Bsmnt Mss WllR13_c"
-  TILT              =  90.0
-  AZIMUTH           =  0.0
-  X                 =  9.977034120734963
-  Y                 =  -3.197442310920451e-14
-  Z                 =  -4.440892098500626e-16
-  ..
-
 "Rm6c360bd4c3b130_15d0Fc5" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_15d0Fc5 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -8569,16 +8521,6 @@ $ *********************************************************
   Y                 =  -3.197442310920451e-14
   Z                 =  1.804461942257218
   NEXT-TO           =  "104-Laundry"
-  ..
-
-"Rm6c360bd4c3b130_0Fc6Blw" = UNDERGROUND-WALL
-  POLYGON           = "Rm6c360bd4c3b130_0Fc6Blw Plg"
-  CONSTRUCTION      = "Tpcl Insltd Bsmnt Mss WllR13_c"
-  TILT              =  90.0
-  AZIMUTH           =  0.0
-  X                 =  2.2360564304462542
-  Y                 =  -7.105427357601002e-15
-  Z                 =  -2.220446049250313e-16
   ..
 
 "Rm6c360bd4c3b130_15d0Fc6" = INTERIOR-WALL
@@ -8630,8 +8572,8 @@ $ *********************************************************
    X               = -16.036970087147004
    Y               = 9.512486946910398
    Z               = 0.0
-   SPACE-HEIGHT    = 9.84251968503937
-   FLOOR-HEIGHT    = 9.84251968503937
+   SPACE-HEIGHT    = 9.842519685039369
+   FLOOR-HEIGHT    = 9.842519685039369
    ..
 
 "101-KitchenDining" = SPACE
@@ -8655,61 +8597,6 @@ $ *********************************************************
    INF-SCHEDULE = "MidriseApartment Infil_"
    INF-METHOD = AIR-CHANGE
    INF-FLOW/AREA = 0.0011328400000000002
-  ..
-
-"Rm6c360bd4c3b130_14bfFc1" = INTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_14bfFc1 Plg"
-  CONSTRUCTION      = "Generic Interior Wall_c"
-  TILT              =  90.0
-  AZIMUTH           =  90.00000000000016
-  X                 =  41.11072834645679
-  Y                 =  -20.35104986876732
-  Z                 =  0.0
-  NEXT-TO           =  "104-Laundry"
-  ..
-
-"Rm6c360bd4c3b130_14bfFc2" = INTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_14bfFc2 Plg"
-  CONSTRUCTION      = "Generic Interior Wall_c"
-  TILT              =  90.0
-  AZIMUTH           =  0.0
-  X                 =  41.11072834645681
-  Y                 =  -11.953904199476284
-  Z                 =  0.0
-  NEXT-TO           =  "102-Mech."
-  ..
-
-"Rm6c360bd4c3b130_14bfFc3" = INTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_14bfFc3 Plg"
-  CONSTRUCTION      = "Generic Interior Wall_c"
-  TILT              =  90.0
-  AZIMUTH           =  90.0000000000001
-  X                 =  38.87467191601061
-  Y                 =  -11.953904199476277
-  Z                 =  0.0
-  NEXT-TO           =  "102-Mech."
-  ..
-
-"Rm6c360bd4c3b130_14bfFc4" = INTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_14bfFc4 Plg"
-  CONSTRUCTION      = "Generic Interior Wall_c"
-  TILT              =  90.0
-  AZIMUTH           =  0.0
-  X                 =  38.87467191601063
-  Y                 =  -5.449475065618613
-  Z                 =  0.0
-  NEXT-TO           =  "105-Hall"
-  ..
-
-"Rm6c360bd4c3b130_14bfFc5" = INTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_14bfFc5 Plg"
-  CONSTRUCTION      = "Generic Interior Wall_c"
-  TILT              =  90.0
-  AZIMUTH           =  90.0
-  X                 =  38.543307086614305
-  Y                 =  -5.449475065618612
-  Z                 =  0.0
-  NEXT-TO           =  "105-Hall"
   ..
 
 "Rm6c360bd4c3b130_14bfFc6" = EXTERIOR-WALL
@@ -8919,6 +8806,71 @@ $ *********************************************************
   GLASS-TYPE    = "U 0.52 SHGC 0.39 Smpl Glzng Wndw"
   ..
 
+"Rm6c360bd4c3b130_fFc9Abv" = EXTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_fFc9Abv Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  38.8746719160106
+  Y                 =  -20.351049868767312
+  Z                 =  8.038057742782152
+  ..
+
+"Rm6c360bd4c3b130_14bfFc1" = INTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_14bfFc1 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.00000000000016
+  X                 =  41.11072834645679
+  Y                 =  -20.35104986876732
+  Z                 =  0.0
+  NEXT-TO           =  "104-Laundry"
+  ..
+
+"Rm6c360bd4c3b130_14bfFc2" = INTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_14bfFc2 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  41.11072834645681
+  Y                 =  -11.953904199476284
+  Z                 =  0.0
+  NEXT-TO           =  "102-Mech."
+  ..
+
+"Rm6c360bd4c3b130_14bfFc3" = INTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_14bfFc3 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0000000000001
+  X                 =  38.87467191601061
+  Y                 =  -11.953904199476277
+  Z                 =  0.0
+  NEXT-TO           =  "102-Mech."
+  ..
+
+"Rm6c360bd4c3b130_14bfFc4" = INTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_14bfFc4 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  38.87467191601063
+  Y                 =  -5.449475065618613
+  Z                 =  0.0
+  NEXT-TO           =  "105-Hall"
+  ..
+
+"Rm6c360bd4c3b130_14bfFc5" = INTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_14bfFc5 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  38.543307086614305
+  Y                 =  -5.449475065618612
+  Z                 =  0.0
+  NEXT-TO           =  "105-Hall"
+  ..
+
 "Rm6c360bd4c3b130_14bfFc9" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_14bfFc9 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -8928,16 +8880,6 @@ $ *********************************************************
   Y                 =  -20.351049868767312
   Z                 =  0.0
   NEXT-TO           =  "106-Living"
-  ..
-
-"Rm6c360bd4c3b130_fFc9Abv" = EXTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_fFc9Abv Plg"
-  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
-  TILT              =  90.0
-  AZIMUTH           =  180.0
-  X                 =  38.8746719160106
-  Y                 =  -20.351049868767312
-  Z                 =  8.038057742782152
   ..
 
 "Rm6c360bd4c3b130_bfFc100" = ROOF
@@ -9072,7 +9014,7 @@ $ *********************************************************
    X               = 41.110728346456796
    Y               = -11.953904199474804
    Z               = 0.0
-   VOLUME          = 639.7846189772282
+   VOLUME          = 639.7012957868321
    ZONE-TYPE = CONDITIONED
    NUMBER-OF-PEOPLE = 1.8401512165125686
    PEOPLE-SCHEDULE = "MdrsAprtmnt Aprtmnt Occ_"
@@ -9088,6 +9030,16 @@ $ *********************************************************
    INF-FLOW/AREA = 0.0011328400000000002
   ..
 
+"Rm6c360bd4c3b130_cFc1Abv" = EXTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_cFc1Abv Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  0.0
+  Y                 =  -8.397145669291035
+  Z                 =  8.038057742782152
+  ..
+
 "Rm6c360bd4c3b130_14ccFc1" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_14ccFc1 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -9097,16 +9049,6 @@ $ *********************************************************
   Y                 =  -8.397145669291035
   Z                 =  0.0
   NEXT-TO           =  "106-Living"
-  ..
-
-"Rm6c360bd4c3b130_cFc1Abv" = EXTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_cFc1Abv Plg"
-  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
-  TILT              =  90.0
-  AZIMUTH           =  180.0
-  X                 =  0.0
-  Y                 =  -8.397145669291035
-  Z                 =  8.038057742782152
   ..
 
 "Rm6c360bd4c3b130_14ccFc2" = INTERIOR-WALL
@@ -9151,16 +9093,6 @@ $ *********************************************************
   Y                 =  0.0
   Z                 =  0.0
   NEXT-TO           =  "101-KitchenDining"
-  ..
-
-"Rm6c360bd4c3b130_4ccFc60" = ROOF
-   POLYGON           = "Rm6c360bd4c3b130_4ccFc60 Plg"
-   CONSTRUCTION      = "Typical IEAD Roof-R23_c"
-   TILT              =  0.0
-   AZIMUTH           =  180
-   X                 =  0.0
-   Y                 =  -8.39714566929106
-   Z                 =  9.84251968503937
   ..
 
 "Rm6c360bd4c3b130_4ccFc61" = ROOF
@@ -9216,6 +9148,7 @@ $ *********************************************************
    INF-METHOD = AIR-CHANGE
    INF-FLOW/AREA = 0.0011328400000000002
   ..
+
 
 "Rm6c360bd4c3b130_1502Fc1" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_1502Fc1 Plg"
@@ -9299,7 +9232,7 @@ $ *********************************************************
    X               = 38.54330708661431
    Y               = 1.4797052472204086e-12
    Z               = 0.0
-   VOLUME          = 2630.22348756323
+   VOLUME          = 2630.1118579017234
    ZONE-TYPE = CONDITIONED
    NUMBER-OF-PEOPLE = 7.565059876051316
    PEOPLE-SCHEDULE = "MdrsAprtmnt Aprtmnt Occ_"
@@ -9358,6 +9291,16 @@ $ *********************************************************
   WIDTH         = 4.724409448818727
   HEIGHT        = 9.645669291338585
   GLASS-TYPE    = "U 0.52 SHGC 0.39 Smpl Glzng Wndw"
+  ..
+
+"Rm6c360bd4c3b130_9Fc9Abv" = EXTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_9Fc9Abv Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  10.308398950131206
+  Y                 =  -20.351049868767344
+  Z                 =  8.038057742782152
   ..
 
 "Rm6c360bd4c3b130_15c9Fc3" = INTERIOR-WALL
@@ -9437,26 +9380,6 @@ $ *********************************************************
   NEXT-TO           =  "106-Living"
   ..
 
-"Rm6c360bd4c3b130_9Fc9Abv" = EXTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_9Fc9Abv Plg"
-  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
-  TILT              =  90.0
-  AZIMUTH           =  180.0
-  X                 =  10.308398950131206
-  Y                 =  -20.351049868767344
-  Z                 =  8.038057742782152
-  ..
-
-"Rm6c360bd4c3b130_c9Fc100" = ROOF
-   POLYGON           = "Rm6c360bd4c3b130_c9Fc100 Plg"
-   CONSTRUCTION      = "Typical IEAD Roof-R23_c"
-   TILT              =  0.0
-   AZIMUTH           =  180
-   X                 =  10.308398950131206
-   Y                 =  -20.351049868767376
-   Z                 =  9.84251968503937
-  ..
-
 "Rm6c360bd4c3b130_c9Fc101" = ROOF
    POLYGON           = "Rm6c360bd4c3b130_c9Fc101 Plg"
    CONSTRUCTION      = "Generic Interior Ceiling_c"
@@ -9522,6 +9445,7 @@ $ *********************************************************
    INF-METHOD = AIR-CHANGE
    INF-FLOW/AREA = 0.0011328400000000002
   ..
+
 
 "Rmb34465085441bd_0dd6Fc1" = INTERIOR-WALL
   POLYGON           = "Rmb34465085441bd_0dd6Fc1 Plg"
@@ -10572,6 +10496,7 @@ $ *********************************************************
    INF-FLOW/AREA = 0.0011328400000000002
   ..
 
+
 "Rm6c360bd4c3b130_1473Fc1" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_1473Fc1 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -10690,6 +10615,7 @@ $ *********************************************************
    INF-FLOW/AREA = 0.0011328400000000002
   ..
 
+
 "Rmbc0665819d8494_5925Fc1" = INTERIOR-WALL
   POLYGON           = "Rmbc0665819d8494_5925Fc1 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -10788,6 +10714,7 @@ $ *********************************************************
    INF-METHOD = AIR-CHANGE
    INF-FLOW/AREA = 0.0011328400000000002
   ..
+
 
 "Rm46261f140d7803_1315Fc1" = INTERIOR-WALL
   POLYGON           = "Rm46261f140d7803_1315Fc1 Plg"
@@ -10910,6 +10837,24 @@ $ *********************************************************
    INF-FLOW/AREA = 0.0011328400000000002
   ..
 
+"Rm6c360bd4c3b130_1476Fc8" = EXTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_1476Fc8 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  1.2634508314759998
+  Y                 =  -15.291994750655267
+  Z                 =  0.0
+  ..
+"Rm6c360bd4c3b130Aprtr006" = WINDOW
+
+  X             = 4.589895625216762
+  Y             = 0.0029999249075342536
+  WIDTH         = 4.921259842519682
+  HEIGHT        = 8.855267716535412
+  GLASS-TYPE    = "U 0.52 SHGC 0.39 Smpl Glzng Wndw"
+  ..
+
 "Rm6c360bd4c3b130_1476Fc1" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_1476Fc1 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -10985,24 +10930,6 @@ $ *********************************************************
   Y                 =  -9.265091863516714
   Z                 =  -7.509245847359125e-08
   NEXT-TO           =  "203-Bath1"
-  ..
-
-"Rm6c360bd4c3b130_1476Fc8" = EXTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_1476Fc8 Plg"
-  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
-  TILT              =  90.0
-  AZIMUTH           =  180.0
-  X                 =  1.2634508314759998
-  Y                 =  -15.291994750655267
-  Z                 =  0.0
-  ..
-"Rm6c360bd4c3b130Aprtr006" = WINDOW
-
-  X             = 4.589895625216762
-  Y             = 0.0029999249075342536
-  WIDTH         = 4.921259842519682
-  HEIGHT        = 8.855267716535412
-  GLASS-TYPE    = "U 0.52 SHGC 0.39 Smpl Glzng Wndw"
   ..
 
 "Rm6c360bd4c3b130_1476Fc9" = ROOF
@@ -11206,6 +11133,32 @@ $ *********************************************************
   CONSTRUCTION    = "Generic Door"
   ..
 
+"Rm6c360bd4c3b130_1479Fc9" = EXTERIOR-WALL
+  POLYGON           = "Rm6c360bd4c3b130_1479Fc9 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  29.330708661417304
+  Y                 =  -20.347769028870793
+  Z                 =  0.0
+  ..
+"Rm6c360bd4c3b130Aprtr008" = WINDOW
+
+  X             = 5.318241469816272
+  Y             = 0.13123352070806116
+  WIDTH         = 4.425853018372756
+  HEIGHT        = 8.595800524934383
+  GLASS-TYPE    = "U 0.52 SHGC 0.39 Smpl Glzng Wndw"
+  ..
+"Rm6c360bd4c3b130_9Fc9Dr0" = DOOR
+
+  X             = 0.4625984251968518
+  Y             = 0.0029999249075345065
+  WIDTH         = 4.724409448818897
+  HEIGHT        = 8.72403412073491
+  CONSTRUCTION    = "Generic Door"
+  ..
+
 "Rm6c360bd4c3b130_1479Fc4" = INTERIOR-WALL
   POLYGON           = "Rm6c360bd4c3b130_1479Fc4 Plg"
   CONSTRUCTION      = "Generic Interior Wall_c"
@@ -11259,32 +11212,6 @@ $ *********************************************************
   Y                 =  -5.0557742241320165
   Z                 =  0.0
   NEXT-TO           =  "202-Bedroom1"
-  ..
-
-"Rm6c360bd4c3b130_1479Fc9" = EXTERIOR-WALL
-  POLYGON           = "Rm6c360bd4c3b130_1479Fc9 Plg"
-  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR16_c"
-  TILT              =  90.0
-  AZIMUTH           =  180.0
-  X                 =  29.330708661417304
-  Y                 =  -20.347769028870793
-  Z                 =  0.0
-  ..
-"Rm6c360bd4c3b130Aprtr008" = WINDOW
-
-  X             = 5.318241469816272
-  Y             = 0.13123352070806116
-  WIDTH         = 4.425853018372756
-  HEIGHT        = 8.595800524934383
-  GLASS-TYPE    = "U 0.52 SHGC 0.39 Smpl Glzng Wndw"
-  ..
-"Rm6c360bd4c3b130_9Fc9Dr0" = DOOR
-
-  X             = 0.4625984251968518
-  Y             = 0.0029999249075345065
-  WIDTH         = 4.724409448818897
-  HEIGHT        = 8.72403412073491
-  CONSTRUCTION    = "Generic Door"
   ..
 
 "Rm6c360bd4c3b130_479Fc11" = ROOF
