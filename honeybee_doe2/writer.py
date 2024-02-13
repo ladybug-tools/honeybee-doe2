@@ -53,9 +53,20 @@ def model_to_inp(hb_model, hvac_mapping='story', interior_wall_toggle:bool=True)
     for room in hb_model.rooms:
         room.properties.doe2.interior_wall_toggle = interior_wall_toggle
         
+    day_list = [] 
+    for scheduleruleset in hb_model.properties.energy.schedules:
+        for day in scheduleruleset.day_schedules:
+            day.unlock()
+            day.display_name = short_name(day.display_name)
+            day_list.append(day)
+    counts = {}
+    for i, day in enumerate(day_list):
+        if day.display_name in counts:
+            counts[day.display_name] += 1
+            day_list[i].display_name = f"{day.display_name[:-1]}{counts[day.display_name]}"
+        else:
+            counts[day.display_name] = 1 
     
-    
-        
 
     try:
         hb_model.rectangularize_apertures(

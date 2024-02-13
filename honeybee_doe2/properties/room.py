@@ -234,10 +234,15 @@ class RoomDoe2Properties(object):
         obj_lines.append('   Y               = {}\n'.format(origin_pt.y))
         obj_lines.append('   Z               = {}\n'.format(origin_pt.z))
         obj_lines.append('   VOLUME          = {}\n'.format(self.host.volume))
-        for prop in self.space_energy_properties:
-            obj_lines.append(prop)
-        obj_lines.append('  ..\n')
-
+        
+        if 'act_desc' not in self.host.user_data:
+            for prop in self.space_energy_properties:
+                obj_lines.append(prop)
+            obj_lines.append('   ..\n')
+        elif 'act_desc' in self.host.user_data:
+            obj_lines.append('   C-ACTIVITY-DESC = *{}*\n'.format(self.host.user_data['act_desc']))
+            obj_lines.append('   ..\n')
+            
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
         

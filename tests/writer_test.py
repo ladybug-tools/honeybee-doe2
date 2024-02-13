@@ -21,4 +21,4 @@ def test_hbjson_translate():
                           folder=out_inp, name='test_model.inp')
 
     assert out_file.exists()
-    #out_file.unlink()
+    out_file.unlink()
