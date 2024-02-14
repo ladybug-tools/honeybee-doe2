@@ -3,7 +3,7 @@ from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
 
 
 from ..utils.doe_formatters import short_name, unit_convertor
-
+from ladybug.datatype.rvalue import RValue
 
 class MaterialType(Enum):
     """Doe2 material types."""
@@ -28,19 +28,17 @@ class NoMassMaterial:
     def from_hb_material(cls, material):
         """Create a NoMassMaterial from a honeybee energy material no-mass."""
 
-        assert isinstance(material, EnergyMaterialNoMass), \
-            'Expected EnergyMaterialNoMass. Got {}.'.format(type(material))
-
-        return cls(short_name(material.display_name, 32),
-                   unit_convertor([material.r_value],
-                                  'h-ft2-F/Btu', 'm2-K/W'))
+        _resistence = RValue().to_ip([material.r_value], 'm2-K/W')[0][0]
+       
+        return cls(_name=short_name(material.display_name, 32),
+                   _resistence = _resistence)
 
     def to_inp(self):
         spc = ''
         obj_lines = []
         obj_lines.append('\n"{self._name}" = MATERIAL'.format(self=self))
-        obj_lines.append(
-            '\n   TYPE            = {}'.format(MaterialType.no_mass.value))
+        obj_lines.append('\n   TYPE            = {}'.format(MaterialType.no_mass.value))
+        obj_lines.append('\n   RESISTANCE      = {}'.format(self.resistence))
         obj_lines.append('\n  ..\n')
 
         return spc.join([l for l in obj_lines])

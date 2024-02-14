@@ -24,6 +24,10 @@ def translate():
     'or assigned-hvac.',
     default='story', show_default=True, type=click.Choice(
     ['room', 'story', 'model', 'assigned-hvac'], case_sensitive=False))
+@click.option(
+    '--interior_wall_toggle', '-iwt', help='Set to False to remove interior walls',
+    default=True, show_default=True, type=click.Choice([True,False])
+)
 @click.option('--name', '-n', help='Name of the output file.', default='model',
               show_default=True
               )
@@ -31,14 +35,14 @@ def translate():
     exists=False, file_okay=False, resolve_path=True, dir_okay=True),
     default='.', show_default=True
 )
-def hb_model_to_inp_file(hb_json, hvac_mapping, name, folder):
+def hb_model_to_inp_file(hb_json, hvac_mapping, interior_wall_toggle, name, folder):
     """Translate a HBJSON into a DOE2.2 *.inp file."""
     try:
         hvac_mapping
         hb_model = Model.from_file(hb_json)
         folder = pathlib.Path(folder)
         folder.mkdir(parents=True, exist_ok=True)
-        honeybee_model_to_inp(hb_model, hvac_mapping, folder, name)
+        honeybee_model_to_inp(hb_model, hvac_mapping, interior_wall_toggle, folder, name)
     except Exception as e:
         _logger.exception(f'Model translation failed:\n{e}')
         sys.exit(1)

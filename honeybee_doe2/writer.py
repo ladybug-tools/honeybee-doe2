@@ -15,14 +15,14 @@ from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
 
 
-def model_to_inp(hb_model, hvac_mapping='story'):
+def model_to_inp(hb_model, hvac_mapping='story', interior_wall_toggle:bool=True):
     # type: (Model) -> str
     """
         args:
             hb_model: Honeybee model
             hvac_mapping: accepts: 'room', 'story', 'model', 'assigned-hvac'
     """
-
+    
     mapper_options = ['room', 'story', 'model', 'assigned-hvac']
     if hvac_mapping not in mapper_options:
         raise ValueError(
@@ -39,15 +39,34 @@ def model_to_inp(hb_model, hvac_mapping='story'):
     elif hvac_mapping == 'assigned-hvac':
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_hb_hvac
 
-    rp = RunPeriod()
-    comp_data = ComplianceData()
-    sb_data = sbd()
+
+
+    
 
     hb_model = hb_model.duplicate()
-
+    hb_model.tolerance = 0.1
     if hb_model.units != 'Feet':
         hb_model.convert_to_units(units='Feet')
     hb_model.remove_degenerate_geometry()
+    
+    
+    for room in hb_model.rooms:
+        room.properties.doe2.interior_wall_toggle = interior_wall_toggle
+        
+    day_list = [] 
+    for scheduleruleset in hb_model.properties.energy.schedules:
+        for day in scheduleruleset.day_schedules:
+            day.unlock()
+            day.display_name = short_name(day.display_name)
+            day_list.append(day)
+    counts = {}
+    for i, day in enumerate(day_list):
+        if day.display_name in counts:
+            counts[day.display_name] += 1
+            day_list[i].display_name = f"{day.display_name[:-1]}{counts[day.display_name]}"
+        else:
+            counts[day.display_name] = 1 
+    
 
     try:
         hb_model.rectangularize_apertures(
@@ -92,7 +111,7 @@ def model_to_inp(hb_model, hvac_mapping='story'):
                     face_names[original_name] += 1
                 else:
                     face_names[apt.display_name] = 1
-
+    
     room_mapper = {
         r.identifier: r.display_name for r in hb_model.rooms
     }
@@ -115,7 +134,11 @@ def model_to_inp(hb_model, hvac_mapping='story'):
             window_constructions.append(construction)
     wind_con_set = set(window_constructions)
     win_con_to_inp = [GlassType.from_hb_window_constr(constr) for constr in wind_con_set]
-
+    
+    
+    rp = RunPeriod()
+    comp_data = ComplianceData()
+    sb_data = sbd()
     data = [
         hb_model.properties.doe2._header,
         fb.global_params,
@@ -126,9 +149,9 @@ def model_to_inp(hb_model, hvac_mapping='story'):
         comp_data.to_inp(),
         sb_data.to_inp(),
         fb.daySch,
-        # hb_model.properties.doe2.day_scheduels,
+        hb_model.properties.doe2.day_scheduels,
         fb.weekSch,
-        # hb_model.properties.doe2.week_scheduels,
+        hb_model.properties.doe2.week_scheduels,
         fb.mats_layers,
         hb_model.properties.doe2.mats_cons_layers,
         fb.glzCode,
@@ -185,10 +208,10 @@ def model_to_inp(hb_model, hvac_mapping='story'):
 
 
 def honeybee_model_to_inp(
-        model: Model, hvac_mapping: str = 'story',
+        model: Model, hvac_mapping: str = 'story',interior_wall_toggle=True,
         folder: str = '.', name: str = None) -> pathlib.Path:
 
-    inp_model = model_to_inp(model, hvac_mapping=hvac_mapping)
+    inp_model = model_to_inp(model, hvac_mapping=hvac_mapping,interior_wall_toggle=interior_wall_toggle)
 
     name = name or model.display_name
     if not name.lower().endswith('.inp'):

@@ -1,10 +1,10 @@
 from enum import unique
 
 from honeybee_energy.construction.opaque import OpaqueConstruction as OpConstr
-from .materials import Material
+from .materials import Material, NoMassMaterial, MassMaterial
 from .inputils.blocks import mats_layers
 from ..utils.doe_formatters import short_name, unit_convertor
-
+from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
 from dataclasses import dataclass
 from typing import List
 
@@ -30,9 +30,14 @@ class Construction:
             )
             return cls(construction.display_name, [], 0, 0)
 
-        materials = [
-            Material.from_hb_material(material) for material in construction.materials
-        ]
+        materials = []
+        for material in construction._materials:
+            if material.thickness <= 0.003:
+                materials.append(NoMassMaterial.from_hb_material(material))
+            elif material.thickness > 0.003:
+                materials.append(Material.from_hb_material(material))
+        
+        
         absorptance = construction.materials[0].solar_absorptance
         roughness = roughdict[construction.materials[0].roughness]
 
@@ -50,6 +55,7 @@ class Construction:
             block = ['\n'.join(material.to_inp() for material in self.materials)]
         else:
             block = []
+    
 
         materials = '\n      '.join(f'"{material.name}",'
                                     for material in self.materials)

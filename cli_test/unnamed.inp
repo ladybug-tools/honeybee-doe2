@@ -1,0 +1,2226 @@
+INPUT ..
+
+
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+
+
+TITLE
+    LINE-1           = *unnamed*
+    ..
+
+"Entire Year" = RUN-PERIOD-PD
+   BEGIN-MONTH     = 1
+   BEGIN-DAY      = 1
+   BEGIN-YEAR     = 2021
+   END-MONTH      = 12
+   END-DAY        = 31
+   END-YEAR       = 2021
+   ..
+
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+
+
+"Compliance Data" = COMPLIANCE
+   C-PERMIT-SCOPE   = 0
+   C-PROJ-NAME      = *sample_project*
+   C-BUILDING-TYPE  = 32
+   C-CONS-PHASE     = 0
+   C-NR-DHW-INCL    = 1
+   C-CODE-VERSION   = 1
+   C-901-NUM-FLRS   = 1
+   C-901-BLDG-TYPE  = 32
+   ..
+
+$---------------------------------------------------------
+$              Site and Building Data
+$---------------------------------------------------------
+
+"Site Data" = SITE-PARAMETERS
+  ALTITUDE          = 150
+  C-STATE           = 21
+  C-WEATHER-FILE    = *TMY2\HARTFOCT.bin* 
+  C-COUNTRY         = 1
+  C-901-LOCATION    = 1092
+  ..
+"Building Data" = BUILD-PARAMETERS
+  HOLIDAYS        = "Standard US Holidays"
+  ..
+
+
+PROJECT-DATA
+  ..
+
+
+
+$ ---------------------------------------------------------
+$              Day Schedules
+$ ---------------------------------------------------------
+
+
+
+
+
+
+
+$ ---------------------------------------------------------
+$              Week Schedules
+$ ---------------------------------------------------------
+
+
+
+
+
+
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+
+
+
+"Typical Insulation-R31" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 31.000000000000004
+  ..
+
+"Typical Insulation-R7" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 7.0
+  ..
+
+"5/8 in. Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.052
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.468
+  ..
+
+"Typical Insulation-R24" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 23.999999999999996
+  ..
+
+"Generic Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.033
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 69.921
+   SPECIFIC-HEAT   = 0.628
+  ..
+
+"Metal Roof Surface" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 0.00010038981005248146
+  ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.168
+   DENSITY         = 79.91
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"F08 Metal surface" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 0.00010038981005248146
+  ..
+
+"Typical Insulation-R4" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 4.0
+  ..
+
+"Typical Insulation-R3" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 2.9999999999999996
+  ..
+
+"8 n. Nrmlwght Cncrt Flr" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.732
+   DENSITY         = 144.962
+   SPECIFIC-HEAT   = 0.357
+  ..
+
+"8 n. Cncrt Blck Bsmnt Wll" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.667
+   CONDUCTIVITY    = 0.42
+   DENSITY         = 114.996
+   SPECIFIC-HEAT   = 0.392
+  ..
+
+"Typical Carpet Pad" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 1.22923037424
+  ..
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Generic Painted Metal" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 0.00018927544456666666
+  ..
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
+  ..
+
+"Typical Insulation-R17" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 17.0
+  ..
+
+"Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.031
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 70.002
+   SPECIFIC-HEAT   = 0.627
+  ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
+  ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+"Generic Exterior Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic Brick",
+      "Generic LW Concrete",
+      "Generic 50mm Insulation",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Exterior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Exterior Wall_l"
+   ..
+
+"Generic Interior Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic Gypsum Board",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Interior Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Wall_l"
+   ..
+
+"Generic Underground Wall_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board"
+   )
+   ..
+
+"Generic Underground Wall_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Wall_l"
+   ..
+
+"Generic Exposed Floor_l" = LAYERS
+   MATERIAL             = (
+      "Generic Painted Metal",
+      "Generic Ceiling Air Gap",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete"
+   )
+   ..
+
+"Generic Exposed Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.5
+   ROUGHNESS            = 5
+   LAYERS               = "Generic Exposed Floor_l"
+   ..
+
+"Generic Interior Floor_l" = LAYERS
+   MATERIAL             = (
+      "Generic Acoustic Tile",
+      "Generic Ceiling Air Gap",
+      "Generic LW Concrete"
+   )
+   ..
+
+"Generic Interior Floor_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.2
+   ROUGHNESS            = 4
+   LAYERS               = "Generic Interior Floor_l"
+   ..
+
+"Generic Ground Slab_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete"
+   )
+   ..
+
+"Generic Ground Slab_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Ground Slab_l"
+   ..
+
+"Generic Roof_l" = LAYERS
+   MATERIAL             = (
+      "Generic Roof Membrane",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.65
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Roof_l"
+   ..
+
+"Generic Interior Ceiling_l" = LAYERS
+   MATERIAL             = (
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Interior Ceiling_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.8
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Interior Ceiling_l"
+   ..
+
+"Generic Underground Roof_l" = LAYERS
+   MATERIAL             = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile"
+   )
+   ..
+
+"Generic Underground Roof_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 3
+   LAYERS               = "Generic Underground Roof_l"
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR8_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R7",
+      "8 n. Cncrt Blck Bsmnt Wll"
+   )
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR8_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Bsmnt Mss WllR8_l"
+   ..
+
+"Tpcl Insltd Crptd 8n Slb FlrR5_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R4",
+      "8 n. Nrmlwght Cncrt Flr",
+      "Typical Carpet Pad"
+   )
+   ..
+
+"Tpcl Insltd Crptd 8n Slb FlrR5_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Crptd 8n Slb FlrR5_l"
+   ..
+
+"Typical Overhead Door-R4_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R4"
+   )
+   ..
+
+"Typical Overhead Door-R4_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Typical Overhead Door-R4_l"
+   ..
+
+"Tpcl Insltd Mtl DrR3_l" = LAYERS
+   MATERIAL             = (
+      "F08 Metal surface",
+      "Typical Insulation-R3"
+   )
+   ..
+
+"Tpcl Insltd Mtl DrR3_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "Tpcl Insltd Mtl DrR3_l"
+   ..
+
+"TpclInsltdStlFrmdExtrrFlrR27_l" = LAYERS
+   MATERIAL             = (
+      "25mm Stucco",
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R24",
+      "5/8 in. Gypsum Board",
+      "Typical Carpet Pad"
+   )
+   ..
+
+"TpclInsltdStlFrmdExtrrFlrR27_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdStlFrmdExtrrFlrR27_l"
+   ..
+
+"TpclInsltdStlFrmdExtrrWllR19_l" = LAYERS
+   MATERIAL             = (
+      "25mm Stucco",
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R17",
+      "5/8 in. Gypsum Board"
+   )
+   ..
+
+"TpclInsltdStlFrmdExtrrWllR19_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdStlFrmdExtrrWllR19_l"
+   ..
+
+"Typical IEAD Roof-R32_l" = LAYERS
+   MATERIAL             = (
+      "Roof Membrane",
+      "Typical Insulation-R31",
+      "Metal Roof Surface"
+   )
+   ..
+
+"Typical IEAD Roof-R32_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 1
+   LAYERS               = "Typical IEAD Roof-R32_l"
+   ..
+
+
+$ ---------------------------------------------------------
+$              Glass Type Codes
+$ ---------------------------------------------------------
+
+
+
+
+"U 0.36 SHGC 0.38 Smpl Glzng Wndw" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4367816091954023
+   GLASS-CONDUCT      = 0.36
+   ..
+
+"Generic Double Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4874490884111821
+   GLASS-CONDUCT      = 0.297
+   ..
+
+"U 0.5 SHGC 0.4 Smpl Glzng Sklght" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.4597701149425288
+   GLASS-CONDUCT      = 0.5
+   ..
+
+"Generic Single Pane" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.9206277902735016
+   GLASS-CONDUCT      = 1.009
+   ..
+
+"U0.44SHGC0.26DblRfBHClr6mm13mmAr" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.318658941545642
+   GLASS-CONDUCT      = 0.437
+   ..
+
+
+$ ---------------------------------------------------------
+$              Door Construction
+$ ---------------------------------------------------------
+
+
+"Generic Door" = CONSTRUCTION
+   TYPE               = U-VALUE
+   U-VALUE            = 0.5
+..
+
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+
+
+"Level_0 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 98.425197, -32.808399 )
+   V3        = ( 98.425197, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Room1 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 98.425197, -32.808399 )
+   V3        = ( 98.425197, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 98.425197, -0.000000 )
+   V4        = ( 98.425197, 13.123360 )
+   ..
+"Face2 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, -0.000000 )
+   V4        = ( 32.808399, 13.123360 )
+   ..
+"Face3 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 98.425197, -0.000000 )
+   V4        = ( 98.425197, 13.123360 )
+   ..
+"Face4 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, -0.000000 )
+   V4        = ( 32.808399, 13.123360 )
+   ..
+"Face5 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 98.425197, -32.808399 )
+   V3        = ( 98.425197, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face6 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 68.897638, 0.000000 )
+   V4        = ( 68.897638, 32.808399 )
+   ..
+"Face6_1 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 29.527559, 0.000000 )
+   V4        = ( 29.527559, 32.808399 )
+   ..
+"Level_1 Plg" = POLYGON
+   V1        = ( 29.527559, -32.808399 )
+   V2        = ( 98.425197, -32.808399 )
+   V3        = ( 98.425197, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   V5        = ( 0.000000, -78.740157 )
+   V6        = ( 29.527559, -78.740157 )
+   ..
+"Room3 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 68.897638, -32.808399 )
+   V3        = ( 68.897638, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1_2 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 68.897638, -0.000000 )
+   V4        = ( 68.897638, 13.123360 )
+   ..
+"Face2_2 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, -0.000000 )
+   V4        = ( 32.808399, 13.123360 )
+   ..
+"Face3_3 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 68.897638, -0.000000 )
+   V4        = ( 68.897638, 13.123360 )
+   ..
+"Face4_2 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, -0.000000 )
+   V4        = ( 32.808399, 13.123360 )
+   ..
+"Face5_3 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 68.897638, -32.808399 )
+   V3        = ( 68.897638, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face6_4 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 34.448819, 0.000000 )
+   V4        = ( 34.448819, 32.808399 )
+   ..
+"Face6_5 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 34.448819, 0.000000 )
+   V4        = ( 34.448819, 32.808399 )
+   ..
+"Room2 Plg" = POLYGON
+   V1        = ( 0.000000, -78.740157 )
+   V2        = ( 29.527559, -78.740157 )
+   V3        = ( 29.527559, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1_1 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 78.740157, 0.000000 )
+   V4        = ( 78.740157, 13.123360 )
+   ..
+"Face2_1 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 29.527559, -0.000000 )
+   V4        = ( 29.527559, 13.123360 )
+   ..
+"Face3_1 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 45.931759, 0.000000 )
+   V4        = ( 45.931759, 13.123360 )
+   ..
+"Face4_1 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 29.527559, -0.000000 )
+   V4        = ( 29.527559, 13.123360 )
+   ..
+"Face5_1 Plg" = POLYGON
+   V1        = ( 0.000000, -45.931759 )
+   V2        = ( 29.527559, -45.931759 )
+   V3        = ( 29.527559, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face6_2 Plg" = POLYGON
+   V1        = ( 0.000000, 45.931759 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 29.527559, 0.000000 )
+   V4        = ( 29.527559, 45.931759 )
+   ..
+"Face5_2 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 29.527559, -32.808399 )
+   V3        = ( 29.527559, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face3_2 Plg" = POLYGON
+   V1        = ( 0.000000, 13.123360 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, -0.000000 )
+   V4        = ( 32.808399, 13.123360 )
+   ..
+"Face6_3 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 29.527559, 0.000000 )
+   V4        = ( 29.527559, 32.808399 )
+   ..
+"Level_2 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 63.976378, -32.808399 )
+   V3        = ( 63.976378, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Room4 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 63.976378, -32.808399 )
+   V3        = ( 63.976378, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face1_3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( -0.000000, 0.000000 )
+   V3        = ( 63.976378, -0.000000 )
+   V4        = ( 63.976378, 9.842520 )
+   ..
+"Face2_3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face3_4 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 63.976378, -0.000000 )
+   V4        = ( 63.976378, 9.842520 )
+   ..
+"Face4_3 Plg" = POLYGON
+   V1        = ( 0.000000, 9.842520 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 32.808399, 0.000000 )
+   V4        = ( 32.808399, 9.842520 )
+   ..
+"Face5_4 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 34.448819, -32.808399 )
+   V3        = ( 34.448819, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+"Face6_6 Plg" = POLYGON
+   V1        = ( 0.000000, 32.808399 )
+   V2        = ( 0.000000, 0.000000 )
+   V3        = ( 63.976378, 0.000000 )
+   V4        = ( 63.976378, 32.808399 )
+   ..
+"Face5_5 Plg" = POLYGON
+   V1        = ( 0.000000, -32.808399 )
+   V2        = ( 29.527559, -32.808399 )
+   V3        = ( 29.527559, 0.000000 )
+   V4        = ( 0.000000, 0.000000 )
+   ..
+
+
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fixed and Building Shades
+$ ---------------------------------------------------------
+
+
+
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Performance Curves                   **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      Floors / Spaces / Walls / Windows / Doors      **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+
+"Level_0"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_0 Plg"
+   AZIMUTH         = 0.0
+   X               = 0.0
+   Y               = 32.80839895013123
+   Z               = 0.0
+   SPACE-HEIGHT    = 13.123359580052492
+   FLOOR-HEIGHT    = 13.123359580052492
+   ..
+
+"Room1" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room1 Plg"
+   AZIMUTH         = 0
+   X               = 0.0
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 42377.60006578629
+   ZONE-TYPE = UNCONDITIONED
+  ..
+
+"Face1" = EXTERIOR-WALL
+  POLYGON           = "Face1 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  2.9582283945787943e-31
+  Y                 =  -32.80839895013123
+  Z                 =  -5.329070518200751e-15
+  ..
+"Rmc4f0fFc4cb800d2Glz00" = WINDOW
+
+  X             = 0.9842519685039394
+  Y             = 2.624671916010498
+  WIDTH         = 96.45669291338581
+  HEIGHT        = 6.695591622475768
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face2" = EXTERIOR-WALL
+  POLYGON           = "Face2 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  98.42519685039369
+  Y                 =  -32.80839895013123
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Rmc4f0fFcb878607Glz00" = WINDOW
+
+  X             = 0.3280839895013113
+  Y             = 2.6246719160104988
+  WIDTH         = 32.15223097112861
+  HEIGHT        = 6.695591622475764
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face3" = EXTERIOR-WALL
+  POLYGON           = "Face3 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  98.42519685039369
+  Y                 =  0.0
+  Z                 =  -5.329070518200751e-15
+  ..
+"Rmc4f0fFc39c880Glz00" = WINDOW
+
+  X             = 0.9842519685039407
+  Y             = 2.624671916010498
+  WIDTH         = 96.45669291338581
+  HEIGHT        = 6.695591622475768
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face4" = EXTERIOR-WALL
+  POLYGON           = "Face4 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Rmc4f0fFc26fc7Glz00" = WINDOW
+
+  X             = 0.32808398950130896
+  Y             = 2.6246719160104988
+  WIDTH         = 32.15223097112861
+  HEIGHT        = 6.695591622475764
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+
+"Face6" = ROOF
+   POLYGON           = "Face6 Plg"
+   CONSTRUCTION      = "Generic Interior Ceiling_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  29.527559055118108
+   Y                 =  -32.80839895013123
+   Z                 =  13.123359580052492
+  ..
+
+"Face6_1" = ROOF
+   POLYGON           = "Face6_1 Plg"
+   CONSTRUCTION      = "Generic Interior Ceiling_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -32.80839895013123
+   Z                 =  13.123359580052492
+  ..
+
+
+"Face5_ug Plg" = POLYGON
+   V1        = ( 98.425197, -0.000000 )
+   V2        = ( 98.425197, 32.808399 )
+   V3        = ( 0.000000, 32.808399 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face5" = UNDERGROUND-WALL
+  CONSTRUCTION = "TpclInsltdCrptd8_lbFlrR5_c"
+  LOCATION     = BOTTOM
+  POLYGON      = "Face5_ug Plg"
+  AZIMUTH      = 180
+  X            = 0.0
+  Y            = 0.0
+  Z            = 0.0
+  ..
+
+
+
+
+
+"Level_1"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_1 Plg"
+   AZIMUTH         = 0.0
+   X               = 0.0
+   Y               = 32.80839895013123
+   Z               = 13.123359580052492
+   SPACE-HEIGHT    = 13.123359580052492
+   FLOOR-HEIGHT    = 13.123359580052492
+   ..
+
+"Room3" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room3 Plg"
+   AZIMUTH         = 0
+   X               = 29.527559055118104
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 29664.3200460504
+   ZONE-TYPE = UNCONDITIONED
+  ..
+
+"Face1_2" = EXTERIOR-WALL
+  POLYGON           = "Face1_2 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  3.552713678800501e-15
+  Y                 =  -32.80839895013123
+  Z                 =  -3.552713678800501e-15
+  ..
+"Rm3bd51c8Fccb71168Glz00" = WINDOW
+
+  X             = 0.6889763779527592
+  Y             = 2.624671916010497
+  WIDTH         = 67.51968503937009
+  HEIGHT        = 6.695591622475767
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face2_2" = EXTERIOR-WALL
+  POLYGON           = "Face2_2 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  68.89763779527559
+  Y                 =  -32.80839895013123
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Rm3bd51c8Fc63f7077Glz00" = WINDOW
+
+  X             = 0.3280839895013113
+  Y             = 2.624671916010497
+  WIDTH         = 32.15223097112861
+  HEIGHT        = 6.695591622475767
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face3_3" = EXTERIOR-WALL
+  POLYGON           = "Face3_3 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  68.89763779527559
+  Y                 =  0.0
+  Z                 =  -3.552713678800501e-15
+  ..
+"Rm3bd51c8Fc61b6b287Glz00" = WINDOW
+
+  X             = 0.6889763779527557
+  Y             = 2.624671916010497
+  WIDTH         = 67.51968503937007
+  HEIGHT        = 6.695591622475767
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face4_2" = INTERIOR-WALL
+  POLYGON           = "Face4_2 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  3.552713678800501e-15
+  Y                 =  0.0
+  Z                 =  -1.7763568394002505e-15
+  NEXT-TO           =  "Room2"
+  ..
+
+"Face6_4" = ROOF
+   POLYGON           = "Face6_4 Plg"
+   CONSTRUCTION      = "Typical IEAD Roof-R32_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  34.44881889763779
+   Y                 =  -32.80839895013123
+   Z                 =  13.123359580052492
+  ..
+
+"Face6_5" = ROOF
+   POLYGON           = "Face6_5 Plg"
+   CONSTRUCTION      = "Generic Interior Ceiling_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  3.552713678800501e-15
+   Y                 =  -32.80839895013123
+   Z                 =  13.123359580052492
+  ..
+
+
+
+
+"Face5_3_ef Plg" = POLYGON
+   V1        = ( 68.897638, -0.000000 )
+   V2        = ( 68.897638, 32.808399 )
+   V3        = ( 0.000000, 32.808399 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face5_3" = INTERIOR-WALL
+  POLYGON           = "Face5_3_ef Plg"
+  CONSTRUCTION      = "Generic Interior Floor_c"
+  NEXT-TO           =  "Room1"
+  TILT              =  180.0
+  AZIMUTH           =  180
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  0.0
+  ..
+
+
+
+"Room2" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room2 Plg"
+   AZIMUTH         = 0
+   X               = 0.0
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 30511.872047366134
+   ZONE-TYPE = UNCONDITIONED
+  ..
+
+"Face1_1" = EXTERIOR-WALL
+  POLYGON           = "Face1_1 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  -5.329070518200751e-15
+  ..
+"Rm583913Fc93020d1Glz00" = WINDOW
+
+  X             = 0.7874015748031483
+  Y             = 2.6246719160104988
+  WIDTH         = 77.16535433070864
+  HEIGHT        = 6.6955916224757654
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face2_1" = EXTERIOR-WALL
+  POLYGON           = "Face2_1 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  9.860761315262648e-32
+  Y                 =  -78.74015748031495
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Rm583913Fc4170b63Glz00" = WINDOW
+
+  X             = 0.29527559055118074
+  Y             = 2.624671916010497
+  WIDTH         = 28.937007874015745
+  HEIGHT        = 6.695591622475764
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face3_1" = EXTERIOR-WALL
+  POLYGON           = "Face3_1 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  29.527559055118108
+  Y                 =  -78.74015748031495
+  Z                 =  -3.552713678800501e-15
+  ..
+"Rm583913Fcc46b34Glz00" = WINDOW
+
+  X             = 0.4593175853018396
+  Y             = 2.624671916010497
+  WIDTH         = 45.01312335958004
+  HEIGHT        = 6.695591622475767
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face4_1" = EXTERIOR-WALL
+  POLYGON           = "Face4_1 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  29.527559055118108
+  Y                 =  0.0
+  Z                 =  -1.7763568394002505e-15
+  ..
+"Rm583913Fcfd0d77f2Glz00" = WINDOW
+
+  X             = 0.29527559055118163
+  Y             = 2.624671916010497
+  WIDTH         = 28.937007874015745
+  HEIGHT        = 6.695591622475764
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face3_2" = INTERIOR-WALL
+  POLYGON           = "Face3_2 Plg"
+  CONSTRUCTION      = "Generic Interior Wall_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  29.527559055118108
+  Y                 =  -32.80839895013123
+  Z                 =  -1.7763568394002505e-15
+  NEXT-TO           =  "Room3"
+  ..
+
+"Face6_2" = ROOF
+   POLYGON           = "Face6_2 Plg"
+   CONSTRUCTION      = "Typical IEAD Roof-R32_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -78.74015748031495
+   Z                 =  13.123359580052492
+  ..
+
+"Face6_3" = ROOF
+   POLYGON           = "Face6_3 Plg"
+   CONSTRUCTION      = "Generic Interior Ceiling_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -32.80839895013123
+   Z                 =  13.123359580052492
+  ..
+
+
+
+"Face5_1_ef Plg" = POLYGON
+   V1        = ( 29.527559, -0.000000 )
+   V2        = ( 29.527559, 45.931759 )
+   V3        = ( 0.000000, 45.931759 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face5_1" = EXTERIOR-WALL
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrFlrR27_c"
+  LOCATION          = BOTTOM
+  POLYGON           = "Face5_1_ef Plg"
+  TILT              =  180.0
+  AZIMUTH           =  180
+  X                 =  0.0
+  Y                 =  -32.80839895013123
+  Z                 =  0.0
+  ..
+
+"Face5_2_ef Plg" = POLYGON
+   V1        = ( 29.527559, -0.000000 )
+   V2        = ( 29.527559, 32.808399 )
+   V3        = ( 0.000000, 32.808399 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face5_2" = INTERIOR-WALL
+  POLYGON           = "Face5_2_ef Plg"
+  CONSTRUCTION      = "Generic Interior Floor_c"
+  NEXT-TO           =  "Room1"
+  TILT              =  180.0
+  AZIMUTH           =  180
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  0.0
+  ..
+
+
+
+"Level_2"= FLOOR
+   SHAPE           = POLYGON
+   POLYGON         = "Level_2 Plg"
+   AZIMUTH         = 0.0
+   X               = 0.0
+   Y               = 32.80839895013123
+   Z               = 26.246719160104984
+   SPACE-HEIGHT    = 9.842519685039367
+   FLOOR-HEIGHT    = 9.842519685039367
+   ..
+
+"Room4" = SPACE
+   SHAPE           = POLYGON
+   POLYGON         = "Room4 Plg"
+   AZIMUTH         = 0
+   X               = 0.0
+   Y               = 0.0
+   Z               = 0.0
+   VOLUME          = 20659.08003207082
+   ZONE-TYPE = UNCONDITIONED
+  ..
+
+"Face1_3" = EXTERIOR-WALL
+  POLYGON           = "Face1_3 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  180.0
+  X                 =  2.9582283945787943e-31
+  Y                 =  -32.80839895013123
+  Z                 =  -3.552713678800501e-15
+  ..
+"Rmcd7f84c1Fc3bdd_4Glz110" = WINDOW
+
+  X             = 35.58686023622047
+  Y             = 2.6246719160105
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz21" = WINDOW
+
+  X             = 6.797490157480316
+  Y             = 2.6246719160105054
+  WIDTH         = 2.399114173228347
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz02" = WINDOW
+
+  X             = 0.39985236220472475
+  Y             = 2.624671916010506
+  WIDTH         = 2.3991141732283463
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz13" = WINDOW
+
+  X             = 3.5986712598425203
+  Y             = 2.624671916010506
+  WIDTH         = 2.399114173228347
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz34" = WINDOW
+
+  X             = 9.996309055118111
+  Y             = 2.6246719160105054
+  WIDTH         = 2.3991141732283445
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz45" = WINDOW
+
+  X             = 13.195127952755906
+  Y             = 2.624671916010505
+  WIDTH         = 2.3991141732283445
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz66" = WINDOW
+
+  X             = 19.592765748031493
+  Y             = 2.6246719160105045
+  WIDTH         = 2.3991141732283445
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz77" = WINDOW
+
+  X             = 22.791584645669285
+  Y             = 2.6246719160105045
+  WIDTH         = 2.3991141732283445
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz88" = WINDOW
+
+  X             = 25.99040354330708
+  Y             = 2.624671916010504
+  WIDTH         = 2.3991141732283445
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_f4Glz99" = WINDOW
+
+  X             = 29.189222440944878
+  Y             = 2.624671916010504
+  WIDTH         = 2.3991141732283445
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1010" = WINDOW
+
+  X             = 32.38804133858267
+  Y             = 2.624671916010504
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1211" = WINDOW
+
+  X             = 38.78567913385827
+  Y             = 2.6246719160105
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1312" = WINDOW
+
+  X             = 41.98449803149607
+  Y             = 2.6246719160104997
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.56167979002625
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1513" = WINDOW
+
+  X             = 48.38213582677166
+  Y             = 2.624671916010499
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1614" = WINDOW
+
+  X             = 51.58095472440945
+  Y             = 2.624671916010499
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1715" = WINDOW
+
+  X             = 54.779773622047244
+  Y             = 2.6246719160104988
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_4Glz516" = WINDOW
+
+  X             = 16.3939468503937
+  Y             = 2.624671916010505
+  WIDTH         = 2.3991141732283445
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1417" = WINDOW
+
+  X             = 45.183316929133866
+  Y             = 2.6246719160104997
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.56167979002625
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1818" = WINDOW
+
+  X             = 57.978592519685044
+  Y             = 2.6246719160104988
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.561679790026258
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc3bdd_Glz1919" = WINDOW
+
+  X             = 61.177411417322844
+  Y             = 2.624671916010506
+  WIDTH         = 2.399114173228334
+  HEIGHT        = 6.561679790026243
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face2_3" = EXTERIOR-WALL
+  POLYGON           = "Face2_3 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  90.0
+  X                 =  63.9763779527559
+  Y                 =  -32.80839895013123
+  Z                 =  -3.552713678800501e-15
+  ..
+"Rmcd7f84c1Fc649b_bcGlz20" = WINDOW
+
+  X             = 6.9717847769028864
+  Y             = 2.6246719160105054
+  WIDTH         = 2.4606299212598444
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz61" = WINDOW
+
+  X             = 20.095144356955377
+  Y             = 2.6246719160105045
+  WIDTH         = 2.4606299212598444
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz82" = WINDOW
+
+  X             = 26.656824146981624
+  Y             = 2.624671916010504
+  WIDTH         = 2.4606299212598444
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz43" = WINDOW
+
+  X             = 13.533464566929132
+  Y             = 2.624671916010505
+  WIDTH         = 2.4606299212598426
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz14" = WINDOW
+
+  X             = 3.6909448818897634
+  Y             = 2.6246719160105054
+  WIDTH         = 2.460629921259843
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz05" = WINDOW
+
+  X             = 0.41010498687664054
+  Y             = 2.624671916010506
+  WIDTH         = 2.4606299212598426
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz36" = WINDOW
+
+  X             = 10.252624671916012
+  Y             = 2.6246719160105054
+  WIDTH         = 2.460629921259841
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz57" = WINDOW
+
+  X             = 16.814304461942257
+  Y             = 2.624671916010505
+  WIDTH         = 2.460629921259841
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz78" = WINDOW
+
+  X             = 23.3759842519685
+  Y             = 2.6246719160105045
+  WIDTH         = 2.460629921259841
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fc649b_bcGlz99" = WINDOW
+
+  X             = 29.937664041994747
+  Y             = 2.624671916010504
+  WIDTH         = 2.4606299212598337
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face3_4" = EXTERIOR-WALL
+  POLYGON           = "Face3_4 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  0.0
+  X                 =  63.9763779527559
+  Y                 =  0.0
+  Z                 =  -3.552713678800501e-15
+  ..
+"Rmcd7f84c1Fcc78d_8Glz120" = WINDOW
+
+  X             = 38.78567913385826
+  Y             = 2.6246719160105
+  WIDTH         = 2.399114173228355
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz181" = WINDOW
+
+  X             = 57.978592519685044
+  Y             = 2.6246719160104988
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.561679790026258
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_28Glz32" = WINDOW
+
+  X             = 9.996309055118104
+  Y             = 2.6246719160105054
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_28Glz43" = WINDOW
+
+  X             = 13.195127952755904
+  Y             = 2.624671916010505
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_28Glz94" = WINDOW
+
+  X             = 29.189222440944874
+  Y             = 2.624671916010504
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_28Glz05" = WINDOW
+
+  X             = 0.3998523622047189
+  Y             = 2.624671916010506
+  WIDTH         = 2.3991141732283485
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_28Glz26" = WINDOW
+
+  X             = 6.797490157480304
+  Y             = 2.6246719160105054
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz107" = WINDOW
+
+  X             = 32.38804133858267
+  Y             = 2.624671916010504
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz158" = WINDOW
+
+  X             = 48.38213582677165
+  Y             = 2.624671916010499
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz169" = WINDOW
+
+  X             = 51.58095472440945
+  Y             = 2.624671916010499
+  WIDTH         = 2.399114173228348
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_Glz1710" = WINDOW
+
+  X             = 54.77977362204725
+  Y             = 2.6246719160104988
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz611" = WINDOW
+
+  X             = 19.592765748031496
+  Y             = 2.6246719160105045
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz512" = WINDOW
+
+  X             = 16.393946850393704
+  Y             = 2.624671916010505
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz713" = WINDOW
+
+  X             = 22.79158464566929
+  Y             = 2.6246719160105045
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz814" = WINDOW
+
+  X             = 25.99040354330708
+  Y             = 2.624671916010504
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_Glz1115" = WINDOW
+
+  X             = 35.58686023622047
+  Y             = 2.6246719160105
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.5616797900262505
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_Glz1316" = WINDOW
+
+  X             = 41.98449803149607
+  Y             = 2.6246719160104997
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.56167979002625
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_Glz1417" = WINDOW
+
+  X             = 45.18331692913386
+  Y             = 2.6246719160104997
+  WIDTH         = 2.399114173228341
+  HEIGHT        = 6.56167979002625
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_8Glz118" = WINDOW
+
+  X             = 3.5986712598425186
+  Y             = 2.624671916010506
+  WIDTH         = 2.3991141732283348
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fcc78d_Glz1919" = WINDOW
+
+  X             = 61.177411417322844
+  Y             = 2.624671916010506
+  WIDTH         = 2.3991141732283268
+  HEIGHT        = 6.561679790026243
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Face4_3" = EXTERIOR-WALL
+  POLYGON           = "Face4_3 Plg"
+  CONSTRUCTION      = "TpclInsltdStlFrmdExtrrWllR19_c"
+  TILT              =  90.0
+  AZIMUTH           =  270.0
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  -3.552713678800501e-15
+  ..
+"Rmcd7f84c1Fccbf0f69Glz20" = WINDOW
+
+  X             = 6.971784776902883
+  Y             = 2.6246719160105054
+  WIDTH         = 2.4606299212598444
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz81" = WINDOW
+
+  X             = 26.65682414698162
+  Y             = 2.624671916010504
+  WIDTH         = 2.4606299212598444
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz12" = WINDOW
+
+  X             = 3.6909448818897594
+  Y             = 2.6246719160105054
+  WIDTH         = 2.4606299212598453
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz33" = WINDOW
+
+  X             = 10.252624671916006
+  Y             = 2.6246719160105054
+  WIDTH         = 2.4606299212598444
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz04" = WINDOW
+
+  X             = 0.4101049868766397
+  Y             = 2.624671916010506
+  WIDTH         = 2.4606299212598413
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz45" = WINDOW
+
+  X             = 13.53346456692913
+  Y             = 2.624671916010505
+  WIDTH         = 2.460629921259841
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz56" = WINDOW
+
+  X             = 16.814304461942253
+  Y             = 2.624671916010505
+  WIDTH         = 2.460629921259841
+  HEIGHT        = 6.561679790026246
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz67" = WINDOW
+
+  X             = 20.095144356955373
+  Y             = 2.6246719160105045
+  WIDTH         = 2.4606299212598444
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz78" = WINDOW
+
+  X             = 23.375984251968497
+  Y             = 2.6246719160105045
+  WIDTH         = 2.460629921259841
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+"Rmcd7f84c1Fccbf0f69Glz99" = WINDOW
+
+  X             = 29.937664041994744
+  Y             = 2.624671916010504
+  WIDTH         = 2.4606299212598373
+  HEIGHT        = 6.561679790026247
+  GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
+  ..
+
+
+"Face6_6" = ROOF
+   POLYGON           = "Face6_6 Plg"
+   CONSTRUCTION      = "Typical IEAD Roof-R32_c"
+   TILT              =  0.0
+   AZIMUTH           =  180
+   X                 =  0.0
+   Y                 =  -32.80839895013123
+   Z                 =  9.842519685039367
+  ..
+
+
+
+
+"Face5_4_ef Plg" = POLYGON
+   V1        = ( 34.448819, -0.000000 )
+   V2        = ( 34.448819, 32.808399 )
+   V3        = ( 0.000000, 32.808399 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face5_4" = INTERIOR-WALL
+  POLYGON           = "Face5_4_ef Plg"
+  CONSTRUCTION      = "Generic Interior Floor_c"
+  NEXT-TO           =  "Room3"
+  TILT              =  180.0
+  AZIMUTH           =  180
+  X                 =  29.527559055118104
+  Y                 =  0.0
+  Z                 =  0.0
+  ..
+
+"Face5_5_ef Plg" = POLYGON
+   V1        = ( 29.527559, -0.000000 )
+   V2        = ( 29.527559, 32.808399 )
+   V3        = ( 0.000000, 32.808399 )
+   V4        = ( 0.000000, -0.000000 )
+   ..
+"Face5_5" = INTERIOR-WALL
+  POLYGON           = "Face5_5_ef Plg"
+  CONSTRUCTION      = "Generic Interior Floor_c"
+  NEXT-TO           =  "Room2"
+  TILT              =  180.0
+  AZIMUTH           =  180
+  X                 =  0.0
+  Y                 =  0.0
+  Z                 =  0.0
+  ..
+
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **              Electric & Fuel Meters                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **      HVAC Circulation Loops / Plant Equipment       **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **            Steam & Chilled Water Meters             **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **               HVAC Systems / Zones                  **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+"Level_0_Sys (SUM)" = SYSTEM
+   TYPE             = SUM
+   HEAT-SOURCE      = NONE
+   SYSTEM-REPORTS   = NO
+   ..
+
+"Room1 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 72
+  DESIGN-COOL-T    = 75
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room1"
+  ..
+
+"Level_1_Sys (SUM)" = SYSTEM
+   TYPE             = SUM
+   HEAT-SOURCE      = NONE
+   SYSTEM-REPORTS   = NO
+   ..
+
+"Room2 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 72
+  DESIGN-COOL-T    = 75
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room2"
+  ..
+
+"Room3 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 72
+  DESIGN-COOL-T    = 75
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room3"
+  ..
+
+"Level_2_Sys (SUM)" = SYSTEM
+   TYPE             = SUM
+   HEAT-SOURCE      = NONE
+   SYSTEM-REPORTS   = NO
+   ..
+
+"Room4 Zn"   = ZONE
+  TYPE             = UNCONDITIONED
+  DESIGN-HEAT-T    = 72
+  DESIGN-COOL-T    = 75
+  SIZING-OPTION    = ADJUST-LOADS
+  SPACE            = "Room4"
+  ..
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                Metering & Misc HVAC                 **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                    Utility Rates                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+
+
+$ *********************************************************
+$ **                                                     **
+$ **                 Output Reporting                    **
+$ **                                                     **
+$ *********************************************************
+
+
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+END ..
+COMPUTE ..
+STOP ..
