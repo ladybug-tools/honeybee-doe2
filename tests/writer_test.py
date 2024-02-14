@@ -17,7 +17,7 @@ def test_hbjson_translate():
     if out_file.exists():
         out_file.unlink()
     hb_model = Model.from_file(hb_json)
-    honeybee_model_to_inp(hb_model, hvac_mapping='model', interior_wall_toggle=True,
+    honeybee_model_to_inp(hb_model, hvac_mapping='model', exclude_interior_walls=False,
                           folder=out_inp, name='test_model.inp')
 
     assert out_file.exists()
