@@ -26,7 +26,7 @@ def translate():
     ['room', 'story', 'model', 'assigned-hvac'], case_sensitive=False))
 
 @click.option(
-    '--exclude-interior-walls', '-eit', help='Set to True to remove interior walls',
+    '--exclude-interior-walls', '-eiw', help='Set to True to remove interior walls',
     default=False, show_default=True, is_flag=True
 )
 
