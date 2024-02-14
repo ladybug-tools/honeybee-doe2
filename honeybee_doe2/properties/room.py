@@ -246,9 +246,9 @@ class RoomDoe2Properties(object):
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
         
-        if self.interior_wall_toggle == False:
+        if self.interior_wall_toggle == True:
             interior_walls = '\n'.join([''])
-        elif self.interior_wall_toggle == True:
+        elif self.interior_wall_toggle == False:
             interior_walls = '\n'.join([w.to_inp(origin) for w in self.interior_walls])
         
         

@@ -13,3 +13,6 @@ def test_model_with_program_types():
     hb_model = Model.from_file(hb_json)
     honeybee_model_to_inp(hb_model, hvac_mapping='story',
                           folder=out_inp, name='test_model_w_pt.inp')
+    
+    assert out_file.exists()
+    out_file.unlink()
