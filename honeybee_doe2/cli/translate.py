@@ -27,7 +27,7 @@ def translate():
 
 @click.option(
     '--exclude-interior-walls', '-eit', help='Set to True to remove interior walls',
-    default=True, show_default=True, is_flag=True
+    default=False, show_default=True, is_flag=True
 )
 
 @click.option('--name', '-n', help='Name of the output file.', default='model',
