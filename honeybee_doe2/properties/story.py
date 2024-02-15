@@ -19,22 +19,24 @@ class Doe2Story:
     def _story_poly(self):
         tol = self.tolerance
 
-        boundaries = Room.grouped_horizontal_boundary(
-            self.rooms, tolerance=tol, floors_only=True
-        )
-        if not boundaries:
-            # try to create the boundary with the whole volume. This is an edge case
-            # that can happen in a few instances including when all the floor are air
-            # boundaries
+        try:
             boundaries = Room.grouped_horizontal_boundary(
-                self.rooms, tolerance=tol, floors_only=False
+                self.rooms, tolerance=tol, floors_only=True
             )
-
-        if not boundaries:
-            raise ValueError(
-                f'Failed to create the floor for floor {self.story_no} that includes '
-                f'{self.rooms[0]} and {self.rooms[1]}'
-            )
+        except IndexError:
+            try:
+                # try to create the boundary with the whole volume. This is an edge case
+                # that can happen in a few instances including when all the floor are air
+                # boundaries
+                boundaries = Room.grouped_horizontal_boundary(
+                    self.rooms, tolerance=tol, floors_only=False
+                )
+            except IndexError:
+                raise ValueError(
+                    f'Failed to create the floor for floor {self.story_no} that '
+                    f'includes {self.rooms[0]} and {self.rooms[1]}. Check the model '
+                    'and ensure there are no holes in the floor.'
+                )
         # pick the first boundary to represent the story
         vertices = boundaries[0] \
             .remove_colinear_vertices(tol) \
