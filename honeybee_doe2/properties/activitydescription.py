@@ -174,7 +174,7 @@ class WeekScheduleDoe:
                         is not None else short_name(myruleset.default_day_schedule.display_name)
                 else:
                     days.append(short_name(myruleset.default_day_schedule.display_name))
-                    
+
         if len(myruleset.schedule_rules) == 0:
             if len(myruleset.day_schedules) == 3:
                 for day in days_of_the_week:
@@ -196,6 +196,10 @@ class WeekScheduleDoe:
         return cls(name=name, stype=stype, day_schedules=days)
 
     def to_inp(self):
+        # TODO: fix the cause of the issue
+        if len(self.day_schedules) < 8:
+            print('Invalid day schedule with less than 8 values.')
+            return ''
 
         obj_lines = []
         obj_lines.append(f'"{self.name}"      = WEEK-SCHEDULE-PD')
