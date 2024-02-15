@@ -183,23 +183,21 @@ class WeekScheduleDoe:
         if len(myruleset.day_schedules) == 1:
             for day in days_of_the_week:
                 days.append(short_name(myruleset.default_day_schedule.display_name))     
-        days.append(short_name(myruleset.default_day_schedule.display_name))
-        days.append(short_name(myruleset.default_day_schedule.display_name))
-         
+        
         if myruleset.holiday_schedule is not None:
             days.append(short_name(myruleset.holiday_schedule.display_name))
         else:
             days.append(short_name(myruleset.default_day_schedule.display_name))
         
-        if myruleset.winter_designday_schedule:
-            days.append(short_name(myruleset.winter_designday_schedule.display_name)) \
-                if myruleset.winter_designday_schedule.display_name is not None \
-                else days.append(short_name(myruleset.default_day_schedule.display_name))
+        if myruleset.winter_designday_schedule is not None:
+            days.append(short_name(myruleset.winter_designday_schedule.display_name)) 
+        else:
+            days.append(short_name(myruleset.default_day_schedule.display_name))
         
-        if myruleset.summer_designday_schedule:
-            days.append(short_name(myruleset.summer_designday_schedule.display_name)) \
-                if myruleset.summer_designday_schedule.display_name is not None \
-                else days.append(short_name(myruleset.default_day_schedule.display_name))
+        if myruleset.summer_designday_schedule is not None:
+            days.append(short_name(myruleset.summer_designday_schedule.display_name))    
+        else:
+            days.append(short_name(myruleset.default_day_schedule.display_name))
 
         return cls(name=name, stype=stype, day_schedules=days)
 
