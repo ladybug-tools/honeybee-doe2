@@ -41,18 +41,16 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
 
 
 
-    
 
     hb_model = hb_model.duplicate()
-    hb_model.tolerance = 0.1
+
     if hb_model.units != 'Feet':
         hb_model.convert_to_units(units='Feet')
     hb_model.remove_degenerate_geometry()
-    
-    
+
     for room in hb_model.rooms:
         room.properties.doe2.interior_wall_toggle = exclude_interior_walls
-        
+
     day_list = [] 
     for scheduleruleset in hb_model.properties.energy.schedules:
         for day in scheduleruleset.day_schedules:
