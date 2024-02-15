@@ -10,7 +10,7 @@ air_wall_test = './tests/assets/Air_Wall_test.hbjson'
 
 def test_hbjson_translate():
     """Test translating a HBJSON file to an inp file."""
-    hb_json = "C:\lbt_samples\hbjson\out.hbjson"
+    hb_json = standard_test
 
     out_inp = './tests/assets/sample_out'
     out_file = pathlib.Path(out_inp, 'test_model.inp')
