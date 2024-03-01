@@ -17,7 +17,7 @@ from .exposedfloor import ExposedFloor
 from .interiorfloor import InteriorFloor
 from .adiabaticfloor import AdiabaticFloor
 from .adiabaticroof import AdiabaticRoof
-
+from .ceiling import DoeCeilign
 
 class ZoneType(Enum):
 
@@ -104,9 +104,18 @@ class RoomDoe2Properties(object):
         roofs = [
             DoeRoof(face) for face in self.host.faces
             if isinstance(face.type, RoofCeiling)
-            and isinstance(face.boundary_condition, (Outdoors, Surface))
+            and isinstance(face.boundary_condition, Outdoors)
         ]
         return roofs
+    
+    @property
+    def ceilings(self):
+        ceilings = [
+            DoeCeilign(face) for face in self.host.faces
+            if isinstance(face.type, RoofCeiling)
+            and isinstance(face.boundary_condition, Surface)
+        ]
+        return ceilings
 
     @property
     def adiabatic_roofs(self):
@@ -245,6 +254,7 @@ class RoomDoe2Properties(object):
             
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
+        ceilings = '\n'.join([c.to_inp(origin) for c in self.ceilings])
         
         if self.interior_wall_toggle == True:
             interior_walls = '\n'.join([''])
@@ -268,5 +278,5 @@ class RoomDoe2Properties(object):
             [ar.to_inp(origin) for ar in self.adiabatic_roofs]
         )
         return '\n'.join(
-            [spaces, walls, interior_walls, roofs, adiabatic_roofs, ground_floors, exposed_floors,
+            [spaces, walls, ceilings, interior_walls, roofs, adiabatic_roofs, ground_floors, exposed_floors,
                 interior_floors, adiabatic_floors])

@@ -6,7 +6,7 @@ from honeybee.model import Model
 hvac_test = './tests/assets/multi_hvac.hbjson'
 standard_test = './tests/assets/2023_rac_advanced_sample_project.hbjson'
 air_wall_test = './tests/assets/Air_Wall_test.hbjson'
-
+ceiling_adj_test = './tests/assets/ceiling_adj_test.hbjson'
 
 def test_hbjson_translate():
     """Test translating a HBJSON file to an inp file."""
@@ -22,7 +22,7 @@ def test_hbjson_translate():
                           folder=out_inp, name='test_model.inp')
 
     assert out_file.exists()
-    #out_file.unlink()
+    out_file.unlink()
 
 
 def test_hbjson_with_schedule():
