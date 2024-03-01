@@ -54,15 +54,8 @@ class DoeCeilign:
         ]
 
         temp_str += '\n'.join(doe_windows)
-        
-        if wall_typology == 'EXTERIOR-WALL':
-            # Doors can only be part of exterior walls
-            doe_doors = [
-                Door(dr, self.face).to_inp() for dr in self.face.doors
-            ]
-            temp_str += '\n'.join(doe_doors)
 
         return temp_str
 
     def __repr__(self):
-        return f'DOE2 Wall: {self.face.display_name}'
+        return f'DOE2 Ceiling: {self.face.display_name}'
