@@ -30,6 +30,11 @@ def translate():
     default=False, show_default=True, is_flag=True
 )
 
+@click.option(
+    '--exclude-interior-ceilings', '-eic', help='Use this flag to exclude interior ceilings from export',
+    default=False, show_default=True, is_flag=True
+)
+
 @click.option('--name', '-n', help='Name of the output file.', default='model',
               show_default=True
               )
@@ -38,14 +43,14 @@ def translate():
     exists=False, file_okay=False, resolve_path=True, dir_okay=True),
     default='.', show_default=True
 )
-def hb_model_to_inp_file(hb_json, hvac_mapping, exclude_interior_walls, name, folder):
+def hb_model_to_inp_file(hb_json, hvac_mapping, exclude_interior_walls, exclude_interior_ceilings, name, folder):
     """Translate a HBJSON into a DOE2.2 *.inp file."""
     try:
         hvac_mapping
         hb_model = Model.from_file(hb_json)
         folder = pathlib.Path(folder)
         folder.mkdir(parents=True, exist_ok=True)
-        honeybee_model_to_inp(hb_model, hvac_mapping, exclude_interior_walls, folder, name)
+        honeybee_model_to_inp(hb_model, hvac_mapping, exclude_interior_walls, exclude_interior_ceilings, folder, name)
     except Exception as e:
         _logger.exception(f'Model translation failed:\n{e}')
         sys.exit(1)

@@ -15,7 +15,7 @@ from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
 
 
-def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False):
+def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False, exclude_interior_ceilings:bool=False):
     # type: (Model) -> str
     """
         args:
@@ -50,6 +50,9 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
 
     for room in hb_model.rooms:
         room.properties.doe2.interior_wall_toggle = exclude_interior_walls
+    
+    for room in hb_model.rooms:
+        room.properties.doe2.interior_ceiling_toggle = exclude_interior_ceilings
 
     day_list = [] 
     for scheduleruleset in hb_model.properties.energy.schedules:
@@ -206,10 +209,12 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
 
 
 def honeybee_model_to_inp(
-        model: Model, hvac_mapping: str = 'story',exclude_interior_walls=False,
+        model: Model, hvac_mapping: str = 'story',exclude_interior_walls=False, exclude_interior_ceilings=False,
         folder: str = '.', name: str = None) -> pathlib.Path:
 
-    inp_model = model_to_inp(model, hvac_mapping=hvac_mapping,exclude_interior_walls=exclude_interior_walls)
+    inp_model = model_to_inp(model, hvac_mapping=hvac_mapping,
+                             exclude_interior_walls=exclude_interior_walls,
+                             exclude_interior_ceilings=exclude_interior_ceilings)
 
     name = name or model.display_name
     if not name.lower().endswith('.inp'):
