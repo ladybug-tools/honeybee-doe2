@@ -36,6 +36,7 @@ class RoomDoe2Properties(object):
         self._host = _host
         self._boundary = None
         self._interior_wall_toggle = None
+        self._interior_ceiling_toggle = None
 
     @property
     def host(self) -> Room:
@@ -65,6 +66,14 @@ class RoomDoe2Properties(object):
     @interior_wall_toggle.setter
     def interior_wall_toggle(self, value):
         self._interior_wall_toggle = value if value is not None else self.interior_wall_toggle
+        
+    @property
+    def interior_ceiling_toggle(self):
+        return self._interior_ceiling_toggle
+    
+    @interior_ceiling_toggle.setter
+    def interior_ceiling_toggle(self, value):
+        self._interior_ceiling_toggle = value if value is not None else self.interior_ceiling_toggle
     
     
 
@@ -134,7 +143,6 @@ class RoomDoe2Properties(object):
             if isinstance(face.type, Floor)
             and isinstance(face.boundary_condition, Ground)
         ]
-
         return ground_contact_faces
 
     @property
@@ -254,12 +262,17 @@ class RoomDoe2Properties(object):
             
         spaces = ''.join(obj_lines)
         walls = '\n'.join([w.to_inp(origin) for w in self.walls])
-        ceilings = '\n'.join([c.to_inp(origin) for c in self.ceilings])
+        
         
         if self.interior_wall_toggle == True:
             interior_walls = '\n'.join([''])
         elif self.interior_wall_toggle == False:
             interior_walls = '\n'.join([w.to_inp(origin) for w in self.interior_walls])
+        
+        if self.interior_ceiling_toggle == True:
+            ceilings = '\n'.join([''])
+        elif self.interior_ceiling_toggle == False:
+            ceilings = '\n'.join([c.to_inp(origin) for c in self.ceilings])
         
         
         roofs = '\n'.join([r.to_inp(origin) for r in self.roofs])  

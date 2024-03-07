@@ -12,10 +12,13 @@ def test_model_to_folder():
     folder = './tests/assets/sample_out'
     name = 'cli_test'
     hvac_mapping = 'story'
+    eiw = False
+    eic = False
 
     result = runner.invoke(
         hb_model_to_inp_file,
-        [input_hb_model, '--hvac-mapping', hvac_mapping, '--name', name, '--folder', folder])
+        [input_hb_model, '--hvac-mapping', hvac_mapping, '--exclude-interior-walls',eiw, 
+         '--exclude-interior-ceilings', eic,  '--name', name, '--folder', folder])
 
     assert result.exit_code == 0
     assert os.path.isfile(os.path.join(folder, f'{name}.inp'))
