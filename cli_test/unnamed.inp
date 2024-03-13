@@ -108,14 +108,9 @@ $ ---------------------------------------------------------
 
 
 
-"Typical Insulation-R31" = MATERIAL
+"Typical Carpet Pad" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 31.000000000000004
-  ..
-
-"Typical Insulation-R7" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 7.0
+   RESISTANCE      = 1.22923037424
   ..
 
 "5/8 in. Gypsum Board" = MATERIAL
@@ -126,9 +121,72 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.468
   ..
 
-"Typical Insulation-R24" = MATERIAL
+"F08 Metal surface" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 23.999999999999996
+   RESISTANCE      = 0.00010038981005248146
+  ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
+  ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
+  ..
+
+"Typical Insulation-R3" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 2.9999999999999996
+  ..
+
+"Typical Insulation-R17" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 17.0
+  ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.211
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic Brick" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.285
+   DENSITY         = 119.865
+   SPECIFIC-HEAT   = 0.34
+  ..
+
+"25mm Stucco" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.083
+   CONDUCTIVITY    = 0.228
+   DENSITY         = 115.87
+   SPECIFIC-HEAT   = 0.361
+  ..
+
+"Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.031
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 70.002
+   SPECIFIC-HEAT   = 0.627
+  ..
+
+"Typical Insulation-R7" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 7.0
   ..
 
 "Generic Roof Membrane" = MATERIAL
@@ -139,9 +197,25 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.628
   ..
 
-"Metal Roof Surface" = MATERIAL
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
+  ..
+
+"Typical Insulation-R24" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 0.00010038981005248146
+   RESISTANCE      = 23.999999999999996
+  ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.656
+   CONDUCTIVITY    = 0.618
+   DENSITY         = 139.843
+   SPECIFIC-HEAT   = 0.387
   ..
 
 "Generic LW Concrete" = MATERIAL
@@ -152,19 +226,14 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.361
   ..
 
-"F08 Metal surface" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 0.00010038981005248146
-  ..
-
 "Typical Insulation-R4" = MATERIAL
    TYPE            = RESISTANCE
    RESISTANCE      = 4.0
   ..
 
-"Typical Insulation-R3" = MATERIAL
+"Metal Roof Surface" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 2.9999999999999996
+   RESISTANCE      = 0.00010038981005248146
   ..
 
 "8 n. Nrmlwght Cncrt Flr" = MATERIAL
@@ -183,11 +252,6 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.392
   ..
 
-"Typical Carpet Pad" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 1.22923037424
-  ..
-
 "Generic Ceiling Air Gap" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.328
@@ -196,78 +260,14 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.43
   ..
 
-"Generic 50mm Insulation" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.164
-   CONDUCTIVITY    = 0.01
-   DENSITY         = 2.684
-   SPECIFIC-HEAT   = 0.52
-  ..
-
-"Generic Wall Air Gap" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.211
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
-  ..
-
-"25mm Stucco" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.083
-   CONDUCTIVITY    = 0.228
-   DENSITY         = 115.87
-   SPECIFIC-HEAT   = 0.361
-  ..
-
 "Generic Painted Metal" = MATERIAL
    TYPE            = RESISTANCE
    RESISTANCE      = 0.00018927544456666666
   ..
 
-"Generic Brick" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.285
-   DENSITY         = 119.865
-   SPECIFIC-HEAT   = 0.34
-  ..
-
-"Typical Insulation-R17" = MATERIAL
+"Typical Insulation-R31" = MATERIAL
    TYPE            = RESISTANCE
-   RESISTANCE      = 17.0
-  ..
-
-"Roof Membrane" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.031
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 70.002
-   SPECIFIC-HEAT   = 0.627
-  ..
-
-"Generic HW Concrete" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.656
-   CONDUCTIVITY    = 0.618
-   DENSITY         = 139.843
-   SPECIFIC-HEAT   = 0.387
-  ..
-
-"Generic Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.042
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.469
-  ..
-
-"Generic Acoustic Tile" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.066
-   CONDUCTIVITY    = 0.019
-   DENSITY         = 22.974
-   SPECIFIC-HEAT   = 0.254
+   RESISTANCE      = 31.000000000000004
   ..
 
 "Generic Exterior Wall_l" = LAYERS
@@ -411,33 +411,20 @@ $ ---------------------------------------------------------
    LAYERS               = "Generic Underground Roof_l"
    ..
 
-"Tpcl Insltd Bsmnt Mss WllR8_l" = LAYERS
+"TpclInsltdStlFrmdExtrrWllR19_l" = LAYERS
    MATERIAL             = (
-      "Typical Insulation-R7",
-      "8 n. Cncrt Blck Bsmnt Wll"
+      "25mm Stucco",
+      "5/8 in. Gypsum Board",
+      "Typical Insulation-R17",
+      "5/8 in. Gypsum Board"
    )
    ..
 
-"Tpcl Insltd Bsmnt Mss WllR8_c" = CONSTRUCTION
+"TpclInsltdStlFrmdExtrrWllR19_c" = CONSTRUCTION
    TYPE                 = LAYERS
    ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Tpcl Insltd Bsmnt Mss WllR8_l"
-   ..
-
-"Tpcl Insltd Crptd 8n Slb FlrR5_l" = LAYERS
-   MATERIAL             = (
-      "Typical Insulation-R4",
-      "8 n. Nrmlwght Cncrt Flr",
-      "Typical Carpet Pad"
-   )
-   ..
-
-"Tpcl Insltd Crptd 8n Slb FlrR5_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 4
-   LAYERS               = "Tpcl Insltd Crptd 8n Slb FlrR5_l"
+   ROUGHNESS            = 5
+   LAYERS               = "TpclInsltdStlFrmdExtrrWllR19_l"
    ..
 
 "Typical Overhead Door-R4_l" = LAYERS
@@ -467,6 +454,35 @@ $ ---------------------------------------------------------
    LAYERS               = "Tpcl Insltd Mtl DrR3_l"
    ..
 
+"Tpcl Insltd Crptd 8n Slb FlrR5_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R4",
+      "8 n. Nrmlwght Cncrt Flr",
+      "Typical Carpet Pad"
+   )
+   ..
+
+"Tpcl Insltd Crptd 8n Slb FlrR5_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Crptd 8n Slb FlrR5_l"
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR8_l" = LAYERS
+   MATERIAL             = (
+      "Typical Insulation-R7",
+      "8 n. Cncrt Blck Bsmnt Wll"
+   )
+   ..
+
+"Tpcl Insltd Bsmnt Mss WllR8_c" = CONSTRUCTION
+   TYPE                 = LAYERS
+   ABSORPTANCE          = 0.7
+   ROUGHNESS            = 4
+   LAYERS               = "Tpcl Insltd Bsmnt Mss WllR8_l"
+   ..
+
 "TpclInsltdStlFrmdExtrrFlrR27_l" = LAYERS
    MATERIAL             = (
       "25mm Stucco",
@@ -482,22 +498,6 @@ $ ---------------------------------------------------------
    ABSORPTANCE          = 0.7
    ROUGHNESS            = 5
    LAYERS               = "TpclInsltdStlFrmdExtrrFlrR27_l"
-   ..
-
-"TpclInsltdStlFrmdExtrrWllR19_l" = LAYERS
-   MATERIAL             = (
-      "25mm Stucco",
-      "5/8 in. Gypsum Board",
-      "Typical Insulation-R17",
-      "5/8 in. Gypsum Board"
-   )
-   ..
-
-"TpclInsltdStlFrmdExtrrWllR19_c" = CONSTRUCTION
-   TYPE                 = LAYERS
-   ABSORPTANCE          = 0.7
-   ROUGHNESS            = 5
-   LAYERS               = "TpclInsltdStlFrmdExtrrWllR19_l"
    ..
 
 "Typical IEAD Roof-R32_l" = LAYERS
@@ -523,16 +523,16 @@ $ ---------------------------------------------------------
 
 
 
-"U 0.36 SHGC 0.38 Smpl Glzng Wndw" = GLASS-TYPE
-   TYPE               = SHADING-COEF
-   SHADING-COEF       = 0.4367816091954023
-   GLASS-CONDUCT      = 0.36
-   ..
-
 "Generic Double Pane" = GLASS-TYPE
    TYPE               = SHADING-COEF
    SHADING-COEF       = 0.4874490884111821
    GLASS-CONDUCT      = 0.297
+   ..
+
+"U0.44SHGC0.26DblRfBHClr6mm13mmAr" = GLASS-TYPE
+   TYPE               = SHADING-COEF
+   SHADING-COEF       = 0.318658941545642
+   GLASS-CONDUCT      = 0.437
    ..
 
 "U 0.5 SHGC 0.4 Smpl Glzng Sklght" = GLASS-TYPE
@@ -547,10 +547,10 @@ $ ---------------------------------------------------------
    GLASS-CONDUCT      = 1.009
    ..
 
-"U0.44SHGC0.26DblRfBHClr6mm13mmAr" = GLASS-TYPE
+"U 0.36 SHGC 0.38 Smpl Glzng Wndw" = GLASS-TYPE
    TYPE               = SHADING-COEF
-   SHADING-COEF       = 0.318658941545642
-   GLASS-CONDUCT      = 0.437
+   SHADING-COEF       = 0.4367816091954023
+   GLASS-CONDUCT      = 0.36
    ..
 
 
@@ -840,6 +840,18 @@ $ *********************************************************
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 "Level_0"= FLOOR
    SHAPE           = POLYGON
    POLYGON         = "Level_0 Plg"
@@ -860,7 +872,7 @@ $ *********************************************************
    Z               = 0.0
    VOLUME          = 42377.60006578629
    ZONE-TYPE = UNCONDITIONED
-  ..
+   ..
 
 "Face1" = EXTERIOR-WALL
   POLYGON           = "Face1 Plg"
@@ -935,25 +947,7 @@ $ *********************************************************
   ..
 
 
-"Face6" = ROOF
-   POLYGON           = "Face6 Plg"
-   CONSTRUCTION      = "Generic Interior Ceiling_c"
-   TILT              =  0.0
-   AZIMUTH           =  180
-   X                 =  29.527559055118108
-   Y                 =  -32.80839895013123
-   Z                 =  13.123359580052492
-  ..
 
-"Face6_1" = ROOF
-   POLYGON           = "Face6_1 Plg"
-   CONSTRUCTION      = "Generic Interior Ceiling_c"
-   TILT              =  0.0
-   AZIMUTH           =  180
-   X                 =  0.0
-   Y                 =  -32.80839895013123
-   Z                 =  13.123359580052492
-  ..
 
 
 "Face5_ug Plg" = POLYGON
@@ -996,7 +990,7 @@ $ *********************************************************
    Z               = 0.0
    VOLUME          = 29664.3200460504
    ZONE-TYPE = UNCONDITIONED
-  ..
+   ..
 
 "Face1_2" = EXTERIOR-WALL
   POLYGON           = "Face1_2 Plg"
@@ -1052,16 +1046,7 @@ $ *********************************************************
   GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
   ..
 
-"Face4_2" = INTERIOR-WALL
-  POLYGON           = "Face4_2 Plg"
-  CONSTRUCTION      = "Generic Interior Wall_c"
-  TILT              =  90.0
-  AZIMUTH           =  270.0
-  X                 =  3.552713678800501e-15
-  Y                 =  0.0
-  Z                 =  -1.7763568394002505e-15
-  NEXT-TO           =  "Room2"
-  ..
+
 
 "Face6_4" = ROOF
    POLYGON           = "Face6_4 Plg"
@@ -1069,16 +1054,6 @@ $ *********************************************************
    TILT              =  0.0
    AZIMUTH           =  180
    X                 =  34.44881889763779
-   Y                 =  -32.80839895013123
-   Z                 =  13.123359580052492
-  ..
-
-"Face6_5" = ROOF
-   POLYGON           = "Face6_5 Plg"
-   CONSTRUCTION      = "Generic Interior Ceiling_c"
-   TILT              =  0.0
-   AZIMUTH           =  180
-   X                 =  3.552713678800501e-15
    Y                 =  -32.80839895013123
    Z                 =  13.123359580052492
   ..
@@ -1114,7 +1089,7 @@ $ *********************************************************
    Z               = 0.0
    VOLUME          = 30511.872047366134
    ZONE-TYPE = UNCONDITIONED
-  ..
+   ..
 
 "Face1_1" = EXTERIOR-WALL
   POLYGON           = "Face1_1 Plg"
@@ -1188,16 +1163,7 @@ $ *********************************************************
   GLASS-TYPE    = "U 0.36 SHGC 0.38 Smpl Glzng Wndw"
   ..
 
-"Face3_2" = INTERIOR-WALL
-  POLYGON           = "Face3_2 Plg"
-  CONSTRUCTION      = "Generic Interior Wall_c"
-  TILT              =  90.0
-  AZIMUTH           =  90.0
-  X                 =  29.527559055118108
-  Y                 =  -32.80839895013123
-  Z                 =  -1.7763568394002505e-15
-  NEXT-TO           =  "Room3"
-  ..
+
 
 "Face6_2" = ROOF
    POLYGON           = "Face6_2 Plg"
@@ -1206,16 +1172,6 @@ $ *********************************************************
    AZIMUTH           =  180
    X                 =  0.0
    Y                 =  -78.74015748031495
-   Z                 =  13.123359580052492
-  ..
-
-"Face6_3" = ROOF
-   POLYGON           = "Face6_3 Plg"
-   CONSTRUCTION      = "Generic Interior Ceiling_c"
-   TILT              =  0.0
-   AZIMUTH           =  180
-   X                 =  0.0
-   Y                 =  -32.80839895013123
    Z                 =  13.123359580052492
   ..
 
@@ -1277,7 +1233,7 @@ $ *********************************************************
    Z               = 0.0
    VOLUME          = 20659.08003207082
    ZONE-TYPE = UNCONDITIONED
-  ..
+   ..
 
 "Face1_3" = EXTERIOR-WALL
   POLYGON           = "Face1_3 Plg"
@@ -1856,6 +1812,7 @@ $ *********************************************************
   ..
 
 
+
 "Face6_6" = ROOF
    POLYGON           = "Face6_6 Plg"
    CONSTRUCTION      = "Typical IEAD Roof-R32_c"
@@ -2065,6 +2022,16 @@ $ **                                                     **
 $ **               HVAC Systems / Zones                  **
 $ **                                                     **
 $ *********************************************************
+
+
+
+
+
+
+
+
+
+
 
 
 

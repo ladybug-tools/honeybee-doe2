@@ -7,6 +7,7 @@ from .properties.inputils.run_period import RunPeriod
 from .properties.inputils.title import Title
 from .properties.inputils.glass_types import GlassType
 from .utils.doe_formatters import short_name
+from .properties.switchstatements import *                   
 
 from honeybee.model import Model
 from honeybee_energy.construction.window import WindowConstruction
@@ -15,7 +16,7 @@ from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
 
 
-def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False, exclude_interior_ceilings:bool=False):
+def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False, exclude_interior_ceilings:bool=False, switch_statements:bool=False):
     # type: (Model) -> str
     """
         args:
@@ -66,7 +67,40 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
             counts[day.display_name] += 1
             day_list[i].display_name = f"{day.display_name[:-1]}{counts[day.display_name]}"
         else:
-            counts[day.display_name] = 1 
+            counts[day.display_name] = 1
+            
+    if switch_statements == True:
+        #spaces
+        switchPeopleSched = SwitchPeopleSched.from_hb_model(hb_model).to_inp()
+        switchAreaPerson = SwitchAreaPerson.from_hb_model(hb_model).to_inp()
+        switchLightingWArea = SwitchLightingWArea.from_hb_model(hb_model).to_inp()
+        switchEquipmentWArea = SwitchEquipmentWArea.from_hb_model(hb_model).to_inp()
+        switchLightingSched = SwitchLightingSched.from_hb_model(hb_model).to_inp()
+        switchEquipmentSched = SwitchEquipmentSched.from_hb_model(hb_model).to_inp()
+        #zones
+        switchDesignHeat = SwitchDesignHeat.from_hb_model(hb_model).to_inp()
+        switchHeatSchedule = SwitchHeatSchedule.from_hb_model(hb_model).to_inp()
+        switchDesignCool = SwitchDesignCool.from_hb_model(hb_model).to_inp()
+        switchCoolSchedule = SwitchCoolSchedule.from_hb_model(hb_model).to_inp()
+        switchOutsideAirFlow = SwitchOutsideAirFlow.from_hb_model(hb_model).to_inp()
+    
+    elif switch_statements == False:
+        #space 
+        switchPeopleSched = ''
+        switchAreaPerson = ''
+        switchLightingWArea = ''
+        switchEquipmentWArea = ''
+        switchLightingSched = ''
+        switchEquipmentSched = ''
+        #zones
+        switchDesignHeat = ''
+        switchHeatSchedule = ''
+        switchDesignCool = ''
+        switchCoolSchedule = ''
+        switchOutsideAirFlow = ''
+        
+        
+        
     
 
     try:
@@ -145,7 +179,7 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         fb.global_params,
         fb.ttrpddh,
         Title(title=str(hb_model.display_name)).to_inp(),
-        rp.to_inp(),  # TODO unhardcode
+        rp.to_inp(),  
         fb.comply,
         comp_data.to_inp(),
         sb_data.to_inp(),
@@ -165,6 +199,12 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         fb.miscCost,
         fb.perfCurve,
         fb.floorNspace,
+        switchPeopleSched,
+        switchAreaPerson,
+        switchLightingWArea,
+        switchEquipmentWArea,
+        switchLightingSched,
+        switchEquipmentSched,
         '\n'.join(str(story) for story in hb_model.properties.doe2.stories),
         fb.elecFuelMeter,
         fb.elec_meter,
@@ -188,6 +228,11 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         fb.steam_mtr,
         fb.chill_meter,
         fb.hvac_sys_zone,
+        switchDesignHeat,
+        switchHeatSchedule,
+        switchDesignCool,
+        switchCoolSchedule,
+        switchOutsideAirFlow,
         '\n'.join(hv_sys.to_inp()
                   for hv_sys in hvac_maps),  # * change to variable
         fb.misc_meter_hvac,
@@ -210,11 +255,12 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
 
 def honeybee_model_to_inp(
         model: Model, hvac_mapping: str = 'story',exclude_interior_walls=False, exclude_interior_ceilings=False,
-        folder: str = '.', name: str = None) -> pathlib.Path:
+        switch_statements:bool=False, folder: str = '.', name: str = None) -> pathlib.Path:
 
     inp_model = model_to_inp(model, hvac_mapping=hvac_mapping,
                              exclude_interior_walls=exclude_interior_walls,
-                             exclude_interior_ceilings=exclude_interior_ceilings)
+                             exclude_interior_ceilings=exclude_interior_ceilings,
+                             switch_statements=switch_statements)
 
     name = name or model.display_name
     if not name.lower().endswith('.inp'):
