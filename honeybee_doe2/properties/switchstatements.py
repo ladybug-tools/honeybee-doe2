@@ -311,6 +311,7 @@ class SwitchLightingWArea:
 class SwitchEquipmentWArea:
     def __init__(self, _activity_descriptions):
         self._activity_descriptions = _activity_descriptions
+
     
     @property
     def activity_descriptions(self):
@@ -413,3 +414,236 @@ class SwitchEquipmentSched:
         
         switch_statement = ''.join(obj_lines)
         return switch_statement
+    
+    def __repr__(self):
+        return self.to_inp()
+    
+class SwitchFlowArea:
+    def __init__(self, _activity_descriptions):
+        self._activity_descriptions = _activity_descriptions
+        
+    @property
+    def activity_descriptions(self):
+        return self._activity_descriptions
+
+    @activity_descriptions.setter
+    def activity_descriptions(self, value):
+        self._activity_descriptions = value if value is not None else self.activity_descriptions
+        
+    @classmethod
+    def from_hb_model(cls, hb_model):
+        activity_description = list(set([(room.user_data['act_desc'], \
+            VolumeFlowRate()._m3_s_to_cfm(room.properties.energy.ventilation.flow_per_area))
+                                         for room in hb_model.rooms]))
+        return cls(activity_description)
+    
+    def to_inp(self):
+        
+        obj_lines = []
+        obj_lines.append("SET-DEFAULT FOR ZONE\n")
+        obj_lines.append('TYPE = CONDITIONED\n')
+        obj_lines.append('   FLOW/AREA =\n')
+        obj_lines.append('{switch(#LR("SPACE", "C-ACTIVITY-DESC"))\n')
+        for act in self.activity_descriptions:
+            obj_lines.append(f'case "{act[0]}": {Temperature().to_ip(values=[act[1]], from_unit="C")[0][0]}\n')
+        obj_lines.append('default: no_default\n')
+        obj_lines.append('endswitch}\n')
+        obj_lines.append('..\n')
+        
+        switch_statement = ''.join(obj_lines)
+        
+        return switch_statement
+    
+    def __repr__(self):
+        return self.to_inp()
+    
+
+class SwitchMinFlowRatio:
+    def __init__(self, _activity_descriptions, _hb_model):
+        self._activity_descriptions = _activity_descriptions
+        self._hb_model = _hb_model
+    
+    @property
+    def hb_model(self):
+        return self._hb_model
+    
+    @hb_model.setter
+    def hb_model(self, value):
+        self._hb_model = value if value is not None else self.hb_model
+     
+    @property
+    def activity_descriptions(self):
+        return self._activity_descriptions
+
+    @activity_descriptions.setter
+    def activity_descriptions(self, value):
+        self._activity_descriptions = value if value is not None else self.activity_descriptions
+        
+    @classmethod
+    def from_hb_model(cls, hb_model):
+        activity_description = list(set([(room.user_data['act_desc'], room.user_data['MIN-FLOW-RATIO'])
+                                    for room in hb_model.rooms]))                              
+        return cls(activity_description, hb_model)
+    
+    def to_inp(self):
+           
+        obj_lines = []
+        obj_lines.append("SET-DEFAULT FOR ZONE\n")
+        obj_lines.append('TYPE = CONDITIONED\n')
+        obj_lines.append('   MIN-FLOW-RATIO =\n')
+        obj_lines.append('{switch(#LR("SPACE", "C-ACTIVITY-DESC"))\n')
+        for act in self.activity_descriptions:
+            obj_lines.append(f'case "{act[0]}": {act[1]}\n')
+        obj_lines.append('default: no_default\n')
+        obj_lines.append('endswitch}\n')
+        obj_lines.append('..\n')
+        
+        switch_statement = ''.join(obj_lines)
+        return switch_statement
+
+    
+    def __repr__(self):
+        return self.to_inp()
+    
+    
+    
+class SwitchAssignedFlow:
+    def __init__(self, _activity_descriptions, _hb_model):
+        self._activity_descriptions = _activity_descriptions
+        self._hb_model = _hb_model
+
+    @property
+    def hb_model(self):
+        return self._hb_model
+
+    @hb_model.setter
+    def hb_model(self, value):
+        self._hb_model = value if value is not None else self.hb_model
+        
+    @property
+    def activity_descriptions(self):
+        return self._activity_descriptions
+
+    @activity_descriptions.setter
+    def activity_descriptions(self, value):
+        self._activity_descriptions = value if value is not None else self.activity_descriptions
+        
+    @classmethod
+    def from_hb_model(cls, hb_model):
+        activity_description = list(set([(room.user_data['act_desc'], room.user_data['ASSIGNED-FLOW'])
+                                    for room in hb_model.rooms]))                              
+        return cls(activity_description, hb_model)
+
+    def to_inp(self):
+            
+        obj_lines = []
+        obj_lines.append("SET-DEFAULT FOR ZONE\n")
+        obj_lines.append('TYPE = CONDITIONED\n')
+        obj_lines.append('   ASSIGNED-FLOW =\n')
+        obj_lines.append('{switch(#LR("SPACE", "C-ACTIVITY-DESC"))\n')
+        for act in self.activity_descriptions:
+            obj_lines.append(f'case "{act[0]}": {act[1]}\n')
+        obj_lines.append('default: no_default\n')
+        obj_lines.append('endswitch}\n')
+        obj_lines.append('..\n')
+        
+        switch_statement = ''.join(obj_lines)
+        return switch_statement
+
+    def __repr__(self):
+        return self.to_inp()
+    
+    
+    
+class SwitchHMaxFlowRatio:
+    def __init__(self, _activity_descriptions, _hb_model):
+        self._activity_descriptions = _activity_descriptions
+        self._hb_model = _hb_model
+
+    @property
+    def hb_model(self):
+        return self._hb_model
+
+    @hb_model.setter
+    def hb_model(self, value):
+        self._hb_model = value if value is not None else self.hb_model
+        
+    @property
+    def activity_descriptions(self):
+        return self._activity_descriptions
+
+    @activity_descriptions.setter
+    def activity_descriptions(self, value):
+        self._activity_descriptions = value if value is not None else self.activity_descriptions
+        
+    @classmethod
+    def from_hb_model(cls, hb_model):
+        activity_description = list(set([(room.user_data['act_desc'], room.user_data['HMAX-FLOW-RATIO'])
+                                    for room in hb_model.rooms]))                              
+        return cls(activity_description, hb_model)
+
+    def to_inp(self):
+            
+        obj_lines = []
+        obj_lines.append("SET-DEFAULT FOR ZONE\n")
+        obj_lines.append('TYPE = CONDITIONED\n')
+        obj_lines.append('   HMAX-FLOW-RATIO =\n')
+        obj_lines.append('{switch(#LR("SPACE", "C-ACTIVITY-DESC"))\n')
+        for act in self.activity_descriptions:
+            obj_lines.append(f'case "{act[0]}": {act[1]}\n')
+        obj_lines.append('default: no_default\n')
+        obj_lines.append('endswitch}\n')
+        obj_lines.append('..\n')
+        
+        switch_statement = ''.join(obj_lines)
+        return switch_statement
+
+    def __repr__(self):
+        return self.to_inp()
+    
+    
+class SwitchMinFlowArea:
+    def __init__(self, _activity_descriptions, _hb_model):
+        self._activity_descriptions = _activity_descriptions
+        self._hb_model = _hb_model
+
+    @property
+    def hb_model(self):
+        return self._hb_model
+
+    @hb_model.setter
+    def hb_model(self, value):
+        self._hb_model = value if value is not None else self.hb_model
+        
+    @property
+    def activity_descriptions(self):
+        return self._activity_descriptions
+
+    @activity_descriptions.setter
+    def activity_descriptions(self, value):
+        self._activity_descriptions = value if value is not None else self.activity_descriptions
+        
+    @classmethod
+    def from_hb_model(cls, hb_model):
+        activity_description = list(set([(room.user_data['act_desc'], room.user_data['MIN-FLOW/AREA'])
+                                    for room in hb_model.rooms]))                              
+        return cls(activity_description, hb_model)
+
+    def to_inp(self):
+            
+        obj_lines = []
+        obj_lines.append("SET-DEFAULT FOR ZONE\n")
+        obj_lines.append('TYPE = CONDITIONED\n')
+        obj_lines.append('   MIN-FLOW/AREA =\n')
+        obj_lines.append('{switch(#LR("SPACE", "C-ACTIVITY-DESC"))\n')
+        for act in self.activity_descriptions:
+            obj_lines.append(f'case "{act[0]}": {act[1]}\n')
+        obj_lines.append('default: no_default\n')
+        obj_lines.append('endswitch}\n')
+        obj_lines.append('..\n')
+        
+        switch_statement = ''.join(obj_lines)
+        return switch_statement
+
+    def __repr__(self):
+        return self.to_inp()

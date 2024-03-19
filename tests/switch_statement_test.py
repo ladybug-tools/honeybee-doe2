@@ -7,7 +7,7 @@ from honeybee.model import Model
 
 def test_switch_true():
     """Test writiting inp with switch_statements"""
-    hb_json = "./tests/assets/switch_statements_v4.hbjson"
+    hb_json = "./tests/assets/switch_with_user_data.hbjson"
     out_inp = './tests/assets/sample_out'
     out_file = pathlib.Path(out_inp, 'switch_true_test_model.inp')
     # delete if exists
@@ -22,7 +22,7 @@ def test_switch_true():
     
 def test_switch_false():
     """Test writiting inp with switch_statements"""
-    hb_json = "./tests/assets/switch_statements_v4.hbjson"
+    hb_json = "./tests/assets/switch_with_user_data.hbjson"
     out_inp = './tests/assets/sample_out'
     out_file = pathlib.Path(out_inp, 'switch_false_test_model.inp')
     # delete if exists

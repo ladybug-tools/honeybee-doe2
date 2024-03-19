@@ -14,6 +14,7 @@ from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
 from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
+from typing import List
 
 
 def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False, exclude_interior_ceilings:bool=False, switch_statements:bool=False):
@@ -68,8 +69,16 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
             day_list[i].display_name = f"{day.display_name[:-1]}{counts[day.display_name]}"
         else:
             counts[day.display_name] = 1
-            
-    if switch_statements == True:
+    
+    activity_descriptions = []
+    for room in hb_model.rooms:
+        if 'act_desc' in room.user_data:
+            activity_descriptions.append(True)
+        if 'act_desc' not in room.user_data:
+            activity_descriptions.append(False)
+   
+        
+    if switch_statements == True and all(activity_descriptions):
         #spaces
         switchPeopleSched = SwitchPeopleSched.from_hb_model(hb_model).to_inp()
         switchAreaPerson = SwitchAreaPerson.from_hb_model(hb_model).to_inp()
@@ -83,6 +92,11 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         switchDesignCool = SwitchDesignCool.from_hb_model(hb_model).to_inp()
         switchCoolSchedule = SwitchCoolSchedule.from_hb_model(hb_model).to_inp()
         switchOutsideAirFlow = SwitchOutsideAirFlow.from_hb_model(hb_model).to_inp()
+        switchFlowArea = SwitchFlowArea.from_hb_model(hb_model).to_inp()
+        switchMinFlowRatio = SwitchMinFlowRatio.from_hb_model(hb_model).to_inp()
+        switchAssignedFlow = SwitchAssignedFlow.from_hb_model(hb_model).to_inp()
+        switchHMaxFlowRatio = SwitchHMaxFlowRatio.from_hb_model(hb_model).to_inp()
+        switchMinFlowArea = SwitchMinFlowArea.from_hb_model(hb_model).to_inp()
     
     elif switch_statements == False:
         #space 
@@ -98,9 +112,11 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         switchDesignCool = ''
         switchCoolSchedule = ''
         switchOutsideAirFlow = ''
-        
-        
-        
+        switchFlowArea = ''
+        switchMinFlowRatio = ''
+        switchAssignedFlow = ''
+        switchHMaxFlowRatio = ''
+        switchMinFlowArea = ''
     
 
     try:
@@ -233,6 +249,11 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         switchDesignCool,
         switchCoolSchedule,
         switchOutsideAirFlow,
+        switchFlowArea,
+        switchMinFlowRatio,
+        switchAssignedFlow,
+        switchHMaxFlowRatio,
+        switchMinFlowArea,
         '\n'.join(hv_sys.to_inp()
                   for hv_sys in hvac_maps),  # * change to variable
         fb.misc_meter_hvac,

@@ -87,25 +87,15 @@ $ ---------------------------------------------------------
 
 
 
-"OffcMdm INFILSCHPNNLWkd" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-1.0, 1.0)
-   ..
-"OffcMdmBLDGEQUIP_WntrDsn" = DAY-SCHEDULE
+"OffcMdm BLDGOCCSCHWkd" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0)
+0.0, 0.0, 0.1, 0.2,
+0.95, 0.95, 0.95,
+0.95, 0.5, 0.95,
+0.95, 0.95, 0.95,
+0.3, 0.1, 0.1, 0.1,
+0.1, 0.05, 0.05)
    ..
 "OffcMdmBLDGLIGHT_WntrDsn" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -116,63 +106,14 @@ $ ---------------------------------------------------------
 0.0, 0.0, 0.0, 0.0,
 0.0, 0.0, 0.0, 0.0)
    ..
-"OffcMdmINFILSCHP_WntrDsn" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0)
-   ..
-"OffcMdm INFILSCHPNNLDflt" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0)
-   ..
-"OffcMdm INFILSCHPNNLSt" = DAY-SCHEDULE
-   TYPE    = MULTIPLIER
-   (1,24)    (1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 0.25,
-0.25, 0.25, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0)
-   ..
-"OffcMdmBLDGEQUIP_H2013St" = DAY-SCHEDULE
+"OffcMdmBLDGOCCSCHWntrDsn" = DAY-SCHEDULE
    TYPE    = FRACTION
-   (1,24)    (0.2307553806,
-0.2307553806,
-0.2307553806,
-0.2307553806,
-0.2307553806,
-0.2307553806,
-0.381234796,
-0.381234796,
-0.476543495,
-0.476543495,
-0.476543495,
-0.476543495,
-0.3335804465,
-0.3335804465,
-0.3335804465,
-0.3335804465,
-0.3335804465,
-0.285926097,
-0.285926097,
-0.2307553806,
-0.2307553806,
-0.2307553806,
-0.2307553806,
-0.2307553806)
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
    ..
 "OffcMdmBLDGEQUIP_3SmrDsn" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -182,6 +123,16 @@ $ ---------------------------------------------------------
 1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0)
+   ..
+"OffcMdm BLDGOCCSCHSt" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.1, 0.1,
+0.3, 0.3, 0.3, 0.3,
+0.1, 0.1, 0.1, 0.1,
+0.1, 0.05, 0.05,
+0.0, 0.0, 0.0, 0.0,
+0.0)
    ..
 "OffcMdmBLDGEQUIP_H2013Sn" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -210,18 +161,30 @@ $ ---------------------------------------------------------
 0.2307553806,
 0.2307553806)
    ..
-"OffcMdm BLDGOCCSCHDflt" = DAY-SCHEDULE
+"OffcMdmBLDGLIGHT_2013Wkd" = DAY-SCHEDULE
    TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.05,
-0.05, 0.05, 0.05,
-0.05, 0.05, 0.05,
-0.05, 0.05, 0.05,
-0.05, 0.05, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0)
+   (1,24)    (0.05, 0.05, 0.05,
+0.05, 0.05, 0.1,
+0.08623256,
+0.25869768,
+0.77609304,
+0.77609304,
+0.77609304,
+0.77609304,
+0.77609304,
+0.77609304,
+0.77609304,
+0.77609304,
+0.77609304,
+0.4311628,
+0.25869768,
+0.25869768,
+0.17246512,
+0.17246512,
+0.08623256,
+0.04311628)
    ..
-"OffcMdmINFILSCHP_dSmrDsn" = DAY-SCHEDULE
+"OffcMdm INFILSCHPNNLWkd" = DAY-SCHEDULE
    TYPE    = MULTIPLIER
    (1,24)    (1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 0.25,
@@ -251,28 +214,50 @@ $ ---------------------------------------------------------
 0.05, 0.05, 0.05,
 0.05, 0.05)
    ..
-"OffcMdmBLDGLIGHT_2013Wkd" = DAY-SCHEDULE
+"OffcMdm INFILSCHPNNLDflt" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0)
+   ..
+"OffcMdmBLDGEQUIP_WntrDsn" = DAY-SCHEDULE
    TYPE    = FRACTION
-   (1,24)    (0.05, 0.05, 0.05,
-0.05, 0.05, 0.1,
-0.08623256,
-0.25869768,
-0.77609304,
-0.77609304,
-0.77609304,
-0.77609304,
-0.77609304,
-0.77609304,
-0.77609304,
-0.77609304,
-0.77609304,
-0.4311628,
-0.25869768,
-0.25869768,
-0.17246512,
-0.17246512,
-0.08623256,
-0.04311628)
+   (1,24)    (0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0,
+0.0, 0.0, 0.0, 0.0)
+   ..
+"OffcMdmBLDGEQUIP_H2013St" = DAY-SCHEDULE
+   TYPE    = FRACTION
+   (1,24)    (0.2307553806,
+0.2307553806,
+0.2307553806,
+0.2307553806,
+0.2307553806,
+0.2307553806,
+0.381234796,
+0.381234796,
+0.476543495,
+0.476543495,
+0.476543495,
+0.476543495,
+0.3335804465,
+0.3335804465,
+0.3335804465,
+0.3335804465,
+0.3335804465,
+0.285926097,
+0.285926097,
+0.2307553806,
+0.2307553806,
+0.2307553806,
+0.2307553806,
+0.2307553806)
    ..
 "OffcMdmBLDGEQUIP_2013Wkd" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -301,25 +286,27 @@ $ ---------------------------------------------------------
 0.381234796,
 0.381234796)
    ..
-"OffcMdm BLDGOCCSCHWkd" = DAY-SCHEDULE
+"OffcMdm BLDGOCCSCHDflt" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.1, 0.2,
-0.95, 0.95, 0.95,
-0.95, 0.5, 0.95,
-0.95, 0.95, 0.95,
-0.3, 0.1, 0.1, 0.1,
-0.1, 0.05, 0.05)
-   ..
-"OffcMdm BLDGOCCSCHSt" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.1, 0.1,
-0.3, 0.3, 0.3, 0.3,
-0.1, 0.1, 0.1, 0.1,
-0.1, 0.05, 0.05,
+0.0, 0.0, 0.05,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.05,
+0.05, 0.05, 0.0,
 0.0, 0.0, 0.0, 0.0,
 0.0)
+   ..
+"OffcMdmINFILSCHP_dSmrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+1.0, 1.0)
    ..
 "OffcMdmBLDGLIGHT_H2013St" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -341,14 +328,16 @@ $ ---------------------------------------------------------
 0.05, 0.05, 0.05,
 0.05)
    ..
-"OffcMdm BLDGOCCSCHSmrDsn" = DAY-SCHEDULE
-   TYPE    = FRACTION
-   (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 1.0, 1.0,
+"OffcMdmINFILSCHP_WntrDsn" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 1.0,
 1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 1.0, 1.0,
-1.0, 1.0, 0.05, 0.05)
+1.0)
    ..
 "OffcMdmBLDGLIGHT_3SmrDsn" = DAY-SCHEDULE
    TYPE    = FRACTION
@@ -359,14 +348,25 @@ $ ---------------------------------------------------------
 1.0, 1.0, 1.0, 1.0,
 1.0, 1.0, 1.0, 1.0)
    ..
-"OffcMdmBLDGOCCSCHWntrDsn" = DAY-SCHEDULE
+"OffcMdm BLDGOCCSCHSmrDsn" = DAY-SCHEDULE
    TYPE    = FRACTION
    (1,24)    (0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0,
-0.0, 0.0, 0.0, 0.0)
+0.0, 0.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.05, 0.05)
+   ..
+"OffcMdm INFILSCHPNNLSt" = DAY-SCHEDULE
+   TYPE    = MULTIPLIER
+   (1,24)    (1.0, 1.0, 1.0, 1.0,
+1.0, 1.0, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 0.25,
+0.25, 0.25, 1.0,
+1.0, 1.0, 1.0, 1.0,
+1.0)
    ..
 
 $ ---------------------------------------------------------
@@ -397,25 +397,25 @@ $ ---------------------------------------------------------
    WEEK-SCHEDULES = "Gnrc Offc Infltrtn"
    ..
 
-"Generic Office Occupancy"      = WEEK-SCHEDULE-PD
+"Generic Office Equipment"      = WEEK-SCHEDULE-PD
    TYPE          = FRACTION
-   DAY-SCHEDULES = ( "OffcMdm BLDGOCCSCHWkd", $ Monday
-                     "OffcMdm BLDGOCCSCHWkd", $ Tuesday
-                     "OffcMdm BLDGOCCSCHWkd", $ Wednesday
-                     "OffcMdm BLDGOCCSCHWkd", $ Thursday
-                     "OffcMdm BLDGOCCSCHWkd", $ Friday
-                     "OffcMdm BLDGOCCSCHDflt", $ Saturday
-                     "OffcMdm BLDGOCCSCHDflt", $ Sunday
-                     "OffcMdm BLDGOCCSCHDflt", $ Holiday
-                     "OffcMdm BLDGOCCSCHDflt", $ Winter Design Day
-                     "OffcMdm BLDGOCCSCHDflt", $ Summer Design Day
+   DAY-SCHEDULES = ( "OffcMdmBLDGEQUIP_2013Wkd", $ Monday
+                     "OffcMdmBLDGEQUIP_2013Wkd", $ Tuesday
+                     "OffcMdmBLDGEQUIP_2013Wkd", $ Wednesday
+                     "OffcMdmBLDGEQUIP_2013Wkd", $ Thursday
+                     "OffcMdmBLDGEQUIP_2013Wkd", $ Friday
+                     "OffcMdmBLDGEQUIP_H2013Sn", $ Saturday
+                     "OffcMdmBLDGEQUIP_H2013Sn", $ Sunday
+                     "OffcMdmBLDGEQUIP_H2013Sn", $ Holiday
+                     "OffcMdmBLDGEQUIP_H2013Sn", $ Winter Design Day
+                     "OffcMdmBLDGEQUIP_H2013Sn", $ Summer Design Day
                     )
    ..
-"Generic Office Occupancy_" = SCHEDULE-PD
+"Generic Office Equipment_" = SCHEDULE-PD
    TYPE     = FRACTION
    MONTH    = 12
    DAY      = 31
-   WEEK-SCHEDULES = "Generic Office Occupancy"
+   WEEK-SCHEDULES = "Generic Office Equipment"
    ..
 
 "Generic Office Lighting"      = WEEK-SCHEDULE-PD
@@ -439,25 +439,25 @@ $ ---------------------------------------------------------
    WEEK-SCHEDULES = "Generic Office Lighting"
    ..
 
-"Generic Office Equipment"      = WEEK-SCHEDULE-PD
+"Generic Office Occupancy"      = WEEK-SCHEDULE-PD
    TYPE          = FRACTION
-   DAY-SCHEDULES = ( "OffcMdmBLDGEQUIP_2013Wkd", $ Monday
-                     "OffcMdmBLDGEQUIP_2013Wkd", $ Tuesday
-                     "OffcMdmBLDGEQUIP_2013Wkd", $ Wednesday
-                     "OffcMdmBLDGEQUIP_2013Wkd", $ Thursday
-                     "OffcMdmBLDGEQUIP_2013Wkd", $ Friday
-                     "OffcMdmBLDGEQUIP_H2013Sn", $ Saturday
-                     "OffcMdmBLDGEQUIP_H2013Sn", $ Sunday
-                     "OffcMdmBLDGEQUIP_H2013Sn", $ Holiday
-                     "OffcMdmBLDGEQUIP_H2013Sn", $ Winter Design Day
-                     "OffcMdmBLDGEQUIP_H2013Sn", $ Summer Design Day
+   DAY-SCHEDULES = ( "OffcMdm BLDGOCCSCHWkd", $ Monday
+                     "OffcMdm BLDGOCCSCHWkd", $ Tuesday
+                     "OffcMdm BLDGOCCSCHWkd", $ Wednesday
+                     "OffcMdm BLDGOCCSCHWkd", $ Thursday
+                     "OffcMdm BLDGOCCSCHWkd", $ Friday
+                     "OffcMdm BLDGOCCSCHDflt", $ Saturday
+                     "OffcMdm BLDGOCCSCHDflt", $ Sunday
+                     "OffcMdm BLDGOCCSCHDflt", $ Holiday
+                     "OffcMdm BLDGOCCSCHDflt", $ Winter Design Day
+                     "OffcMdm BLDGOCCSCHDflt", $ Summer Design Day
                     )
    ..
-"Generic Office Equipment_" = SCHEDULE-PD
+"Generic Office Occupancy_" = SCHEDULE-PD
    TYPE     = FRACTION
    MONTH    = 12
    DAY      = 31
-   WEEK-SCHEDULES = "Generic Office Equipment"
+   WEEK-SCHEDULES = "Generic Office Occupancy"
    ..
 
 
@@ -469,12 +469,12 @@ $ ---------------------------------------------------------
 
 
 
-"Generic Ceiling Air Gap" = MATERIAL
+"Generic Gypsum Board" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.328
-   CONDUCTIVITY    = 0.176
-   DENSITY         = 0.08
-   SPECIFIC-HEAT   = 0.43
+   THICKNESS       = 0.042
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 49.944
+   SPECIFIC-HEAT   = 0.469
   ..
 
 "Generic HW Concrete" = MATERIAL
@@ -485,41 +485,20 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.387
   ..
 
+"Generic Roof Membrane" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.033
+   CONDUCTIVITY    = 0.051
+   DENSITY         = 69.921
+   SPECIFIC-HEAT   = 0.628
+  ..
+
 "Generic Brick" = MATERIAL
    TYPE            = PROPERTIES
    THICKNESS       = 0.328
    CONDUCTIVITY    = 0.285
    DENSITY         = 119.865
    SPECIFIC-HEAT   = 0.34
-  ..
-
-"Generic Acoustic Tile" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.066
-   CONDUCTIVITY    = 0.019
-   DENSITY         = 22.974
-   SPECIFIC-HEAT   = 0.254
-  ..
-
-"Generic Gypsum Board" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.042
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 49.944
-   SPECIFIC-HEAT   = 0.469
-  ..
-
-"Generic Painted Metal" = MATERIAL
-   TYPE            = RESISTANCE
-   RESISTANCE      = 0.00018927544456666666
-  ..
-
-"Generic 50mm Insulation" = MATERIAL
-   TYPE            = PROPERTIES
-   THICKNESS       = 0.164
-   CONDUCTIVITY    = 0.01
-   DENSITY         = 2.684
-   SPECIFIC-HEAT   = 0.52
   ..
 
 "Generic Wall Air Gap" = MATERIAL
@@ -530,12 +509,25 @@ $ ---------------------------------------------------------
    SPECIFIC-HEAT   = 0.43
   ..
 
-"Generic Roof Membrane" = MATERIAL
+"Generic Painted Metal" = MATERIAL
+   TYPE            = RESISTANCE
+   RESISTANCE      = 0.00018927544456666666
+  ..
+
+"Generic Ceiling Air Gap" = MATERIAL
    TYPE            = PROPERTIES
-   THICKNESS       = 0.033
-   CONDUCTIVITY    = 0.051
-   DENSITY         = 69.921
-   SPECIFIC-HEAT   = 0.628
+   THICKNESS       = 0.328
+   CONDUCTIVITY    = 0.176
+   DENSITY         = 0.08
+   SPECIFIC-HEAT   = 0.43
+  ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.164
+   CONDUCTIVITY    = 0.01
+   DENSITY         = 2.684
+   SPECIFIC-HEAT   = 0.52
   ..
 
 "Generic LW Concrete" = MATERIAL
@@ -544,6 +536,14 @@ $ ---------------------------------------------------------
    CONDUCTIVITY    = 0.168
    DENSITY         = 79.91
    SPECIFIC-HEAT   = 0.361
+  ..
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE            = PROPERTIES
+   THICKNESS       = 0.066
+   CONDUCTIVITY    = 0.019
+   DENSITY         = 22.974
+   SPECIFIC-HEAT   = 0.254
   ..
 
 "Generic Exterior Wall_l" = LAYERS
@@ -824,7 +824,7 @@ $ ---------------------------------------------------------
    ..
 "Face1_3 Plg" = POLYGON
    V1        = ( 0.000000, 19.685039 )
-   V2        = ( 0.000000, 0.000000 )
+   V2        = ( -0.000000, 0.000000 )
    V3        = ( 32.808399, -0.000000 )
    V4        = ( 32.808399, 19.685039 )
    ..
@@ -956,7 +956,7 @@ $ ---------------------------------------------------------
    ..
 "Face2_2 Plg" = POLYGON
    V1        = ( 0.000000, 19.685039 )
-   V2        = ( 0.000000, 0.000000 )
+   V2        = ( -0.000000, 0.000000 )
    V3        = ( 32.808399, -0.000000 )
    V4        = ( 32.808399, 19.685039 )
    ..
@@ -1067,7 +1067,7 @@ $ *********************************************************
   CONSTRUCTION      = "Generic Exterior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  180.0
-  X                 =  0.0
+  X                 =  1.2301179319733081e-31
   Y                 =  -32.80839895013123
   Z                 =  -2.0089350379713795e-15
   ..
@@ -1259,7 +1259,7 @@ $ *********************************************************
   CONSTRUCTION      = "Generic Interior Wall_c"
   TILT              =  90.0
   AZIMUTH           =  180.0
-  X                 =  0.0
+  X                 =  1.2301179319733081e-31
   Y                 =  -32.80839895013123
   Z                 =  -2.008935037903471e-15
   NEXT-TO           =  "corr1"
@@ -1723,6 +1723,16 @@ $ **                                                     **
 $ **               HVAC Systems / Zones                  **
 $ **                                                     **
 $ *********************************************************
+
+
+
+
+
+
+
+
+
+
 
 
 
