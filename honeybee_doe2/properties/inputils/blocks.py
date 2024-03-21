@@ -111,7 +111,7 @@ chill_meter = '{sd_brk}$              Chilled Water Meters\n{sd_brk}{spacer}'.fo
     sd_brk=sd_brk, spacer=spacer)
 
 hvac_sys_zone = star_brk+star_blnk+'$ **               HVAC Systems / Zones                  **\n'\
-    + star_blnk+star_brk+spacer
+    + star_blnk+star_brk#+spacer
 
 misc_meter_hvac = star_brk+star_blnk+'$ **                Metering & Misc HVAC                 **\n'\
     + star_blnk+star_brk+spacer

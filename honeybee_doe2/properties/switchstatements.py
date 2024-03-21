@@ -417,6 +417,7 @@ class SwitchEquipmentSched:
     
     def __repr__(self):
         return self.to_inp()
+   
     
 class SwitchFlowArea:
     def __init__(self, _activity_descriptions):
@@ -506,7 +507,6 @@ class SwitchMinFlowRatio:
         return self.to_inp()
     
     
-    
 class SwitchAssignedFlow:
     def __init__(self, _activity_descriptions, _hb_model):
         self._activity_descriptions = _activity_descriptions
@@ -552,7 +552,6 @@ class SwitchAssignedFlow:
 
     def __repr__(self):
         return self.to_inp()
-    
     
     
 class SwitchHMaxFlowRatio:

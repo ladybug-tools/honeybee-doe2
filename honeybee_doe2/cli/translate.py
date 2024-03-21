@@ -36,8 +36,8 @@ def translate():
 )
 
 @click.option(
-    '--switch-statements', '-swi', help='Use this flag to export switch statements with the model',
-    default=False, show_default=True, is_flag=True
+    '--switch-statements', '-swi', help='Use this input to select switch statements to add to the model',
+    multiple=True, default=[]
 )
 
 
