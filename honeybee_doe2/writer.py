@@ -42,6 +42,21 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
             f'Invalid hvac_mapping input: {hvac_mapping}\n'
             f'Expected one of the following: {mapper_options}'
         )
+    
+    hb_model = hb_model.duplicate()
+    if hb_model.units != 'Feet':
+        hb_model.convert_to_units(units='Feet')
+    hb_model.remove_degenerate_geometry()
+    
+    room_list = [room for room in hb_model.rooms]
+    counts = {}
+    for i, room in enumerate(room_list):
+        if room.display_name in counts:
+            counts[room.display_name] += 1
+            room_list[i].display_name = f"{short_name(clean_string(value=room.display_name))}{counts[room.display_name]}"
+        else:
+            counts[room.display_name] = 1
+
     hvac_maps = None
     if hvac_mapping == 'room':
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_room
@@ -51,16 +66,6 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_model
     elif hvac_mapping == 'assigned-hvac':
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_hb_hvac
-
-
-
-
-    hb_model = hb_model.duplicate()
-
-    if hb_model.units != 'Feet':
-        hb_model.convert_to_units(units='Feet')
-    hb_model.remove_degenerate_geometry()
-
     for room in hb_model.rooms:
         room.properties.doe2.interior_wall_toggle = exclude_interior_walls
     
@@ -73,6 +78,7 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
             day.unlock()
             day.display_name = short_name(day.display_name)
             day_list.append(day)
+         
     counts = {}
     for i, day in enumerate(day_list):
         if day.display_name in counts:
@@ -163,8 +169,6 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
     else:
         switchMinFlowArea = ''    
 
-    
-
     try:
         hb_model.rectangularize_apertures(
             subdivision_distance=0.5, max_separation=0.0, merge_all=True,
@@ -184,8 +188,9 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         room.display_name = short_name(room.display_name)
         if room.display_name in room_names:
             original_name = room.display_name
-            room.display_name = f'{original_name}_{room_names[original_name]}'
             room_names[original_name] += 1
+            room.display_name = f'{original_name}_{room_names[original_name]}'
+            
         else:
             room_names[room.display_name] = 1
 

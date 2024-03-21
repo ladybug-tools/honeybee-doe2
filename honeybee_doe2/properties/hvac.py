@@ -24,8 +24,7 @@ class Zone:
                 f'Unsupported type: {type(room)}\n'
                 'Expected honeybee room'
             )
-
-        name = short_name(clean_string(value=room.display_name).replace(' ', ''))
+        name = short_name(room.display_name)
 
         if room.properties.energy.is_conditioned:
             heating_setpoint = room.properties.energy.program_type.setpoint.heating_setpoint

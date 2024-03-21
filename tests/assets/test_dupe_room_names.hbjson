@@ -3486,7 +3486,7 @@
       "exclude_floor_area": false,
       "story": "0",
       "identifier": "Room_5f634b6e",
-      "display_name": "corr1",
+      "display_name": "corr",
       "user_data": {
         "act_desc": "corr",
         "__layer__": "Room",
@@ -4318,7 +4318,7 @@
       "exclude_floor_area": false,
       "story": "0",
       "identifier": "Room_82caee3f",
-      "display_name": "brkm1",
+      "display_name": "brkm",
       "user_data": {
         "act_desc": "brkm",
         "__layer__": "Room",
@@ -4730,7 +4730,7 @@
       "exclude_floor_area": false,
       "story": "0",
       "identifier": "Room_e1190739",
-      "display_name": "lobb",
+      "display_name": "strw",
       "user_data": {
         "act_desc": "lobb",
         "__layer__": "Room",
@@ -5143,7 +5143,7 @@
       "exclude_floor_area": false,
       "story": "0",
       "identifier": "Room_14f5beab",
-      "display_name": "lobb1",
+      "display_name": "lobb",
       "user_data": {
         "act_desc": "lobb",
         "__layer__": "Room",
