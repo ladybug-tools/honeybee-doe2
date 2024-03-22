@@ -13,15 +13,26 @@ from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
 from honeybee.boundarycondition import Surface
 from honeybee.typing import clean_string
+from typing import List
 
+from .properties.switchstatements import *
 
-def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False, exclude_interior_ceilings:bool=False):
+def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False, exclude_interior_ceilings:bool=False, switch_statements:List=[]):
     # type: (Model) -> str
     """
         args:
             hb_model: Honeybee model
             hvac_mapping: accepts: 'room', 'story', 'model', 'assigned-hvac'
     """
+    
+    room_list = [room for room in hb_model.rooms]
+    counts = {}
+    for i, room in enumerate(room_list):
+        if room.display_name in counts:
+            counts[room.display_name] += 1
+            room_list[i].display_name = f"{short_name(clean_string(value=room.display_name))}{counts[room.display_name]}"
+        else:
+            counts[room.display_name] = 1
     
     mapper_options = ['room', 'story', 'model', 'assigned-hvac']
     if hvac_mapping not in mapper_options:
@@ -38,15 +49,95 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_model
     elif hvac_mapping == 'assigned-hvac':
         hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_hb_hvac
-
-
-
-
+        
     hb_model = hb_model.duplicate()
 
     if hb_model.units != 'Feet':
         hb_model.convert_to_units(units='Feet')
     hb_model.remove_degenerate_geometry()
+
+                #spaces
+    if 'PEOPLE-SCHEDULE' in switch_statements:
+        switchPeopleSched = SwitchPeopleSched.from_hb_model(hb_model).to_inp()
+    else:
+        switchPeopleSched = ''
+    
+        
+    if 'AREA/PERSON' in switch_statements:
+        switchAreaPerson = SwitchAreaPerson.from_hb_model(hb_model).to_inp()
+    else:
+        switchAreaPerson = ''
+        
+    if 'LIGHTING-W/AREA' in switch_statements:
+        switchLightingWArea = SwitchLightingWArea.from_hb_model(hb_model).to_inp()
+    else:
+        switchLightingWArea = ''
+        
+    if 'EQUIPMENT-W/AREA' in switch_statements:
+        switchEquipmentWArea = SwitchEquipmentWArea.from_hb_model(hb_model).to_inp()
+    else:
+        switchEquipmentWArea = ''
+    
+    if 'LIGHTING-SCHEDUL' in switch_statements:
+        switchLightingSched = SwitchLightingSched.from_hb_model(hb_model).to_inp()
+    else:
+        switchLightingSched = ''    
+        
+    if 'EQUIP-SCHEDULE' in switch_statements:
+        switchEquipmentSched = SwitchEquipmentSched.from_hb_model(hb_model).to_inp()
+    else:
+        switchEquipmentSched = ''
+    #zones
+    if 'DESIGN-HEAT-T' in switch_statements:
+        switchDesignHeat = SwitchDesignHeat.from_hb_model(hb_model).to_inp()
+    else:
+        switchDesignHeat = ''  
+        
+    if 'HEAT-TEMP-SCH' in switch_statements:   
+        switchHeatSchedule = SwitchHeatSchedule.from_hb_model(hb_model).to_inp()
+    else:
+        switchHeatSchedule = ''    
+    
+    if 'DESIGN-COOL-T' in switch_statements:    
+        switchDesignCool = SwitchDesignCool.from_hb_model(hb_model).to_inp()
+    else:
+        switchDesignCool = ''
+    
+    if 'COOL-TEMP-SCH' in switch_statements:
+        switchCoolSchedule = SwitchCoolSchedule.from_hb_model(hb_model).to_inp()
+    else:
+        switchCoolSchedule = ''
+    
+    if 'OUTSIDE-AIR-FLOW' in switch_statements: 
+        switchOutsideAirFlow = SwitchOutsideAirFlow.from_hb_model(hb_model).to_inp()
+    else:
+        switchOutsideAirFlow = ''
+    
+    if 'FLOW/AREA' in switch_statements:
+        switchFlowArea = SwitchFlowArea.from_hb_model(hb_model).to_inp()
+    else:
+        switchFlowArea = ''
+        
+    if 'MIN-FLOW-RATIO' in switch_statements:    
+        switchMinFlowRatio = SwitchMinFlowRatio.from_hb_model(hb_model).to_inp()
+    else:
+        switchMinFlowRatio = ''
+    
+    if 'ASSIGNED-FLOW' in switch_statements:
+        switchAssignedFlow = SwitchAssignedFlow.from_hb_model(hb_model).to_inp()
+    else:
+        switchAssignedFlow = ''
+    
+    if 'HMAX-FLOW-RATIO' in switch_statements:
+        switchHMaxFlowRatio = SwitchHMaxFlowRatio.from_hb_model(hb_model).to_inp()
+    else:
+        switchHMaxFlowRatio = ''
+    
+    if 'MIN-FLOW/AREA' in switch_statements:
+        switchMinFlowArea = SwitchMinFlowArea.from_hb_model(hb_model).to_inp()
+    else:
+        switchMinFlowArea = ''
+
 
     for room in hb_model.rooms:
         room.properties.doe2.interior_wall_toggle = exclude_interior_walls
@@ -165,6 +256,12 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         fb.miscCost,
         fb.perfCurve,
         fb.floorNspace,
+        switchPeopleSched,
+        switchAreaPerson,
+        switchLightingWArea,
+        switchEquipmentWArea,
+        switchLightingSched,
+        switchEquipmentSched,
         '\n'.join(str(story) for story in hb_model.properties.doe2.stories),
         fb.elecFuelMeter,
         fb.elec_meter,
@@ -188,6 +285,16 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         fb.steam_mtr,
         fb.chill_meter,
         fb.hvac_sys_zone,
+        switchDesignHeat,
+        switchHeatSchedule,
+        switchDesignCool,
+        switchCoolSchedule,
+        switchOutsideAirFlow,
+        switchFlowArea,
+        switchMinFlowRatio,
+        switchAssignedFlow,
+        switchHMaxFlowRatio,
+        switchMinFlowArea,
         '\n'.join(hv_sys.to_inp()
                   for hv_sys in hvac_maps),  # * change to variable
         fb.misc_meter_hvac,
@@ -210,11 +317,12 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
 
 def honeybee_model_to_inp(
         model: Model, hvac_mapping: str = 'story',exclude_interior_walls=False, exclude_interior_ceilings=False,
-        folder: str = '.', name: str = None) -> pathlib.Path:
+        switch_statements:List=[], folder: str = '.', name: str = None) -> pathlib.Path:
 
     inp_model = model_to_inp(model, hvac_mapping=hvac_mapping,
                              exclude_interior_walls=exclude_interior_walls,
-                             exclude_interior_ceilings=exclude_interior_ceilings)
+                             exclude_interior_ceilings=exclude_interior_ceilings,
+                             switch_statements=switch_statements)
 
     name = name or model.display_name
     if not name.lower().endswith('.inp'):

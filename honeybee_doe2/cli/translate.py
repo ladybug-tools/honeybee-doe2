@@ -35,6 +35,11 @@ def translate():
     default=False, show_default=True, is_flag=True
 )
 
+@click.option(
+    '--switch-statements', '-swi', help='Use this input to select switch statements to add to the model',
+    multiple=True, default=[]
+)
+
 @click.option('--name', '-n', help='Name of the output file.', default='model',
               show_default=True
               )
