@@ -15,7 +15,7 @@ def test_switch_true():
         out_file.unlink()
     hb_model = Model.from_file(hb_json)
     honeybee_model_to_inp(hb_model, hvac_mapping='model', exclude_interior_walls=False, 
-                          exclude_interior_ceilings=False,switch_statements=['PEOPLE-SCHEDULE', 'AREA/PERSON','MIN-FLOW-RATIO', 'HMAX-FLOW-RATIO'],
+                          exclude_interior_ceilings=False,switch_statements=['PEOPLE-SCHEDULE', 'AREA/PERSON','OUTSIDE-AIR-FLOW','MIN-FLOW-RATIO', 'HMAX-FLOW-RATIO'],
                           folder=out_inp, name='switch_true_test_model.inp')
 
     assert out_file.exists()
