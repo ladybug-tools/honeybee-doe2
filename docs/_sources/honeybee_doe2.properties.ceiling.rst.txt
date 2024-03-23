@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.ceiling module
+========================================
+
+.. automodule:: honeybee_doe2.properties.ceiling
+   :members:
+   :undoc-members:
+   :show-inheritance:

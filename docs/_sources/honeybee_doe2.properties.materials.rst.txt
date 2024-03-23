@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.materials module
+==========================================
+
+.. automodule:: honeybee_doe2.properties.materials
+   :members:
+   :undoc-members:
+   :show-inheritance:

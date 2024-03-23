@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.story module
+======================================
+
+.. automodule:: honeybee_doe2.properties.story
+   :members:
+   :undoc-members:
+   :show-inheritance:

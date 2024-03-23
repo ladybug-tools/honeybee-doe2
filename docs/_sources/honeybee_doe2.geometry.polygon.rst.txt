@@ -1,0 +1,7 @@
+honeybee\_doe2.geometry.polygon module
+======================================
+
+.. automodule:: honeybee_doe2.geometry.polygon
+   :members:
+   :undoc-members:
+   :show-inheritance:

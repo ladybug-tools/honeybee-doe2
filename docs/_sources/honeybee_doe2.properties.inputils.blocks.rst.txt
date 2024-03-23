@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.inputils.blocks module
+================================================
+
+.. automodule:: honeybee_doe2.properties.inputils.blocks
+   :members:
+   :undoc-members:
+   :show-inheritance:

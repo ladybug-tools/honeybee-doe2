@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.hvac module
+=====================================
+
+.. automodule:: honeybee_doe2.properties.hvac
+   :members:
+   :undoc-members:
+   :show-inheritance:

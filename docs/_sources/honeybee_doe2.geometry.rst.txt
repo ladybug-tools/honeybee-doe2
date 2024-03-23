@@ -1,0 +1,18 @@
+honeybee\_doe2.geometry package
+===============================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.geometry.polygon
+
+Module contents
+---------------
+
+.. automodule:: honeybee_doe2.geometry
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+honeybee\_doe2.utils.vector module
+==================================
+
+.. automodule:: honeybee_doe2.utils.vector
+   :members:
+   :undoc-members:
+   :show-inheritance:

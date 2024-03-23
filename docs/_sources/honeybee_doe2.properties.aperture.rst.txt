@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.aperture module
+=========================================
+
+.. automodule:: honeybee_doe2.properties.aperture
+   :members:
+   :undoc-members:
+   :show-inheritance:

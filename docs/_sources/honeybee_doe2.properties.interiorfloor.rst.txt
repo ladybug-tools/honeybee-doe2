@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.interiorfloor module
+==============================================
+
+.. automodule:: honeybee_doe2.properties.interiorfloor
+   :members:
+   :undoc-members:
+   :show-inheritance:

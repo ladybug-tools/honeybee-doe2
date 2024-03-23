@@ -1,0 +1,19 @@
+honeybee\_doe2.utils package
+============================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.utils.doe_formatters
+   honeybee_doe2.utils.vector
+
+Module contents
+---------------
+
+.. automodule:: honeybee_doe2.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

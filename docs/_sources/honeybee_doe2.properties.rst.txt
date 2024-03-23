@@ -1,0 +1,45 @@
+honeybee\_doe2.properties package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.properties.inputils
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.properties.activitydescription
+   honeybee_doe2.properties.adiabaticfloor
+   honeybee_doe2.properties.adiabaticroof
+   honeybee_doe2.properties.aperture
+   honeybee_doe2.properties.ceiling
+   honeybee_doe2.properties.constructions
+   honeybee_doe2.properties.door
+   honeybee_doe2.properties.exposedfloor
+   honeybee_doe2.properties.face
+   honeybee_doe2.properties.groundcontact
+   honeybee_doe2.properties.hvac
+   honeybee_doe2.properties.interiorfloor
+   honeybee_doe2.properties.materials
+   honeybee_doe2.properties.model
+   honeybee_doe2.properties.roof
+   honeybee_doe2.properties.room
+   honeybee_doe2.properties.shades
+   honeybee_doe2.properties.story
+   honeybee_doe2.properties.switchstatements
+   honeybee_doe2.properties.wall
+
+Module contents
+---------------
+
+.. automodule:: honeybee_doe2.properties
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,23 @@
+honeybee\_doe2.properties.inputils package
+==========================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.properties.inputils.blocks
+   honeybee_doe2.properties.inputils.compliance
+   honeybee_doe2.properties.inputils.glass_types
+   honeybee_doe2.properties.inputils.run_period
+   honeybee_doe2.properties.inputils.sitebldg
+   honeybee_doe2.properties.inputils.title
+
+Module contents
+---------------
+
+.. automodule:: honeybee_doe2.properties.inputils
+   :members:
+   :undoc-members:
+   :show-inheritance:

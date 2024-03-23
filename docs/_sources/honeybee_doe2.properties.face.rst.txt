@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.face module
+=====================================
+
+.. automodule:: honeybee_doe2.properties.face
+   :members:
+   :undoc-members:
+   :show-inheritance:

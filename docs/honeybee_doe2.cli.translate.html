@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>honeybee_doe2.cli.translate module &#8212; honeybee-doe2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="honeybee_doe2.geometry package" href="honeybee_doe2.geometry.html" />
+    <link rel="prev" title="honeybee_doe2.cli package" href="honeybee_doe2.cli.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          honeybee-doe2</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/translate.html">translate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/translate.html#honeybee-doe2-translate">honeybee-doe2 translate</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="cli/translate.html#honeybee-doe2-translate-hbjson-to-inp">hbjson-to-inp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_doe2.html">honeybee_doe2 package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_doe2.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="honeybee_doe2.cli.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">honeybee_doe2.cli.translate module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.geometry.html">honeybee_doe2.geometry package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.geometry.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.geometry.polygon.html">honeybee_doe2.geometry.polygon module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.geometry.polygon.html#honeybee_doe2.geometry.polygon.DoePolygon"><code class="docutils literal notranslate"><span class="pre">DoePolygon</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.geometry.polygon.html#honeybee_doe2.geometry.polygon.DoePolygon.from_face"><code class="docutils literal notranslate"><span class="pre">DoePolygon.from_face()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.geometry.polygon.html#honeybee_doe2.geometry.polygon.DoePolygon.to_inp"><code class="docutils literal notranslate"><span class="pre">DoePolygon.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.geometry.html#module-honeybee_doe2.geometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.properties.html">honeybee_doe2.properties package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.properties.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.inputils.html">honeybee_doe2.properties.inputils package</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.inputils.html#submodules">Submodules</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.inputils.blocks.html">honeybee_doe2.properties.inputils.blocks module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html">honeybee_doe2.properties.inputils.compliance module</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData"><code class="docutils literal notranslate"><span class="pre">ComplianceData</span></code></a><ul>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.to_inp"><code class="docutils literal notranslate"><span class="pre">ComplianceData.to_inp()</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.bldg_type"><code class="docutils literal notranslate"><span class="pre">ComplianceData.bldg_type</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.bldg_type_901"><code class="docutils literal notranslate"><span class="pre">ComplianceData.bldg_type_901</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.code_version"><code class="docutils literal notranslate"><span class="pre">ComplianceData.code_version</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.cons_phase"><code class="docutils literal notranslate"><span class="pre">ComplianceData.cons_phase</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.nr_dhw_incl"><code class="docutils literal notranslate"><span class="pre">ComplianceData.nr_dhw_incl</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.num_floors"><code class="docutils literal notranslate"><span class="pre">ComplianceData.num_floors</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.permit_scope"><code class="docutils literal notranslate"><span class="pre">ComplianceData.permit_scope</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.compliance.html#honeybee_doe2.properties.inputils.compliance.ComplianceData.proj_name"><code class="docutils literal notranslate"><span class="pre">ComplianceData.proj_name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.inputils.glass_types.html">honeybee_doe2.properties.inputils.glass_types module</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="honeybee_doe2.properties.inputils.glass_types.html#honeybee_doe2.properties.inputils.glass_types.GlassType"><code class="docutils literal notranslate"><span class="pre">GlassType</span></code></a><ul>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.glass_types.html#honeybee_doe2.properties.inputils.glass_types.GlassType.from_hb_window_constr"><code class="docutils literal notranslate"><span class="pre">GlassType.from_hb_window_constr()</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.glass_types.html#honeybee_doe2.properties.inputils.glass_types.GlassType.to_inp"><code class="docutils literal notranslate"><span class="pre">GlassType.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.inputils.run_period.html">honeybee_doe2.properties.inputils.run_period module</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="honeybee_doe2.properties.inputils.run_period.html#honeybee_doe2.properties.inputils.run_period.RunPeriod"><code class="docutils literal notranslate"><span class="pre">RunPeriod</span></code></a><ul>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.run_period.html#honeybee_doe2.properties.inputils.run_period.RunPeriod.from_analysis_period"><code class="docutils literal notranslate"><span class="pre">RunPeriod.from_analysis_period()</span></code></a></li>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.run_period.html#honeybee_doe2.properties.inputils.run_period.RunPeriod.to_inp"><code class="docutils literal notranslate"><span class="pre">RunPeriod.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.inputils.sitebldg.html">honeybee_doe2.properties.inputils.sitebldg module</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="honeybee_doe2.properties.inputils.sitebldg.html#honeybee_doe2.properties.inputils.sitebldg.SiteBldgData"><code class="docutils literal notranslate"><span class="pre">SiteBldgData</span></code></a><ul>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.sitebldg.html#honeybee_doe2.properties.inputils.sitebldg.SiteBldgData.to_inp"><code class="docutils literal notranslate"><span class="pre">SiteBldgData.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.inputils.title.html">honeybee_doe2.properties.inputils.title module</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="honeybee_doe2.properties.inputils.title.html#honeybee_doe2.properties.inputils.title.Title"><code class="docutils literal notranslate"><span class="pre">Title</span></code></a><ul>
+<li class="toctree-l9"><a class="reference internal" href="honeybee_doe2.properties.inputils.title.html#honeybee_doe2.properties.inputils.title.Title.to_inp"><code class="docutils literal notranslate"><span class="pre">Title.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.inputils.html#module-honeybee_doe2.properties.inputils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.properties.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html">honeybee_doe2.properties.activitydescription module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleDoe"><code class="docutils literal notranslate"><span class="pre">DayScheduleDoe</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleDoe.from_day_schedule"><code class="docutils literal notranslate"><span class="pre">DayScheduleDoe.from_day_schedule()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleDoe.to_inp"><code class="docutils literal notranslate"><span class="pre">DayScheduleDoe.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleDoe.name"><code class="docutils literal notranslate"><span class="pre">DayScheduleDoe.name</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleDoe.stype"><code class="docutils literal notranslate"><span class="pre">DayScheduleDoe.stype</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleDoe.values"><code class="docutils literal notranslate"><span class="pre">DayScheduleDoe.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType"><code class="docutils literal notranslate"><span class="pre">DayScheduleType</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.EXPFRACTION"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.EXPFRACTION</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.FLAG"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.FLAG</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.FRACDESIGN"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.FRACDESIGN</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.FRACTION"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.FRACTION</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.MULTIPLIER"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.MULTIPLIER</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.ONOFF"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.ONOFF</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.ONOFFFLAG"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.ONOFFFLAG</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.ONOFFTEMP"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.ONOFFTEMP</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.RADIATION"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.RADIATION</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.RESETRATIO"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.RESETRATIO</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.RESETTEMP"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.RESETTEMP</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.DayScheduleType.TEMPERATURE"><code class="docutils literal notranslate"><span class="pre">DayScheduleType.TEMPERATURE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days"><code class="docutils literal notranslate"><span class="pre">Days</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.ALL"><code class="docutils literal notranslate"><span class="pre">Days.ALL</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.CDD"><code class="docutils literal notranslate"><span class="pre">Days.CDD</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.FRI"><code class="docutils literal notranslate"><span class="pre">Days.FRI</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.HDD"><code class="docutils literal notranslate"><span class="pre">Days.HDD</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.HOL"><code class="docutils literal notranslate"><span class="pre">Days.HOL</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.MON"><code class="docutils literal notranslate"><span class="pre">Days.MON</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.SAT"><code class="docutils literal notranslate"><span class="pre">Days.SAT</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.SUN"><code class="docutils literal notranslate"><span class="pre">Days.SUN</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.THUR"><code class="docutils literal notranslate"><span class="pre">Days.THUR</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.TUE"><code class="docutils literal notranslate"><span class="pre">Days.TUE</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.WD"><code class="docutils literal notranslate"><span class="pre">Days.WD</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.WED"><code class="docutils literal notranslate"><span class="pre">Days.WED</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.Days.WEH"><code class="docutils literal notranslate"><span class="pre">Days.WEH</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.WeekScheduleDoe"><code class="docutils literal notranslate"><span class="pre">WeekScheduleDoe</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.WeekScheduleDoe.stype"><code class="docutils literal notranslate"><span class="pre">WeekScheduleDoe.stype</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.WeekScheduleDoe.from_schedule_ruleset"><code class="docutils literal notranslate"><span class="pre">WeekScheduleDoe.from_schedule_ruleset()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.WeekScheduleDoe.to_inp"><code class="docutils literal notranslate"><span class="pre">WeekScheduleDoe.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.WeekScheduleDoe.day_schedules"><code class="docutils literal notranslate"><span class="pre">WeekScheduleDoe.day_schedules</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.activitydescription.html#honeybee_doe2.properties.activitydescription.WeekScheduleDoe.name"><code class="docutils literal notranslate"><span class="pre">WeekScheduleDoe.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.adiabaticfloor.html">honeybee_doe2.properties.adiabaticfloor module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.adiabaticfloor.html#honeybee_doe2.properties.adiabaticfloor.AdiabaticFloor"><code class="docutils literal notranslate"><span class="pre">AdiabaticFloor</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.adiabaticfloor.html#honeybee_doe2.properties.adiabaticfloor.AdiabaticFloor.to_inp"><code class="docutils literal notranslate"><span class="pre">AdiabaticFloor.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.adiabaticroof.html">honeybee_doe2.properties.adiabaticroof module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.adiabaticroof.html#honeybee_doe2.properties.adiabaticroof.AdiabaticRoof"><code class="docutils literal notranslate"><span class="pre">AdiabaticRoof</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.adiabaticroof.html#honeybee_doe2.properties.adiabaticroof.AdiabaticRoof.to_inp"><code class="docutils literal notranslate"><span class="pre">AdiabaticRoof.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.aperture.html">honeybee_doe2.properties.aperture module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.aperture.html#honeybee_doe2.properties.aperture.Window"><code class="docutils literal notranslate"><span class="pre">Window</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.aperture.html#honeybee_doe2.properties.aperture.Window.to_inp"><code class="docutils literal notranslate"><span class="pre">Window.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.ceiling.html">honeybee_doe2.properties.ceiling module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.ceiling.html#honeybee_doe2.properties.ceiling.DoeCeilign"><code class="docutils literal notranslate"><span class="pre">DoeCeilign</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.ceiling.html#honeybee_doe2.properties.ceiling.DoeCeilign.to_inp"><code class="docutils literal notranslate"><span class="pre">DoeCeilign.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.constructions.html">honeybee_doe2.properties.constructions module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.Construction"><code class="docutils literal notranslate"><span class="pre">Construction</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.Construction.from_hb_construction"><code class="docutils literal notranslate"><span class="pre">Construction.from_hb_construction()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.Construction.to_inp"><code class="docutils literal notranslate"><span class="pre">Construction.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.Construction.absorptance"><code class="docutils literal notranslate"><span class="pre">Construction.absorptance</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.Construction.materials"><code class="docutils literal notranslate"><span class="pre">Construction.materials</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.Construction.name"><code class="docutils literal notranslate"><span class="pre">Construction.name</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.Construction.roughness"><code class="docutils literal notranslate"><span class="pre">Construction.roughness</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.ConstructionCollection"><code class="docutils literal notranslate"><span class="pre">ConstructionCollection</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.ConstructionCollection.from_hb_constructions"><code class="docutils literal notranslate"><span class="pre">ConstructionCollection.from_hb_constructions()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.ConstructionCollection.to_inp"><code class="docutils literal notranslate"><span class="pre">ConstructionCollection.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.constructions.html#honeybee_doe2.properties.constructions.ConstructionCollection.constructions"><code class="docutils literal notranslate"><span class="pre">ConstructionCollection.constructions</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.door.html">honeybee_doe2.properties.door module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.door.html#honeybee_doe2.properties.door.Door"><code class="docutils literal notranslate"><span class="pre">Door</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.door.html#honeybee_doe2.properties.door.Door.to_inp"><code class="docutils literal notranslate"><span class="pre">Door.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.exposedfloor.html">honeybee_doe2.properties.exposedfloor module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.exposedfloor.html#honeybee_doe2.properties.exposedfloor.ExposedFloor"><code class="docutils literal notranslate"><span class="pre">ExposedFloor</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.exposedfloor.html#honeybee_doe2.properties.exposedfloor.ExposedFloor.to_inp"><code class="docutils literal notranslate"><span class="pre">ExposedFloor.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.face.html">honeybee_doe2.properties.face module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.face.html#honeybee_doe2.properties.face.FaceDoe2Properties"><code class="docutils literal notranslate"><span class="pre">FaceDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.face.html#honeybee_doe2.properties.face.FaceDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">FaceDoe2Properties.ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.face.html#honeybee_doe2.properties.face.FaceDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">FaceDoe2Properties.duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.face.html#honeybee_doe2.properties.face.FaceDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">FaceDoe2Properties.host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.face.html#honeybee_doe2.properties.face.FaceDoe2Properties.poly"><code class="docutils literal notranslate"><span class="pre">FaceDoe2Properties.poly</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.groundcontact.html">honeybee_doe2.properties.groundcontact module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.groundcontact.html#honeybee_doe2.properties.groundcontact.GroundFloor"><code class="docutils literal notranslate"><span class="pre">GroundFloor</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.groundcontact.html#honeybee_doe2.properties.groundcontact.GroundFloor.to_inp"><code class="docutils literal notranslate"><span class="pre">GroundFloor.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.hvac.html">honeybee_doe2.properties.hvac module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem"><code class="docutils literal notranslate"><span class="pre">HVACSystem</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem.from_model"><code class="docutils literal notranslate"><span class="pre">HVACSystem.from_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem.from_room"><code class="docutils literal notranslate"><span class="pre">HVACSystem.from_room()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem.from_story"><code class="docutils literal notranslate"><span class="pre">HVACSystem.from_story()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem.from_zone_groups"><code class="docutils literal notranslate"><span class="pre">HVACSystem.from_zone_groups()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem.to_inp"><code class="docutils literal notranslate"><span class="pre">HVACSystem.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem.name"><code class="docutils literal notranslate"><span class="pre">HVACSystem.name</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.HVACSystem.zones"><code class="docutils literal notranslate"><span class="pre">HVACSystem.zones</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.Zone"><code class="docutils literal notranslate"><span class="pre">Zone</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.Zone.from_room"><code class="docutils literal notranslate"><span class="pre">Zone.from_room()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.Zone.to_inp"><code class="docutils literal notranslate"><span class="pre">Zone.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.Zone.cooling_setpoint"><code class="docutils literal notranslate"><span class="pre">Zone.cooling_setpoint</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.Zone.heating_setpoint"><code class="docutils literal notranslate"><span class="pre">Zone.heating_setpoint</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.Zone.name"><code class="docutils literal notranslate"><span class="pre">Zone.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.hvac.html#honeybee_doe2.properties.hvac.hb_hvac_mapper"><code class="docutils literal notranslate"><span class="pre">hb_hvac_mapper()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.interiorfloor.html">honeybee_doe2.properties.interiorfloor module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.interiorfloor.html#honeybee_doe2.properties.interiorfloor.InteriorFloor"><code class="docutils literal notranslate"><span class="pre">InteriorFloor</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.interiorfloor.html#honeybee_doe2.properties.interiorfloor.InteriorFloor.to_inp"><code class="docutils literal notranslate"><span class="pre">InteriorFloor.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.materials.html">honeybee_doe2.properties.materials module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial"><code class="docutils literal notranslate"><span class="pre">MassMaterial</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial.from_hb_material"><code class="docutils literal notranslate"><span class="pre">MassMaterial.from_hb_material()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial.to_inp"><code class="docutils literal notranslate"><span class="pre">MassMaterial.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial.conductivity"><code class="docutils literal notranslate"><span class="pre">MassMaterial.conductivity</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial.density"><code class="docutils literal notranslate"><span class="pre">MassMaterial.density</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial.name"><code class="docutils literal notranslate"><span class="pre">MassMaterial.name</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial.specific_heat"><code class="docutils literal notranslate"><span class="pre">MassMaterial.specific_heat</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MassMaterial.thickness"><code class="docutils literal notranslate"><span class="pre">MassMaterial.thickness</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.Material"><code class="docutils literal notranslate"><span class="pre">Material</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.Material.from_hb_material"><code class="docutils literal notranslate"><span class="pre">Material.from_hb_material()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.Material.to_inp"><code class="docutils literal notranslate"><span class="pre">Material.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.Material.material"><code class="docutils literal notranslate"><span class="pre">Material.material</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MaterialType"><code class="docutils literal notranslate"><span class="pre">MaterialType</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MaterialType.mass"><code class="docutils literal notranslate"><span class="pre">MaterialType.mass</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.MaterialType.no_mass"><code class="docutils literal notranslate"><span class="pre">MaterialType.no_mass</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.NoMassMaterial"><code class="docutils literal notranslate"><span class="pre">NoMassMaterial</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.NoMassMaterial.from_hb_material"><code class="docutils literal notranslate"><span class="pre">NoMassMaterial.from_hb_material()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.NoMassMaterial.to_inp"><code class="docutils literal notranslate"><span class="pre">NoMassMaterial.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.NoMassMaterial.name"><code class="docutils literal notranslate"><span class="pre">NoMassMaterial.name</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.materials.html#honeybee_doe2.properties.materials.NoMassMaterial.resistence"><code class="docutils literal notranslate"><span class="pre">NoMassMaterial.resistence</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.model.html">honeybee_doe2.properties.model module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.day_scheduels"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.day_scheduels</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.fixed_shades"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.fixed_shades</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.header"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.header</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.hvac_sys_zones_by_hb_hvac"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.hvac_sys_zones_by_hb_hvac</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.hvac_sys_zones_by_model"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.hvac_sys_zones_by_model</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.hvac_sys_zones_by_room"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.hvac_sys_zones_by_room</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.hvac_sys_zones_by_story"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.hvac_sys_zones_by_story</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.mats_cons_layers"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.mats_cons_layers</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.stories"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.stories</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.week_scheduels"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties.week_scheduels</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.roof.html">honeybee_doe2.properties.roof module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.roof.html#honeybee_doe2.properties.roof.DoeRoof"><code class="docutils literal notranslate"><span class="pre">DoeRoof</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.roof.html#honeybee_doe2.properties.roof.DoeRoof.to_inp"><code class="docutils literal notranslate"><span class="pre">DoeRoof.to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.room.html">honeybee_doe2.properties.room module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.boundary"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.boundary()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.poly"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.poly()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.space"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.space()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.adiabatic_floor_surfaces"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.adiabatic_floor_surfaces</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.adiabatic_roofs"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.adiabatic_roofs</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.ceilings"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.ceilings</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.exposed_floor_surfaces"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.exposed_floor_surfaces</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.ground_contact_surfaces"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.ground_contact_surfaces</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.interior_ceiling_toggle"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.interior_ceiling_toggle</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.interior_floor_surfaces"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.interior_floor_surfaces</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.interior_wall_toggle"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.interior_wall_toggle</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.interior_walls"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.interior_walls</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.roofs"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.roofs</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.space_energy_properties"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.space_energy_properties</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.walls"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties.walls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.ZoneType"><code class="docutils literal notranslate"><span class="pre">ZoneType</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.ZoneType.CONDITIONED"><code class="docutils literal notranslate"><span class="pre">ZoneType.CONDITIONED</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.ZoneType.PLENUM"><code class="docutils literal notranslate"><span class="pre">ZoneType.PLENUM</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.ZoneType.UNCONDITIONED"><code class="docutils literal notranslate"><span class="pre">ZoneType.UNCONDITIONED</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.shades.html">honeybee_doe2.properties.shades module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade"><code class="docutils literal notranslate"><span class="pre">Doe2Shade</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.from_shade"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.from_shade()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.to_inp"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.azimuth"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.azimuth</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.name"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.name</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.polygon"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.polygon</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.shade_type"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.shade_type</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.tilt"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.tilt</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.transmittance"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.transmittance</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.x_ref"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.x_ref</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.y_ref"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.y_ref</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2Shade.z_ref"><code class="docutils literal notranslate"><span class="pre">Doe2Shade.z_ref</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2ShadeCollection"><code class="docutils literal notranslate"><span class="pre">Doe2ShadeCollection</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2ShadeCollection.from_hb_shades"><code class="docutils literal notranslate"><span class="pre">Doe2ShadeCollection.from_hb_shades()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2ShadeCollection.to_inp"><code class="docutils literal notranslate"><span class="pre">Doe2ShadeCollection.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.shades.html#honeybee_doe2.properties.shades.Doe2ShadeCollection.doe_shades"><code class="docutils literal notranslate"><span class="pre">Doe2ShadeCollection.doe_shades</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.story.html">honeybee_doe2.properties.story module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.story.html#honeybee_doe2.properties.story.Doe2Story"><code class="docutils literal notranslate"><span class="pre">Doe2Story</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.story.html#honeybee_doe2.properties.story.Doe2Story.to_inp"><code class="docutils literal notranslate"><span class="pre">Doe2Story.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.story.html#honeybee_doe2.properties.story.Doe2Story.display_name"><code class="docutils literal notranslate"><span class="pre">Doe2Story.display_name</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.story.html#honeybee_doe2.properties.story.Doe2Story.floor_to_floor_height"><code class="docutils literal notranslate"><span class="pre">Doe2Story.floor_to_floor_height</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.story.html#honeybee_doe2.properties.story.Doe2Story.space_height"><code class="docutils literal notranslate"><span class="pre">Doe2Story.space_height</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html">honeybee_doe2.properties.switchstatements module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAreaPerson"><code class="docutils literal notranslate"><span class="pre">SwitchAreaPerson</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAreaPerson.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchAreaPerson.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAreaPerson.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchAreaPerson.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAreaPerson.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchAreaPerson.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAssignedFlow"><code class="docutils literal notranslate"><span class="pre">SwitchAssignedFlow</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAssignedFlow.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchAssignedFlow.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAssignedFlow.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchAssignedFlow.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAssignedFlow.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchAssignedFlow.activity_descriptions</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchAssignedFlow.hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchAssignedFlow.hb_model</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchCoolSchedule"><code class="docutils literal notranslate"><span class="pre">SwitchCoolSchedule</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchCoolSchedule.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchCoolSchedule.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchCoolSchedule.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchCoolSchedule.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchCoolSchedule.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchCoolSchedule.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignCool"><code class="docutils literal notranslate"><span class="pre">SwitchDesignCool</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignCool.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchDesignCool.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignCool.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchDesignCool.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignCool.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchDesignCool.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignHeat"><code class="docutils literal notranslate"><span class="pre">SwitchDesignHeat</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignHeat.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchDesignHeat.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignHeat.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchDesignHeat.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchDesignHeat.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchDesignHeat.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentSched"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentSched</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentSched.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentSched.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentSched.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentSched.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentSched.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentSched.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentWArea"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentWArea</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentWArea.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentWArea.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentWArea.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentWArea.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchEquipmentWArea.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchEquipmentWArea.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchFlowArea"><code class="docutils literal notranslate"><span class="pre">SwitchFlowArea</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchFlowArea.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchFlowArea.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchFlowArea.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchFlowArea.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchFlowArea.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchFlowArea.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHMaxFlowRatio"><code class="docutils literal notranslate"><span class="pre">SwitchHMaxFlowRatio</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHMaxFlowRatio.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchHMaxFlowRatio.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHMaxFlowRatio.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchHMaxFlowRatio.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHMaxFlowRatio.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchHMaxFlowRatio.activity_descriptions</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHMaxFlowRatio.hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchHMaxFlowRatio.hb_model</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHeatSchedule"><code class="docutils literal notranslate"><span class="pre">SwitchHeatSchedule</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHeatSchedule.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchHeatSchedule.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHeatSchedule.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchHeatSchedule.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchHeatSchedule.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchHeatSchedule.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingSched"><code class="docutils literal notranslate"><span class="pre">SwitchLightingSched</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingSched.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchLightingSched.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingSched.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchLightingSched.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingSched.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchLightingSched.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingWArea"><code class="docutils literal notranslate"><span class="pre">SwitchLightingWArea</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingWArea.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchLightingWArea.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingWArea.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchLightingWArea.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchLightingWArea.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchLightingWArea.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowArea"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowArea</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowArea.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowArea.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowArea.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowArea.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowArea.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowArea.activity_descriptions</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowArea.hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowArea.hb_model</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowRatio"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowRatio</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowRatio.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowRatio.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowRatio.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowRatio.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowRatio.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowRatio.activity_descriptions</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchMinFlowRatio.hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchMinFlowRatio.hb_model</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchOutsideAirFlow"><code class="docutils literal notranslate"><span class="pre">SwitchOutsideAirFlow</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchOutsideAirFlow.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchOutsideAirFlow.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchOutsideAirFlow.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchOutsideAirFlow.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchOutsideAirFlow.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchOutsideAirFlow.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchPeopleSched"><code class="docutils literal notranslate"><span class="pre">SwitchPeopleSched</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchPeopleSched.from_hb_model"><code class="docutils literal notranslate"><span class="pre">SwitchPeopleSched.from_hb_model()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchPeopleSched.to_inp"><code class="docutils literal notranslate"><span class="pre">SwitchPeopleSched.to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.switchstatements.html#honeybee_doe2.properties.switchstatements.SwitchPeopleSched.activity_descriptions"><code class="docutils literal notranslate"><span class="pre">SwitchPeopleSched.activity_descriptions</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.wall.html">honeybee_doe2.properties.wall module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.wall.html#honeybee_doe2.properties.wall.DoeWall"><code class="docutils literal notranslate"><span class="pre">DoeWall</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.wall.html#honeybee_doe2.properties.wall.DoeWall.to_inp"><code class="docutils literal notranslate"><span class="pre">DoeWall.to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.wall.html#honeybee_doe2.properties.wall.WallBoundaryCondition"><code class="docutils literal notranslate"><span class="pre">WallBoundaryCondition</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.wall.html#honeybee_doe2.properties.wall.WallBoundaryCondition.wall_typology"><code class="docutils literal notranslate"><span class="pre">WallBoundaryCondition.wall_typology</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.properties.html#module-honeybee_doe2.properties">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.utils.html">honeybee_doe2.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.utils.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.utils.doe_formatters.html">honeybee_doe2.utils.doe_formatters module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.utils.doe_formatters.html#honeybee_doe2.utils.doe_formatters.get_key"><code class="docutils literal notranslate"><span class="pre">get_key()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.utils.doe_formatters.html#honeybee_doe2.utils.doe_formatters.get_value"><code class="docutils literal notranslate"><span class="pre">get_value()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.utils.doe_formatters.html#honeybee_doe2.utils.doe_formatters.lower_left_properties"><code class="docutils literal notranslate"><span class="pre">lower_left_properties()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.utils.doe_formatters.html#honeybee_doe2.utils.doe_formatters.poly_name"><code class="docutils literal notranslate"><span class="pre">poly_name()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.utils.doe_formatters.html#honeybee_doe2.utils.doe_formatters.short_name"><code class="docutils literal notranslate"><span class="pre">short_name()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.utils.doe_formatters.html#honeybee_doe2.utils.doe_formatters.unit_convertor"><code class="docutils literal notranslate"><span class="pre">unit_convertor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.utils.vector.html">honeybee_doe2.utils.vector module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.utils.vector.html#honeybee_doe2.utils.vector.cross"><code class="docutils literal notranslate"><span class="pre">cross()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.utils.html#module-honeybee_doe2.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.writer.html">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.writer.html#honeybee_doe2.writer.honeybee_model_to_inp"><code class="docutils literal notranslate"><span class="pre">honeybee_model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.writer.html#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_doe2.html">honeybee_doe2 package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_doe2.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="honeybee_doe2.cli.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">honeybee_doe2.cli.translate module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.geometry.html">honeybee_doe2.geometry package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.properties.html">honeybee_doe2.properties package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.utils.html">honeybee_doe2.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="honeybee_doe2.cli.html" title="Previous Chapter: honeybee_doe2.cli package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; honeybee_doe2...</span>
+    </a>
+  </li>
+  <li>
+    <a href="honeybee_doe2.geometry.html" title="Next Chapter: honeybee_doe2.geometry package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">honeybee_doe2... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/honeybee_doe2.cli.translate.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_doe2.html">honeybee_doe2 package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_doe2.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="honeybee_doe2.cli.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l5 current"><a class="current reference internal" href="#">honeybee_doe2.cli.translate module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.geometry.html">honeybee_doe2.geometry package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.properties.html">honeybee_doe2.properties package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.utils.html">honeybee_doe2.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="module-honeybee_doe2.cli.translate">
+<span id="honeybee-doe2-cli-translate-module"></span><h1>honeybee_doe2.cli.translate module<a class="headerlink" href="#module-honeybee_doe2.cli.translate" title="Permalink to this heading">¶</a></h1>
+<p>honeybee-doe2 Translation Commands</p>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2024, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

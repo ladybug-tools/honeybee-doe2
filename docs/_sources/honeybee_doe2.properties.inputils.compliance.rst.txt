@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.inputils.compliance module
+====================================================
+
+.. automodule:: honeybee_doe2.properties.inputils.compliance
+   :members:
+   :undoc-members:
+   :show-inheritance:

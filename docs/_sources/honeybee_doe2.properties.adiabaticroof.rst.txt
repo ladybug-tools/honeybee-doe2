@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.adiabaticroof module
+==============================================
+
+.. automodule:: honeybee_doe2.properties.adiabaticroof
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.roof module
+=====================================
+
+.. automodule:: honeybee_doe2.properties.roof
+   :members:
+   :undoc-members:
+   :show-inheritance:

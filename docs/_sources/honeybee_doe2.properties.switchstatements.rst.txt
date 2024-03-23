@@ -1,0 +1,7 @@
+honeybee\_doe2.properties.switchstatements module
+=================================================
+
+.. automodule:: honeybee_doe2.properties.switchstatements
+   :members:
+   :undoc-members:
+   :show-inheritance:
