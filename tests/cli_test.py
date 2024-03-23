@@ -13,6 +13,7 @@ def test_model_to_folder():
     name = 'cli_test'
     hvac_mapping = 'story'
     
+    
 
     result = runner.invoke(
         hb_model_to_inp_file,
