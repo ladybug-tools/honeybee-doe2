@@ -80,6 +80,9 @@ class MassMaterial:
         """Create a MassMaterial from a honeybee energy material."""
         assert isinstance(material, EnergyMaterial), \
             'Expected EnergyMaterial. Got {}.'.format(type(material))
+            
+        if unit_convertor([material.thickness], 'ft', 'm') < 0.001:
+            material.thickness = 0.001
 
         return cls(_name=short_name(material.display_name, 32),
                    _thickness=unit_convertor([material.thickness],

@@ -137,6 +137,11 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         switchMinFlowArea = SwitchMinFlowArea.from_hb_model(hb_model).to_inp()
     else:
         switchMinFlowArea = ''
+    
+    if 'MIN-FLOW-SCH' in switch_statements:
+        switchMinFlowSch = SwitchMinFlowSched.from_hb_model(hb_model).to_inp()
+    else:
+        switchMinFlowSch = ''
 
 
     for room in hb_model.rooms:
@@ -259,8 +264,8 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         switchPeopleSched,
         switchAreaPerson,
         switchLightingWArea,
-        switchEquipmentWArea,
         switchLightingSched,
+        switchEquipmentWArea,
         switchEquipmentSched,
         '\n'.join(str(story) for story in hb_model.properties.doe2.stories),
         fb.elecFuelMeter,
@@ -295,6 +300,7 @@ def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=Fal
         switchAssignedFlow,
         switchHMaxFlowRatio,
         switchMinFlowArea,
+        switchMinFlowSch,
         '\n'.join(hv_sys.to_inp()
                   for hv_sys in hvac_maps),  # * change to variable
         fb.misc_meter_hvac,

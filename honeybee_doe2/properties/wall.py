@@ -2,6 +2,7 @@ from ..utils.doe_formatters import short_name
 from .aperture import Window
 from .door import Door
 from honeybee.facetype import Wall, Floor, RoofCeiling
+from .constructions import Construction, UvalueConstruction
 
 class WallBoundaryCondition:
     def __init__(self, boundary_condition):
@@ -32,7 +33,7 @@ class DoeWall:
 
         p_name = short_name(self.face.display_name)
         wall_typology = WallBoundaryCondition(self.face.boundary_condition).wall_typology
-        constr = self.face.properties.energy.construction.display_name
+        constr = short_name(self.face.properties.energy.construction.display_name, 30)
         tilt = 90 - self.face.altitude
         azimuth = self.face.azimuth
         origin_pt = self.face.geometry.lower_left_corner - space_origin
@@ -42,7 +43,7 @@ class DoeWall:
 
         obj_lines.append('"{}" = {}'.format(p_name, wall_typology))
         obj_lines.append('\n  POLYGON           = "{}"'.format(f'{p_name} Plg'))
-        obj_lines.append('\n  CONSTRUCTION      = "{}_c"'.format(short_name(constr, 30)))
+        obj_lines.append('\n  CONSTRUCTION      = "{}_c"'.format(constr))
         obj_lines.append('\n  TILT              =  {}'.format(tilt))
         obj_lines.append('\n  AZIMUTH           =  {}'.format(azimuth))
         obj_lines.append('\n  X                 =  {}'.format(origin_pt.x))

@@ -8,6 +8,27 @@ from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
 from dataclasses import dataclass
 from typing import List
 
+@dataclass
+class UvalueConstruction:
+    name: str
+    u_value: float 
+    
+    @classmethod
+    def from_hb_construction(cls, construction:OpConstr):
+        name = short_name(construction.display_name, 30)
+        u_value = construction.u_value
+        return cls(name=name, u_value=u_value)
+    
+    def to_inp(self, include_materials=False):
+        objlines = []
+        objlines.append(f'"{self.name}_c" = CONSTRUCTION\n')
+        objlines.append('TYPE           = U-VALUE\n')
+        objlines.append(f'U-VALUE        = {self.u_value}\n..\n')
+        result = ''.join([l for l in objlines])
+        return result
+        
+    def __repr__ (self):
+        return self.to_inp()
 
 @dataclass
 class Construction:
@@ -93,10 +114,13 @@ class ConstructionCollection:
             construction.display_name: construction for construction in constructions
         }.values()
 
-        constructions = [
-            Construction.from_hb_construction(construction)
-            for construction in unique_constructions
-        ]
+        constructions = []
+        for construction in unique_constructions:
+            if construction.thickness > 0.003:
+                constructions.append(Construction.from_hb_construction(construction))
+            elif construction.thickness < 0.003:
+                constructions.append(UvalueConstruction.from_hb_construction(construction))
+        
         return cls(constructions)
 
     def to_inp(self):
@@ -104,11 +128,13 @@ class ConstructionCollection:
         block = []
 
         # collect all the materials and ensure to only include the unique ones
-        materials = set(
-            mat.to_inp()
-            for construction in self.constructions
-            for mat in construction.materials
-        )
+        materials = set()
+        
+        for construction in self.constructions:
+            if isinstance(construction, Construction):
+                for mat in construction.materials:
+                    materials.add(mat.to_inp())
+        
         block.append(''.join(materials))
 
         # add constructions - layers are created as part of each construction definition
