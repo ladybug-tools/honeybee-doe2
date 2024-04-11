@@ -19,6 +19,7 @@ from .adiabaticfloor import AdiabaticFloor
 from .adiabaticroof import AdiabaticRoof
 from .ceiling import DoeCeilign
 
+
 class ZoneType(Enum):
 
     CONDITIONED = 'CONDITIONED'
@@ -195,7 +196,7 @@ class RoomDoe2Properties(object):
 
         if host.properties.energy.lighting:
             doe_energy_properties.append(
-                f'   LIGHTING-W/AREA = {host.properties.energy.lighting.watts_per_area}\n'
+                f'   LIGHTING-W/AREA = {host.properties.energy.lighting.watts_per_area / 10.7639}\n'
             )
             doe_energy_properties.append(
                  f'   LIGHTING-SCHEDULE = "{short_name(host.properties.energy.lighting.schedule.display_name)}_"\n'
@@ -207,7 +208,7 @@ class RoomDoe2Properties(object):
                  f'   EQUIP-SCHEDULE = ("{short_name(host.properties.energy.electric_equipment.schedule.display_name)}_")\n'
              )
             doe_energy_properties.append(
-                f'   EQUIPMENT-W/AREA = {host.properties.energy.electric_equipment.watts_per_area}\n'
+                f'   EQUIPMENT-W/AREA = {host.properties.energy.electric_equipment.watts_per_area / 10.7639}\n'
             )
 
             doe_energy_properties.append(

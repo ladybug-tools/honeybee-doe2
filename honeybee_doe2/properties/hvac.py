@@ -7,7 +7,7 @@ from uuid import uuid4
 from honeybee.model import Model as HBModel
 from honeybee.room import Room
 from honeybee.typing import clean_string
-# TODO: clean up HVACSystem class methods
+
 
 
 @dataclass
@@ -16,6 +16,7 @@ class Zone:
     name: str
     heating_setpoint: float
     cooling_setpoint: float
+    conditioning: str
 
     @classmethod
     def from_room(cls, room: Room):
@@ -28,18 +29,22 @@ class Zone:
         name = short_name(clean_string(value=room.display_name).replace(' ', ''))
 
         if room.properties.energy.is_conditioned:
-            heating_setpoint = room.properties.energy.program_type.setpoint.heating_setpoint
-            cooling_setpoint = room.properties.energy.program_type.setpoint.cooling_setpoint
+            heating_setpoint = room.properties.energy.program_type.setpoint.heating_setpoint * 9. / 5. + 32.
+            cooling_setpoint = room.properties.energy.program_type.setpoint.cooling_setpoint * 9. / 5. + 32.
         else:
             heating_setpoint = 72
             cooling_setpoint = 75
+        if room.properties.energy.is_conditioned == True:
+            conditioning = "CONDITIONED"
+        elif room.properties.energy.is_conditioned == False:
+            conditioning = "UNCONDITIONED"
 
         return cls(name=name, heating_setpoint=heating_setpoint,
-                   cooling_setpoint=cooling_setpoint)
+                   cooling_setpoint=cooling_setpoint, conditioning=conditioning)
 
     def to_inp(self):
         inp_str = f'"{self.name} Zn"   = ZONE\n  ' \
-            'TYPE             = UNCONDITIONED\n  ' \
+            f'TYPE             = {self.conditioning}\n  ' \
             f'DESIGN-HEAT-T    = {self.heating_setpoint}\n  ' \
             f'DESIGN-COOL-T    = {self.cooling_setpoint}\n  ' \
             'SIZING-OPTION    = ADJUST-LOADS\n  ' \

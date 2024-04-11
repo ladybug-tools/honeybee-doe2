@@ -292,7 +292,7 @@ class SwitchLightingWArea:
         
         obj_lines = []
         obj_lines.append("\nSET-DEFAULT FOR SPACE\n")
-        obj_lines.append('   AREA/PERSON =\n')
+        obj_lines.append('   LIGHTING-W/AREA =\n')
         obj_lines.append('{switch(#L("C-ACTIVITY-DESC"))\n')
         for act in self.activity_descriptions:
             obj_lines.append(f'case "{act[0]}": {act[1]}\n')
@@ -644,5 +644,47 @@ class SwitchMinFlowArea:
         switch_statement = ''.join(obj_lines)
         return switch_statement
 
+    def __repr__(self):
+        return self.to_inp()
+    
+    
+class SwitchMinFlowSched:
+    def __init__(self, _activity_descriptions):
+        self._activity_descriptions = _activity_descriptions
+        
+    @property
+    def activity_descriptions(self):
+        return self._activity_descriptions
+
+    @activity_descriptions.setter
+    def activity_descriptions(self, value):
+        self._activity_descriptions = value if value is not None else self.activity_descriptions
+        
+    @classmethod
+    def from_hb_model(cls, hb_model):
+        switch_rooms = []
+        for room in hb_model.rooms:
+            if room.properties.energy.ventilation is not None:
+                switch_rooms.append(room)
+                
+        activity_description = list(set([(room.user_data['act_desc'], short_name(room.properties.energy.ventilation.schedule.display_name)) \
+            for room in switch_rooms]))
+        return cls(activity_description)
+    
+    def to_inp(self):
+        obj_lines = []
+        obj_lines.append("SET-DEFAULT FOR SPACE\n")
+        obj_lines.append('  MIN-FLOW-SCH = \n')
+        obj_lines.append('{switch(#L("C-ACTIVITY-DESC"))\n')
+        for act in self.activity_descriptions:
+            obj_lines.append(f'case "{act[0]}": #SI("{act[1]}_", "SPACE", "MIN-FLOW-SCH")\n')
+        obj_lines.append('default: no_default\n')
+        obj_lines.append('endswitch}\n')
+        obj_lines.append('..\n')
+        
+        switch_statement = ''.join(obj_lines)
+        return switch_statement
+        print(str(self.activity_descriptions))
+    
     def __repr__(self):
         return self.to_inp()
