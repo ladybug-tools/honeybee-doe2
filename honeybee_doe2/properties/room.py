@@ -227,7 +227,7 @@ class RoomDoe2Properties(object):
             )
             doe_energy_properties.append('   INF-METHOD = AIR-CHANGE\n')
             doe_energy_properties.append(
-                f'   INF-FLOW/AREA = {host.properties.energy.infiltration.flow_per_exterior_area}\n'
+                f'   INF-FLOW/AREA = {host.properties.energy.infiltration.flow_per_exterior_area * 196.85}\n'
             )
 
         return doe_energy_properties
