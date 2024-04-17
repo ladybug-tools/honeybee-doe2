@@ -19,7 +19,7 @@ def test_switch_true():
                           folder=out_inp, name='switch_true_test_model.inp')
 
     assert out_file.exists()
-    #out_file.unlink()
+    out_file.unlink()
 
 def test_switch_false():
     """Test writiting inp with switch_statements"""
@@ -35,7 +35,7 @@ def test_switch_false():
                           folder=out_inp, name='switch_false_test_model.inp')
 
     assert out_file.exists()
-    #out_file.unlink()
+    out_file.unlink()
 
 
 

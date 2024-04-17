@@ -17,4 +17,4 @@ def test_duplicate_names():
                           folder=out_inp, name='rac_test_model.inp')
 
     assert out_file.exists()
-    #out_file.unlink()
+    out_file.unlink()
