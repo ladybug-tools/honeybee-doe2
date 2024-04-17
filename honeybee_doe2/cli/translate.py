@@ -36,8 +36,8 @@ def translate():
 )
 
 @click.option(
-    '--switch-statements', '-swi', help='Use this input to select switch statements to add to the model',
-    multiple=True, default=[]
+    '--switch-statements', '-swi', help='Use this flag to export *.inp file with switch statements',
+    default=False, show_default=True, is_flag=True
 )
 
 @click.option('--name', '-n', help='Name of the output file.', default='model',

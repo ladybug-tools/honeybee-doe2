@@ -15,4 +15,4 @@ def test_model_with_program_types():
                           folder=out_inp, name='test_model_w_pt.inp')
     
     assert out_file.exists()
-    #out_file.unlink()
+    out_file.unlink()
