@@ -1,290 +1,220 @@
-import pathlib
+# coding=utf-8
+"""Methods to write to inp."""
 
-from .properties.inputils import blocks as fb
-from .properties.inputils.compliance import ComplianceData
-from .properties.inputils.sitebldg import SiteBldgData as sbd
-from .properties.inputils.run_period import RunPeriod
-from .properties.inputils.title import Title
-from .properties.inputils.glass_types import GlassType
-from .utils.doe_formatters import short_name
 
-from honeybee.model import Model
-from honeybee_energy.construction.window import WindowConstruction
-from honeybee_energy.lib.constructionsets import generic_construction_set
-from honeybee.boundarycondition import Surface
-from honeybee.typing import clean_string
-from typing import List
+def shade_mesh_to_inp(shade_mesh):
+    """Generate an INP string representation of a ShadeMesh.
 
-from .properties.switchstatements import *
-
-def model_to_inp(hb_model, hvac_mapping='story', exclude_interior_walls:bool=False, exclude_interior_ceilings:bool=False, switch_statements:bool=False):
-    # type: (Model) -> str
-    """
-        args:
-            hb_model: Honeybee model
-            hvac_mapping: accepts: 'room', 'story', 'model', 'assigned-hvac'
-    """
-    
-    room_list = [room for room in hb_model.rooms]
-    counts = {}
-    for i, room in enumerate(room_list):
-        if room.display_name in counts:
-            counts[room.display_name] += 1
-            room_list[i].display_name = f"{short_name(clean_string(value=room.display_name))}{counts[room.display_name]}"
-        else:
-            counts[room.display_name] = 1
-    
-    mapper_options = ['room', 'story', 'model', 'assigned-hvac']
-    if hvac_mapping not in mapper_options:
-        raise ValueError(
-            f'Invalid hvac_mapping input: {hvac_mapping}\n'
-            f'Expected one of the following: {mapper_options}'
-        )
-    hvac_maps = None
-    if hvac_mapping == 'room':
-        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_room
-    elif hvac_mapping == 'story':
-        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_story
-    elif hvac_mapping == 'model':
-        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_model
-    elif hvac_mapping == 'assigned-hvac':
-        hvac_maps = hb_model.properties.doe2.hvac_sys_zones_by_hb_hvac
+    Args:
+        shade_mesh: A honeybee ShadeMesh for which an INP representation
+            will be returned.
         
-    hb_model = hb_model.duplicate()
+    Returns:
+        A tuple with two elements.
 
-    if hb_model.units != 'Feet':
-        hb_model.convert_to_units(units='Feet')
-    hb_model.remove_degenerate_geometry()
+        -   shade_polygons: A list of text strings for the INP polygons needed
+            to represent the ShadeMesh.
 
-    if switch_statements:
-                
-        switchPeopleSched = SwitchPeopleSched.from_hb_model(hb_model).to_inp()
-        switchAreaPerson = SwitchAreaPerson.from_hb_model(hb_model).to_inp()
-        switchLightingWArea = SwitchLightingWArea.from_hb_model(hb_model).to_inp()
-        switchEquipmentWArea = SwitchEquipmentWArea.from_hb_model(hb_model).to_inp()
-        switchLightingSched = SwitchLightingSched.from_hb_model(hb_model).to_inp()
-        switchEquipmentSched = SwitchEquipmentSched.from_hb_model(hb_model).to_inp()
-        switchDesignHeat = SwitchDesignHeat.from_hb_model(hb_model).to_inp()
-        switchHeatSchedule = SwitchHeatSchedule.from_hb_model(hb_model).to_inp()    
-        switchDesignCool = SwitchDesignCool.from_hb_model(hb_model).to_inp()
-        switchCoolSchedule = SwitchCoolSchedule.from_hb_model(hb_model).to_inp()
-        switchOutsideAirFlow = SwitchOutsideAirFlow.from_hb_model(hb_model).to_inp()
-        switchFlowArea = SwitchFlowArea.from_hb_model(hb_model).to_inp()  
-        switchMinFlowRatio = SwitchMinFlowRatio.from_hb_model(hb_model).to_inp()
-        switchAssignedFlow = SwitchAssignedFlow.from_hb_model(hb_model).to_inp()
-        switchHMaxFlowRatio = SwitchHMaxFlowRatio.from_hb_model(hb_model).to_inp()
-        switchMinFlowArea = SwitchMinFlowArea.from_hb_model(hb_model).to_inp()
-        #switchMinFlowSch = SwitchMinFlowSched.from_hb_model(hb_model).to_inp()
-    else:
-        #switchMinFlowSch = ''
-        switchPeopleSched = ''
-        switchAreaPerson = ''
-        switchLightingWArea = ''
-        switchEquipmentWArea = ''
-        switchLightingSched = ''
-        switchEquipmentSched = ''
-        switchDesignHeat = ''
-        switchHeatSchedule = ''
-        switchDesignCool = ''
-        switchCoolSchedule = ''
-        switchOutsideAirFlow = ''
-        switchFlowArea = ''
-        switchMinFlowRatio = ''
-        switchAssignedFlow = ''
-        switchHMaxFlowRatio = ''
-        switchMinFlowArea = ''
+        -   shade_defs: A list of text strings for the INP definitions needed
+            to represent the ShadeMesh.
+    """
+    # TODO: write the real code
+    return None, None
 
-    for room in hb_model.rooms:
-        room.properties.doe2.interior_wall_toggle = exclude_interior_walls
+
+def shade_to_inp(shade):
+    """Generate an INP string representation of a Shade.
+
+    Args:
+        shade: A honeybee Shade for which an INP representation will be returned.
+
+    Returns:
+        A tuple with two elements.
+
+        -   shade_polygon: Text string for the INP polygon for the Shade.
+
+        -   shade_def: Text string for the INP definition of the Shade.
+    """
+    # TODO: write the real code
+    return None, None
+
+
+def door_to_inp(door):
+    """Generate an INP string representation of a Door.
+
+    Doors assigned to a parent Face will use the parent Face plane in order to
+    determine their XY coordinates. Otherwise, the Door's own plane will be used.
+
+    Note that the resulting string does not include full construction definitions.
+    Also note that shades assigned to the Door are not included in the resulting
+    string. To write these objects into a final string, you must loop through the
+    Door.shades, and call the to.inp method on each one.
+
+    Args:
+        door: A honeybee Door for which an INP representation will be returned.
+
+    Returns:
+        Text string for the INP definition of the Door.
+    """
+    # TODO: write the real code
+    return None
+
+
+def aperture_to_inp(aperture):
+    """Generate an INP string representation of a Aperture.
+
+    Apertures assigned to a parent Face will use the parent Face plane in order to
+    determine their XY coordinates. Otherwise, the Aperture's own plane will be used.
+
+    Note that the resulting string does not include full construction definitions.
+    Also note that shades assigned to the Aperture are not included in the resulting
+    string. To write these objects into a final string, you must loop through the
+    Aperture.shades, and call the to.inp method on each one.
+
+    Args:
+        aperture: A honeybee Aperture for which an INP representation will be returned.
+
+    Returns:
+        Text string for the INP definition of the Aperture.
+    """
+    # TODO: write the real code
+    return None
+
+
+def face_to_inp(face):
+    """Generate an INP string representation of a Face.
+
+    Note that the resulting string does not include full construction definitions.
+
+    Also note that this does not include any of the shades assigned to the Face
+    in the resulting string. Nor does it include the strings for the
+    apertures or doors. To write these objects into a final string, you must
+    loop through the Face.apertures, and Face.doors and call the to.inp method
+    on each one.
+
+    Args:
+        face: A honeybee Face for which an INP representation will be returned.
     
-    for room in hb_model.rooms:
-        room.properties.doe2.interior_ceiling_toggle = exclude_interior_ceilings
+    Returns:
+        A tuple with two elements.
 
-    day_list = [] 
-    for scheduleruleset in hb_model.properties.energy.schedules:
-        for day in scheduleruleset.day_schedules:
-            day.unlock()
-            day.display_name = short_name(day.display_name)
-            day_list.append(day)
-    counts = {}
-    for i, day in enumerate(day_list):
-        if day.display_name in counts:
-            counts[day.display_name] += 1
-            day_list[i].display_name = f"{day.display_name[:-1]}{counts[day.display_name]}"
-        else:
-            counts[day.display_name] = 1 
+        -   face_polygon: Text string for the INP polygon for the Face.
+
+        -   face_def: Text string for the INP definition of the Face.
+    """
+    # TODO: write the real code
+    return None, None
+
+
+def room_to_inp(room):
+    """Generate an INP string representation of a Room.
+
+    The resulting string will include all internal gain definitions for the Room
+    (people, lights, equipment), infiltration definitions, ventilation requirements,
+    and thermostat objects. However, complete schedule definitions assigned to
+    these objects are excluded.
+
+    Also note that this method does not write any of of the Room's constituent
+    Faces Shades, or windows into the resulting string. To represent the full
+    Room geometry, you must loop through the Room.faces and call the to.inp
+    method on each one.
+
+    Args:
+        room: A honeybee Room for which an INP representation will be returned.
     
+    Returns:
+        A tuple with two elements.
 
+        -   room_polygon: Text string for the INP polygon for the Room.
+
+        -   room_def: Text string for the INP SPACE definition of the Room.
+    """
+    # TODO: write the real code
+    return None, None
+
+
+def model_to_inp(
+    model, hvac_mapping='Story', exclude_interior_walls=False,
+    exclude_interior_ceilings=False
+):
+    """Generate an INP string representation of a Model.
+
+    The resulting string will include all geometry (Rooms, Faces, Apertures,
+    Doors, Shades), all fully-detailed constructions + materials, all fully-detailed
+    schedules, and the room properties.
+
+    Essentially, the string includes everything needed to simulate the model
+    except the simulation parameters. So joining this string with the output of
+    SimulationParameter.to_inp() should create a simulate-able INP.
+
+    Args:
+        model: A honeybee Model for which an INP representation will be returned.
+        hvac_mapping: Text to indicate how HVAC systems should be assigned to the
+            exported model. Story will assign one HVAC system for each distinct
+            level polygon, Model will use only one HVAC system for the whole model
+            and AssignedHVAC will follow how the HVAC systems have been assigned
+            to the Rooms.properties.energy.hvac. Choose from the options
+            below. (Default: Story).
+
+            * Room
+            * Story
+            * Model
+            * AssignedHVAC
+
+        exclude_interior_walls: Boolean to note whether interior wall Faces
+            should be excluded from the resulting string. (Default: False).
+        exclude_interior_ceilings: Boolean to note whether interior ceiling
+            Faces should be excluded from the resulting string. (Default: False).
+    
+    Usage:
+
+    .. code-block:: python
+
+        import os
+        from ladybug.futil import write_to_file
+        from honeybee.model import Model
+        from honeybee.room import Room
+        from honeybee.config import folders
+        from honeybee_doe2.simulation import SimulationParameter
+
+        # Get input Model
+        room = Room.from_box('Tiny House Zone', 5, 10, 3)
+        room.properties.energy.program_type = office_program
+        room.properties.energy.add_default_ideal_air()
+        model = Model('Tiny House', [room])
+
+        # Get the input SimulationParameter
+        sim_par = SimulationParameter()
+
+        # create the INP string for simulation parameters and model
+        inp_str = '\n\n'.join((sim_par.to_inp(), model.to.inp(model)))
+
+        # write the final string into an INP
+        inp = os.path.join(folders.default_simulation_folder, 'test_file', 'in.inp')
+        write_to_file(inp, inp_str, True)
+    """
+    # duplicate model to avoid mutating it as we edit it for energy simulation
+    original_model = model
+    model = model.duplicate()
+
+    # scale the model if the units are not feet
+    if model.units != 'Feet':
+        model.convert_to_units('Feet')
+    # remove degenerate geometry within native DOE-2 tolerance of 0.1 feet
     try:
-        hb_model.rectangularize_apertures(
-            subdivision_distance=0.5, max_separation=0.0, merge_all=True,
-            resolve_adjacency=True
-        )
-    except AssertionError:
-        # try without resolving adjacency that can create errors
-        hb_model.rectangularize_apertures(
-            subdivision_distance=0.5, max_separation=0.0, merge_all=True,
-            resolve_adjacency=False
-        )
+        model.remove_degenerate_geometry(0.1)
+    except ValueError:
+        error = 'Failed to remove degenerate Rooms.\nYour Model units system is: {}. ' \
+            'Is this correct?'.format(original_model.units)
+        raise ValueError(error)
 
-    room_names = {}
-    face_names = {}
-    for room in hb_model.rooms:
-        room.display_name = clean_string(room.display_name).replace('..', '_')
-        room.display_name = short_name(room.display_name)
-        if room.display_name in room_names:
-            original_name = room.display_name
-            room.display_name = f'{original_name}_{room_names[original_name]}'
-            room_names[original_name] += 1
-        else:
-            room_names[room.display_name] = 1
+    # TODO: split all of the Rooms with holes so that they can be translated
+    # convert all of the Aperture geometries to rectangles so they can be translated
+    model.rectangularize_apertures(
+        subdivision_distance=0.5, max_separation=0.0,
+        merge_all=True, resolve_adjacency=True
+    )
 
-        for face in room.faces:
-            face.display_name = clean_string(face.display_name).replace('..', '_')
-            face.display_name = short_name(face.display_name)
-            if face.display_name in face_names:
-                original_name = face.display_name
-                face.display_name = f'{original_name}_{face_names[original_name]}'
-                face_names[original_name] += 1
-            else:
-                face_names[face.display_name] = 1
+    # TODO: reassign stories to the model such that each has only one polygon
 
-            for apt in face.apertures:
-                apt.display_name = clean_string(apt.display_name).replace('..', '_')
-                apt.display_name = short_name(apt.display_name)
-                if apt.display_name in face_names:
-                    original_name = apt.display_name
-                    apt.display_name = f'{original_name}_{face_names[original_name]}'
-                    face_names[original_name] += 1
-                else:
-                    face_names[apt.display_name] = 1
-    
-    room_mapper = {
-        r.identifier: r.display_name for r in hb_model.rooms
-    }
-    for i, shade in enumerate(hb_model.shades):
-        shade.display_name = f'shade_{i}'
-    for face in hb_model.faces:
-        if isinstance(face.boundary_condition, Surface):
-            adj_room_identifier = face.boundary_condition.boundary_condition_objects[1]
-            face.user_data = {'adjacent_room': room_mapper[adj_room_identifier]}
-
-    window_constructions = [
-        generic_construction_set.aperture_set.window_construction,
-        generic_construction_set.aperture_set.interior_construction,
-        generic_construction_set.aperture_set.operable_construction,
-        generic_construction_set.aperture_set.skylight_construction
-    ]
-
-    for construction in hb_model.properties.energy.constructions:
-        if isinstance(construction, WindowConstruction):
-            window_constructions.append(construction)
-    wind_con_set = set(window_constructions)
-    win_con_to_inp = [GlassType.from_hb_window_constr(constr) for constr in wind_con_set]
-    
-    
-    rp = RunPeriod()
-    comp_data = ComplianceData()
-    sb_data = sbd()
-    data = [
-        hb_model.properties.doe2._header,
-        fb.global_params,
-        fb.ttrpddh,
-        Title(title=str(hb_model.display_name)).to_inp(),
-        rp.to_inp(),  # TODO unhardcode
-        fb.comply,
-        comp_data.to_inp(),
-        sb_data.to_inp(),
-        fb.daySch,
-        hb_model.properties.doe2.day_scheduels,
-        fb.weekSch,
-        hb_model.properties.doe2.week_scheduels,
-        fb.mats_layers,
-        hb_model.properties.doe2.mats_cons_layers,
-        fb.glzCode,
-        '\n'.join(gt.to_inp() for gt in win_con_to_inp),
-        fb.doorCode,
-        fb.polygons,
-        '\n'.join(s.story_poly for s in hb_model.properties.doe2.stories),
-        fb.wallParams,
-        hb_model.properties.doe2.fixed_shades,
-        fb.miscCost,
-        fb.perfCurve,
-        fb.floorNspace,
-        switchPeopleSched,
-        switchAreaPerson,
-        switchLightingWArea,
-        switchLightingSched,
-        switchEquipmentWArea,
-        switchEquipmentSched,
-        '\n'.join(str(story) for story in hb_model.properties.doe2.stories),
-        fb.elecFuelMeter,
-        fb.elec_meter,
-        fb.fuel_meter,
-        fb.master_meter,
-        fb.hvac_circ_loop,
-        fb.pumps,
-        fb.heat_exch,
-        fb.circ_loop,
-        fb.chiller_objs,
-        fb.boiler_objs,
-        fb.dwh,
-        fb.heat_reject,
-        fb.tower_free,
-        fb.pvmod,
-        fb.elecgen,
-        fb.thermal_store,
-        fb.ground_loop_hx,
-        fb.comp_dhw_res,
-        fb.steam_cld_mtr,
-        fb.steam_mtr,
-        fb.chill_meter,
-        fb.hvac_sys_zone,
-        switchDesignHeat,
-        switchHeatSchedule,
-        switchDesignCool,
-        switchCoolSchedule,
-        switchOutsideAirFlow,
-        switchFlowArea,
-        switchMinFlowRatio,
-        switchAssignedFlow,
-        switchHMaxFlowRatio,
-        switchMinFlowArea,
-        #switchMinFlowSch,
-        '\n'.join(hv_sys.to_inp()
-                  for hv_sys in hvac_maps),  # * change to variable
-        fb.misc_meter_hvac,
-        fb.equip_controls,
-        fb.load_manage,
-        fb.big_util_rate,
-        fb.ratchets,
-        fb.block_charge,
-        fb.small_util_rate,
-        fb.output_reporting,
-        fb.loads_non_hrly,
-        fb.sys_non_hrly,
-        fb.plant_non_hrly,
-        fb.econ_non_hrly,
-        fb.hourly_rep,
-        fb.the_end
-    ]
-    return str('\n\n'.join(data))
-
-
-def honeybee_model_to_inp(
-        model: Model, hvac_mapping: str = 'story',exclude_interior_walls=False, exclude_interior_ceilings=False,
-        switch_statements:bool=False, folder: str = '.', name: str = None) -> pathlib.Path:
-
-    inp_model = model_to_inp(model, hvac_mapping=hvac_mapping,
-                             exclude_interior_walls=exclude_interior_walls,
-                             exclude_interior_ceilings=exclude_interior_ceilings,
-                             switch_statements=switch_statements)
-
-    name = name or model.display_name
-    if not name.lower().endswith('.inp'):
-        name = f'{name}.inp'
-    out_folder = pathlib.Path(folder)
-    out_folder.mkdir(parents=True, exist_ok=True)
-    out_file = out_folder.joinpath(name)
-    out_file.write_text(inp_model)
-    return out_file
+    # TODO: overwrite all identifiers to obey the eQuest 32 character length

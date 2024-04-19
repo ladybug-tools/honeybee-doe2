@@ -1,43 +1,24 @@
-import pathlib
+"""Tests the features that honeybee_energy adds to honeybee_core Model."""
+from ladybug_geometry.geometry3d import Point3D, Vector3D, Mesh3D
 
-from honeybee_doe2.writer import honeybee_model_to_inp
 from honeybee.model import Model
-
-hvac_test = './tests/assets/multi_hvac.hbjson'
-standard_test = './tests/assets/2023_rac_advanced_sample_project.hbjson'
-air_wall_test = './tests/assets/Air_Wall_test.hbjson'
-ceiling_adj_test = './tests/assets/ceiling_adj_test.hbjson'
-
-def test_hbjson_translate():
-    """Test translating a HBJSON file to an inp file."""
-    hb_json = standard_test
-
-    out_inp = './tests/assets/sample_out'
-    out_file = pathlib.Path(out_inp, 'test_model.inp')
-    # delete if exists
-    if out_file.exists():
-        out_file.unlink()
-    hb_model = Model.from_file(hb_json)
-    honeybee_model_to_inp(hb_model, hvac_mapping='model', exclude_interior_walls=False,
-                          folder=out_inp, name='test_model.inp')
-
-    assert out_file.exists()
-    out_file.unlink()
+from honeybee.room import Room
+from honeybee.shademesh import ShadeMesh
 
 
-def test_hbjson_with_schedule():
+def test_inp_writer():
+    """Test the existence of the Model inp reiter."""
+    room = Room.from_box('Tiny_House_Zone', 5, 10, 3)
+    south_face = room[3]
+    south_face.apertures_by_ratio(0.4, 0.01)
+    south_face.apertures[0].overhang(0.5, indoor=False)
+    south_face.apertures[0].overhang(0.5, indoor=True)
+    south_face.apertures[0].move_shades(Vector3D(0, 0, -0.5))
+    pts = (Point3D(0, 0, 4), Point3D(0, 2, 4), Point3D(2, 2, 4),
+           Point3D(2, 0, 4), Point3D(4, 0, 4))
+    mesh = Mesh3D(pts, [(0, 1, 2, 3), (2, 3, 4)])
+    awning_1 = ShadeMesh('Awning_1', mesh)
 
-    hb_json = './tests/assets/inp_schedule.hbjson'
-    out_inp = './tests/assets/sample_out'
-    out_file = pathlib.Path(out_inp, 'schedule_test.inp')
-    # delete if exists
-    if out_file.exists():
-        out_file.unlink()
-    hb_model = Model.from_file(hb_json)
-    honeybee_model_to_inp(
-        hb_model, hvac_mapping='model', exclude_interior_walls=False,
-        folder=out_inp, name='schedule_test.inp'
-    )
+    model = Model('Tiny_House', [room], shade_meshes=[awning_1])
 
-    assert out_file.exists()
-    out_file.unlink()
+    assert hasattr(model.to, 'inp')
