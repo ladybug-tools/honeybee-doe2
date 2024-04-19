@@ -1,61 +1,93 @@
-"""honeybee-doe2 Translation Commands"""
+"""honeybee-doe2 translation commands."""
 import click
 import sys
-import pathlib
+import os
+import json
 import logging
 
-from ..writer import honeybee_model_to_inp
+from ladybug.futil import write_to_file_by_name
 from honeybee.model import Model
 
 _logger = logging.getLogger(__name__)
 
 
-@click.group(help='Commands for translating Honeybee_Model.hbjson to DOE2.2 *.inp files.')
+@click.group(help='Commands for translating Honeybee Model to DOE-2 formats.')
 def translate():
     pass
 
 
-@translate.command('hbjson-to-inp')
-@click.argument('hb-json', type=click.Path(
-    exists=True, file_okay=True, dir_okay=False, resolve_path=True)
-)
+@translate.command('model-to-inp')
+@click.argument('model-file', type=click.Path(
+    exists=True, file_okay=True, dir_okay=False, resolve_path=True))
 @click.option(
-    '--hvac-mapping', '-hm', help='HVAC mapping method. Options are room, story, model '
-    'or assigned-hvac.',
-    default='story', show_default=True, type=click.Choice(
-    ['room', 'story', 'model', 'assigned-hvac'], case_sensitive=False))
-
+    '--sim-par-json', '-sp', help='Full path to a honeybee-doe2 SimulationParameter '
+    'JSON that describes all of the settings for the simulation. If unspecified, '
+    'default parameters will be generated.', default=None, show_default=True,
+    type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True))
 @click.option(
-    '--exclude-interior-walls', '-eiw', help='Use this flag to exclude interior walls from export',
-    default=False, show_default=True, is_flag=True
-)
-
+    '--hvac-mapping', '-hm', help='Text to indicate how HVAC systems should be '
+    'assigned to the exported model. Story will assign one HVAC system for each '
+    'distinct level polygon, Model will use only one HVAC system for the whole model '
+    'and AssignedHVAC will follow how the HVAC systems have been assigned to the'
+    'Rooms.properties.energy.hvac. Choose from: Room, Story, Model, AssignedHVAC',
+    default='Story', show_default=True, type=str)
 @click.option(
-    '--exclude-interior-ceilings', '-eic', help='Use this flag to exclude interior ceilings from export',
-    default=False, show_default=True, is_flag=True
-)
-
+    '--include-interior-walls/--exclude-interior-walls', ' /-xw', help='Flag to note '
+    'whether interior walls should be excluded from the export.',
+    default=True, show_default=True)
 @click.option(
-    '--switch-statements', '-swi', help='Use this flag to export *.inp file with switch statements',
-    default=False, show_default=True, is_flag=True
-)
+    '--include-interior-ceilings/--exclude-interior-ceilings', ' /-xc', help='Flag to '
+    'note whether interior ceilings should be excluded from the export.',
+    default=True, show_default=True)
+@click.option(
+    '--switch-statements/--verbose-properties', ' /-v', help='Flag to note whether '
+    'program types should be written with switch statements so that they can easily '
+    'be edited in eQuest or a verbose definition of loads should be written for '
+    'each Room/Space.', default=True, show_default=True)
+@click.option(
+    '--name', '-n', help='Deprecated option to set the name of the output file.',
+    default=None, show_default=True)
+@click.option(
+    '--folder', '-f', help='Deprecated option to set the path to target folder.',
+    type=click.Path(file_okay=False, resolve_path=True, dir_okay=True), default=None)
+@click.option(
+    '--output-file', '-o', help='Optional INP file path to output the INP string '
+    'of the translation. By default this will be printed out to stdout.',
+    type=click.File('w'), default='-', show_default=True)
+def model_to_inp(
+    model_file, sim_par_json, hvac_mapping, include_interior_walls,
+    include_interior_ceilings, name, folder, output_file
+):
+    """Translate a Model (HBJSON) file to an INP file.
 
-@click.option('--name', '-n', help='Name of the output file.', default='model',
-              show_default=True
-              )
-
-@click.option('--folder', '-f', help='Path to target folder.', type=click.Path(
-    exists=False, file_okay=False, resolve_path=True, dir_okay=True),
-    default='.', show_default=True
-)
-def hb_model_to_inp_file(hb_json, hvac_mapping, exclude_interior_walls, exclude_interior_ceilings, switch_statements, name, folder):
-    """Translate a HBJSON into a DOE2.2 *.inp file."""
+    \b
+    Args:
+        model_file: Full path to a Honeybee Model file (HBJSON or HBpkl)."""
     try:
-        hvac_mapping
-        hb_model = Model.from_file(hb_json)
-        folder = pathlib.Path(folder)
-        folder.mkdir(parents=True, exist_ok=True)
-        honeybee_model_to_inp(hb_model, hvac_mapping, exclude_interior_walls, exclude_interior_ceilings,switch_statements, folder, name)
+        # load simulation parameters or generate default ones
+        #if sim_par_json is not None:
+        #    with open(sim_par_json) as json_file:
+        #        data = json.load(json_file)
+        #    sim_par = SimulationParameter.from_dict(data)
+        #else:
+        #    sim_par = SimulationParameter()
+        # sim_par_str = sim_par.to_idf()
+        sim_par_str = ''
+
+        # re-serialize the Model to Python
+        model = Model.from_file(model_file)
+        x_int_w = not include_interior_walls
+        x_int_c = not include_interior_ceilings
+
+        # create the strings for simulation parameters and model
+        model_str = model.to.inp(model, hvac_mapping, x_int_w, x_int_c)
+        inp_str = '\n\n'.join([sim_par_str, model_str])
+
+        # write out the INP file
+        if folder is not None and name is not None:
+            write_to_file_by_name(folder, name, inp_str, True)
+        else:
+            output_file.write(inp_str)
     except Exception as e:
         _logger.exception(f'Model translation failed:\n{e}')
         sys.exit(1)
