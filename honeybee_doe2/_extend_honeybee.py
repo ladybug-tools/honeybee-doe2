@@ -19,3 +19,13 @@ shade_writer.inp = shade_to_inp
 aperture_writer.inp = aperture_to_inp
 door_writer.inp = door_to_inp
 shade_mesh_writer.inp = shade_mesh_to_inp
+
+
+# import the modules that extend honeybee-energy objects
+from honeybee_energy.schedule.day import ScheduleDay
+from honeybee_energy.schedule.ruleset import ScheduleRuleset
+from .schedule import schedule_day_to_inp, schedule_ruleset_to_inp
+
+# add the methods to the honeybee-energy classes
+ScheduleDay.to_inp = schedule_day_to_inp
+ScheduleRuleset.to_inp = schedule_ruleset_to_inp
