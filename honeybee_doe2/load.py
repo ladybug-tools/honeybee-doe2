@@ -5,7 +5,6 @@ from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
-
 # TODO: Add methods to map to SOURCE-TYPE HOT-WATER and PROCESS
 
 
