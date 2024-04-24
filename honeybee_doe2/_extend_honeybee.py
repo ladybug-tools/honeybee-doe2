@@ -19,5 +19,3 @@ shade_writer.inp = shade_to_inp
 aperture_writer.inp = aperture_to_inp
 door_writer.inp = door_to_inp
 shade_mesh_writer.inp = shade_mesh_to_inp
-
-# TODO: Extend classes of honeybee-energy with to_inp() methods and inp_identifier()

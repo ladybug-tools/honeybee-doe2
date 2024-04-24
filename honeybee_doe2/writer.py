@@ -1,50 +1,25 @@
 # coding=utf-8
 """Methods to write to inp."""
 import math
+
 from ladybug_geometry.geometry2d import Point2D
 from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
 from honeybee.typing import clean_doe2_string
 from honeybee.boundarycondition import Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
+from honeybee.room import Room
+from honeybee_energy.lib.constructionsets import generic_construction_set
 
-from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, DOE2_INTERIOR_BCS, \
-    GEO_CHARS, RES_CHARS
-from load import people_to_inp, lighting_to_inp, equipment_to_inp, \
+from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, FLOOR_LEVEL_TOL, RECT_WIN_SUBD, \
+    DOE2_INTERIOR_BCS, GEO_CHARS, RES_CHARS
+from .util import generate_inp_string, header_comment_minor, \
+    header_comment_major
+from .schedule import energy_trans_sch_to_transmittance
+from .load import people_to_inp, lighting_to_inp, equipment_to_inp, \
     infiltration_to_inp
 
 
-def generate_inp_string(u_name, command, keywords, values):
-    """Get an INP string representation of a DOE-2 object.
-
-    This method is written in a generic way so that it can describe practically
-    any element of the INP Building Description Language (BDL).
-
-    Args:
-        u_name: Text for the unique, user-specified name of the object being created.
-            This must be 32 characters or less and not contain special or non-ASCII
-            characters. The clean_doe2_string method may be used to convert
-            strings to a format that is acceptable here. For example, a U-Name
-            of a space might be "Floor2W ClosedOffice5".
-        command: Text indicating the type of instruction that the DOE-2 object
-            executes. Commands are typically in capital letters and examples
-            include POLYGON, FLOOR, SPACE, EXTERIOR-WALL, WINDOW, CONSTRUCTION, etc.
-        keywords: A list of text with the same length as the values that denote
-            the attributes of the DOE-2 object.
-        values: A list of values with the same length as the keywords that describe
-            the values of the attributes for the object.
-
-    Returns:
-        inp_str -- A DOE-2 INP string representing a single object.
-    """
-    space_count = tuple((25 - len(str(n))) for n in keywords)
-    spc = tuple(s_c * ' ' if s_c > 0 else ' ' for s_c in space_count)
-    body_str = '\n'.join('   {}{}= {}'.format(kwd, s, val)
-                         for kwd, s, val in zip(keywords, spc, values))
-    inp_str = '"{}" = {}\n{}\n   ..\n'.format(u_name, command, body_str)
-    return inp_str
-
-
-def face_3d_to_inp(face_3d, parent_name='HB object', is_shade=False):
+def face_3d_to_inp(face_3d, parent_name='HB object'):
     """Convert a Face3D into a DOE-2 POLYGON string and info to position it in space.
 
     In this operation, all holes in the Face3D are ignored since they are not
@@ -59,8 +34,6 @@ def face_3d_to_inp(face_3d, parent_name='HB object', is_shade=False):
             Note that this should ideally have 24 characters or less so that
             the result complies with the strict 32 character limit of DOE-2
             identifiers.
-        is_shade: Boolean to note whether the location_str needs to be generated
-            using the conventions for FIXED-SHADE as opposed to WALL, ROOF, FLOOR.
 
     Returns:
         A tuple with two elements.
@@ -99,25 +72,6 @@ def face_3d_to_inp(face_3d, parent_name='HB object', is_shade=False):
     return polygon_str, position_info
 
 
-def _energy_trans_sch_to_transmittance(shade_obj):
-    """Try to extract the transmittance from the shade energy properties."""
-    trans = 0
-    trans_sch = shade_obj.properties.energy.transmittance_schedule
-    if trans_sch is not None:
-        if trans_sch.is_constant:
-            try:  # assume ScheduleRuleset
-                trans = trans_sch.default_day_schedule[0]
-            except AttributeError:  # ScheduleFixedInterval
-                trans = trans_sch.values[0]
-        else:  # not a constant schedule; use the average transmittance
-            try:  # assume ScheduleRuleset
-                sch_vals = trans_sch.values()
-            except Exception:  # ScheduleFixedInterval
-                sch_vals = trans_sch.values
-            trans = sum(sch_vals) / len(sch_vals)
-    return trans
-
-
 def shade_mesh_to_inp(shade_mesh):
     """Generate an INP string representation of a ShadeMesh.
 
@@ -138,7 +92,7 @@ def shade_mesh_to_inp(shade_mesh):
     # set up collector lists and properties for all shades
     shade_type = 'FIXED-SHADE' if shade_mesh.is_detached else 'BUILDING-SHADE'
     base_id = clean_doe2_string(shade_mesh.identifier, GEO_CHARS)
-    trans = _energy_trans_sch_to_transmittance(shade_mesh)
+    trans = energy_trans_sch_to_transmittance(shade_mesh)
     keywords = ('SHAPE', 'POLYGON', 'TRANSMITTANCE',
                 'X-REF', 'Y-REF', 'Z-REF', 'TILT', 'AZIMUTH')
     shade_polygons, shade_defs = [], []
@@ -178,7 +132,7 @@ def shade_to_inp(shade):
     shade_polygon, pos_info = face_3d_to_inp(clean_geo, doe2_id)
     origin, tilt, az = pos_info
     # create the shade definition, which includes the position information
-    trans = _energy_trans_sch_to_transmittance(shade)
+    trans = energy_trans_sch_to_transmittance(shade)
     keywords = ('SHAPE', 'POLYGON', 'TRANSMITTANCE',
                 'X-REF', 'Y-REF', 'Z-REF', 'TILT', 'AZIMUTH')
     values = ('POLYGON', '"{} Plg"', trans,
@@ -486,7 +440,7 @@ def model_to_inp(
             should be excluded from the resulting string. (Default: False).
         exclude_interior_ceilings: Boolean to note whether interior ceiling
             Faces should be excluded from the resulting string. (Default: False).
-    
+
     Usage:
 
     .. code-block:: python
@@ -514,29 +468,136 @@ def model_to_inp(
         inp = os.path.join(folders.default_simulation_folder, 'test_file', 'in.inp')
         write_to_file(inp, inp_str, True)
     """
-    # duplicate model to avoid mutating it as we edit it for energy simulation
+    # duplicate model to avoid mutating it as we edit it for INP export
     original_model = model
     model = model.duplicate()
-
     # scale the model if the units are not feet
     if model.units != 'Feet':
         model.convert_to_units('Feet')
-    # remove degenerate geometry within native DOE-2 tolerance of 0.1 feet
+    # remove degenerate geometry within native DOE-2 tolerance
     try:
         model.remove_degenerate_geometry(DOE2_TOLERANCE)
     except ValueError:
         error = 'Failed to remove degenerate Rooms.\nYour Model units system is: {}. ' \
             'Is this correct?'.format(original_model.units)
         raise ValueError(error)
-
-    # TODO: split all of the Rooms with holes so that they can be translated
     # convert all of the Aperture geometries to rectangles so they can be translated
     model.rectangularize_apertures(
-        subdivision_distance=0.5, max_separation=0.0,
+        subdivision_distance=RECT_WIN_SUBD, max_separation=0.0,
         merge_all=True, resolve_adjacency=True
     )
-
-    # TODO: reassign stories to the model such that each level has only one polygon
-
     # reset identifiers to make them unique and derived from the display names
     model.reset_ids()
+
+    # write the simulation parameters into the string
+    model_str = ['INPUT ..\n\n']
+    model_str.append(header_comment_minor('Abort, Diagnostics'))
+    model_str.append(header_comment_minor('Global Parameters'))
+    model_str.append(header_comment_minor('Title, Run Periods, Design Days, Holidays'))
+    model_str.append(header_comment_minor('Compliance Data'))
+    model_str.append(header_comment_minor('Site and Building Data'))
+
+    # write all of the schedules
+    sched_strs = []
+    used_day_sched_ids, used_day_count = {}, 1
+    all_scheds = model.properties.energy.schedules
+    for sched in all_scheds:
+        try:  # ScheduleRuleset
+            year_schedule, week_schedules = sched.to_idf()
+            if week_schedules is None:  # ScheduleConstant
+                sched_strs.append(year_schedule)
+            else:  # ScheduleYear
+                # check that day schedules aren't referenced by other model schedules
+                day_scheds = []
+                for day in sched.day_schedules:
+                    if day.identifier not in used_day_sched_ids:
+                        day_scheds.append(day.to_idf(sched.schedule_type_limit))
+                        used_day_sched_ids[day.identifier] = day
+                    elif day != used_day_sched_ids[day.identifier]:
+                        new_day = day.duplicate()
+                        new_day.identifier = 'Schedule Day {}'.format(used_day_count)
+                        day_scheds.append(new_day.to_idf(sched.schedule_type_limit))
+                        for i, week_sch in enumerate(week_schedules):
+                            week_schedules[i] = \
+                                week_sch.replace(day.identifier, new_day.identifier)
+                        used_day_count += 1
+                sched_strs.extend([year_schedule] + week_schedules + day_scheds)
+        except TypeError:  # ScheduleFixedInterval
+            sched_strs.append(sched.to_idf_compact())
+    model_str.append(header_comment_minor('Day Schedules'))
+    model_str.append(header_comment_minor('Week Schedules'))
+    model_str.append(header_comment_minor('Annual Schedules'))
+
+    # write all of the materials and constructions
+    materials = []
+    construction_strs = []
+    dynamic_cons = []
+    all_constrs = model.properties.energy.constructions + \
+        generic_construction_set.constructions_unique
+    for constr in set(all_constrs):
+        try:
+            materials.extend(constr.materials)
+            construction_strs.append(constr.to_idf())
+            if constr.has_frame:
+                materials.append(constr.frame)
+            if constr.has_shade:
+                if constr.window_construction in all_constrs:
+                    construction_strs.pop(-1)  # avoid duplicate specification
+                if constr.is_switchable_glazing:
+                    materials.append(constr.switched_glass_material)
+                construction_strs.append(constr.to_shaded_idf())
+            elif constr.is_dynamic:
+                dynamic_cons.append(constr)
+        except AttributeError:
+            try:  # AirBoundaryConstruction or ShadeConstruction
+                construction_strs.append(constr.to_idf())  # AirBoundaryConstruction
+            except TypeError:
+                pass  # ShadeConstruction; no need to write it
+    model_str.append(header_comment_minor('Materials / Layers / Constructions'))
+    model_str.append(header_comment_minor('Glass Types'))
+    model_str.append(header_comment_minor('Door Construction'))
+
+    # group rooms in the model such that each level has only one polygon
+    grouped_rooms = Room.group_by_floor_height(model.rooms, FLOOR_LEVEL_TOL)
+
+    model_str.append(header_comment_minor('Polygons'))
+    model_str.append(header_comment_minor('Wall Parameters'))
+    model_str.append(header_comment_minor('Fixed and Building Shades'))
+    model_str.append(header_comment_minor('Misc Cost Related Objects'))
+    model_str.append(header_comment_major('Performance Curves'))
+    model_str.append(header_comment_major('Floors / Spaces / Walls / Windows / Doors'))
+
+    # assign HVAC systems given the specified hvac_mapping
+    model_str.append(header_comment_major('Electric & Fuel Meters'))
+    for meter in ('Electric Meters', 'Fuel Meters', 'Master Meters'):
+        model_str.append(header_comment_minor(meter))
+    model_str.append(header_comment_major('HVAC Circulation Loops / Plant Equipment'))
+    hvac_comp_types = (
+        'Pumps', 'Heat Exchangers', 'Circulation Loops', 'Chillers', 'Boilers',
+        'Domestic Water Heaters', 'Heat Rejection', 'Tower Free Cooling',
+        'Photovoltaic Modules', 'Electric Generators', 'Thermal Storage',
+        'Ground Loop Heat Exchangers', 'Compliance DHW (residential dwelling units)')
+    for comp in hvac_comp_types:
+        model_str.append(header_comment_minor(comp))
+    model_str.append(header_comment_major('Steam & Chilled Water Meters'))
+    model_str.append(header_comment_minor('Steam Meters'))
+    model_str.append(header_comment_minor('Chilled Water Meters'))
+    model_str.append(header_comment_major('HVAC Systems / Zones'))
+
+
+    # provide a few last comment headers and end the file
+    model_str.append(header_comment_major('Metering & Misc HVAC'))
+    model_str.append(header_comment_minor('Equipment Controls'))
+    model_str.append(header_comment_minor('Load Management'))
+    model_str.append(header_comment_major('Utility Rates'))
+    for rate in ('Ratchets', 'Block Charges', 'Utility Rates'):
+        model_str.append(header_comment_minor(rate))
+    model_str.append(header_comment_major('Output Reporting'))
+    report_types = (
+        'Loads Non-Hourly Reporting', 'Systems Non-Hourly Reporting',
+        'Plant Non-Hourly Reporting', 'Economics Non-Hourly Reporting',
+        'Hourly Reporting', 'THE END')
+    for report in report_types:
+        model_str.append(header_comment_minor(report))
+    model_str = ['END ..\nCOMPUTE ..\nSTOP ..\n']
+    return ''.join(model_str)
