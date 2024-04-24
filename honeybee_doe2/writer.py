@@ -8,12 +8,16 @@ from honeybee.typing import clean_doe2_string
 from honeybee.boundarycondition import Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
 from honeybee.room import Room
+from honeybee_energy.construction.opaque import OpaqueConstruction
+from honeybee_energy.construction.air import AirBoundaryConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
 
 from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, FLOOR_LEVEL_TOL, RECT_WIN_SUBD, \
     DOE2_INTERIOR_BCS, GEO_CHARS, RES_CHARS
 from .util import generate_inp_string, header_comment_minor, \
     header_comment_major
+from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
+    window_construction_to_inp, door_construction_to_inp, air_construction_to_inp
 from .schedule import energy_trans_sch_to_transmittance
 from .load import people_to_inp, lighting_to_inp, equipment_to_inp, \
     infiltration_to_inp
@@ -183,7 +187,7 @@ def door_to_inp(door):
 
     # create the aperture definition
     doe2_id = clean_doe2_string(door.identifier, GEO_CHARS)
-    constr_o_name = door.properties.energy.construction.display_name
+    constr_o_name = door.properties.energy.construction.identifier
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
     keywords = ('X', 'Y', 'WIDTH', 'HEIGHT', 'CONSTRUCTION')
     values = (min_2d.x, min_2d.y, width, height, constr)
@@ -233,7 +237,7 @@ def aperture_to_inp(aperture):
 
     # create the aperture definition
     doe2_id = clean_doe2_string(aperture.identifier, GEO_CHARS)
-    constr_o_name = aperture.properties.energy.construction.display_name
+    constr_o_name = aperture.properties.energy.construction.identifier
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
     keywords = ('X', 'Y', 'WIDTH', 'HEIGHT', 'GLASS-TYPE')
     values = (min_2d.x, min_2d.y, width, height, constr)
@@ -283,7 +287,7 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0)):
     origin = face_origin - space_origin
 
     # create the face definition, which includes the position info
-    constr_o_name = face.properties.energy.construction.display_name
+    constr_o_name = face.properties.energy.construction.identifier
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
     keywords = ['POLYGON', 'CONSTRUCTION', 'TILT', 'AZIMUTH', 'X', 'Y', 'Z']
     values = ['"{} Plg"'.format(doe2_id), constr, tilt, az, origin.x, origin.y, origin.z]
@@ -498,64 +502,63 @@ def model_to_inp(
     model_str.append(header_comment_minor('Site and Building Data'))
 
     # write all of the schedules
-    sched_strs = []
+    all_day_scheds, all_week_scheds, all_year_scheds = [], [], []
     used_day_sched_ids, used_day_count = {}, 1
     all_scheds = model.properties.energy.schedules
     for sched in all_scheds:
-        try:  # ScheduleRuleset
-            year_schedule, week_schedules = sched.to_idf()
-            if week_schedules is None:  # ScheduleConstant
-                sched_strs.append(year_schedule)
-            else:  # ScheduleYear
-                # check that day schedules aren't referenced by other model schedules
-                day_scheds = []
-                for day in sched.day_schedules:
-                    if day.identifier not in used_day_sched_ids:
-                        day_scheds.append(day.to_idf(sched.schedule_type_limit))
-                        used_day_sched_ids[day.identifier] = day
-                    elif day != used_day_sched_ids[day.identifier]:
-                        new_day = day.duplicate()
-                        new_day.identifier = 'Schedule Day {}'.format(used_day_count)
-                        day_scheds.append(new_day.to_idf(sched.schedule_type_limit))
-                        for i, week_sch in enumerate(week_schedules):
-                            week_schedules[i] = \
-                                week_sch.replace(day.identifier, new_day.identifier)
-                        used_day_count += 1
-                sched_strs.extend([year_schedule] + week_schedules + day_scheds)
-        except TypeError:  # ScheduleFixedInterval
-            sched_strs.append(sched.to_idf_compact())
+        if sched.__class__.__name__ == 'ScheduleRuleset':
+            year_schedule, week_schedules = sched.to_inp()
+            # check that day schedules aren't referenced by other model schedules
+            day_scheds = []
+            for day in sched.day_schedules:
+                if day.identifier not in used_day_sched_ids:
+                    day_scheds.append(day.to_inp(sched.schedule_type_limit))
+                    used_day_sched_ids[day.identifier] = day
+                elif day != used_day_sched_ids[day.identifier]:
+                    new_day = day.duplicate()
+                    new_day.identifier = 'Schedule Day {}'.format(used_day_count)
+                    day_scheds.append(new_day.to_inp(sched.schedule_type_limit))
+                    for i, week_sch in enumerate(week_schedules):
+                        old_day_id = clean_doe2_string(day.identifier, RES_CHARS)
+                        new_day_id = clean_doe2_string(new_day.identifier, RES_CHARS)
+                        week_schedules[i] = week_sch.replace(old_day_id, new_day_id)
+                    used_day_count += 1
+            all_day_scheds.extend(day_scheds)
+            all_week_scheds.extend(week_schedules)
+            all_year_scheds.append(year_schedule)
+        else:  # ScheduleFixedInterval
+            pass
+            # TODO: Add translators for ScheduleFixedInterval
     model_str.append(header_comment_minor('Day Schedules'))
+    model_str.extend(all_day_scheds)
     model_str.append(header_comment_minor('Week Schedules'))
+    model_str.extend(all_week_scheds)
     model_str.append(header_comment_minor('Annual Schedules'))
+    model_str.extend(all_year_scheds)
 
     # write all of the materials and constructions
+    window_constructions = model.properties.energy.aperture_constructions()
+    door_constructions = model.properties.energy.door_constructions()
+    drc_ids = set([con.identifier for con in door_constructions])
     materials = []
     construction_strs = []
-    dynamic_cons = []
     all_constrs = model.properties.energy.constructions + \
         generic_construction_set.constructions_unique
     for constr in set(all_constrs):
-        try:
+        if isinstance(constr, OpaqueConstruction) and constr.identifier not in drc_ids:
             materials.extend(constr.materials)
-            construction_strs.append(constr.to_idf())
-            if constr.has_frame:
-                materials.append(constr.frame)
-            if constr.has_shade:
-                if constr.window_construction in all_constrs:
-                    construction_strs.pop(-1)  # avoid duplicate specification
-                if constr.is_switchable_glazing:
-                    materials.append(constr.switched_glass_material)
-                construction_strs.append(constr.to_shaded_idf())
-            elif constr.is_dynamic:
-                dynamic_cons.append(constr)
-        except AttributeError:
-            try:  # AirBoundaryConstruction or ShadeConstruction
-                construction_strs.append(constr.to_idf())  # AirBoundaryConstruction
-            except TypeError:
-                pass  # ShadeConstruction; no need to write it
+            construction_strs.append(opaque_construction_to_inp(constr))
+        elif isinstance(constr, AirBoundaryConstruction):
+            construction_strs.append(air_construction_to_inp(constr))
     model_str.append(header_comment_minor('Materials / Layers / Constructions'))
+    model_str.extend([opaque_material_to_inp(mat) for mat in set(materials)])
+    model_str.extend(construction_strs)
     model_str.append(header_comment_minor('Glass Types'))
+    for w_con in window_constructions:
+        model_str.append(window_construction_to_inp(w_con))
     model_str.append(header_comment_minor('Door Construction'))
+    for dr_con in door_constructions:
+        model_str.append(door_construction_to_inp(dr_con))
 
     # group rooms in the model such that each level has only one polygon
     grouped_rooms = Room.group_by_floor_height(model.rooms, FLOOR_LEVEL_TOL)

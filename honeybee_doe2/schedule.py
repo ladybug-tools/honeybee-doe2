@@ -175,9 +175,7 @@ def schedule_ruleset_to_inp(schedule):
         return week_schedule, week_sch_id
 
     # prepare to create a full Schedule:Year
-    date_comments = ['start month {}', 'start day {}', 'end month {}', 'end day {}']
     week_schedules = []
-
     if schedule.is_single_week:  # create the only one week schedule
         wk_sch, wk_sch_id = \
             _inp_week_schedule_from_rule_indices(schedule, range(len(schedule)), 1)
