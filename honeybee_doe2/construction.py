@@ -28,12 +28,12 @@ def opaque_material_to_inp(material):
     # check if the material should be translated as a no mass material
     if isinstance(material, EnergyMaterialNoMass) or \
             material.thickness < MIN_LAYER_THICKNESS:
-        r_val = RValue([material.r_value], 'h-ft2-F/Btu', 'm2-K/W')[0]
+        r_val = RValue().to_unit([material.r_value], 'h-ft2-F/Btu', 'm2-K/W')[0]
         keywords = ('TYPE', 'RESISTANCE')
-        values = ('RESISTANCE', r_val)
+        values = ('RESISTANCE', round(r_val, 3))
         return generate_inp_string(doe2_id, 'MATERIAL', keywords, values)
     # write out detailed properties for the material
-    thickness = round(Distance([material.thickness], 'ft', 'm')[0], 3)
+    thickness = round(Distance().to_unit([material.thickness], 'ft', 'm')[0], 3)
     conduct = round(material.conductivity * 0.578176, 3)  # convert to BTU/h-ft-F
     density = round(material.density / 16.018, 3)  # convert to lb/ft3
     spec_en = round(material.specific_heat * 0.0002388459, 3)  # convert to BTU/lb-F
@@ -67,9 +67,9 @@ def window_construction_to_inp(construction):
     """Convert a WindowConstruction (or its variants) into a GLASS-TYPE INP string."""
     doe2_id = clean_doe2_string(construction.identifier, RES_CHARS)
     shading_coef = construction.shgc / 0.87
-    glass_cond = UValue([construction.u_factor], 'Btu/h-ft2-F', 'W/m2-K')[0]
+    glass_cond = UValue().to_unit([construction.u_factor], 'Btu/h-ft2-F', 'W/m2-K')[0]
     keywords = ('TYPE', 'SHADING-COEF', 'GLASS-CONDUCT')
-    values = ('SHADING-COEF', shading_coef, glass_cond)
+    values = ('SHADING-COEF', round(shading_coef, 3), round(glass_cond, 3))
     return generate_inp_string(doe2_id, 'GLASS-TYPE', keywords, values)
 
 
@@ -79,9 +79,9 @@ def door_construction_to_inp(construction):
     This translation pathway always uses a NoMass U-VALUE Construction.
     """
     doe2_id = clean_doe2_string(construction.identifier, RES_CHARS)
-    constr_cond = UValue([construction.u_factor], 'Btu/h-ft2-F', 'W/m2-K')[0]
+    constr_cond = UValue().to_unit([construction.u_factor], 'Btu/h-ft2-F', 'W/m2-K')[0]
     keywords = ('TYPE', 'U-VALUE')
-    values = ('U-VALUE', constr_cond)
+    values = ('U-VALUE', round(constr_cond, 3))
     return generate_inp_string(doe2_id, 'CONSTRUCTION', keywords, values)
 
 
@@ -91,7 +91,7 @@ def air_construction_to_inp(construction):
     This translation pathway always uses a NoMass U-VALUE Construction.
     """
     doe2_id = clean_doe2_string(construction.identifier, RES_CHARS)
-    constr_cond = UValue([6], 'Btu/h-ft2-F', 'W/m2-K')[0]
+    constr_cond = 1.0  # default U-Value in Btu/h-ft2-F
     keywords = ('TYPE', 'U-VALUE')
     values = ('U-VALUE', constr_cond)
     return generate_inp_string(doe2_id, 'CONSTRUCTION', keywords, values)
