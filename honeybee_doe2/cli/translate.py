@@ -8,6 +8,8 @@ import logging
 from ladybug.futil import write_to_file_by_name
 from honeybee.model import Model
 
+from honeybee_doe2.simulation import SimulationPar
+
 _logger = logging.getLogger(__name__)
 
 
@@ -20,7 +22,7 @@ def translate():
 @click.argument('model-file', type=click.Path(
     exists=True, file_okay=True, dir_okay=False, resolve_path=True))
 @click.option(
-    '--sim-par-json', '-sp', help='Full path to a honeybee-doe2 SimulationParameter '
+    '--sim-par-json', '-sp', help='Full path to a honeybee-doe2 SimulationPar '
     'JSON that describes all of the settings for the simulation. If unspecified, '
     'default parameters will be generated.', default=None, show_default=True,
     type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True))
@@ -64,24 +66,20 @@ def model_to_inp(
     Args:
         model_file: Full path to a Honeybee Model file (HBJSON or HBpkl)."""
     try:
-        # load simulation parameters or generate default ones
-        #if sim_par_json is not None:
-        #    with open(sim_par_json) as json_file:
-        #        data = json.load(json_file)
-        #    sim_par = SimulationParameter.from_dict(data)
-        #else:
-        #    sim_par = SimulationParameter()
-        # sim_par_str = sim_par.to_idf()
-        sim_par_str = ''
+        # load simulation parameters if specified
+        sim_par = None
+        if sim_par_json is not None:
+            with open(sim_par_json) as json_file:
+                data = json.load(json_file)
+            sim_par = SimulationPar.from_dict(data)
 
         # re-serialize the Model to Python
         model = Model.from_file(model_file)
         x_int_w = not include_interior_walls
         x_int_c = not include_interior_ceilings
 
-        # create the strings for simulation parameters and model
-        model_str = model.to.inp(model, hvac_mapping, x_int_w, x_int_c)
-        inp_str = '\n\n'.join([sim_par_str, model_str])
+        # create the strings for the model
+        inp_str = model.to.inp(model, sim_par, hvac_mapping, x_int_w, x_int_c)
 
         # write out the INP file
         if folder is not None and name is not None:

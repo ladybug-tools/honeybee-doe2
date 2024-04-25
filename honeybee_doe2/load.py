@@ -1,4 +1,6 @@
 """honeybee-doe2 load translators."""
+from __future__ import division
+
 from ladybug.datatype.area import Area
 from ladybug.datatype.energyflux import EnergyFlux
 from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity

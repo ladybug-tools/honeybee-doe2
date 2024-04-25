@@ -1,5 +1,6 @@
 # coding=utf-8
 """Methods to write to inp."""
+from __future__ import division
 import math
 
 from ladybug_geometry.geometry2d import Point2D
@@ -21,6 +22,7 @@ from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
 from .schedule import energy_trans_sch_to_transmittance
 from .load import people_to_inp, lighting_to_inp, equipment_to_inp, \
     infiltration_to_inp
+from .simulation import SimulationPar
 
 
 def face_3d_to_inp(face_3d, parent_name='HB object'):
@@ -413,21 +415,23 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
 
 
 def model_to_inp(
-    model, hvac_mapping='Story', exclude_interior_walls=False,
-    exclude_interior_ceilings=False
+    model, simulation_par=None, hvac_mapping='Story',
+    exclude_interior_walls=False, exclude_interior_ceilings=False
 ):
     """Generate an INP string representation of a Model.
 
     The resulting string will include all geometry (Rooms, Faces, Apertures,
     Doors, Shades), all fully-detailed constructions + materials, all fully-detailed
-    schedules, and the room properties.
-
-    Essentially, the string includes everything needed to simulate the model
-    except the simulation parameters. So joining this string with the output of
-    SimulationParameter.to_inp() should create a simulate-able INP.
+    schedules, and the room properties. It will also include the simulation
+    parameters. Essentially, the string includes everything needed to simulate
+    the model.
 
     Args:
         model: A honeybee Model for which an INP representation will be returned.
+        simulation_par: A honeybee-doe2 SimulationPar object to specify how the
+            DOE-2 simulation should be run. If None, default simulation
+            parameters will be generated, which will run the simulation for the
+            full year. (Default: None).
         hvac_mapping: Text to indicate how HVAC systems should be assigned to the
             exported model. Story will assign one HVAC system for each distinct
             level polygon, Model will use only one HVAC system for the whole model
@@ -454,19 +458,15 @@ def model_to_inp(
         from honeybee.model import Model
         from honeybee.room import Room
         from honeybee.config import folders
-        from honeybee_doe2.simulation import SimulationParameter
 
-        # Get input Model
+        # Crate an input Model
         room = Room.from_box('Tiny House Zone', 5, 10, 3)
         room.properties.energy.program_type = office_program
         room.properties.energy.add_default_ideal_air()
         model = Model('Tiny House', [room])
 
-        # Get the input SimulationParameter
-        sim_par = SimulationParameter()
-
-        # create the INP string for simulation parameters and model
-        inp_str = '\n\n'.join((sim_par.to_inp(), model.to.inp(model)))
+        # create the INP string for the model
+        inp_str = model.to.inp(model)
 
         # write the final string into an INP
         inp = os.path.join(folders.default_simulation_folder, 'test_file', 'in.inp')
@@ -495,11 +495,8 @@ def model_to_inp(
 
     # write the simulation parameters into the string
     model_str = ['INPUT ..\n\n']
-    model_str.append(header_comment_minor('Abort, Diagnostics'))
-    model_str.append(header_comment_minor('Global Parameters'))
-    model_str.append(header_comment_minor('Title, Run Periods, Design Days, Holidays'))
-    model_str.append(header_comment_minor('Compliance Data'))
-    model_str.append(header_comment_minor('Site and Building Data'))
+    sim_par = simulation_par if simulation_par is not None else SimulationPar()
+    model_str.append(sim_par.to_inp())
 
     # write all of the schedules
     all_day_scheds, all_week_scheds, all_year_scheds = [], [], []
@@ -603,4 +600,4 @@ def model_to_inp(
     for report in report_types:
         model_str.append(header_comment_minor(report))
     model_str = ['END ..\nCOMPUTE ..\nSTOP ..\n']
-    return ''.join(model_str)
+    return '\n'.join(model_str)
