@@ -1,5 +1,6 @@
 # coding=utf-8
 """Various utilities used throughout the package."""
+from __future__ import division
 
 
 def generate_inp_string(u_name, command, keywords, values):

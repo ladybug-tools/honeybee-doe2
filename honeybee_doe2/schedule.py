@@ -1,5 +1,7 @@
 # coding=utf-8
 """honeybee-doe2 schedule translators."""
+from __future__ import division
+
 from ladybug.dt import Date, MONTHNAMES
 from honeybee.typing import clean_doe2_string
 
