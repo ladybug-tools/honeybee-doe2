@@ -374,6 +374,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     # create the polygon string from the geometry
     doe2_id = clean_doe2_string(room.identifier, GEO_CHARS)
     r_geo = room.horizontal_boundary(match_walls=False, tolerance=DOE2_TOLERANCE)
+    r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
     r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
     room_polygon, pos_info = face_3d_to_inp(r_geo, doe2_id)
     space_origin, _, _ = pos_info
@@ -478,6 +479,7 @@ def model_to_inp(
     # scale the model if the units are not feet
     if model.units != 'Feet':
         model.convert_to_units('Feet')
+    tol = model.tolerance
     # remove degenerate geometry within native DOE-2 tolerance
     try:
         model.remove_degenerate_geometry(DOE2_TOLERANCE)
@@ -557,9 +559,11 @@ def model_to_inp(
     for dr_con in door_constructions:
         model_str.append(door_construction_to_inp(dr_con))
 
-    # group rooms in the model such that each level has only one polygon
-    grouped_rooms = Room.group_by_floor_height(model.rooms, FLOOR_LEVEL_TOL)
-
+    # loop through rooms grouped by floor level and boundary to get polygons
+    room_polygons, bldg_geo_defs = [], []
+    
+    
+    
     model_str.append(header_comment_minor('Polygons'))
     model_str.append(header_comment_minor('Wall Parameters'))
     model_str.append(header_comment_minor('Fixed and Building Shades'))
@@ -601,3 +605,60 @@ def model_to_inp(
         model_str.append(header_comment_minor(report))
     model_str = ['END ..\nCOMPUTE ..\nSTOP ..\n']
     return '\n'.join(model_str)
+
+
+def group_rooms_by_doe2_level(rooms, model_tolerance):
+    """Group Honeybee Rooms according to acceptable floor levels in DOE-2.
+
+    This means that not only will Rooms be on separate DOE-2 levels if their floor
+    heights differ but also Rooms that share the same floor height but are
+    disconnected from one another in plan will also be separate levels.
+    For example, when the model is of two towers on a plinth, each tower will
+    get its own separate level group.
+
+    Args:
+        rooms: A list of Honeybee Rooms to be grouped.
+        model_tolerance: The tolerance of the model that the Rooms originated from.
+
+    Returns:
+        A tuple with three elements.
+
+        -   room_groups: A list of lists where each sub-list contains Honeybee
+            Rooms that should be on the same DOE-2 level.
+
+        -   level_geometry: A list of Face3D with the same length as the
+            room_groups, which contains the geometry that represents each floor
+            level. These geometries will always be pointing upwards so that
+            their vertices are counter-clockwise when viewed from above. They
+            will also have colinear vertices removed such that they are ready
+            to be translated to INP POLYGONS.
+        
+        -   level_names: A list of text strings that align with the level
+            geometry and contain suggested names for the DOE-2 levels.
+    """
+    # set up lists of the outputs to be populated
+    room_groups, level_geometry, level_names = [], [], []
+
+    # first group the rooms by floor height
+    grouped_rooms = Room.group_by_floor_height(rooms, FLOOR_LEVEL_TOL)
+    for fi, room_group in enumerate(grouped_rooms):
+        hor_bounds = Room.grouped_horizontal_boundary(
+            room_group, tolerance=model_tolerance, floors_only=True)
+        if len(hor_bounds) == 0:  # possible when Rooms have no floors
+            hor_bounds = Room.grouped_horizontal_boundary(
+                room_group, tolerance=model_tolerance, floors_only=False)
+        # if we got lucky and everything is one contiguous polygon, we're done!
+        if len(hor_bounds) == 1:
+            flr_geo = hor_bounds[0]
+            flr_geo = flr_geo if flr_geo.normal.z >= 0 else flr_geo.flip()
+            flr_geo = flr_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
+            room_groups.append(room_group)
+            level_geometry.append(flr_geo)
+            level_names.append('Level_{}'.format(fi))
+        else:  # otherwise, we need to figure out which Room belongs to which geometry
+            for flr_geo in hor_bounds:
+                flr_geo = flr_geo if flr_geo.normal.z >= 0 else flr_geo.flip()
+                r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
+
+    # return all of the outputs
+    return room_groups, level_geometry, level_names
