@@ -8,15 +8,15 @@ from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
 from honeybee.typing import clean_doe2_string
 from honeybee.boundarycondition import Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
-from honeybee.room import Room
 from honeybee_energy.construction.opaque import OpaqueConstruction
 from honeybee_energy.construction.air import AirBoundaryConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
 
-from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, FLOOR_LEVEL_TOL, RECT_WIN_SUBD, \
+from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, RECT_WIN_SUBD, \
     DOE2_INTERIOR_BCS, GEO_CHARS, RES_CHARS
 from .util import generate_inp_string, header_comment_minor, \
     header_comment_major
+from .grouping import group_rooms_by_doe2_level, group_rooms_by_doe2_hvac
 from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
     window_construction_to_inp, door_construction_to_inp, air_construction_to_inp
 from .schedule import energy_trans_sch_to_transmittance
@@ -348,12 +348,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
 
     # set up attributes based on the Room's energy properties
     energy_attr_keywords = ['ZONE-TYPE']
-    if room.exclude_floor_area:
-        energy_attr_values = ['PLENUM']
-    elif room.properties.energy.is_conditioned:
-        energy_attr_values = ['CONDITIONED']
-    else:
-        energy_attr_values = ['UNCONDITIONED']
+    energy_attr_values = [room_doe2_conditioning_type(room)]
     if room.properties.energy.people:
         ppl_kwd, ppl_val = people_to_inp(room)
         energy_attr_keywords.extend(ppl_kwd)
@@ -479,7 +474,6 @@ def model_to_inp(
     # scale the model if the units are not feet
     if model.units != 'Feet':
         model.convert_to_units('Feet')
-    tol = model.tolerance
     # remove degenerate geometry within native DOE-2 tolerance
     try:
         model.remove_degenerate_geometry(DOE2_TOLERANCE)
@@ -560,18 +554,53 @@ def model_to_inp(
         model_str.append(door_construction_to_inp(dr_con))
 
     # loop through rooms grouped by floor level and boundary to get polygons
-    room_polygons, bldg_geo_defs = [], []
-    
-    
-    
+    level_room_groups, level_geos, level_names = \
+        group_rooms_by_doe2_level(model.rooms, model.tolerance)
+    bldg_polygons, bldg_geo_defs = [], []
+    for flr_rooms, flr_geo, flr_name in zip(level_room_groups, level_geos, level_names):
+        # create the story POLYGON and definition
+        flr_polygon, pos_info = face_3d_to_inp(flr_geo, flr_name)
+        flr_origin, _, _ = pos_info
+        rooms_f2f = [room.max.z - room.min.z for room in flr_rooms]
+        flr_keys = ('SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z',
+                    'SPACE-HEIGHT', 'FLOOR-HEIGHT')
+        flr_vals = ('POLYGON', '"{} Plg"'.format(flr_name), 0,
+                    flr_origin.x, flr_origin.y, flr_origin.z,
+                    round(sum(rooms_f2f) / len(rooms_f2f), 3), round(max(rooms_f2f), 3))
+        flr_def = generate_inp_string(flr_name, 'FLOOR', flr_keys, flr_vals)
+        bldg_polygons.append(flr_polygon)
+        bldg_geo_defs.append(flr_def)
+        # add the room and face definitions + polygons
+        for room in flr_rooms:
+            room_polygons, room_defs = room_to_inp(
+                room, flr_origin, exclude_interior_walls, exclude_interior_ceilings)
+            bldg_polygons.extend(room_polygons)
+            bldg_geo_defs.extend(room_defs)
+
+    # loop through the shades and get their definitions and polygons
+    shade_polygons, shade_geo_defs = [], []
+    for shade in model.shades:
+        shade_polygon, shade_def = shade_to_inp(shade)
+        shade_polygons.append(shade_polygon)
+        shade_geo_defs.append(shade_def)
+    for shade in model.shade_meshes:
+        shade_polygon, shade_def = shade_mesh_to_inp(shade)
+        shade_polygons.extend(shade_polygon)
+        shade_geo_defs.extend(shade_def)
+
+    # write the building and shade geometry into the INP
     model_str.append(header_comment_minor('Polygons'))
+    model_str.extend(bldg_polygons)
     model_str.append(header_comment_minor('Wall Parameters'))
     model_str.append(header_comment_minor('Fixed and Building Shades'))
+    model_str.extend(shade_polygons)
+    model_str.extend(shade_geo_defs)
     model_str.append(header_comment_minor('Misc Cost Related Objects'))
     model_str.append(header_comment_major('Performance Curves'))
     model_str.append(header_comment_major('Floors / Spaces / Walls / Windows / Doors'))
+    model_str.extend(bldg_geo_defs)
 
-    # assign HVAC systems given the specified hvac_mapping
+    # write in placeholder headers for various HVAC components
     model_str.append(header_comment_major('Electric & Fuel Meters'))
     for meter in ('Electric Meters', 'Fuel Meters', 'Master Meters'):
         model_str.append(header_comment_minor(meter))
@@ -588,6 +617,33 @@ def model_to_inp(
     model_str.append(header_comment_minor('Chilled Water Meters'))
     model_str.append(header_comment_major('HVAC Systems / Zones'))
 
+    # assign HVAC systems given the specified hvac_mapping
+    if hvac_mapping.upper() == 'STORY':
+        hvac_rooms = level_room_groups
+        hvac_names = ['{}_Sys'.format(name) for name in level_names]
+    else:
+        hvac_rooms, hvac_names = group_rooms_by_doe2_hvac(model, hvac_mapping)
+    for hvac_name, rooms in zip(hvac_names, hvac_rooms):
+        # create the definition of the HVAC
+        hvac_keys = ('TYPE', 'HEAT-SOURCE', 'SYSTEM-REPORTS')
+        hvac_vals = ('SUM', 'NONE', 'NO')
+        hvac_def = generate_inp_string(hvac_name, 'SYSTEM', hvac_keys, hvac_vals)
+        model_str.append(hvac_def)
+        for room in rooms:
+            space_name = clean_doe2_string(room.identifier, GEO_CHARS)
+            zone_name = '_Zn'.format(space_name)
+            zone_type = room_doe2_conditioning_type(room)
+            heat_setpt, cool_setpt = 72, 75
+            setpoint = room.properties.energy.setpoint
+            if setpoint is not None:
+                heat_setpt = round(setpoint.heating_setpoint * (9. / 5.) + 32., 2)
+                cool_setpt = round(setpoint.cooling_setpoint * (9. / 5.) + 32., 2)
+            zone_keys = ('TYPE', 'DESIGN-HEAT-T', 'DESIGN-COOL-T',
+                         'SIZING-OPTION', 'SPACE')
+            zone_vals = (zone_type, heat_setpt, cool_setpt,
+                         'ADJUST-LOADS', space_name)
+            zone_def = generate_inp_string(zone_name, 'ZONE', zone_keys, zone_vals)
+            model_str.append(zone_def)
 
     # provide a few last comment headers and end the file
     model_str.append(header_comment_major('Metering & Misc HVAC'))
@@ -607,58 +663,15 @@ def model_to_inp(
     return '\n'.join(model_str)
 
 
-def group_rooms_by_doe2_level(rooms, model_tolerance):
-    """Group Honeybee Rooms according to acceptable floor levels in DOE-2.
-
-    This means that not only will Rooms be on separate DOE-2 levels if their floor
-    heights differ but also Rooms that share the same floor height but are
-    disconnected from one another in plan will also be separate levels.
-    For example, when the model is of two towers on a plinth, each tower will
-    get its own separate level group.
+def room_doe2_conditioning_type(room):
+    """Get the DOE-2 conditioning type that should be assigned to both the Space and Zone.
 
     Args:
-        rooms: A list of Honeybee Rooms to be grouped.
-        model_tolerance: The tolerance of the model that the Rooms originated from.
-
-    Returns:
-        A tuple with three elements.
-
-        -   room_groups: A list of lists where each sub-list contains Honeybee
-            Rooms that should be on the same DOE-2 level.
-
-        -   level_geometry: A list of Face3D with the same length as the
-            room_groups, which contains the geometry that represents each floor
-            level. These geometries will always be pointing upwards so that
-            their vertices are counter-clockwise when viewed from above. They
-            will also have colinear vertices removed such that they are ready
-            to be translated to INP POLYGONS.
-        
-        -   level_names: A list of text strings that align with the level
-            geometry and contain suggested names for the DOE-2 levels.
+        room: A Honeybee Room for which the conditioning type will be returned.
     """
-    # set up lists of the outputs to be populated
-    room_groups, level_geometry, level_names = [], [], []
-
-    # first group the rooms by floor height
-    grouped_rooms = Room.group_by_floor_height(rooms, FLOOR_LEVEL_TOL)
-    for fi, room_group in enumerate(grouped_rooms):
-        hor_bounds = Room.grouped_horizontal_boundary(
-            room_group, tolerance=model_tolerance, floors_only=True)
-        if len(hor_bounds) == 0:  # possible when Rooms have no floors
-            hor_bounds = Room.grouped_horizontal_boundary(
-                room_group, tolerance=model_tolerance, floors_only=False)
-        # if we got lucky and everything is one contiguous polygon, we're done!
-        if len(hor_bounds) == 1:
-            flr_geo = hor_bounds[0]
-            flr_geo = flr_geo if flr_geo.normal.z >= 0 else flr_geo.flip()
-            flr_geo = flr_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
-            room_groups.append(room_group)
-            level_geometry.append(flr_geo)
-            level_names.append('Level_{}'.format(fi))
-        else:  # otherwise, we need to figure out which Room belongs to which geometry
-            for flr_geo in hor_bounds:
-                flr_geo = flr_geo if flr_geo.normal.z >= 0 else flr_geo.flip()
-                r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
-
-    # return all of the outputs
-    return room_groups, level_geometry, level_names
+    if room.exclude_floor_area:
+        return 'PLENUM'
+    elif room.properties.energy.is_conditioned:
+        return 'CONDITIONED'
+    else:
+        return 'UNCONDITIONED'
