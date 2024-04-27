@@ -151,11 +151,11 @@ def test_schedule_ruleset_to_inp():
     assert inp_yr_str == \
         '"Office Occupancy" = SCHEDULE\n' \
         '   TYPE                     = FRACTION\n' \
-        '   THRU DEC 31              = "Office Occupancy_Week 1"\n' \
+        '   THRU DEC 31              = "Office Occupancy Week 1"\n' \
         '   ..\n'
     assert len(inp_week_strs) == 1
     assert inp_week_strs[0] == \
-        '"Office Occupancy_Week 1" = WEEK-SCHEDULE\n' \
+        '"Office Occupancy Week 1" = WEEK-SCHEDULE\n' \
         '   TYPE                     = FRACTION\n' \
         '   DAYS                     = (MON)\n' \
         '   DAY-SCHEDULES            = "Weekday Office Occupancy"\n' \
@@ -213,15 +213,15 @@ def test_schedule_ruleset_to_inp_date_range():
     assert inp_yr_str == \
         '"School Occupancy" = SCHEDULE\n' \
         '   TYPE                     = FRACTION\n' \
-        '   THRU JUN 30              = "School Occupancy_Week 1"\n' \
-        '   THRU SEP 1               = "School Occupancy_Week 2"\n' \
-        '   THRU DEC 31              = "School Occupancy_Week 1"\n' \
+        '   THRU JUN 30              = "School Occupancy Week 1"\n' \
+        '   THRU SEP 1               = "School Occupancy Week 2"\n' \
+        '   THRU DEC 31              = "School Occupancy Week 1"\n' \
         '   ..\n' \
         or inp_yr_str == \
         '"School Occupancy" = SCHEDULE\n' \
         '   TYPE                     = FRACTION\n' \
-        '   THRU JUN 30              = "School Occupancy_Week 2"\n' \
-        '   THRU SEP 1               = "School Occupancy_Week 1"\n' \
-        '   THRU DEC 31              = "School Occupancy_Week 2"\n' \
+        '   THRU JUN 30              = "School Occupancy Week 2"\n' \
+        '   THRU SEP 1               = "School Occupancy Week 1"\n' \
+        '   THRU DEC 31              = "School Occupancy Week 2"\n' \
         '   ..\n'
     assert len(inp_week_strs) == 2

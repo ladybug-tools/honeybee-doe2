@@ -44,7 +44,7 @@ def test_site_data_to_inp():
 
 def test_simulation_par_to_inp():
     """Test the SimulationPar to_inp method."""
-    title = 'Sample_Project'
+    title = 'Sample Project'
     simulation_par = SimulationPar(title)
     simulation_par.site.altitude = 100
     inp_str = simulation_par.to_inp()
@@ -65,7 +65,7 @@ def test_simulation_par_init():
     assert sim_par.site == SiteData()
 
     sim_par_dup = sim_par.duplicate()
-    sim_par_alt = SimulationPar(title='Sample_Project')
+    sim_par_alt = SimulationPar(title='Sample Project')
     assert sim_par is sim_par
     assert sim_par is not sim_par_dup
     assert sim_par == sim_par_dup

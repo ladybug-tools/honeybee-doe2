@@ -52,17 +52,17 @@ def test_opaque_construction_to_inp():
     assert inp_str == \
         '"Generic Wall Construction_l" = LAYERS\n' \
         '   MATERIAL                 = (\n' \
-        '      Concrete,\n' \
-        '      Insulation R-3,\n' \
-        '      Wall Air Gap,\n' \
-        '      Gypsum,\n' \
+        '      "Concrete",\n' \
+        '      "Insulation R-3",\n' \
+        '      "Wall Air Gap",\n' \
+        '      "Gypsum",\n' \
         '   )\n' \
         '   ..\n' \
         '"Generic Wall Construction" = CONSTRUCTION\n' \
         '   TYPE                     = LAYERS\n' \
         '   ABSORPTANCE              = 0.75\n' \
         '   ROUGHNESS                = 3\n' \
-        '   LAYERS                   = Generic Wall Construction_l\n' \
+        '   LAYERS                   = "Generic Wall Construction_l"\n' \
         '   ..\n'
 
 
