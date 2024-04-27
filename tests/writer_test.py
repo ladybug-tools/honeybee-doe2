@@ -30,7 +30,7 @@ def test_shade_writer():
        '   V4                       = (0.0, 1.0)\n' \
        '   ..\n'
     assert shade_def == \
-       '"overhang" = BUILDING-SHADE\n' \
+       '"overhang" = FIXED-SHADE\n' \
        '   SHAPE                    = POLYGON\n' \
        '   POLYGON                  = "overhang Plg"\n' \
        '   TRANSMITTANCE            = 0\n' \
@@ -38,7 +38,7 @@ def test_shade_writer():
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 3.0\n' \
        '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
        '   ..\n'
 
     fritted_glass_trans = ScheduleRuleset.from_constant_value(
@@ -46,7 +46,7 @@ def test_shade_writer():
     shade.properties.energy.transmittance_schedule = fritted_glass_trans
     shade_polygon, shade_def = shade.to.inp(shade)
     assert shade_def == \
-       '"overhang" = BUILDING-SHADE\n' \
+       '"overhang" = FIXED-SHADE\n' \
        '   SHAPE                    = POLYGON\n' \
        '   POLYGON                  = "overhang Plg"\n' \
        '   TRANSMITTANCE            = 0.5\n' \
@@ -54,7 +54,7 @@ def test_shade_writer():
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 3.0\n' \
        '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
        '   ..\n'
 
 
@@ -84,7 +84,7 @@ def test_shade_mesh_writer():
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 4.0\n' \
        '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
        '   ..\n'
    
     fritted_glass_trans = ScheduleRuleset.from_constant_value(
@@ -100,7 +100,7 @@ def test_shade_mesh_writer():
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 4.0\n' \
        '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
        '   ..\n'
 
 
@@ -245,7 +245,7 @@ def test_face_writer():
        '   POLYGON                  = "roof face Plg"\n' \
        '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
        '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
        '   X                        = 0.0\n' \
        '   Y                        = 0.0\n' \
        '   Z                        = 3.0\n' \
@@ -266,7 +266,7 @@ def test_face_writer():
        '   POLYGON                  = "floor face Plg"\n' \
        '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
        '   TILT                     = 180.0\n' \
-       '   AZIMUTH                  = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
        '   X                        = 10.0\n' \
        '   Y                        = 0.0\n' \
        '   Z                        = 0.0\n' \
@@ -329,7 +329,7 @@ def test_room_writer():
        '   LIGHTING-SCHEDULE        = "Generic Office Lighting"\n' \
        '   LIGHT-TO-RETURN          = 0.0\n' \
        '   EQUIPMENT-W/AREA         = 0.96\n' \
-       '   EQUIPMENT-SCHEDULE       = "Generic Office Equipment"\n' \
+       '   EQUIP-SCHEDULE           = ("Generic Office Equipment")\n' \
        '   EQUIP-SENSIBLE           = 1.0\n' \
        '   EQUIP-LATENT             = 0.0\n' \
        '   EQUIP-RAD-FRAC           = 0.5\n' \

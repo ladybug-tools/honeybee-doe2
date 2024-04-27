@@ -155,28 +155,20 @@ def test_schedule_ruleset_to_inp():
         '   ..\n'
     assert len(inp_week_strs) == 1
     assert inp_week_strs[0] == \
-        '"Office Occupancy Week 1" = WEEK-SCHEDULE\n' \
+        '"Office Occupancy Week 1" = WEEK-SCHEDULE-PD\n' \
         '   TYPE                     = FRACTION\n' \
-        '   DAYS                     = (MON)\n' \
-        '   DAY-SCHEDULES            = "Weekday Office Occupancy"\n' \
-        '   DAYS                     = (TUE)\n' \
-        '   DAY-SCHEDULES            = "Weekday Office Occupancy"\n' \
-        '   DAYS                     = (WED)\n' \
-        '   DAY-SCHEDULES            = "Weekday Office Occupancy"\n' \
-        '   DAYS                     = (THU)\n' \
-        '   DAY-SCHEDULES            = "Weekday Office Occupancy"\n' \
-        '   DAYS                     = (FRI)\n' \
-        '   DAY-SCHEDULES            = "Weekday Office Occupancy"\n' \
-        '   DAYS                     = (SAT)\n' \
-        '   DAY-SCHEDULES            = "Saturday Office Occupancy"\n' \
-        '   DAYS                     = (SUN)\n' \
-        '   DAY-SCHEDULES            = "Sunday Office Occupancy"\n' \
-        '   DAYS                     = (HOL)\n' \
-        '   DAY-SCHEDULES            = "Sunday Office Occupancy"\n' \
-        '   DAYS                     = (HDD)\n' \
-        '   DAY-SCHEDULES            = "Winter Office Occupancy"\n' \
-        '   DAYS                     = (CDD)\n' \
-        '   DAY-SCHEDULES            = "Summer Office Occupancy"\n' \
+        '   DAY-SCHEDULES            = (\n' \
+        '      "Weekday Office Occupancy", $ Monday,\n' \
+        '      "Weekday Office Occupancy", $ Tuesday,\n' \
+        '      "Weekday Office Occupancy", $ Wednesday,\n' \
+        '      "Weekday Office Occupancy", $ Thursday,\n' \
+        '      "Weekday Office Occupancy", $ Friday,\n' \
+        '      "Saturday Office Occupancy", $ Saturday,\n' \
+        '      "Sunday Office Occupancy", $ Sunday,\n' \
+        '      "Sunday Office Occupancy", $ Holiday,\n' \
+        '      "Winter Office Occupancy", $ Winter Design Day,\n' \
+        '      "Summer Office Occupancy", $ Summer Design Day,\n' \
+        '   )\n' \
         '   ..\n'
 
 
