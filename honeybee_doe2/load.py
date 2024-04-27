@@ -14,7 +14,7 @@ def people_to_inp(room):
     """Translate the People definition of a Room into INP (Keywords, Values)."""
     people = room.properties.energy.people
     ppl_den = Area().to_unit([people.area_per_person], 'ft2', 'm2')[0]
-    ppl_total = ppl_den * room.floor_area
+    ppl_total = round(room.floor_area / ppl_den, 3)
     ppl_sch = clean_doe2_string(people.occupancy_schedule.display_name, RES_CHARS)
     ppl_sch = '"{}"'.format(ppl_sch)
     ppl_kwd = ('NUMBER-OF-PEOPLE', 'PEOPLE-SCHEDULE')
@@ -26,6 +26,7 @@ def lighting_to_inp(room):
     """Translate the Lighting definition of a Room into INP (Keywords, Values)."""
     lighting = room.properties.energy.lighting
     lpd = EnergyFlux().to_unit([lighting.watts_per_area], 'W/ft2', 'W/m2')[0]
+    lpd = round(lpd, 3)
     lgt_sch = clean_doe2_string(lighting.schedule.display_name, RES_CHARS)
     lgt_sch = '"{}"'.format(lgt_sch)
     light_kwd = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN')
@@ -44,6 +45,7 @@ def equipment_to_inp(room):
         equip_val = [[], [], [], [], []]
         for equip in (ele_equip, gas_equip):
             epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
+            epd = round(epd, 3)
             equip_val[0].append(epd)
             eqp_sch = clean_doe2_string(equip.schedule.display_name, RES_CHARS)
             equip_val[1].append('"{}"'.format(eqp_sch))
@@ -54,6 +56,7 @@ def equipment_to_inp(room):
     else:  # write them as a single item
         equip = ele_equip if gas_equip is None else gas_equip
         epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
+        epd = round(epd, 3)
         eqp_sch = clean_doe2_string(equip.schedule.display_name, RES_CHARS)
         eqp_sch = '"{}"'.format(eqp_sch)
         sens_fract = 1 - equip.latent_fraction - equip.lost_fraction
@@ -70,6 +73,7 @@ def infiltration_to_inp(room):
     infil = room.properties.energy.infiltration
     inf_den = infil.flow_per_exterior_area
     inf_den = VolumeFlowRateIntensity().to_unit([inf_den], 'cfm/ft2', 'm3/s-m2')[0]
+    inf_den = round(inf_den, 3)
     inf_sch = clean_doe2_string(infil.schedule.display_name, RES_CHARS)
     inf_sch = '"{}"'.format(inf_sch)
     inf_kwd = ('INF-METHOD', 'INF-FLOW/AREA', 'INF-SCHEDULE')

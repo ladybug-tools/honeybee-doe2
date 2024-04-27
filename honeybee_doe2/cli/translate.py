@@ -42,7 +42,7 @@ def translate():
     'note whether interior ceilings should be excluded from the export.',
     default=True, show_default=True)
 @click.option(
-    '--switch-statements/--verbose-properties', ' /-v', help='Flag to note whether '
+    '--verbose-properties/--switch-statements', ' /-ss', help='Flag to note whether '
     'program types should be written with switch statements so that they can easily '
     'be edited in eQuest or a verbose definition of loads should be written for '
     'each Room/Space.', default=True, show_default=True)
@@ -56,9 +56,9 @@ def translate():
     '--output-file', '-o', help='Optional INP file path to output the INP string '
     'of the translation. By default this will be printed out to stdout.',
     type=click.File('w'), default='-', show_default=True)
-def model_to_inp(
+def model_to_inp_file(
     model_file, sim_par_json, hvac_mapping, include_interior_walls,
-    include_interior_ceilings, name, folder, output_file
+    include_interior_ceilings, verbose_properties, name, folder, output_file
 ):
     """Translate a Model (HBJSON) file to an INP file.
 

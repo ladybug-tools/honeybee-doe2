@@ -12,7 +12,7 @@ from honeybee_energy.construction.opaque import OpaqueConstruction
 from honeybee_energy.construction.air import AirBoundaryConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
 
-from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, RECT_WIN_SUBD, \
+from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, GEO_DEC_COUNT, RECT_WIN_SUBD, \
     DOE2_INTERIOR_BCS, GEO_CHARS, RES_CHARS
 from .util import generate_inp_string, header_comment_minor, \
     header_comment_major
@@ -69,12 +69,19 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
             vertices = [Point2D(v.x, -v.y) for v in vertices]
 
     # format the vertices into a POLYGON string
-    vert_template = '( %f, %f )'
-    verts_values = tuple(vert_template % (pt.x, pt.y) for pt in vertices)
+    verts_values = []
+    for pt in vertices:
+        x_coord = round(pt.x, GEO_DEC_COUNT)
+        y_coord = round(pt.y, GEO_DEC_COUNT)
+        if x_coord == 0 and math.copysign(1, x_coord):  # avoid signed zero
+            x_coord = 0.0
+        if y_coord == 0 and math.copysign(1, y_coord):  # avoid signed zero
+            y_coord = 0.0
+        verts_values.append('({}, {})'.format(x_coord, y_coord))
     verts_keywords = tuple('V{}'.format(i + 1) for i in range(len(verts_values)))
     poly_name = '{} Plg'.format(parent_name)
     polygon_str = generate_inp_string(poly_name, 'POLYGON', verts_keywords, verts_values)
-    position_info = (llc_origin, azimuth, tilt)
+    position_info = (llc_origin, tilt, azimuth)
     return polygon_str, position_info
 
 
@@ -105,11 +112,13 @@ def shade_mesh_to_inp(shade_mesh):
     # loop through the mesh faces and create individual shade objects
     for i, face in enumerate(shade_mesh.geometry.face_vertices):
         f_geo = Face3D(face)
-        shd_geo = f_geo.geometry if f_geo.altitude > 0 else f_geo.geometry.flip()
+        shd_geo = f_geo if f_geo.altitude > 0 else f_geo.flip()
         doe2_id = '{}{}'.format(base_id, i)
         shade_polygon, pos_info = face_3d_to_inp(shd_geo, doe2_id)
         origin, tilt, az = pos_info
-        values = ('POLYGON', '"{} Plg"', trans, origin.x, origin.y, origin.z, tilt, az)
+        values = ('POLYGON', '"{} Plg"'.format(doe2_id), trans,
+                  round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
+                  round(origin.z, GEO_DEC_COUNT), tilt, az)
         shade_def = generate_inp_string(doe2_id, shade_type, keywords, values)
         shade_polygons.append(shade_polygon)
         shade_defs.append(shade_def)
@@ -141,8 +150,9 @@ def shade_to_inp(shade):
     trans = energy_trans_sch_to_transmittance(shade)
     keywords = ('SHAPE', 'POLYGON', 'TRANSMITTANCE',
                 'X-REF', 'Y-REF', 'Z-REF', 'TILT', 'AZIMUTH')
-    values = ('POLYGON', '"{} Plg"', trans,
-              origin.x, origin.y, origin.z, tilt, az)
+    values = ('POLYGON', '"{} Plg"'.format(doe2_id), trans,
+              round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
+              round(origin.z, GEO_DEC_COUNT), tilt, az)
     shade_def = generate_inp_string(doe2_id, shade_type, keywords, values)
     return shade_polygon, shade_def
 
@@ -184,15 +194,16 @@ def door_to_inp(door):
     ref_plane = Plane(rel_plane.n, parent_llc, proj_x)
     min_2d = ref_plane.xyz_to_xy(apt_llc)
     max_2d = ref_plane.xyz_to_xy(apt_urc)
-    width = max_2d.x - min_2d.x
-    height = max_2d.y - min_2d.y
+    width = round(max_2d.x - min_2d.x, GEO_DEC_COUNT)
+    height = round(max_2d.y - min_2d.y, GEO_DEC_COUNT)
 
     # create the aperture definition
     doe2_id = clean_doe2_string(door.identifier, GEO_CHARS)
     constr_o_name = door.properties.energy.construction.identifier
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
     keywords = ('X', 'Y', 'WIDTH', 'HEIGHT', 'CONSTRUCTION')
-    values = (min_2d.x, min_2d.y, width, height, constr)
+    values = (round(min_2d.x, GEO_DEC_COUNT), round(min_2d.y, GEO_DEC_COUNT),
+              width, height, '"{}"'.format(constr))
     door_def = generate_inp_string(doe2_id, 'DOOR', keywords, values)
     return door_def
 
@@ -234,15 +245,16 @@ def aperture_to_inp(aperture):
     ref_plane = Plane(rel_plane.n, parent_llc, proj_x)
     min_2d = ref_plane.xyz_to_xy(apt_llc)
     max_2d = ref_plane.xyz_to_xy(apt_urc)
-    width = max_2d.x - min_2d.x
-    height = max_2d.y - min_2d.y
+    width = round(max_2d.x - min_2d.x, GEO_DEC_COUNT)
+    height = round(max_2d.y - min_2d.y, GEO_DEC_COUNT)
 
     # create the aperture definition
     doe2_id = clean_doe2_string(aperture.identifier, GEO_CHARS)
     constr_o_name = aperture.properties.energy.construction.identifier
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
     keywords = ('X', 'Y', 'WIDTH', 'HEIGHT', 'GLASS-TYPE')
-    values = (min_2d.x, min_2d.y, width, height, constr)
+    values = (round(min_2d.x, GEO_DEC_COUNT), round(min_2d.y, GEO_DEC_COUNT),
+              width, height, '"{}"'.format(constr))
     aperture_def = generate_inp_string(doe2_id, 'WINDOW', keywords, values)
     return aperture_def
 
@@ -292,7 +304,10 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0)):
     constr_o_name = face.properties.energy.construction.identifier
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
     keywords = ['POLYGON', 'CONSTRUCTION', 'TILT', 'AZIMUTH', 'X', 'Y', 'Z']
-    values = ['"{} Plg"'.format(doe2_id), constr, tilt, az, origin.x, origin.y, origin.z]
+    values = ['"{} Plg"'.format(doe2_id), '"{}"'.format(constr), tilt, az,
+              round(origin.x, GEO_DEC_COUNT),
+              round(origin.y, GEO_DEC_COUNT),
+              round(origin.z, GEO_DEC_COUNT)]
     if bc_str == 'Surface':
         adj_room = face.boundary_condition.boundary_condition_objects[-1]
         adj_id = clean_doe2_string(adj_room, GEO_CHARS)
@@ -376,9 +391,10 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     origin = space_origin - floor_origin
 
     # create the space definition, which includes the position info
-    keywords = ['SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z' 'VOLUME']
+    keywords = ['SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z', 'VOLUME']
     values = ['POLYGON', '"{} Plg"'.format(doe2_id), 0,
-              origin.x, origin.y, origin.z, room.volume]
+              round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
+              round(origin.z, GEO_DEC_COUNT), round(room.volume, GEO_DEC_COUNT)]
     if room.multiplier != 1:
         keywords.append('MULTIPLIER')
         values.append(room.multiplier)
@@ -484,7 +500,7 @@ def model_to_inp(
     # convert all of the Aperture geometries to rectangles so they can be translated
     model.rectangularize_apertures(
         subdivision_distance=RECT_WIN_SUBD, max_separation=0.0,
-        merge_all=True, resolve_adjacency=True
+        merge_all=True, resolve_adjacency=False
     )
     # reset identifiers to make them unique and derived from the display names
     model.reset_ids()
@@ -631,7 +647,7 @@ def model_to_inp(
         model_str.append(hvac_def)
         for room in rooms:
             space_name = clean_doe2_string(room.identifier, GEO_CHARS)
-            zone_name = '_Zn'.format(space_name)
+            zone_name = '{}_Zn'.format(space_name)
             zone_type = room_doe2_conditioning_type(room)
             heat_setpt, cool_setpt = 72, 75
             setpoint = room.properties.energy.setpoint
@@ -659,7 +675,7 @@ def model_to_inp(
         'Hourly Reporting', 'THE END')
     for report in report_types:
         model_str.append(header_comment_minor(report))
-    model_str = ['END ..\nCOMPUTE ..\nSTOP ..\n']
+    model_str.append('END ..\nCOMPUTE ..\nSTOP ..\n')
     return '\n'.join(model_str)
 
 
