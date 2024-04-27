@@ -63,8 +63,9 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
         ref_plane = Plane(face_3d.normal, llc_origin, proj_x)
         vertices = [ref_plane.xyz_to_xy(pt) for pt in pts_3d]
     else:  # horizontal; ensure vertices are always counterclockwise from above
+        azimuth = 180
         llc = Point2D(llc_origin.x, llc_origin.y)
-        vertices = [Point2D(v[0] - llc.x, v[1] - llc.y) for v in pts_3d]
+        vertices = [Point2D(v.x - llc.x, v.y - llc.y) for v in pts_3d]
         if tilt > 180 - DOE2_ANGLE_TOL:
             vertices = [Point2D(v.x, -v.y) for v in vertices]
 
@@ -657,7 +658,7 @@ def model_to_inp(
             zone_keys = ('TYPE', 'DESIGN-HEAT-T', 'DESIGN-COOL-T',
                          'SIZING-OPTION', 'SPACE')
             zone_vals = (zone_type, heat_setpt, cool_setpt,
-                         'ADJUST-LOADS', space_name)
+                         'ADJUST-LOADS', '"{}"'.format(space_name))
             zone_def = generate_inp_string(zone_name, 'ZONE', zone_keys, zone_vals)
             model_str.append(zone_def)
 
