@@ -6,7 +6,7 @@ from ladybug.dt import Date, MONTHNAMES
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
-from .util import generate_inp_string
+from .util import generate_inp_string, generate_inp_string_list_format
 
 
 def schedule_type_limit_to_inp(type_limit):
@@ -33,9 +33,9 @@ def schedule_day_to_inp(day_schedule, type_limit=None):
     # setup a function to format list of values correctly
     def _format_day_values(values_to_format):
         if len(values_to_format) == 1:
-            return'({})'.format(values_to_format[0])
+            return'({})'.format(round(values_to_format[0], 3))
         else:
-            return str(tuple(values_to_format))
+            return str(tuple(round(v, 3) for v in values_to_format))
 
     # loop through the hourly values and write them in the format DOE-2 likes
     prev_count, prev_hour, prev_values = 0, 1, [hour_values[0]]
@@ -97,8 +97,10 @@ def schedule_ruleset_to_inp(schedule):
     # setup the DOE-2 identifier and lists for keywords and values
     doe2_id = clean_doe2_string(schedule.identifier, RES_CHARS)
     type_text = schedule_type_limit_to_inp(schedule.schedule_type_limit)
-    day_types = ['(MON)', '(TUE)', '(WED)', '(THU)', '(FRI)', '(SAT)', '(SUN)',
-                 '(HOL)', '(HDD)', '(CDD)']
+    day_types = [
+        'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
+        'Sunday', 'Holiday', 'Winter Design Day', 'Summer Design Day'
+    ]
 
     def _get_week_list(schedule, rule_indices):
         """Get a list of the ScheduleDay identifiers applied on each day of the week."""
@@ -149,13 +151,13 @@ def schedule_ruleset_to_inp(schedule):
         # add extra days (including summer and winter design days)
         week_fields.extend(_get_extra_week_fields(schedule))
         week_keywords, week_values = ['TYPE'], [type_text]
+        day_list = []
         for day_type, day_sch in zip(day_types, week_fields):
-            week_keywords.append('DAYS')
-            week_values.append(day_type)
-            week_keywords.append('DAY-SCHEDULES')
-            week_values.append('"{}"'.format(day_sch))
-        week_schedule = generate_inp_string(
-            week_sch_id, 'WEEK-SCHEDULE', week_keywords, week_values)
+            day_list.append('"{}", $ {}'.format(day_sch, day_type))
+        week_keywords.append('DAY-SCHEDULES')
+        week_values.append(day_list)
+        week_schedule = generate_inp_string_list_format(
+            week_sch_id, 'WEEK-SCHEDULE-PD', week_keywords, week_values)
         return week_schedule, week_sch_id
 
     def _inp_week_schedule_from_week_list(schedule, week_list, week_index):
@@ -167,13 +169,13 @@ def schedule_ruleset_to_inp(schedule):
         week_fields.append(week_fields.pop(0))  # DOE-2 starts week on Monday; not Sunday
         week_fields.extend(_get_extra_week_fields(schedule))
         week_keywords, week_values = ['TYPE'], [type_text]
+        day_list = []
         for day_type, day_sch in zip(day_types, week_fields):
-            week_keywords.append('DAYS')
-            week_values.append(day_type)
-            week_keywords.append('DAY-SCHEDULES')
-            week_values.append('"{}"'.format(day_sch))
-        week_schedule = generate_inp_string(
-            week_sch_id, 'WEEK-SCHEDULE', week_keywords, week_values)
+            day_list.append('"{}", $ {}'.format(day_sch, day_type))
+        week_keywords.append('DAY-SCHEDULES')
+        week_values.append(day_list)
+        week_schedule = generate_inp_string_list_format(
+            week_sch_id, 'WEEK-SCHEDULE-PD', week_keywords, week_values)
         return week_schedule, week_sch_id
 
     # prepare to create a full Schedule:Year

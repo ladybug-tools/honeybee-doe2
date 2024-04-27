@@ -33,7 +33,7 @@ def test_material_nomass_to_inp():
     assert inp_str == \
         '"Insulation R-2" = MATERIAL\n' \
         '   TYPE                     = RESISTANCE\n' \
-        '   RESISTANCE               = 11.357\n' \
+        '   RESISTANCE               = 11.356527\n' \
         '   ..\n'
 
 
@@ -89,7 +89,7 @@ def test_window_construction_to_inp():
         '"NECB Window Construction" = GLASS-TYPE\n' \
         '   TYPE                     = SHADING-COEF\n' \
         '   SHADING-COEF             = 0.46\n' \
-        '   GLASS-CONDUCT            = 0.302\n' \
+        '   GLASS-CONDUCT            = 0.302373\n' \
         '   ..\n'
 
     inp_str = double_low_e.to_inp()
@@ -97,7 +97,7 @@ def test_window_construction_to_inp():
         '"Double Low-E Window" = GLASS-TYPE\n' \
         '   TYPE                     = SHADING-COEF\n' \
         '   SHADING-COEF             = 0.488\n' \
-        '   GLASS-CONDUCT            = 0.299\n' \
+        '   GLASS-CONDUCT            = 0.299039\n' \
         '   ..\n'
 
     inp_str = double_clear.to_inp()
@@ -105,7 +105,7 @@ def test_window_construction_to_inp():
         '"Double Clear Window" = GLASS-TYPE\n' \
         '   TYPE                     = SHADING-COEF\n' \
         '   SHADING-COEF             = 0.791\n' \
-        '   GLASS-CONDUCT            = 0.479\n' \
+        '   GLASS-CONDUCT            = 0.479229\n' \
         '   ..\n'
     
     inp_str = triple_clear.to_inp()
@@ -113,7 +113,7 @@ def test_window_construction_to_inp():
         '"Triple Clear Window" = GLASS-TYPE\n' \
         '   TYPE                     = SHADING-COEF\n' \
         '   SHADING-COEF             = 0.688\n' \
-        '   GLASS-CONDUCT            = 0.309\n' \
+        '   GLASS-CONDUCT            = 0.309475\n' \
         '   ..\n'
 
 
@@ -139,7 +139,7 @@ def test_window_construction_shade_to_inp():
         '"Double Low-E with Shade" = GLASS-TYPE\n' \
         '   TYPE                     = SHADING-COEF\n' \
         '   SHADING-COEF             = 0.488\n' \
-        '   GLASS-CONDUCT            = 0.299\n' \
+        '   GLASS-CONDUCT            = 0.299039\n' \
         '   ..\n'
 
 

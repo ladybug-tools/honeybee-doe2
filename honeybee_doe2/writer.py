@@ -63,7 +63,7 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
         ref_plane = Plane(face_3d.normal, llc_origin, proj_x)
         vertices = [ref_plane.xyz_to_xy(pt) for pt in pts_3d]
     else:  # horizontal; ensure vertices are always counterclockwise from above
-        azimuth = 180
+        azimuth = 180.0
         llc = Point2D(llc_origin.x, llc_origin.y)
         vertices = [Point2D(v.x - llc.x, v.y - llc.y) for v in pts_3d]
         if tilt > 180 - DOE2_ANGLE_TOL:
@@ -104,7 +104,6 @@ def shade_mesh_to_inp(shade_mesh):
     """
     # TODO: Sense when the shade is a rectangle and, if so, translate it without POLYGON
     # set up collector lists and properties for all shades
-    shade_type = 'FIXED-SHADE' if shade_mesh.is_detached else 'BUILDING-SHADE'
     base_id = clean_doe2_string(shade_mesh.identifier, GEO_CHARS)
     trans = energy_trans_sch_to_transmittance(shade_mesh)
     keywords = ('SHAPE', 'POLYGON', 'TRANSMITTANCE',
@@ -120,7 +119,7 @@ def shade_mesh_to_inp(shade_mesh):
         values = ('POLYGON', '"{} Plg"'.format(doe2_id), trans,
                   round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
                   round(origin.z, GEO_DEC_COUNT), tilt, az)
-        shade_def = generate_inp_string(doe2_id, shade_type, keywords, values)
+        shade_def = generate_inp_string(doe2_id, 'FIXED-SHADE', keywords, values)
         shade_polygons.append(shade_polygon)
         shade_defs.append(shade_def)
     return shade_polygons, shade_defs
@@ -141,7 +140,6 @@ def shade_to_inp(shade):
     """
     # TODO: Sense when the shade is a rectangle and, if so, translate it without POLYGON
     # create the polygon string from the geometry
-    shade_type = 'FIXED-SHADE' if shade.is_detached else 'BUILDING-SHADE'
     doe2_id = clean_doe2_string(shade.identifier, GEO_CHARS)
     shd_geo = shade.geometry if shade.altitude > 0 else shade.geometry.flip()
     clean_geo = shd_geo.remove_colinear_vertices(DOE2_TOLERANCE)
@@ -154,7 +152,7 @@ def shade_to_inp(shade):
     values = ('POLYGON', '"{} Plg"'.format(doe2_id), trans,
               round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
               round(origin.z, GEO_DEC_COUNT), tilt, az)
-    shade_def = generate_inp_string(doe2_id, shade_type, keywords, values)
+    shade_def = generate_inp_string(doe2_id, 'FIXED-SHADE', keywords, values)
     return shade_polygon, shade_def
 
 
@@ -200,7 +198,9 @@ def door_to_inp(door):
 
     # create the aperture definition
     doe2_id = clean_doe2_string(door.identifier, GEO_CHARS)
-    constr_o_name = door.properties.energy.construction.identifier
+    dr_con = door.properties.energy.construction
+    constr_o_name = dr_con.identifier if isinstance(dr_con, OpaqueConstruction) \
+        else dr_con.identifier + '_d'
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
     keywords = ('X', 'Y', 'WIDTH', 'HEIGHT', 'CONSTRUCTION')
     values = (round(min_2d.x, GEO_DEC_COUNT), round(min_2d.y, GEO_DEC_COUNT),
@@ -568,6 +568,9 @@ def model_to_inp(
         model_str.append(window_construction_to_inp(w_con))
     model_str.append(header_comment_minor('Door Construction'))
     for dr_con in door_constructions:
+        if not isinstance(dr_con, OpaqueConstruction):
+            dr_con = dr_con.duplicate()
+            dr_con.identifier = dr_con.identifier + '_d'
         model_str.append(door_construction_to_inp(dr_con))
 
     # loop through rooms grouped by floor level and boundary to get polygons
