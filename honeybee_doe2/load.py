@@ -58,12 +58,12 @@ def equipment_to_inp(room):
         epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
         epd = round(epd, 3)
         eqp_sch = clean_doe2_string(equip.schedule.display_name, RES_CHARS)
-        eqp_sch = '"{}"'.format(eqp_sch)
+        eqp_sch = '("{}")'.format(eqp_sch)
         sens_fract = 1 - equip.latent_fraction - equip.lost_fraction
         equip_val = (epd, eqp_sch, sens_fract, equip.latent_fraction,
                      equip.radiant_fraction)
 
-    equip_kwd = ('EQUIPMENT-W/AREA', 'EQUIPMENT-SCHEDULE',
+    equip_kwd = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
                  'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
     return equip_kwd, equip_val
 

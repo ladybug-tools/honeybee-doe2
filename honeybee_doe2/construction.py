@@ -49,6 +49,12 @@ def opaque_construction_to_inp(construction):
     it does NOT include the constituent MATERIAL definitions and their properties.
     """
     doe2_id = clean_doe2_string(construction.identifier, RES_CHARS)
+    # if the construction has no heat capacity, simply make a U-VALUE construction
+    if construction.area_heat_capacity == 0:
+        con_cond = UValue().to_unit([construction.u_factor], 'Btu/h-ft2-F', 'W/m2-K')[0]
+        keywords = ('TYPE', 'U-VALUE')
+        values = ('U-VALUE', round(con_cond, 6))
+        return generate_inp_string(doe2_id, 'CONSTRUCTION', keywords, values)
     # create the specification of material layers
     layer_id = '{}_l'.format(doe2_id)
     layers = ['"{}"'.format(clean_doe2_string(mat, RES_CHARS))
