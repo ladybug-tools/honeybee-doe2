@@ -51,14 +51,15 @@ def opaque_construction_to_inp(construction):
     doe2_id = clean_doe2_string(construction.identifier, RES_CHARS)
     # create the specification of material layers
     layer_id = '{}_l'.format(doe2_id)
-    layers = [clean_doe2_string(mat, RES_CHARS) for mat in construction.layers]
+    layers = ['"{}"'.format(clean_doe2_string(mat, RES_CHARS))
+              for mat in construction.layers]
     layer_str = generate_inp_string_list_format(
         layer_id, 'LAYERS', ['MATERIAL'], [layers])
     # create the construction specification
     roughness = ROUGHNESS_MAP[construction.materials[0].roughness]
-    sol_absorb = 1 - construction.outside_solar_reflectance
+    sol_absorb = round(1 - construction.outside_solar_reflectance, 3)
     keywords = ('TYPE', 'ABSORPTANCE', 'ROUGHNESS', 'LAYERS')
-    values = ('LAYERS', sol_absorb, roughness, layer_id)
+    values = ('LAYERS', sol_absorb, roughness, '"{}"'.format(layer_id))
     constr_str = generate_inp_string(doe2_id, 'CONSTRUCTION', keywords, values)
     return ''.join((layer_str, constr_str))
 

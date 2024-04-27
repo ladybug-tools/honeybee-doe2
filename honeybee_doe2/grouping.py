@@ -44,7 +44,7 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
     room_groups, level_geometries, level_names = [], [], []
 
     # first group the rooms by floor height
-    grouped_rooms = Room.group_by_floor_height(rooms, FLOOR_LEVEL_TOL)
+    grouped_rooms, _ = Room.group_by_floor_height(rooms, FLOOR_LEVEL_TOL)
     for fi, room_group in enumerate(grouped_rooms):
         # then, group the rooms by contiguous horizontal boundary
         hor_bounds = Room.grouped_horizontal_boundary(
@@ -118,7 +118,7 @@ def group_rooms_by_doe2_hvac(model, hvac_mapping):
     # determine the mapping to be used
     if hvac_mapping == 'MODEL':
         hvac_name = clean_doe2_string('{}_Sys'.format(model.display_name), RES_CHARS)
-        return model.rooms, [hvac_name]
+        return [model.rooms], [hvac_name]
     elif hvac_mapping == 'ROOM':
         hvac_names = [clean_doe2_string('{}_Sys'.format(room.display_name), RES_CHARS)
                       for room in model.rooms]
@@ -140,6 +140,6 @@ def group_rooms_by_doe2_hvac(model, hvac_mapping):
         room_groups, hvac_names = [], []
         for hvac_name, rooms in hvac_dict.items():
             room_groups.append(rooms)
-            hvac_names.append(clean_doe2_string(hvac_name), RES_CHARS)
+            hvac_names.append(clean_doe2_string(hvac_name, RES_CHARS))
 
     return room_groups, hvac_names
