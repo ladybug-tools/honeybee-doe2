@@ -6,6 +6,9 @@ with open("README.md", "r") as fh:
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
+with open('standards-requirements.txt') as f:
+    standards_requirements = f.read().splitlines()
+
 setuptools.setup(
     name="honeybee-doe2",
     use_scm_version=True,
@@ -18,6 +21,9 @@ setuptools.setup(
     url="https://github.com/ladybug-tools/honeybee-doe2",
     packages=setuptools.find_packages(exclude=["tests*", "equest_docs*"]),
     install_requires=requirements,
+    extras_require={
+        'standards': standards_requirements
+    },
     include_package_data=True,
     entry_points={
         "console_scripts": ["honeybee-doe2 = honeybee_doe2.cli:doe2"]

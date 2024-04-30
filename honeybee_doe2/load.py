@@ -2,12 +2,14 @@
 from __future__ import division
 
 from ladybug.datatype.area import Area
+from ladybug.datatype.power import Power
 from ladybug.datatype.energyflux import EnergyFlux
 from ladybug.datatype.volumeflowrate import VolumeFlowRate
 from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
+# TODO: Add methods to translate daylight sensors
 # TODO: Add methods to map to SOURCE-TYPE HOT-WATER and PROCESS
 # TODO: Implement the keys that Trevor wants:
 # FLOW/AREA, ASSIGNED-FLOW, MIN-FLOW-RATIO, MIN-FLOW/AREA, HMAX-FLOW-RATIO
@@ -86,14 +88,19 @@ def equipment_to_inp(electric_equip, gas_equip=None):
         values = [[], [], [], [], []]
         for equip in (electric_equip, gas_equip):
             epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
-            epd = round(epd, 3)
-            values[0].append(epd)
+            values[0].append(round(epd, 3))
             eqp_sch = clean_doe2_string(equip.schedule.identifier, RES_CHARS)
             values[1].append('"{}"'.format(eqp_sch))
-            values[2].append(1 - equip.latent_fraction - equip.lost_fraction)
-            values[3].append(equip.latent_fraction)
-            values[4].append(equip.radiant_fraction)
-        values = ['( {}, {} )'.format(v[0], v[1]) for v in values]
+            values[2].append(round(1 - equip.latent_fraction - equip.lost_fraction, 3))
+            values[3].append(round(equip.latent_fraction, 3))
+            values[4].append(round(equip.radiant_fraction, 3))
+        format_values = []
+        for v in values:
+            if isinstance(v[0], str):  # make sure the schedules do not go past 100 chars
+                format_values.append('({},\n{}{})'.format(v[0], ' ' * 31, v[1]))
+            else:
+                format_values.append('({}, {})'.format(v[0], v[1]))
+        values = format_values
     elif electric_equip is not None or gas_equip is not None:  # write as a single item
         equip = electric_equip if gas_equip is None else gas_equip
         epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
@@ -108,6 +115,43 @@ def equipment_to_inp(electric_equip, gas_equip=None):
 
     keywords = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
                 'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
+    return keywords, values
+
+
+def hot_water_to_inp(hot_water, room_floor_area):
+    """Translate a ServiceHotWater definition into INP (Keywords, Values).
+
+    Args:
+        hot_water: A honeybee-energy ServiceHotWater definition. None is allowed.
+        room_floor_area: The host Room floor area in square feet, which will
+            be used to convert the hot water flow per unit floor area to an
+            absolute load in BTU/h.
+
+    Returns:
+        A tuple with two elements.
+
+        -   keywords: A tuple of text strings for keywords related to defining
+            the hot water SOURCE load for a Space.
+
+        -   values: A tuple of text strings that aligns with the keywords and
+            denotes the value for each keyword.
+    """
+    if hot_water is None:
+        return (), ()
+    flow_den = hot_water.flow_per_area  # L/h-m2
+    flr_area = Area().to_unit([room_floor_area], 'm2', 'ft2')[0]  # m2
+    total_flow = flow_den * flr_area  # L/h
+    delta_t = 50  # assume the water heater must heat water from 10C to 60C
+    c_water = 4.186 # J/g-C, the specific heat of water
+    shw_heat = total_flow * c_water * delta_t  # J/h using Q = m * c * deltaT
+    shw_heat = shw_heat / 3600.  # Watts
+    shw_power = round(Power().to_unit([shw_heat], 'Btu/h', 'W')[0], 3)
+    shw_sch = clean_doe2_string(hot_water.schedule.identifier, RES_CHARS)
+    shw_sch = '"{}"'.format(shw_sch)
+    keywords = ('SOURCE-TYPE', 'SOURCE-POWER', 'SOURCE-SCHEDULE',
+                'SOURCE-SENSIBLE', 'SOURCE-RAD-FRAC', 'SOURCE-LATENT')
+    values = ('HOT-WATER', shw_power, shw_sch,
+              hot_water.sensible_fraction, 0, hot_water.latent_fraction)
     return keywords, values
 
 
@@ -158,7 +202,9 @@ def setpoint_to_inp(setpoint):
     heat_setpt = round(setpoint.heating_setpoint * (9. / 5.) + 32., 2)
     cool_setpt = round(setpoint.cooling_setpoint * (9. / 5.) + 32., 2)
     heat_sch = clean_doe2_string(setpoint.heating_schedule.identifier, RES_CHARS)
+    heat_sch = '"{}"'.format(heat_sch)
     cool_sch = clean_doe2_string(setpoint.cooling_schedule.identifier, RES_CHARS)
+    cool_sch = '"{}"'.format(cool_sch)
     keywords = ('DESIGN-HEAT-T', 'DESIGN-COOL-T', 'HEAT-TEMP-SCH', 'COOL-TEMP-SCH')
     values = (heat_setpt, cool_setpt, heat_sch, cool_sch)
     return keywords, values
