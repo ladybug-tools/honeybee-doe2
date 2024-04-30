@@ -30,12 +30,27 @@ def schedule_day_to_inp(day_schedule, type_limit=None):
     keywords, values = ['TYPE'], [type_text]
     hour_values = day_schedule.values_at_timestep(1)
 
+    # convert temperature to fahrenheit if the type if temperature
+    if type_text == 'TEMPERATURE':
+        hour_values = [round(v * (9. / 5.) + 32., 2) for v in hour_values]
+
     # setup a function to format list of values correctly
     def _format_day_values(values_to_format):
         if len(values_to_format) == 1:
             return'({})'.format(round(values_to_format[0], 3))
-        else:
+        elif len(values_to_format) < 5:
             return str(tuple(round(v, 3) for v in values_to_format))
+        else:  # we have to format it with multiple lines
+            spc = ' ' * 31
+            full_str = '('
+            for i, v in enumerate(values_to_format):
+                if i == len(values_to_format) - 1:
+                    full_str += str(round(v, 3)) + ')'
+                elif (i + 1) % 5 == 0:
+                    full_str += str(round(v, 3)) + ',\n' + spc
+                else:
+                    full_str += str(round(v, 3)) + ', '
+            return full_str
 
     # loop through the hourly values and write them in the format DOE-2 likes
     prev_count, prev_hour, prev_values = 0, 1, [hour_values[0]]
@@ -73,10 +88,6 @@ def schedule_day_to_inp(day_schedule, type_limit=None):
     values.append('({}, {})'.format(prev_hour, 24))
     keywords.append('VALUES')
     values.append(_format_day_values(prev_values))
-
-    # convert temperature to fahrenheit if the type if temperature
-    if type_text == 'type_text':
-        values = [round(v.heating_setpoint * (9. / 5.) + 32., 2) for v in values]
 
     # return the INP string
     return generate_inp_string(doe2_id, 'DAY-SCHEDULE', keywords, values)
