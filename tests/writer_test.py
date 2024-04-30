@@ -13,7 +13,7 @@ from honeybee_energy.construction.opaque import OpaqueConstruction
 from honeybee_energy.material.opaque import EnergyMaterial
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 import honeybee_energy.lib.scheduletypelimits as schedule_types
-from honeybee_energy.lib.programtypes import office_program
+from honeybee_energy.lib.programtypes import office_program, program_type_by_identifier
 
 
 def test_shade_writer():
@@ -336,6 +336,83 @@ def test_room_writer():
        '   INF-METHOD               = AIR-CHANGE\n' \
        '   INF-FLOW/AREA            = 0.045\n' \
        '   INF-SCHEDULE             = "Generic Office Infiltration"\n' \
+       '   ..\n'
+
+
+def test_room_writer_program():
+    """Test the the Room inp writer with different types of programs."""
+    room = Room.from_box('Tiny_House_Zone', 15, 30, 10)
+    south_face = room[3]
+    south_face.apertures_by_ratio(0.4, 0.01)
+
+    apartment_prog = program_type_by_identifier('2019::MidriseApartment::Apartment')
+    room.properties.energy.program_type = apartment_prog
+    room.properties.energy.add_default_ideal_air()
+    _, room_def = room.to.inp(room)
+    assert room_def[0] == \
+       '"Tiny House Zone" = SPACE\n' \
+       '   SHAPE                    = POLYGON\n' \
+       '   POLYGON                  = "Tiny House Zone Plg"\n' \
+       '   AZIMUTH                  = 0\n' \
+       '   X                        = 0.0\n' \
+       '   Y                        = 0.0\n' \
+       '   Z                        = 0.0\n' \
+       '   VOLUME                   = 4500\n' \
+       '   ZONE-TYPE                = CONDITIONED\n' \
+       '   AREA/PERSON              = 380.228\n' \
+       '   PEOPLE-SCHEDULE          = "ApartmentMidRise OCC APT SCH"\n' \
+       '   LIGHTING-W/AREA          = 0.87\n' \
+       '   LIGHTING-SCHEDULE        = "ApartmentMidRise LTG APT SCH"\n' \
+       '   LIGHT-TO-RETURN          = 0.0\n' \
+       '   EQUIPMENT-W/AREA         = 0.62\n' \
+       '   EQUIP-SCHEDULE           = ("ApartmentMidRise EQP APT SCH")\n' \
+       '   EQUIP-SENSIBLE           = 1.0\n' \
+       '   EQUIP-LATENT             = 0.0\n' \
+       '   EQUIP-RAD-FRAC           = 0.5\n' \
+       '   SOURCE-TYPE              = HOT-WATER\n' \
+       '   SOURCE-POWER             = 1.238\n' \
+       '   SOURCE-SCHEDULE          = "ApartmentMidRise APT DHW SCH"\n' \
+       '   SOURCE-SENSIBLE          = 0.2\n' \
+       '   SOURCE-RAD-FRAC          = 0\n' \
+       '   SOURCE-LATENT            = 0.05\n' \
+       '   INF-METHOD               = AIR-CHANGE\n' \
+       '   INF-FLOW/AREA            = 0.112\n' \
+       '   INF-SCHEDULE             = "ApartmentMidRise INF APT SCH"\n' \
+       '   ..\n'
+
+    kitchen_prog = program_type_by_identifier('2019::FullServiceRestaurant::Kitchen')
+    room.properties.energy.program_type = kitchen_prog
+    _, room_def = room.to.inp(room)
+    print(room_def[0])
+    assert room_def[0] == \
+       '"Tiny House Zone" = SPACE\n' \
+       '   SHAPE                    = POLYGON\n' \
+       '   POLYGON                  = "Tiny House Zone Plg"\n' \
+       '   AZIMUTH                  = 0\n' \
+       '   X                        = 0.0\n' \
+       '   Y                        = 0.0\n' \
+       '   Z                        = 0.0\n' \
+       '   VOLUME                   = 4500\n' \
+       '   ZONE-TYPE                = CONDITIONED\n' \
+       '   AREA/PERSON              = 200.0\n' \
+       '   PEOPLE-SCHEDULE          = "RestaurantSitDown BLDG OCC SCH"\n' \
+       '   LIGHTING-W/AREA          = 0.87\n' \
+       '   LIGHTING-SCHEDULE        = "RstrntStDwnBLDG_HENSCH20102013"\n' \
+       '   LIGHT-TO-RETURN          = 0.0\n' \
+       '   EQUIPMENT-W/AREA         = (37.53, 60.317)\n' \
+       '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH", "RstrntStDwn Rst GAS EQUIP SCH")\n' \
+       '   EQUIP-SENSIBLE           = (0.55, 0.2)\n' \
+       '   EQUIP-LATENT             = 0.0\n' \
+       '   EQUIP-RAD-FRAC           = 0.5\n' \
+       '   SOURCE-TYPE              = HOT-WATER\n' \
+       '   SOURCE-POWER             = 1.238\n' \
+       '   SOURCE-SCHEDULE          = "ApartmentMidRise APT DHW SCH"\n' \
+       '   SOURCE-SENSIBLE          = 0.2\n' \
+       '   SOURCE-RAD-FRAC          = 0\n' \
+       '   SOURCE-LATENT            = 0.05\n' \
+       '   INF-METHOD               = AIR-CHANGE\n' \
+       '   INF-FLOW/AREA            = 0.112\n' \
+       '   INF-SCHEDULE             = "ApartmentMidRise INF APT SCH"\n' \
        '   ..\n'
 
 
