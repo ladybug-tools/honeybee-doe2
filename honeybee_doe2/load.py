@@ -3,79 +3,212 @@ from __future__ import division
 
 from ladybug.datatype.area import Area
 from ladybug.datatype.energyflux import EnergyFlux
+from ladybug.datatype.volumeflowrate import VolumeFlowRate
 from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
 # TODO: Add methods to map to SOURCE-TYPE HOT-WATER and PROCESS
+# TODO: Implement the keys that Trevor wants:
+# FLOW/AREA, ASSIGNED-FLOW, MIN-FLOW-RATIO, MIN-FLOW/AREA, HMAX-FLOW-RATIO
 
 
-def people_to_inp(room):
-    """Translate the People definition of a Room into INP (Keywords, Values)."""
-    people = room.properties.energy.people
+def people_to_inp(people):
+    """Translate a People definition into INP (Keywords, Values).
+
+    Args:
+        people: A honeybee-energy People definition. None is allowed.
+
+    Returns:
+        A tuple with two elements.
+
+        -   keywords: A tuple of text strings for keywords related to defining
+            people for a Space.
+
+        -   values: A tuple of text strings that aligns with the keywords and
+            denotes the value for each keyword.
+    """
+    if people is None:
+        return (), ()
     ppl_den = Area().to_unit([people.area_per_person], 'ft2', 'm2')[0]
-    ppl_total = round(room.floor_area / ppl_den, 3)
-    ppl_sch = clean_doe2_string(people.occupancy_schedule.display_name, RES_CHARS)
+    ppl_den = round(ppl_den, 3)
+    ppl_sch = clean_doe2_string(people.occupancy_schedule.identifier, RES_CHARS)
     ppl_sch = '"{}"'.format(ppl_sch)
-    ppl_kwd = ('NUMBER-OF-PEOPLE', 'PEOPLE-SCHEDULE')
-    ppl_val = (ppl_total, ppl_sch)
-    return ppl_kwd, ppl_val
+    keywords = ('AREA/PERSON', 'PEOPLE-SCHEDULE')
+    values = (ppl_den, ppl_sch)
+    return keywords, values
 
 
-def lighting_to_inp(room):
-    """Translate the Lighting definition of a Room into INP (Keywords, Values)."""
-    lighting = room.properties.energy.lighting
+def lighting_to_inp(lighting):
+    """Translate a Lighting definition into INP (Keywords, Values).
+
+    Args:
+        lighting: A honeybee-energy Lighting definition. None is allowed.
+
+    Returns:
+        A tuple with two elements.
+
+        -   keywords: A tuple of text strings for keywords related to defining
+            lighting for a Space.
+
+        -   values: A tuple of text strings that aligns with the keywords and
+            denotes the value for each keyword.
+    """
+    if lighting is None:
+        return (), ()
     lpd = EnergyFlux().to_unit([lighting.watts_per_area], 'W/ft2', 'W/m2')[0]
     lpd = round(lpd, 3)
-    lgt_sch = clean_doe2_string(lighting.schedule.display_name, RES_CHARS)
+    lgt_sch = clean_doe2_string(lighting.schedule.identifier, RES_CHARS)
     lgt_sch = '"{}"'.format(lgt_sch)
-    light_kwd = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN')
-    light_val = (lpd, lgt_sch, lighting.return_air_fraction)
-    return light_kwd, light_val
+    keywords = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN')
+    values = (lpd, lgt_sch, lighting.return_air_fraction)
+    return keywords, values
 
 
-def equipment_to_inp(room):
-    """Translate the Equipment definition(s) of a Room into INP (Keywords, Values)."""
-    # first evaluate what types of equipment we have
-    ele_equip = room.properties.energy.electric_equipment
-    gas_equip = room.properties.energy.gas_equipment
+def equipment_to_inp(electric_equip, gas_equip=None):
+    """Translate an Equipment definition(s) into INP (Keywords, Values).
 
+    Args:
+        electric_equip: A honeybee-energy ElectricEquipment definition. None is allowed.
+        gas_equip: A honeybee-energy GasEquipment definition. None is allowed.
+
+    Returns:
+        A tuple with two elements.
+
+        -   keywords: A tuple of text strings for keywords related to defining
+            the equipment for a Space.
+
+        -   values: A tuple of text strings that aligns with the keywords and
+            denotes the value for each keyword.
+    """
     # extract the properties from the equipment objects
-    if ele_equip is not None and gas_equip is not None:  # write them as lists
-        equip_val = [[], [], [], [], []]
-        for equip in (ele_equip, gas_equip):
+    if electric_equip is not None and gas_equip is not None:  # write them as lists
+        values = [[], [], [], [], []]
+        for equip in (electric_equip, gas_equip):
             epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
             epd = round(epd, 3)
-            equip_val[0].append(epd)
-            eqp_sch = clean_doe2_string(equip.schedule.display_name, RES_CHARS)
-            equip_val[1].append('"{}"'.format(eqp_sch))
-            equip_val[2].append(1 - equip.latent_fraction - equip.lost_fraction)
-            equip_val[3].append(equip.latent_fraction)
-            equip_val[4].append(equip.radiant_fraction)
-        equip_val = ['( {}, {} )'.format(v[0], v[1]) for v in equip_val]
-    else:  # write them as a single item
-        equip = ele_equip if gas_equip is None else gas_equip
+            values[0].append(epd)
+            eqp_sch = clean_doe2_string(equip.schedule.identifier, RES_CHARS)
+            values[1].append('"{}"'.format(eqp_sch))
+            values[2].append(1 - equip.latent_fraction - equip.lost_fraction)
+            values[3].append(equip.latent_fraction)
+            values[4].append(equip.radiant_fraction)
+        values = ['( {}, {} )'.format(v[0], v[1]) for v in values]
+    elif electric_equip is not None or gas_equip is not None:  # write as a single item
+        equip = electric_equip if gas_equip is None else gas_equip
         epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
         epd = round(epd, 3)
-        eqp_sch = clean_doe2_string(equip.schedule.display_name, RES_CHARS)
+        eqp_sch = clean_doe2_string(equip.schedule.identifier, RES_CHARS)
         eqp_sch = '("{}")'.format(eqp_sch)
         sens_fract = 1 - equip.latent_fraction - equip.lost_fraction
-        equip_val = (epd, eqp_sch, sens_fract, equip.latent_fraction,
-                     equip.radiant_fraction)
+        values = (epd, eqp_sch, sens_fract, equip.latent_fraction,
+                  equip.radiant_fraction)
+    else:  # no equipment assigned
+        return (), ()
 
-    equip_kwd = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
-                 'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
-    return equip_kwd, equip_val
+    keywords = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
+                'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
+    return keywords, values
 
 
-def infiltration_to_inp(room):
-    """Translate the Infiltration definition of a Room into INP (Keywords, Values)."""
-    infil = room.properties.energy.infiltration
-    inf_den = infil.flow_per_exterior_area
+def infiltration_to_inp(infiltration):
+    """Translate an Infiltration definition into INP (Keywords, Values).
+
+    Args:
+        infiltration: A honeybee-energy Infiltration definition. None is allowed.
+
+    Returns:
+        A tuple with two elements.
+
+        -   keywords: A tuple of text strings for keywords related to defining
+            infiltration for a Space.
+
+        -   values: A tuple of text strings that aligns with the keywords and
+            denotes the value for each keyword.
+    """
+    if infiltration is None:
+        return (), ()
+    inf_den = infiltration.flow_per_exterior_area
     inf_den = VolumeFlowRateIntensity().to_unit([inf_den], 'cfm/ft2', 'm3/s-m2')[0]
     inf_den = round(inf_den, 3)
-    inf_sch = clean_doe2_string(infil.schedule.display_name, RES_CHARS)
+    inf_sch = clean_doe2_string(infiltration.schedule.identifier, RES_CHARS)
     inf_sch = '"{}"'.format(inf_sch)
-    inf_kwd = ('INF-METHOD', 'INF-FLOW/AREA', 'INF-SCHEDULE')
-    inf_val = ('AIR-CHANGE', inf_den, inf_sch)
-    return inf_kwd, inf_val
+    keywords = ('INF-METHOD', 'INF-FLOW/AREA', 'INF-SCHEDULE')
+    values = ('AIR-CHANGE', inf_den, inf_sch)
+    return keywords, values
+
+
+def setpoint_to_inp(setpoint):
+    """Translate a Setpoint definition into INP (Keywords, Values).
+    
+    Args:
+        setpoint: A honeybee-energy Setpoint definition. None is allowed.
+
+    Returns:
+        A tuple with two elements.
+
+        -   keywords: A tuple of text strings for keywords related to defining
+            setpoints for a Zone.
+
+        -   values: A tuple of text strings that aligns with the keywords and
+            denotes the value for each keyword.
+    """
+    if setpoint is None:  # use some default setpoints
+        return ('DESIGN-HEAT-T', 'DESIGN-COOL-T'), (72, 75)
+    heat_setpt = round(setpoint.heating_setpoint * (9. / 5.) + 32., 2)
+    cool_setpt = round(setpoint.cooling_setpoint * (9. / 5.) + 32., 2)
+    heat_sch = clean_doe2_string(setpoint.heating_schedule.identifier, RES_CHARS)
+    cool_sch = clean_doe2_string(setpoint.cooling_schedule.identifier, RES_CHARS)
+    keywords = ('DESIGN-HEAT-T', 'DESIGN-COOL-T', 'HEAT-TEMP-SCH', 'COOL-TEMP-SCH')
+    values = (heat_setpt, cool_setpt, heat_sch, cool_sch)
+    return keywords, values
+
+
+def ventilation_to_inp(ventilation):
+    """Translate a Ventilation definition into INP (Keywords, Values).
+
+    Args:
+        ventilation: A honeybee-energy Ventilation definition. None is allowed.
+
+    Returns:
+        A tuple with two elements.
+
+        -   keywords: A list of text strings for keywords related to defining
+            ventilation for a Space.
+
+        -   values: A list of text strings that aligns with the keywords and
+            denotes the value for each keyword.
+    """
+    keywords, values = [], []
+    if ventilation is None:
+        return keywords, values
+    # check the flow per person
+    ppl_den = ventilation.flow_per_person
+    if ppl_den != 0:
+        keywords.append('OA-FLOW/PER')
+        ppl_den = VolumeFlowRate().to_unit([ppl_den], 'cfm', 'm3/s')[0]
+        values.append(round(ppl_den, 3))
+    # check the flow per floor area
+    vent_den = ventilation.flow_per_area
+    if vent_den != 0:
+        keywords.append('OA-FLOW/AREA')
+        vent_den = VolumeFlowRateIntensity().to_unit([vent_den], 'cfm/ft2', 'm3/s-m2')[0]
+        values.append(round(vent_den, 3))
+    # check the air changes per hour
+    ach = ventilation.air_changes_per_hour
+    if ach != 0:
+        keywords.append('OA-CHANGES')
+        values.append(round(ach, 3))
+    # check the flow per zone
+    total_flow = ventilation.flow_per_zone
+    if total_flow != 0:
+        keywords.append('OA-FLOW/PER')
+        total_flow = VolumeFlowRate().to_unit([total_flow], 'cfm', 'm3/s')[0]
+        values.append(round(total_flow, 3))
+    # check the schedule
+    vent_sch = ventilation.schedule
+    if vent_sch is not None:
+        keywords.append('MIN-FLOW-SCH')
+        vent_sch = clean_doe2_string(vent_sch.identifier, RES_CHARS)
+        values.append('"{}"'.format(vent_sch))
+    return keywords, values
