@@ -323,7 +323,7 @@ def test_room_writer():
        '   Z                        = 0.0\n' \
        '   VOLUME                   = 4500\n' \
        '   ZONE-TYPE                = CONDITIONED\n' \
-       '   NUMBER-OF-PEOPLE         = 2.362\n' \
+       '   AREA/PERSON              = 190.512\n' \
        '   PEOPLE-SCHEDULE          = "Generic Office Occupancy"\n' \
        '   LIGHTING-W/AREA          = 0.98\n' \
        '   LIGHTING-SCHEDULE        = "Generic Office Lighting"\n' \

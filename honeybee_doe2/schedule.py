@@ -74,6 +74,10 @@ def schedule_day_to_inp(day_schedule, type_limit=None):
     keywords.append('VALUES')
     values.append(_format_day_values(prev_values))
 
+    # convert temperature to fahrenheit if the type if temperature
+    if type_text == 'type_text':
+        values = [round(v.heating_setpoint * (9. / 5.) + 32., 2) for v in values]
+
     # return the INP string
     return generate_inp_string(doe2_id, 'DAY-SCHEDULE', keywords, values)
 
