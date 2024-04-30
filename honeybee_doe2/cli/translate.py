@@ -42,23 +42,12 @@ def translate():
     'note whether interior ceilings should be excluded from the export.',
     default=True, show_default=True)
 @click.option(
-    '--verbose-properties/--switch-statements', ' /-ss', help='Flag to note whether '
-    'program types should be written with switch statements so that they can easily '
-    'be edited in eQuest or a verbose definition of loads should be written for '
-    'each Room/Space.', default=True, show_default=True)
-@click.option(
-    '--name', '-n', help='Deprecated option to set the name of the output file.',
-    default=None, show_default=True)
-@click.option(
-    '--folder', '-f', help='Deprecated option to set the path to target folder.',
-    type=click.Path(file_okay=False, resolve_path=True, dir_okay=True), default=None)
-@click.option(
     '--output-file', '-o', help='Optional INP file path to output the INP string '
     'of the translation. By default this will be printed out to stdout.',
     type=click.File('w'), default='-', show_default=True)
 def model_to_inp_file(
     model_file, sim_par_json, hvac_mapping, include_interior_walls,
-    include_interior_ceilings, verbose_properties, name, folder, output_file
+    include_interior_ceilings, output_file
 ):
     """Translate a Model (HBJSON) file to an INP file.
 
@@ -82,12 +71,7 @@ def model_to_inp_file(
         inp_str = model.to.inp(model, sim_par, hvac_mapping, x_int_w, x_int_c)
 
         # write out the INP file
-        if folder is not None and name is not None:
-            if not name.lower().endswith('.inp'):
-                name = name + '.inp'
-            write_to_file_by_name(folder, name, inp_str, True)
-        else:
-            output_file.write(inp_str)
+        output_file.write(inp_str)
     except Exception as e:
         _logger.exception(f'Model translation failed:\n{e}')
         sys.exit(1)

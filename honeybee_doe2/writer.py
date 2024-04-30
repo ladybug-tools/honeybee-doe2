@@ -8,6 +8,7 @@ from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
 from honeybee.typing import clean_doe2_string
 from honeybee.boundarycondition import Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
+from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.construction.opaque import OpaqueConstruction
 from honeybee_energy.construction.air import AirBoundaryConstruction
 from honeybee_energy.lib.constructionsets import generic_construction_set
@@ -21,7 +22,7 @@ from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
     window_construction_to_inp, door_construction_to_inp, air_construction_to_inp
 from .schedule import energy_trans_sch_to_transmittance
 from .load import people_to_inp, lighting_to_inp, equipment_to_inp, \
-    infiltration_to_inp
+    infiltration_to_inp, setpoint_to_inp, ventilation_to_inp
 from .simulation import SimulationPar
 
 
@@ -365,22 +366,23 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     # set up attributes based on the Room's energy properties
     energy_attr_keywords = ['ZONE-TYPE']
     energy_attr_values = [room_doe2_conditioning_type(room)]
-    if room.properties.energy.people:
-        ppl_kwd, ppl_val = people_to_inp(room)
-        energy_attr_keywords.extend(ppl_kwd)
-        energy_attr_values.extend(ppl_val)
-    if room.properties.energy.lighting:
-        lgt_kwd, lgt_val = lighting_to_inp(room)
-        energy_attr_keywords.extend(lgt_kwd)
-        energy_attr_values.extend(lgt_val)
-    if room.properties.energy.electric_equipment or room.properties.energy.gas_equipment:
-        eq_kwd, eq_val = equipment_to_inp(room)
-        energy_attr_keywords.extend(eq_kwd)
-        energy_attr_values.extend(eq_val)
-    if room.properties.energy.infiltration:
-        inf_kwd, inf_val = infiltration_to_inp(room)
-        energy_attr_keywords.extend(inf_kwd)
-        energy_attr_values.extend(inf_val)
+    # people
+    ppl_kwd, ppl_val = people_to_inp(room.properties.energy.people)
+    energy_attr_keywords.extend(ppl_kwd)
+    energy_attr_values.extend(ppl_val)
+    # lighting
+    lgt_kwd, lgt_val = lighting_to_inp(room.properties.energy.lighting)
+    energy_attr_keywords.extend(lgt_kwd)
+    energy_attr_values.extend(lgt_val)
+    # equipment
+    eq_kwd, eq_val = equipment_to_inp(room.properties.energy.electric_equipment,
+                                      room.properties.energy.gas_equipment)
+    energy_attr_keywords.extend(eq_kwd)
+    energy_attr_values.extend(eq_val)
+    # infiltration
+    inf_kwd, inf_val = infiltration_to_inp(room.properties.energy.infiltration)
+    energy_attr_keywords.extend(inf_kwd)
+    energy_attr_values.extend(inf_val)
 
     # create the polygon string from the geometry
     doe2_id = clean_doe2_string(room.identifier, GEO_CHARS)
@@ -516,7 +518,7 @@ def model_to_inp(
     used_day_sched_ids, used_day_count = {}, 1
     all_scheds = model.properties.energy.schedules
     for sched in all_scheds:
-        if sched.__class__.__name__ == 'ScheduleRuleset':
+        if isinstance(sched, ScheduleRuleset):
             year_schedule, week_schedules = sched.to_inp()
             # check that day schedules aren't referenced by other model schedules
             day_scheds = []
@@ -653,15 +655,15 @@ def model_to_inp(
             space_name = clean_doe2_string(room.identifier, GEO_CHARS)
             zone_name = '{}_Zn'.format(space_name)
             zone_type = room_doe2_conditioning_type(room)
-            heat_setpt, cool_setpt = 72, 75
-            setpoint = room.properties.energy.setpoint
-            if setpoint is not None:
-                heat_setpt = round(setpoint.heating_setpoint * (9. / 5.) + 32., 2)
-                cool_setpt = round(setpoint.cooling_setpoint * (9. / 5.) + 32., 2)
-            zone_keys = ('TYPE', 'DESIGN-HEAT-T', 'DESIGN-COOL-T',
-                         'SIZING-OPTION', 'SPACE')
-            zone_vals = (zone_type, heat_setpt, cool_setpt,
-                         'ADJUST-LOADS', '"{}"'.format(space_name))
+            zone_keys = ['TYPE', 'SIZING-OPTION', 'SPACE']
+            zone_vals = [zone_type, 'ADJUST-LOADS', '"{}"'.format(space_name)]
+            if room.properties.energy.is_conditioned:
+                stp_kwd, stp_val = setpoint_to_inp(room.properties.energy.setpoint)
+                zone_keys.extend(stp_kwd)
+                zone_vals.extend(stp_val)
+                vt_kwd, vt_val = ventilation_to_inp(room.properties.energy.ventilation)
+                zone_keys.extend(vt_kwd)
+                zone_vals.extend(vt_val)
             zone_def = generate_inp_string(zone_name, 'ZONE', zone_keys, zone_vals)
             model_str.append(zone_def)
 
