@@ -150,26 +150,45 @@ def shade_mesh_to_inp(shade_mesh):
         -   shade_defs: A list of text strings for the INP definitions needed
             to represent the ShadeMesh.
     """
-    # TODO: Sense when the shade is a rectangle and, if so, translate it without POLYGON
-    # set up collector lists and properties for all shades
+    # extract the transmittance properties of the shade
     base_id = clean_doe2_string(shade_mesh.identifier, GEO_CHARS)
-    trans = energy_trans_sch_to_transmittance(shade_mesh)
-    keywords = ('SHAPE', 'POLYGON', 'TRANSMITTANCE',
-                'X-REF', 'Y-REF', 'Z-REF', 'TILT', 'AZIMUTH')
+    trans_kwd = ['TRANSMITTANCE']
+    trans_vals = [energy_trans_sch_to_transmittance(shade_mesh)]
+    t_sch_obj = shade_mesh.properties.energy.transmittance_schedule
+    if t_sch_obj is not None and not t_sch_obj.is_constant:
+        trans_kwd.append('SHADE-SCHEDULE')
+        t_shc_id = clean_doe2_string(t_sch_obj.identifier, RES_CHARS)
+        trans_vals.append('"{}"'.format(t_shc_id))
+
+    # set up collector lists and properties for all shades
     shade_polygons, shade_defs = [], []
+
     # loop through the mesh faces and create individual shade objects
     for i, face in enumerate(shade_mesh.geometry.face_vertices):
+        doe2_id = '{}{}'.format(base_id, i)
         f_geo = Face3D(face)
         shd_geo = f_geo if f_geo.altitude > 0 else f_geo.flip()
-        doe2_id = '{}{}'.format(base_id, i)
-        shade_polygon, pos_info = face_3d_to_inp(shd_geo, doe2_id)
-        origin, tilt, az = pos_info
-        values = ('POLYGON', '"{} Plg"'.format(doe2_id), trans,
-                  round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
-                  round(origin.z, GEO_DEC_COUNT), tilt, az)
+        clean_geo = shd_geo.remove_colinear_vertices(DOE2_TOLERANCE)
+        rect_info = face_3d_to_inp_rectangle(clean_geo)
+        if rect_info is not None:  # shade is a rectangle; translate it without POLYGON
+            width, height, origin, tilt, az = rect_info
+            geo_kwd = ['SHAPE', 'HEIGHT', 'WIDTH']
+            geo_vals = ['RECTANGLE', height, width]
+        else:  # otherwise, create the polygon string from the geometry
+            shade_polygon, pos_info = face_3d_to_inp(clean_geo, doe2_id)
+            shade_polygons.append(shade_polygon)
+            origin, tilt, az = pos_info
+            geo_kwd = ['SHAPE', 'POLYGON']
+            geo_vals = ['POLYGON', '"{} Plg"'.format(doe2_id)]
+        geo_kwd.extend(('X-REF', 'Y-REF', 'Z-REF', 'TILT', 'AZIMUTH'))
+        geo_vals.extend((round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
+                        round(origin.z, GEO_DEC_COUNT), tilt, az))
+        # create the final shade definition, which includes the position information
+        keywords = geo_kwd + trans_kwd
+        values = geo_vals + trans_vals
         shade_def = generate_inp_string(doe2_id, 'FIXED-SHADE', keywords, values)
-        shade_polygons.append(shade_polygon)
         shade_defs.append(shade_def)
+
     return shade_polygons, shade_defs
 
 
@@ -193,7 +212,8 @@ def shade_to_inp(shade):
     t_sch_obj = shade.properties.energy.transmittance_schedule
     if t_sch_obj is not None and not t_sch_obj.is_constant:
         trans_kwd.append('SHADE-SCHEDULE')
-        trans_vals.append(clean_doe2_string(t_sch_obj.identifier, RES_CHARS))
+        t_shc_id = clean_doe2_string(t_sch_obj.identifier, RES_CHARS)
+        trans_vals.append('"{}"'.format(t_shc_id))
 
     # extract the geometry properties of the shade
     shd_geo = shade.geometry if shade.altitude > 0 else shade.geometry.flip()
@@ -671,7 +691,8 @@ def model_to_inp(
     shade_polygons, shade_geo_defs = [], []
     for shade in model.shades:
         shade_polygon, shade_def = shade_to_inp(shade)
-        shade_polygons.append(shade_polygon)
+        if shade_polygon != '':  # shade written with a RECTANGLE
+            shade_polygons.append(shade_polygon)
         shade_geo_defs.append(shade_def)
     for shade in model.shade_meshes:
         shade_polygon, shade_def = shade_mesh_to_inp(shade)
