@@ -3,7 +3,7 @@
 from __future__ import division
 import math
 
-from ladybug_geometry.geometry2d import Point2D
+from ladybug_geometry.geometry2d import Vector2D, Point2D
 from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
 from honeybee.typing import clean_doe2_string
 from honeybee.boundarycondition import Surface
@@ -87,6 +87,53 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
     return polygon_str, position_info
 
 
+def face_3d_to_inp_rectangle(face_3d):
+    """Convert a Face3D into parameters needed to represent it as a rectangle in INP.
+
+    The output of this function will be None if the Face3D cannot be represented
+    as an INP rectangle without alteration of the geometry.
+
+    Args:
+        face_3d: A ladybug-geometry Face3D object which will be tested for whether
+            it can be represented as a rectangle in INP.
+
+    Returns:
+        Will be None if the Face3D cannot be translated to a WIDTH and HEIGHT
+        without alteration of the geometry. If the geometry can be successfully
+        translated, this will be a tuple with five elements.
+
+        -   width: A number for the width of the rectangle.
+        
+        -   height: A number for the height of the rectangle.
+
+        -   llc_origin: A Point3D for the lower-left corner of the Shade
+            geometry origin.
+        
+        -   tilt: A number for the tilt of the rectangle in degrees.
+
+        -   azimuth: A number for the azimuth of the rectangle in degrees.
+    """
+    if face_3d.boundary_polygon2d.is_rectangle(math.radians(DOE2_ANGLE_TOL)):
+        # check to see at least one of the segments is horizontal
+        are_segs_hor = [seg.max.z - seg.min.z <= DOE2_TOLERANCE
+                        for seg in face_3d.boundary_segments]
+        if True in are_segs_hor:
+            pts_3d = face_3d.lower_left_counter_clockwise_boundary
+            llc_origin = pts_3d[0]
+            width = llc_origin.distance_to_point(pts_3d[1])
+            height = llc_origin.distance_to_point(pts_3d[-1])
+            if all(is_horiz for is_horiz in are_segs_hor):  # horizontal; adjust azimuth
+                tilt = 0.0
+                hgt_vec = llc_origin - pts_3d[-1]
+                hgt_vec_2d = Vector2D(hgt_vec.x, hgt_vec.y)
+                azimuth = math.degrees(Vector2D(0, 1).angle_clockwise(hgt_vec_2d))
+            else:  # vertical or tilted; use Face3D azimuth
+                tilt = math.degrees(face_3d.tilt)
+                azimuth = math.degrees(face_3d.azimuth)
+            return width, height, llc_origin, tilt, azimuth
+    return None
+
+
 def shade_mesh_to_inp(shade_mesh):
     """Generate an INP string representation of a ShadeMesh.
 
@@ -139,20 +186,36 @@ def shade_to_inp(shade):
 
         -   shade_def: Text string for the INP definition of the Shade.
     """
-    # TODO: Sense when the shade is a rectangle and, if so, translate it without POLYGON
-    # create the polygon string from the geometry
+    # extract the transmittance properties of the shade
     doe2_id = clean_doe2_string(shade.identifier, GEO_CHARS)
+    trans_kwd = ['TRANSMITTANCE']
+    trans_vals = [energy_trans_sch_to_transmittance(shade)]
+    t_sch_obj = shade.properties.energy.transmittance_schedule
+    if t_sch_obj is not None and not t_sch_obj.is_constant:
+        trans_kwd.append('SHADE-SCHEDULE')
+        trans_vals.append(clean_doe2_string(t_sch_obj.identifier, RES_CHARS))
+
+    # extract the geometry properties of the shade
     shd_geo = shade.geometry if shade.altitude > 0 else shade.geometry.flip()
     clean_geo = shd_geo.remove_colinear_vertices(DOE2_TOLERANCE)
-    shade_polygon, pos_info = face_3d_to_inp(clean_geo, doe2_id)
-    origin, tilt, az = pos_info
-    # create the shade definition, which includes the position information
-    trans = energy_trans_sch_to_transmittance(shade)
-    keywords = ('SHAPE', 'POLYGON', 'TRANSMITTANCE',
-                'X-REF', 'Y-REF', 'Z-REF', 'TILT', 'AZIMUTH')
-    values = ('POLYGON', '"{} Plg"'.format(doe2_id), trans,
-              round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
-              round(origin.z, GEO_DEC_COUNT), tilt, az)
+    rect_info = face_3d_to_inp_rectangle(clean_geo)
+    if rect_info is not None:  # shade is a rectangle; translate it without POLYGON
+        width, height, origin, tilt, az = rect_info
+        geo_kwd = ['SHAPE', 'HEIGHT', 'WIDTH']
+        geo_vals = ['RECTANGLE', height, width]
+        shade_polygon = ''
+    else:  # otherwise, create the polygon string from the geometry
+        shade_polygon, pos_info = face_3d_to_inp(clean_geo, doe2_id)
+        origin, tilt, az = pos_info
+        geo_kwd = ['SHAPE', 'POLYGON']
+        geo_vals = ['POLYGON', '"{} Plg"'.format(doe2_id)]
+    geo_kwd.extend(('X-REF', 'Y-REF', 'Z-REF', 'TILT', 'AZIMUTH'))
+    geo_vals.extend((round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
+                     round(origin.z, GEO_DEC_COUNT), tilt, az))
+
+    # create the final shade definition, which includes the position information
+    keywords = geo_kwd + trans_kwd
+    values = geo_vals + trans_vals
     shade_def = generate_inp_string(doe2_id, 'FIXED-SHADE', keywords, values)
     return shade_polygon, shade_def
 
