@@ -18,27 +18,44 @@ from honeybee_energy.lib.programtypes import office_program, program_type_by_ide
 
 def test_shade_writer():
     """Test the basic functionality of the Shade inp writer."""
-    shade = Shade.from_vertices(
-        'overhang', [[0, 0, 3], [1, 0, 3], [1, 1, 3], [0, 1, 3]])
+    rect_verts = [[0, 0, 3], [1, 0, 3], [1, 1, 3], [0, 1, 3]]
+    non_rect_verts = [[0, 0, 3], [1, 0, 3], [2, 1, 3], [0, 1, 3]]
+    shade = Shade.from_vertices('overhang', rect_verts)
 
+    shade_polygon, shade_def = shade.to.inp(shade)
+    assert shade_polygon == ''
+    assert shade_def == \
+       '"overhang" = FIXED-SHADE\n' \
+       '   SHAPE                    = RECTANGLE\n' \
+       '   HEIGHT                   = 1.0\n' \
+       '   WIDTH                    = 1.0\n' \
+       '   X-REF                    = 0.0\n' \
+       '   Y-REF                    = 0.0\n' \
+       '   Z-REF                    = 3.0\n' \
+       '   TILT                     = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
+       '   TRANSMITTANCE            = 0\n' \
+       '   ..\n'
+
+    shade = Shade.from_vertices('overhang', non_rect_verts)
     shade_polygon, shade_def = shade.to.inp(shade)
     assert shade_polygon == \
        '"overhang Plg" = POLYGON\n' \
        '   V1                       = (0.0, 0.0)\n' \
        '   V2                       = (1.0, 0.0)\n' \
-       '   V3                       = (1.0, 1.0)\n' \
+       '   V3                       = (2.0, 1.0)\n' \
        '   V4                       = (0.0, 1.0)\n' \
        '   ..\n'
     assert shade_def == \
        '"overhang" = FIXED-SHADE\n' \
        '   SHAPE                    = POLYGON\n' \
        '   POLYGON                  = "overhang Plg"\n' \
-       '   TRANSMITTANCE            = 0\n' \
        '   X-REF                    = 0.0\n' \
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 3.0\n' \
        '   TILT                     = 0.0\n' \
        '   AZIMUTH                  = 180.0\n' \
+       '   TRANSMITTANCE            = 0\n' \
        '   ..\n'
 
     fritted_glass_trans = ScheduleRuleset.from_constant_value(
@@ -49,12 +66,12 @@ def test_shade_writer():
        '"overhang" = FIXED-SHADE\n' \
        '   SHAPE                    = POLYGON\n' \
        '   POLYGON                  = "overhang Plg"\n' \
-       '   TRANSMITTANCE            = 0.5\n' \
        '   X-REF                    = 0.0\n' \
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 3.0\n' \
        '   TILT                     = 0.0\n' \
        '   AZIMUTH                  = 180.0\n' \
+       '   TRANSMITTANCE            = 0.5\n' \
        '   ..\n'
 
 
@@ -383,7 +400,6 @@ def test_room_writer_program():
     kitchen_prog = program_type_by_identifier('2019::FullServiceRestaurant::Kitchen')
     room.properties.energy.program_type = kitchen_prog
     _, room_def = room.to.inp(room)
-    print(room_def[0])
     assert room_def[0] == \
        '"Tiny House Zone" = SPACE\n' \
        '   SHAPE                    = POLYGON\n' \
@@ -396,23 +412,24 @@ def test_room_writer_program():
        '   ZONE-TYPE                = CONDITIONED\n' \
        '   AREA/PERSON              = 200.0\n' \
        '   PEOPLE-SCHEDULE          = "RestaurantSitDown BLDG OCC SCH"\n' \
-       '   LIGHTING-W/AREA          = 0.87\n' \
+       '   LIGHTING-W/AREA          = 1.09\n' \
        '   LIGHTING-SCHEDULE        = "RstrntStDwnBLDG_HENSCH20102013"\n' \
        '   LIGHT-TO-RETURN          = 0.0\n' \
        '   EQUIPMENT-W/AREA         = (37.53, 60.317)\n' \
-       '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH", "RstrntStDwn Rst GAS EQUIP SCH")\n' \
+       '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH",\n' \
+       '                               "RstrntStDwn Rst GAS EQUIP SCH")\n' \
        '   EQUIP-SENSIBLE           = (0.55, 0.2)\n' \
-       '   EQUIP-LATENT             = 0.0\n' \
-       '   EQUIP-RAD-FRAC           = 0.5\n' \
+       '   EQUIP-LATENT             = (0.25, 0.1)\n' \
+       '   EQUIP-RAD-FRAC           = (0.3, 0.2)\n' \
        '   SOURCE-TYPE              = HOT-WATER\n' \
-       '   SOURCE-POWER             = 1.238\n' \
-       '   SOURCE-SCHEDULE          = "ApartmentMidRise APT DHW SCH"\n' \
+       '   SOURCE-POWER             = 29.943\n' \
+       '   SOURCE-SCHEDULE          = "RestaurantSitDown BLDG SWH SCH"\n' \
        '   SOURCE-SENSIBLE          = 0.2\n' \
        '   SOURCE-RAD-FRAC          = 0\n' \
        '   SOURCE-LATENT            = 0.05\n' \
        '   INF-METHOD               = AIR-CHANGE\n' \
        '   INF-FLOW/AREA            = 0.112\n' \
-       '   INF-SCHEDULE             = "ApartmentMidRise INF APT SCH"\n' \
+       '   INF-SCHEDULE             = "RstrntStDwn INFIL HALF ON SCH"\n' \
        '   ..\n'
 
 

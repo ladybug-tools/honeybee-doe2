@@ -10,7 +10,7 @@ from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
 # TODO: Add methods to translate daylight sensors
-# TODO: Add methods to map to SOURCE-TYPE HOT-WATER and PROCESS
+# TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS
 # TODO: Implement the keys that Trevor wants:
 # FLOW/AREA, ASSIGNED-FLOW, MIN-FLOW-RATIO, MIN-FLOW/AREA, HMAX-FLOW-RATIO
 
