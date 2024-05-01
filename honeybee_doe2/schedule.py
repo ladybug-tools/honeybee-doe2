@@ -267,5 +267,5 @@ def energy_trans_sch_to_transmittance(shade_obj):
                 sch_vals = trans_sch.values()
             except Exception:  # ScheduleFixedInterval
                 sch_vals = trans_sch.values
-            trans = sum(sch_vals) / len(sch_vals)
+            trans = round(sum(sch_vals) / len(sch_vals), 3)
     return trans
