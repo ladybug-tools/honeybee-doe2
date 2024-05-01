@@ -74,6 +74,24 @@ def test_shade_writer():
        '   TRANSMITTANCE            = 0.5\n' \
        '   ..\n'
 
+    move_vals = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
+                 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0]
+    moveable_trans = ScheduleRuleset.from_daily_values('Moveable Awning', move_vals)
+    shade.properties.energy.transmittance_schedule = moveable_trans
+    shade_polygon, shade_def = shade.to.inp(shade)
+    assert shade_def == \
+       '"overhang" = FIXED-SHADE\n' \
+       '   SHAPE                    = POLYGON\n' \
+       '   POLYGON                  = "overhang Plg"\n' \
+       '   X-REF                    = 0.0\n' \
+       '   Y-REF                    = 0.0\n' \
+       '   Z-REF                    = 3.0\n' \
+       '   TILT                     = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
+       '   TRANSMITTANCE            = 0.417\n' \
+       '   SHADE-SCHEDULE           = "Moveable Awning"\n' \
+       '   ..\n'
+
 
 def test_shade_mesh_writer():
     """Test the basic functionality of the ShadeMesh inp writer."""
@@ -83,25 +101,36 @@ def test_shade_mesh_writer():
     shade = ShadeMesh('Awning_1', mesh)
 
     shade_polygons, shade_defs = shade.to.inp(shade)
-    assert len(shade_polygons) == 2
+    assert len(shade_polygons) == 1
     assert len(shade_defs) == 2
     assert shade_polygons[0] == \
-       '"Awning 10 Plg" = POLYGON\n' \
+       '"Awning 11 Plg" = POLYGON\n' \
        '   V1                       = (0.0, 0.0)\n' \
        '   V2                       = (2.0, 0.0)\n' \
-       '   V3                       = (2.0, 2.0)\n' \
-       '   V4                       = (0.0, 2.0)\n' \
+       '   V3                       = (0.0, 2.0)\n' \
        '   ..\n'
     assert shade_defs[0] == \
        '"Awning 10" = FIXED-SHADE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Awning 10 Plg"\n' \
-       '   TRANSMITTANCE            = 0\n' \
+       '   SHAPE                    = RECTANGLE\n' \
+       '   HEIGHT                   = 2.0\n' \
+       '   WIDTH                    = 2.0\n' \
        '   X-REF                    = 0.0\n' \
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 4.0\n' \
        '   TILT                     = 0.0\n' \
        '   AZIMUTH                  = 180.0\n' \
+       '   TRANSMITTANCE            = 0\n' \
+       '   ..\n'
+    assert shade_defs[1] == \
+       '"Awning 11" = FIXED-SHADE\n' \
+       '   SHAPE                    = POLYGON\n' \
+       '   POLYGON                  = "Awning 11 Plg"\n' \
+       '   X-REF                    = 2.0\n' \
+       '   Y-REF                    = 0.0\n' \
+       '   Z-REF                    = 4.0\n' \
+       '   TILT                     = 0.0\n' \
+       '   AZIMUTH                  = 180.0\n' \
+       '   TRANSMITTANCE            = 0\n' \
        '   ..\n'
    
     fritted_glass_trans = ScheduleRuleset.from_constant_value(
@@ -110,14 +139,15 @@ def test_shade_mesh_writer():
     shade_polygons, shade_defs = shade.to.inp(shade)
     assert shade_defs[0] == \
        '"Awning 10" = FIXED-SHADE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Awning 10 Plg"\n' \
-       '   TRANSMITTANCE            = 0.5\n' \
+       '   SHAPE                    = RECTANGLE\n' \
+       '   HEIGHT                   = 2.0\n' \
+       '   WIDTH                    = 2.0\n' \
        '   X-REF                    = 0.0\n' \
        '   Y-REF                    = 0.0\n' \
        '   Z-REF                    = 4.0\n' \
        '   TILT                     = 0.0\n' \
        '   AZIMUTH                  = 180.0\n' \
+       '   TRANSMITTANCE            = 0.5\n' \
        '   ..\n'
 
 
