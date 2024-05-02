@@ -3,9 +3,11 @@ from ladybug.dt import Time, Date
 from honeybee_energy.schedule.day import ScheduleDay
 from honeybee_energy.schedule.rule import ScheduleRule
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
+from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
 import honeybee_energy.lib.scheduletypelimits as schedule_types
 
-from honeybee_doe2.schedule import schedule_day_to_inp, schedule_ruleset_to_inp
+from honeybee_doe2.schedule import schedule_day_to_inp, schedule_ruleset_to_inp, \
+    schedule_fixed_interval_to_inp
 
 
 def test_schedule_day_to_inp():
@@ -213,7 +215,6 @@ def test_schedule_ruleset_to_inp_date_range():
 
     inp_yr_str, inp_week_strs = schedule_ruleset_to_inp(school_schedule)
 
-    print(inp_yr_str)
     assert inp_yr_str == \
         '"School Occupancy" = SCHEDULE\n' \
         '   TYPE                     = FRACTION\n' \
@@ -229,3 +230,68 @@ def test_schedule_ruleset_to_inp_date_range():
         '   THRU DEC 31              = "School Occupancy Week 2"\n' \
         '   ..\n'
     assert len(inp_week_strs) == 2
+
+
+def test_schedule_fixedinterval_to_inp():
+    """Test the ScheduleFixedInterval to_inp method."""
+    trans_sched = ScheduleFixedInterval(
+        'Custom Transmittance', [x / 8760 for x in range(8760)],
+        schedule_types.fractional)
+    inp_yr_str, inp_week_strs, inp_day_strs = schedule_fixed_interval_to_inp(trans_sched)
+
+    assert inp_yr_str == \
+        '"Custom Transmittance" = SCHEDULE\n' \
+        '   TYPE                     = FRACTION\n' \
+        '   THRU JAN 31              = "Custom TransmittanceJan"\n' \
+        '   THRU FEB 28              = "Custom TransmittanceFeb"\n' \
+        '   THRU MAR 31              = "Custom TransmittanceMar"\n' \
+        '   THRU APR 30              = "Custom TransmittanceApr"\n' \
+        '   THRU MAY 31              = "Custom TransmittanceMay"\n' \
+        '   THRU JUN 30              = "Custom TransmittanceJun"\n' \
+        '   THRU JUL 31              = "Custom TransmittanceJul"\n' \
+        '   THRU AUG 31              = "Custom TransmittanceAug"\n' \
+        '   THRU SEP 30              = "Custom TransmittanceSep"\n' \
+        '   THRU OCT 31              = "Custom TransmittanceOct"\n' \
+        '   THRU NOV 30              = "Custom TransmittanceNov"\n' \
+        '   THRU DEC 31              = "Custom TransmittanceDec"\n' \
+        '   ..\n'
+
+    assert len(inp_week_strs) == 12
+    assert inp_week_strs[0] == \
+        '"Custom TransmittanceJan" = WEEK-SCHEDULE\n' \
+        '   TYPE                     = FRACTION\n' \
+        '   DAYS                     = (ALL)\n' \
+        '   DAY-SCHEDULES            = ("Custom TransmittanceJanDay")\n' \
+        '   ..\n'
+
+    assert len(inp_day_strs) == 12
+    assert inp_day_strs[0] == \
+        '"Custom TransmittanceJanDay" = DAY-SCHEDULE-PD\n' \
+        '   TYPE                     = FRACTION\n' \
+        '   VALUES                   = (\n' \
+        '      0.041,\n' \
+        '      0.041,\n' \
+        '      0.041,\n' \
+        '      0.041,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.042,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.043,\n' \
+        '      0.044,\n' \
+        '      0.044,\n' \
+        '   )\n' \
+        '   ..\n'
