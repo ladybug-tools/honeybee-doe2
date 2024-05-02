@@ -3,6 +3,7 @@
 from __future__ import division
 
 from ladybug.dt import Date, MONTHNAMES
+from ladybug.analysisperiod import AnalysisPeriod
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
@@ -94,7 +95,7 @@ def schedule_day_to_inp(day_schedule, type_limit=None):
 
 
 def schedule_ruleset_to_inp(schedule):
-    """Convert a ScheduleRuleset into a WEEK-SCHEDULE and SCHEDULE INP strings.
+    """Convert a ScheduleRuleset into a WEEK-SCHEDULE-PD and SCHEDULE INP strings.
     
     Note that this method only outputs SCHEDULE and WEEK-SCHEDULE objects
     However, to write the full schedule into an INP, the schedules's
@@ -106,7 +107,7 @@ def schedule_ruleset_to_inp(schedule):
         -   year_schedule: Text string representation of the SCHEDULE
             describing this schedule.
 
-        -   week_schedules: A list of WEEK-SCHEDULE test strings that are
+        -   week_schedules: A list of WEEK-SCHEDULE-PD text strings that are
             referenced in the year_schedule.
     """
     # setup the DOE-2 identifier and lists for keywords and values
@@ -250,6 +251,78 @@ def schedule_ruleset_to_inp(schedule):
         values.append('"{}"'.format(wk_sch_id))
     year_schedule = generate_inp_string(doe2_id, 'SCHEDULE', keywords, values)
     return year_schedule, week_schedules
+
+
+def schedule_fixed_interval_to_inp(schedule):
+    """Convert a ScheduleFixedInterval to INP strings.
+
+    Note that true Fixed Interval schedules are not supported by DOE-2 and there
+    is no way to faithfully translate them given that DOE-2 SCHEDULE objects have
+    a hard limit of 12 THRU statements. This method tries to write as best of
+    an approximation for the schedule as possible by averaging the hourly values
+    from each day of the fixed interval schedule. A separate day schedule will
+    be used for each month in an attempt to account for changes in the fixed
+    interval schedule over the year.
+
+    All of this will allow the translation to succeed and gives roughly matching
+    behavior of the DOE-2 simulation to the EnergyPlus simulation. However, it is
+    recommended that users replace ScheduleFixedIntervals with ScheduleRulesets
+    that they know best represents the schedule. Or EnergyPlus should be used for
+    the simulation instead of DOE-2.
+
+    Returns:
+        A tuple with two elements
+
+        -   year_schedule: Text string representation of the SCHEDULE
+            describing this schedule.
+
+        -   week_schedules: A list of WEEK-SCHEDULE text strings that are
+            referenced in the year_schedule.
+        
+        -   day_schedules: A list of DAY-SCHEDULE-PD text strings that are
+            referenced in the week_schedules.
+    """
+    # setup the DOE-2 identifier and lists for keywords and values
+    doe2_id = clean_doe2_string(schedule.identifier, RES_CHARS)
+    base_id = clean_doe2_string(schedule.identifier, RES_CHARS - 6)
+    type_text = schedule_type_limit_to_inp(schedule.schedule_type_limit)
+
+    # loop through the months of the year and create appropriate schedules
+    day_schedules, week_schedules = [], []
+    year_keywords, year_values = ['TYPE'], [type_text]
+    sch_data = schedule.data_collection
+    if sch_data.header.analysis_period.timestep != 1:
+        sch_data = sch_data.cull_to_timestep(1)
+    for month_i in range(1, 13):
+        # create the day schedules
+        month_name = AnalysisPeriod.MONTHNAMES[month_i]
+        month_days = AnalysisPeriod.NUMOFDAYSEACHMONTH[month_i - 1]
+        week_id = '{}{}'.format(base_id, month_name)
+        day_id = '{}{}'.format(week_id, 'Day')
+        period = AnalysisPeriod(st_month=month_i, end_month=month_i, end_day=month_days)
+        month_data = sch_data.filter_by_analysis_period(period)
+        mon_per_hr = month_data.average_monthly_per_hour()
+        hour_values = [round(v, 3) for v in mon_per_hr.values]
+        if type_text == 'TEMPERATURE':
+            hour_values = [round(v * (9. / 5.) + 32., 2) for v in hour_values]
+        day_keywords, day_values = ['TYPE', 'VALUES'], [type_text, hour_values]
+        day_inp_str = generate_inp_string_list_format(
+            day_id, 'DAY-SCHEDULE-PD', day_keywords, day_values)
+        day_schedules.append(day_inp_str)
+        # create week schedule
+        week_keywords = ['TYPE', 'DAYS', 'DAY-SCHEDULES']
+        week_values = [type_text, '(ALL)', '("{}")'.format(day_id)]
+        week_sch = generate_inp_string(
+            week_id, 'WEEK-SCHEDULE', week_keywords, week_values)
+        week_schedules.append(week_sch)
+        # add values to the year schedules
+        thru = 'THRU {} {}'.format(month_name.upper(), period.end_day)
+        year_keywords.append(thru)
+        year_values.append('"{}"'.format(week_id))
+
+    # return all of the strings
+    year_schedule = generate_inp_string(doe2_id, 'SCHEDULE', year_keywords, year_values)
+    return year_schedule, week_schedules, day_schedules
 
 
 def energy_trans_sch_to_transmittance(shade_obj):
