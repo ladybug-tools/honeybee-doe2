@@ -344,7 +344,7 @@ def aperture_to_inp(aperture):
     return aperture_def
 
 
-def face_to_inp(face, space_origin=Point3D(0, 0, 0)):
+def face_to_inp(face, space_origin=Point3D(0, 0, 0), location=None):
     """Generate an INP string representation of a Face.
 
     Note that the resulting string does not include full construction definitions.
@@ -359,6 +359,9 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0)):
         face: A honeybee Face for which an INP representation will be returned.
         space_origin: A ladybug-geometry Point3D for the origin of the space
             to which the Face is assigned. (Default: (0, 0, 0)).
+        location: An optional text string to note the DOE-2 LOCATION of the
+            Face on the parent Room. When this is specified, the Face will be
+            written without using a POLYGON. (Default: None).
     
     Returns:
         A tuple with two elements.
@@ -378,21 +381,28 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0)):
     else:  # likely ground or some other fancy ground boundary condition
         doe2_type = 'UNDERGROUND-WALL'
 
-    # create the polygon string from the geometry
+    # process the face identifier and the construction
     doe2_id = clean_doe2_string(face.identifier, GEO_CHARS)
-    f_geo = face.geometry.remove_colinear_vertices(DOE2_TOLERANCE)
-    face_polygon, pos_info = face_3d_to_inp(f_geo, doe2_id)
-    face_origin, tilt, az = pos_info
-    origin = face_origin - space_origin
-
-    # create the face definition, which includes the position info
     constr_o_name = face.properties.energy.construction.identifier
     constr = clean_doe2_string(constr_o_name, RES_CHARS)
-    keywords = ['POLYGON', 'CONSTRUCTION', 'TILT', 'AZIMUTH', 'X', 'Y', 'Z']
-    values = ['"{} Plg"'.format(doe2_id), '"{}"'.format(constr), tilt, az,
-              round(origin.x, GEO_DEC_COUNT),
-              round(origin.y, GEO_DEC_COUNT),
-              round(origin.z, GEO_DEC_COUNT)]
+
+    # process the geometry
+    if location is not None:
+        keywords = ['CONSTRUCTION', 'LOCATION']
+        values = ['"{}"'.format(constr), location]
+        face_polygon = ''
+    else:  # create the polygon string from the geometry
+        f_geo = face.geometry.remove_colinear_vertices(DOE2_TOLERANCE)
+        face_polygon, pos_info = face_3d_to_inp(f_geo, doe2_id)
+        face_origin, tilt, az = pos_info
+        origin = face_origin - space_origin
+        keywords = ['POLYGON', 'CONSTRUCTION', 'TILT', 'AZIMUTH', 'X', 'Y', 'Z']
+        values = ['"{} Plg"'.format(doe2_id), '"{}"'.format(constr), tilt, az,
+                round(origin.x, GEO_DEC_COUNT),
+                round(origin.y, GEO_DEC_COUNT),
+                round(origin.z, GEO_DEC_COUNT)]
+
+    # add information related to the boundary condition
     if bc_str == 'Surface':
         adj_room = face.boundary_condition.boundary_condition_objects[-1]
         adj_id = clean_doe2_string(adj_room, GEO_CHARS)
@@ -401,11 +411,12 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0)):
     elif doe2_type == 'INTERIOR-WALL':  # assume that it is adiabatic
         keywords.append('INT-WALL-TYPE')
         values.append('ADIABATIC')
-    if f_type_str == 'Floor' and doe2_type != 'INTERIOR-WALL':
+    if location is None and f_type_str == 'Floor' and doe2_type != 'INTERIOR-WALL':
         keywords.append('LOCATION')
         values.append('BOTTOM')
-    face_def = generate_inp_string(doe2_id, doe2_type, keywords, values)
 
+    # create the face definition
+    face_def = generate_inp_string(doe2_id, doe2_type, keywords, values)
     return face_polygon, face_def
 
 
@@ -443,8 +454,8 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
             to represent the Room and all of its constituent Faces, Apertures
             and Doors.
     """
-    # TODO: Sense when a Room is an extruded floor plate and, if so, do not use
-    # POLYGON to describe the Room faces
+    # process the room identifier
+    doe2_id = clean_doe2_string(room.identifier, GEO_CHARS)
 
     # set up attributes based on the Room's energy properties
     energy_attr_keywords = ['ZONE-TYPE']
@@ -472,11 +483,85 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     energy_attr_keywords.extend(inf_kwd)
     energy_attr_values.extend(inf_val)
 
-    # create the polygon string from the geometry
-    doe2_id = clean_doe2_string(room.identifier, GEO_CHARS)
-    r_geo = room.horizontal_boundary(match_walls=False, tolerance=DOE2_TOLERANCE)
-    r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
-    r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
+
+    # sense when a Room is an extruded floor plate
+    def _is_room_3d_extruded(hb_room):
+        """Test if a Room is a pure extrusion.
+        
+        Args:
+            hb_room: The Honeybee Room to be tested.
+        
+        Returns:
+            A tuple with two elements.
+
+            -   is_extrusion: True if the geometry is an extrusion. False if not.
+
+            -   face_orientations: A list of integers that aligns with the Room.faces
+                and denotes whether each face is downward (-1), vertical (0) or
+                upward (+1).
+        """
+        # set up the parameters for evaluating vertical or horizontal
+        vert_vec = Vector3D(0, 0, 1)
+        min_v_ang = math.radians(DOE2_ANGLE_TOL)
+        max_v_ang = math.pi - min_v_ang
+        min_h_ang = (math.pi / 2) - min_v_ang
+        max_h_ang = (math.pi / 2) + min_v_ang
+
+        # loop through the Room faces and test them
+        face_orientations = []
+        for face in hb_room.faces:
+            try:  # first make sure that the geometry is not degenerate
+                clean_geo = face.geometry.remove_colinear_vertices(DOE2_TOLERANCE)
+                v_ang = clean_geo.normal.angle(vert_vec)
+                if v_ang <= min_v_ang:
+                    face_orientations.append(1)
+                    continue
+                elif v_ang >= max_v_ang:
+                    face_orientations.append(-1)
+                    continue
+                elif min_h_ang <= v_ang <= max_h_ang:
+                    face_orientations.append(0)
+                    continue
+                return False, []
+            except AssertionError:  # degenerate face to ignore
+                pass
+        return True, face_orientations
+
+    # if the room is extruded, determine the locations for each face
+    face_locations = []
+    is_extrusion, face_orientations = _is_room_3d_extruded(room)
+    if is_extrusion:  # try to translate without using POLYGON for the Room faces
+        r_geo = room.horizontal_boundary(match_walls=True, tolerance=DOE2_TOLERANCE)
+        r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
+        wall_count = len([orient for orient in face_orientations if orient == 0])
+        if len(r_geo) == wall_count:  # all walls can be represented with room vertices
+            rm_pts = r_geo.lower_left_counter_clockwise_boundary
+            ceil_count = len([orient for orient in face_orientations if orient == 1])
+            floor_count = len([orient for orient in face_orientations if orient == -1])
+            for face, orient in zip(room.faces, face_orientations):
+                if orient == 0:  # wall to associate with a room vertex
+                    f_origin = face.geometry.lower_left_corner
+                    for i, r_pt in enumerate(rm_pts):
+                        if f_origin.is_equivalent(r_pt, DOE2_TOLERANCE):
+                            face_locations.append('SPACE-V{}'.format(i + 1))
+                            break
+                    else:
+                        face_locations.append(None)
+                elif orient == 1:
+                    loc = 'TOP' if ceil_count == 1 else None
+                    face_locations.append(loc)
+                else:
+                    loc = 'BOTTOM' if floor_count == 1 else None
+                    face_locations.append(loc)
+
+    # if the room is not extruded, just use the generic horizontal boundary
+    if len(face_locations) == 0:
+        r_geo = room.horizontal_boundary(match_walls=False, tolerance=DOE2_TOLERANCE)
+        r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
+        r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
+        face_locations = [None] * len(room.faces)
+
+    # create the room polygon string from the geometry
     room_polygon, pos_info = face_3d_to_inp(r_geo, doe2_id)
     space_origin, _, _ = pos_info
     origin = space_origin - floor_origin
@@ -496,15 +581,16 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     # gather together all definitions and polygons to define the room
     room_polygons = [room_polygon]
     room_defs = [space_def]
-    for face in room.faces:
+    for face, f_loc in zip(room.faces, face_locations):
         # first check if this is a face that should be excluded
         if isinstance(face.boundary_condition, Surface):
             if exclude_interior_walls and isinstance(face.type, Wall):
                 continue
-            elif exclude_interior_ceilings and isinstance(face.type, (Floor, RoofCeiling)):
+            elif exclude_interior_ceilings and \
+                    isinstance(face.type, (Floor, RoofCeiling)):
                 continue
         # add the face definition along with all apertures and doors
-        face_polygon, face_def = face_to_inp(face, space_origin)
+        face_polygon, face_def = face_to_inp(face, space_origin, f_loc)
         room_polygons.append(face_polygon)
         room_defs.append(face_def)
         for ap in face.apertures:
