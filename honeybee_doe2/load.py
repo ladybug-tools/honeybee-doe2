@@ -9,8 +9,6 @@ from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
-# TODO: Implement the keys that Trevor wants:
-# FLOW/AREA, ASSIGNED-FLOW, MIN-FLOW-RATIO, MIN-FLOW/AREA, HMAX-FLOW-RATIO
 # TODO: Add methods to translate daylight sensors
 # TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS
 
