@@ -533,6 +533,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     if is_extrusion:  # try to translate without using POLYGON for the Room faces
         r_geo = room.horizontal_boundary(match_walls=True, tolerance=DOE2_TOLERANCE)
         r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
+        r_geo = r_geo.remove_duplicate_vertices(DOE2_TOLERANCE)
         wall_count = len([orient for orient in face_orientations if orient == 0])
         if len(r_geo) == wall_count:  # all walls can be represented with room vertices
             rm_pts = r_geo.lower_left_counter_clockwise_boundary
@@ -591,7 +592,8 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
                 continue
         # add the face definition along with all apertures and doors
         face_polygon, face_def = face_to_inp(face, space_origin, f_loc)
-        room_polygons.append(face_polygon)
+        if face_polygon != '':
+            room_polygons.append(face_polygon)
         room_defs.append(face_def)
         for ap in face.apertures:
             ap_def = aperture_to_inp(ap)
