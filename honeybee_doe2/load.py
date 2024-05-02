@@ -9,10 +9,10 @@ from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
-# TODO: Add methods to translate daylight sensors
-# TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS
 # TODO: Implement the keys that Trevor wants:
 # FLOW/AREA, ASSIGNED-FLOW, MIN-FLOW-RATIO, MIN-FLOW/AREA, HMAX-FLOW-RATIO
+# TODO: Add methods to translate daylight sensors
+# TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS
 
 
 def people_to_inp(people):
@@ -248,7 +248,7 @@ def ventilation_to_inp(ventilation):
     # check the flow per zone
     total_flow = ventilation.flow_per_zone
     if total_flow != 0:
-        keywords.append('OA-FLOW/PER')
+        keywords.append('OUTSIDE-AIR-FLOW')
         total_flow = VolumeFlowRate().to_unit([total_flow], 'cfm', 'm3/s')[0]
         values.append(round(total_flow, 3))
     # check the schedule
