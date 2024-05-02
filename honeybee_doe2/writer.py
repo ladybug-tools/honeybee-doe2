@@ -715,8 +715,10 @@ def model_to_inp(
             all_week_scheds.extend(week_schedules)
             all_year_scheds.append(year_schedule)
         else:  # ScheduleFixedInterval
-            pass
-            # TODO: Add translators for ScheduleFixedInterval
+            year_schedule, week_schedules, year_schedule = sched.to_inp()
+            all_day_scheds.extend(day_scheds)
+            all_week_scheds.extend(week_schedules)
+            all_year_scheds.append(year_schedule)
     model_str.append(header_comment_minor('Day Schedules'))
     model_str.extend(all_day_scheds)
     model_str.append(header_comment_minor('Week Schedules'))
