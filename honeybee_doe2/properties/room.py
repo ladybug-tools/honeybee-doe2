@@ -1,7 +1,7 @@
 # coding=utf-8
 """Room DOE-2 Properties."""
 from honeybee.typing import float_in_range, float_positive
-# ASSIGNED-FLOW, FLOW/AREA, MIN-FLOW-RATIO, MIN-FLOW/AREA, HMAX-FLOW-RATIO
+from honeybee.altnumber import autocalculate
 
 
 class RoomDoe2Properties(object):
@@ -37,11 +37,12 @@ class RoomDoe2Properties(object):
         * min_flow_per_area
         * hmax_flow_ratio
     """
-
     __slots__ = (
         '_host', '_assigned_flow', '_flow_per_area', '_min_flow_ratio',
         '_min_flow_per_area', '_hmax_flow_ratio'
     )
+    INP_ATTR = ('ASSIGNED-FLOW', 'FLOW/AREA', 'MIN-FLOW-RATIO',
+                'MIN-FLOW/AREA', 'HMAX-FLOW-RATIO')
 
     def __init__(self, host, assigned_flow=None, flow_per_area=None, min_flow_ratio=None,
                  min_flow_per_area=None, hmax_flow_ratio=None):
@@ -140,33 +141,103 @@ class RoomDoe2Properties(object):
         assert data['type'] == 'RoomDoe2Properties', \
             'Expected RoomDoe2Properties. Got {}.'.format(data['type'])
         new_prop = cls(host)
-        if 'assigned_flow' in data:
+        auto_dict = autocalculate.to_dict()
+        if 'assigned_flow' in data and data['assigned_flow'] != auto_dict:
             new_prop.assigned_flow = data['assigned_flow']
-        if 'flow_per_area' in data:
+        if 'flow_per_area' in data and data['flow_per_area'] != auto_dict:
             new_prop.flow_per_area = data['flow_per_area']
-        if 'min_flow_ratio' in data:
+        if 'min_flow_ratio' in data and data['min_flow_ratio'] != auto_dict:
             new_prop.min_flow_ratio = data['min_flow_ratio']
-        if 'min_flow_per_area' in data:
+        if 'min_flow_per_area' in data and data['min_flow_per_area'] != auto_dict:
             new_prop.min_flow_per_area = data['min_flow_per_area']
-        if 'hmax_flow_ratio' in data:
+        if 'hmax_flow_ratio' in data and data['hmax_flow_ratio'] != auto_dict:
             new_prop.hmax_flow_ratio = data['hmax_flow_ratio']
         return new_prop
 
-    def to_dict(self):
+    def apply_properties_from_dict(self, data):
+        """Apply properties from a RoomDoe2Properties dictionary.
+
+        Args:
+            data: A RoomDoe2Properties dictionary (typically coming from a Model).
+        """
+        auto_dict = autocalculate.to_dict()
+        if 'assigned_flow' in data and data['assigned_flow'] != auto_dict:
+            self.assigned_flow = data['assigned_flow']
+        if 'flow_per_area' in data and data['flow_per_area'] != auto_dict:
+            self.flow_per_area = data['flow_per_area']
+        if 'min_flow_ratio' in data and data['min_flow_ratio'] != auto_dict:
+            self.min_flow_ratio = data['min_flow_ratio']
+        if 'min_flow_per_area' in data and data['min_flow_per_area'] != auto_dict:
+            self.min_flow_per_area = data['min_flow_per_area']
+        if 'hmax_flow_ratio' in data and data['hmax_flow_ratio'] != auto_dict:
+            self.hmax_flow_ratio = data['hmax_flow_ratio']
+
+    def apply_properties_from_user_data(self):
+        """Apply properties from a the user_data assigned to the host room.
+
+        For this method to successfully assign properties from user_data, the
+        properties on this object must currently be None and the keys in
+        user_data must use the INP convention for each of the attributes,
+        which must be CAPITALIZED like the following:
+
+        .. code-block:: python
+
+            {
+            "ASSIGNED-FLOW": 100,  # number in cfm
+            "FLOW/AREA": 1,  # number in cfm/ft2
+            "MIN-FLOW-RATIO": 0.3, # number between 0 and 1
+            "MIN-FLOW/AREA": 0.3, # number in cfm/ft2
+            "HMAX-FLOW-RATIO": 0.3  # number between 0 and 1
+            }
+        """
+        attrs = ('assigned_flow', 'flow_per_area', 'min_flow_ratio',
+                 'min_flow_per_area', 'hmax_flow_ratio')
+        data = self.host.user_data
+        if data is not None:
+            for key, attr in zip(self.INP_ATTR, attrs):
+                if key in data and getattr(self, attr) is None:
+                    try:
+                        setattr(self, attr, data[key])
+                    except Exception:
+                        pass  # it's user_data; users are allowed to make mistakes
+
+    def to_dict(self, abridged=False):
         """Return Room Doe2 properties as a dictionary."""
         base = {'doe2': {}}
         base['doe2']['type'] = 'RoomDoe2Properties'
         if self.assigned_flow is not None:
-            base['assigned_flow'] = self.assigned_flow
+            base['doe2']['assigned_flow'] = self.assigned_flow
         if self.flow_per_area is not None:
-            base['flow_per_area'] = self.flow_per_area
+            base['doe2']['flow_per_area'] = self.flow_per_area
         if self.min_flow_ratio is not None:
-            base['min_flow_ratio'] = self.min_flow_ratio
+            base['doe2']['min_flow_ratio'] = self.min_flow_ratio
         if self.min_flow_per_area is not None:
-            base['min_flow_per_area'] = self.min_flow_per_area
+            base['doe2']['min_flow_per_area'] = self.min_flow_per_area
         if self.hmax_flow_ratio is not None:
-            base['hmax_flow_ratio'] = self.hmax_flow_ratio
+            base['doe2']['hmax_flow_ratio'] = self.hmax_flow_ratio
         return base
+
+    def to_inp(self):
+        """Get RoomDoe2Properties as INP (Keywords, Values).
+
+        Returns:
+            A tuple with two elements.
+
+            -   keywords: A list of text strings for keywords to assign to the room.
+
+            -   values: A list of text strings that aligns with the keywords and
+                denotes the value for each keyword.
+        """
+        keywords = []
+        values = []
+        attrs = ('assigned_flow', 'flow_per_area', 'min_flow_ratio',
+                 'min_flow_per_area', 'hmax_flow_ratio')
+        for key, attr in zip(self.INP_ATTR, attrs):
+            attr_value = getattr(self, attr)
+            if attr_value is not None:
+                keywords.append(key)
+                values.append(attr_value)
+        return keywords, values
 
     def duplicate(self, new_host=None):
         """Get a copy of this object.

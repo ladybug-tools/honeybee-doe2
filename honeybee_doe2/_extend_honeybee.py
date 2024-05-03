@@ -1,5 +1,6 @@
 # coding=utf-8
 # import all of the modules for writing geometry to INP
+from honeybee.properties import ModelProperties, RoomProperties
 import honeybee.writer.shademesh as shade_mesh_writer
 import honeybee.writer.door as door_writer
 import honeybee.writer.aperture as aperture_writer
@@ -7,8 +8,32 @@ import honeybee.writer.shade as shade_writer
 import honeybee.writer.face as face_writer
 import honeybee.writer.room as room_writer
 import honeybee.writer.model as model_writer
+
+from .properties.model import ModelDoe2Properties
+from .properties.room import RoomDoe2Properties
 from .writer import model_to_inp, room_to_inp, face_to_inp, shade_to_inp, \
     aperture_to_inp, door_to_inp, shade_mesh_to_inp
+
+# set a hidden doe2 attribute on each core geometry Property class to None
+# define methods to produce doe2 property instances on each Property instance
+ModelProperties._doe2 = None
+RoomProperties._doe2 = None
+
+def model_doe2_properties(self):
+    if self._doe2 is None:
+        self._doe2 = ModelDoe2Properties(self.host)
+    return self._doe2
+
+
+def room_doe2_properties(self):
+    if self._doe2 is None:
+        self._doe2 = RoomDoe2Properties(self.host)
+    return self._doe2
+
+# add doe2 property methods to the Properties classes
+ModelProperties.doe2 = property(model_doe2_properties)
+RoomProperties.doe2 = property(room_doe2_properties)
+
 
 # add writers to the honeybee-core modules
 model_writer.inp = model_to_inp
