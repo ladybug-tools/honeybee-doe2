@@ -688,6 +688,9 @@ def model_to_inp(
     )
     # reset identifiers to make them unique and derived from the display names
     model.reset_ids()
+    # assign attributes from user_data
+    for room in model.rooms:
+        room.properties.doe2.apply_properties_from_user_data()
 
     # write the simulation parameters into the string
     model_str = ['INPUT ..\n\n']
@@ -848,6 +851,9 @@ def model_to_inp(
                 vt_kwd, vt_val = ventilation_to_inp(room.properties.energy.ventilation)
                 zone_keys.extend(vt_kwd)
                 zone_vals.extend(vt_val)
+                hvac_kwd, hvac_val = room.properties.doe2.to_inp()
+                zone_keys.extend(hvac_kwd)
+                zone_vals.extend(hvac_val)
             zone_def = generate_inp_string(zone_name, 'ZONE', zone_keys, zone_vals)
             model_str.append(zone_def)
 
