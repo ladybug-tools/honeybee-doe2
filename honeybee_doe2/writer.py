@@ -534,26 +534,31 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
         r_geo = room.horizontal_boundary(match_walls=True, tolerance=DOE2_TOLERANCE)
         r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
         r_geo = r_geo.remove_duplicate_vertices(DOE2_TOLERANCE)
-        wall_count = len([orient for orient in face_orientations if orient == 0])
-        if len(r_geo) == wall_count:  # all walls can be represented with room vertices
-            rm_pts = r_geo.lower_left_counter_clockwise_boundary
-            ceil_count = len([orient for orient in face_orientations if orient == 1])
-            floor_count = len([orient for orient in face_orientations if orient == -1])
-            for face, orient in zip(room.faces, face_orientations):
-                if orient == 0:  # wall to associate with a room vertex
+        rm_pts = r_geo.lower_left_counter_clockwise_boundary
+        rm_height = room.max.z - room.min.z
+        ceil_count = len([orient for orient in face_orientations if orient == 1])
+        floor_count = len([orient for orient in face_orientations if orient == -1])
+        for face, orient in zip(room.faces, face_orientations):
+            if orient == 0:  # wall to associate with a room vertex
+                clean_geo = face.geometry.remove_colinear_vertices(DOE2_TOLERANCE)
+                face_height = face.max.z - face.min.z
+                if clean_geo.boundary_polygon2d.is_rectangle(DOE2_ANGLE_TOL) and \
+                        abs(rm_height - face_height) <= DOE2_TOLERANCE:
                     f_origin = face.geometry.lower_left_corner
                     for i, r_pt in enumerate(rm_pts):
                         if f_origin.is_equivalent(r_pt, DOE2_TOLERANCE):
                             face_locations.append('SPACE-V{}'.format(i + 1))
                             break
-                    else:
+                    else:  # not associated with any Room vertex
                         face_locations.append(None)
-                elif orient == 1:
-                    loc = 'TOP' if ceil_count == 1 else None
-                    face_locations.append(loc)
-                else:
-                    loc = 'BOTTOM' if floor_count == 1 else None
-                    face_locations.append(loc)
+                else:  # not a rectangular geometry
+                    face_locations.append(None)
+            elif orient == 1:
+                loc = 'TOP' if ceil_count == 1 else None
+                face_locations.append(loc)
+            else:
+                loc = 'BOTTOM' if floor_count == 1 else None
+                face_locations.append(loc)
 
     # if the room is not extruded, just use the generic horizontal boundary
     if len(face_locations) == 0:
