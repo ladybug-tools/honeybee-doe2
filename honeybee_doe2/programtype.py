@@ -2,7 +2,7 @@
 from __future__ import division
 
 from .util import switch_statement_id
-from .load import people_to_inp, lighting_to_inp, equipment_to_inp, \
+from .load import people_to_inp, lighting_to_inp, electric_equipment_to_inp, \
     infiltration_to_inp, setpoint_to_inp, ventilation_to_inp, \
     SPACE_KEYS, ZONE_KEYS, SCHEDULE_KEYS
 SCH_KEY_SET = set(SCHEDULE_KEYS)
@@ -60,8 +60,7 @@ def program_type_to_inp(program_type, switch_dict=None):
             _add_to_switch_dict(key, '{}{}'.format(base_switch, val))
 
     # write the equipment into the dictionary
-    eq_kwd, eq_val = equipment_to_inp(program_type.electric_equipment,
-                                      program_type.gas_equipment)
+    eq_kwd, eq_val = electric_equipment_to_inp(program_type.electric_equipment)
     for key, val in zip(eq_kwd, eq_val):
         if key in SCH_KEY_SET:
             _add_to_switch_dict(key, _format_schedule(key, val, 'SPACE'))
