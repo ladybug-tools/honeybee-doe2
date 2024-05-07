@@ -12,7 +12,8 @@ from .config import RES_CHARS
 
 # list of all keywords associated with different load types
 PEOPLE_KEYS = ('AREA/PERSON', 'PEOPLE-SCHEDULE')
-LIGHTING_KEYS = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN')
+LIGHTING_KEYS = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN',
+                 'LIGHT-RAD-FRAC')
 EQUIP_KEYS = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
               'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
 SOURCE_KEYS = ('SOURCE-TYPE', 'SOURCE-POWER', 'SOURCE-SCHEDULE',
@@ -76,7 +77,9 @@ def lighting_to_inp(lighting):
     lpd = round(lpd, 3)
     lgt_sch = clean_doe2_string(lighting.schedule.identifier, RES_CHARS)
     lgt_sch = '"{}"'.format(lgt_sch)
-    return LIGHTING_KEYS, (lpd, lgt_sch, lighting.return_air_fraction)
+    ret_fract = round(lighting.return_air_fraction, 3)
+    rad_fract = round(lighting.radiant_fraction, 3)
+    return LIGHTING_KEYS, (lpd, lgt_sch, ret_fract, rad_fract)
 
 
 def electric_equipment_to_inp(electric_equip):

@@ -396,6 +396,7 @@ def test_room_writer():
        '   LIGHTING-W/AREA          = 0.98\n' \
        '   LIGHTING-SCHEDULE        = "Generic Office Lighting"\n' \
        '   LIGHT-TO-RETURN          = 0.0\n' \
+       '   LIGHT-RAD-FRAC           = 0.7\n' \
        '   EQUIPMENT-W/AREA         = 0.96\n' \
        '   EQUIP-SCHEDULE           = ("Generic Office Equipment")\n' \
        '   EQUIP-SENSIBLE           = 1.0\n' \
@@ -438,6 +439,7 @@ def test_room_writer_program():
        '   LIGHTING-W/AREA          = 0.87\n' \
        '   LIGHTING-SCHEDULE        = "ApartmentMidRise LTG APT SCH"\n' \
        '   LIGHT-TO-RETURN          = 0.0\n' \
+       '   LIGHT-RAD-FRAC           = 0.6\n' \
        '   EQUIPMENT-W/AREA         = 0.62\n' \
        '   EQUIP-SCHEDULE           = ("ApartmentMidRise EQP APT SCH")\n' \
        '   EQUIP-SENSIBLE           = 1.0\n' \
@@ -479,6 +481,7 @@ def test_room_writer_program():
        '   LIGHTING-W/AREA          = 1.09\n' \
        '   LIGHTING-SCHEDULE        = "RstrntStDwnBLDG_HENSCH20102013"\n' \
        '   LIGHT-TO-RETURN          = 0.0\n' \
+       '   LIGHT-RAD-FRAC           = 0.7\n' \
        '   EQUIPMENT-W/AREA         = 37.53\n' \
        '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH")\n' \
        '   EQUIP-SENSIBLE           = 0.55\n' \
