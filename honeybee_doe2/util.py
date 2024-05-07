@@ -2,6 +2,9 @@
 """Various utilities used throughout the package."""
 from __future__ import division
 
+import re
+import uuid
+
 
 def generate_inp_string(u_name, command, keywords, values):
     """Get an INP string representation of a DOE-2 object.
@@ -98,3 +101,19 @@ def header_comment_major(header_text):
         '$ *********************************************************\n'\
         '\n'.format(header_text)
 
+
+def switch_statement_id(value):
+    """Convert a string into a 4-character ID that can be used for switch statements.
+
+    This is needed to deal with the major limitations that DOE-2 places on
+    switch statement IDs, where every ID must be 4 characters
+    """
+    val = ''.join(i for i in value if ord(i) < 128)  # strip out non-ascii
+    val = re.sub(r'["\(\)\[\]\,\=\n\t]', '', val)  # remove DOE-2 special characters
+    val = val.replace(' ', '').replace('_', '').replace(':', '')  # remove spaces and colons
+    if len(val) == 4:  # the user has formatted it for switch statements
+        return val
+    val = re.sub(r'[aeiouy_\-]', '', val)  # remove lower-case vowels for readability
+    if len(val) >= 4:
+        return val[-4:]
+    return str(uuid.uuid4())[:4]  # no hope of getting a good ID
