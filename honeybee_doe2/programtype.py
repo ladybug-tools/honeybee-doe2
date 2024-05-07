@@ -4,7 +4,7 @@ from __future__ import division
 from .util import switch_statement_id
 from .load import people_to_inp, lighting_to_inp, electric_equipment_to_inp, \
     infiltration_to_inp, setpoint_to_inp, ventilation_to_inp, \
-    SPACE_KEYS, ZONE_KEYS, SCHEDULE_KEYS
+    SPACE_KEYS, ZONE_KEYS, SCHEDULE_KEYS, MECH_AIRFLOW_KEYS
 SCH_KEY_SET = set(SCHEDULE_KEYS)
 
 
@@ -92,6 +92,13 @@ def program_type_to_inp(program_type, switch_dict=None):
             _add_to_switch_dict(key, _format_schedule(key, val, 'ZONE'))
         else:
             _add_to_switch_dict(key, '{}{}'.format(base_switch, val))
+
+    # if the user_data of the ProgramType has Mech AirFlow keys, add them
+    if program_type.user_data is not None:
+        for air_key in MECH_AIRFLOW_KEYS:
+            if air_key in program_type.user_data:
+                val = program_type.user_data[air_key]
+                _add_to_switch_dict(air_key, '{}{}'.format(base_switch, val))
 
     return switch_dict
 
