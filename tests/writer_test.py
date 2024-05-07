@@ -370,7 +370,7 @@ def test_room_writer():
        '   Z                        = 0.0\n' \
        '   VOLUME                   = 4500\n' \
        '   ZONE-TYPE                = CONDITIONED\n' \
-       '   C-ACTIVITY-DESC          = *Generic_Office_Program*\n' \
+       '   C-ACTIVITY-DESC          = *rgrm*\n' \
        '   ..\n'
 
     room.properties.energy.program_type = None

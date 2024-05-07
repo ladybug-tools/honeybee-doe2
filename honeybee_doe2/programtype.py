@@ -1,9 +1,7 @@
 """honeybee-doe2 program type translators."""
 from __future__ import division
 
-from honeybee.typing import clean_doe2_string
-
-from .config import RES_CHARS
+from .util import switch_statement_id
 from .load import people_to_inp, lighting_to_inp, equipment_to_inp, \
     infiltration_to_inp, setpoint_to_inp, ventilation_to_inp, \
     SPACE_KEYS, ZONE_KEYS, SCHEDULE_KEYS
@@ -29,9 +27,8 @@ def program_type_to_inp(program_type, switch_dict=None):
     """
     # set up the switch statement dictionary to be filled
     switch_dict = switch_dict if switch_dict is not None else {}
-    prog_uid = clean_doe2_string(program_type.identifier, RES_CHARS)
-    prog_uid = prog_uid.replace(' ', '_')
-    base_switch = '   case "{}": '.format(prog_uid)
+    prog_uid = switch_statement_id(program_type.identifier)
+    base_switch = 'case "{}": '.format(prog_uid)
 
     def _format_schedule(sch_key, sch_uid, obj_type='SPACE'):
         """Format schedules in the way they are written into switch statements."""
@@ -56,7 +53,8 @@ def program_type_to_inp(program_type, switch_dict=None):
     # write the lighting into the dictionary
     lgt_kwd, lgt_val = lighting_to_inp(program_type.lighting)
     for key, val in zip(lgt_kwd, lgt_val):
-        if key in SCH_KEY_SET:
+        if key == 'LIGHTING-SCHEDULE':
+            key = 'LIGHTING-SCHEDUL'  # there's a typo in DOE-2 that was never fixed
             _add_to_switch_dict(key, _format_schedule(key, val, 'SPACE'))
         else:
             _add_to_switch_dict(key, '{}{}'.format(base_switch, val))
@@ -75,6 +73,8 @@ def program_type_to_inp(program_type, switch_dict=None):
     for key, val in zip(inf_kwd, inf_val):
         if key in SCH_KEY_SET:
             _add_to_switch_dict(key, _format_schedule(key, val, 'SPACE'))
+        elif key == 'INF-METHOD':
+            continue  # DOE-2 does not like when we define this key
         else:
             _add_to_switch_dict(key, '{}{}'.format(base_switch, val))
 
@@ -114,14 +114,16 @@ def switch_dict_to_space_inp(switch_dict):
     all_switch_strs = []
     for s_key in SPACE_KEYS:
         try:
+            if s_key == 'LIGHTING-SCHEDULE':
+                s_key = 'LIGHTING-SCHEDUL'
             switch_progs = switch_dict[s_key]
             switch_strs = ['SET-DEFAULT FOR SPACE']
             switch_strs.append('   {} ='.format(s_key))
-            switch_strs.append('   {switch(#L("C-ACTIVITY-DESC"))')
+            switch_strs.append('{switch(#L("C-ACTIVITY-DESC"))')
             switch_strs.extend(switch_progs)
-            switch_strs.append('   default: no_default')
-            switch_strs.append('   endswitch}')
-            switch_strs.append('   ..\n')
+            switch_strs.append('default: no_default')
+            switch_strs.append('endswitch}')
+            switch_strs.append('..\n')
             all_switch_strs.append('\n'.join(switch_strs))
         except KeyError:
             pass  # none of the programs types have this space key
@@ -148,11 +150,11 @@ def switch_dict_to_zone_inp(switch_dict):
             switch_progs = switch_dict[s_key]
             switch_strs = ['SET-DEFAULT FOR ZONE', '   TYPE = CONDITIONED']
             switch_strs.append('   {} ='.format(s_key))
-            switch_strs.append('   {switch(#LR("SPACE", "C-ACTIVITY-DESC"))')
+            switch_strs.append('{switch(#LR("SPACE", "C-ACTIVITY-DESC"))')
             switch_strs.extend(switch_progs)
-            switch_strs.append('   default: no_default')
-            switch_strs.append('   endswitch}')
-            switch_strs.append('   ..\n')
+            switch_strs.append('default: no_default')
+            switch_strs.append('endswitch}')
+            switch_strs.append('..\n')
             all_switch_strs.append('\n'.join(switch_strs))
         except KeyError:
             pass  # none of the programs types have this space key
