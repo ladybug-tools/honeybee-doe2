@@ -370,6 +370,27 @@ def test_room_writer():
        '   Z                        = 0.0\n' \
        '   VOLUME                   = 4500\n' \
        '   ZONE-TYPE                = CONDITIONED\n' \
+       '   C-ACTIVITY-DESC          = *Generic_Office_Program*\n' \
+       '   ..\n'
+
+    room.properties.energy.program_type = None
+    room.properties.energy.people = office_program.people
+    room.properties.energy.lighting = office_program.lighting
+    room.properties.energy.electric_equipment = office_program.electric_equipment
+    room.properties.energy.infiltration = office_program.infiltration
+    room.properties.energy.ventilation = office_program.ventilation
+    room.properties.energy.setpoint = office_program.setpoint
+    room_polygons, room_def = room.to.inp(room)
+    assert room_def[0] == \
+       '"Tiny House Zone" = SPACE\n' \
+       '   SHAPE                    = POLYGON\n' \
+       '   POLYGON                  = "Tiny House Zone Plg"\n' \
+       '   AZIMUTH                  = 0\n' \
+       '   X                        = 0.0\n' \
+       '   Y                        = 0.0\n' \
+       '   Z                        = 0.0\n' \
+       '   VOLUME                   = 4500\n' \
+       '   ZONE-TYPE                = CONDITIONED\n' \
        '   AREA/PERSON              = 190.512\n' \
        '   PEOPLE-SCHEDULE          = "Generic Office Occupancy"\n' \
        '   LIGHTING-W/AREA          = 0.98\n' \
@@ -393,8 +414,14 @@ def test_room_writer_program():
     south_face.apertures_by_ratio(0.4, 0.01)
 
     apartment_prog = program_type_by_identifier('2019::MidriseApartment::Apartment')
-    room.properties.energy.program_type = apartment_prog
     room.properties.energy.add_default_ideal_air()
+    room.properties.energy.people = apartment_prog.people
+    room.properties.energy.lighting = apartment_prog.lighting
+    room.properties.energy.electric_equipment = apartment_prog.electric_equipment
+    room.properties.energy.service_hot_water = apartment_prog.service_hot_water
+    room.properties.energy.infiltration = apartment_prog.infiltration
+    room.properties.energy.ventilation = apartment_prog.ventilation
+    room.properties.energy.setpoint = apartment_prog.setpoint
     _, room_def = room.to.inp(room)
     assert room_def[0] == \
        '"Tiny House Zone" = SPACE\n' \
@@ -428,7 +455,14 @@ def test_room_writer_program():
        '   ..\n'
 
     kitchen_prog = program_type_by_identifier('2019::FullServiceRestaurant::Kitchen')
-    room.properties.energy.program_type = kitchen_prog
+    room.properties.energy.people = kitchen_prog.people
+    room.properties.energy.lighting = kitchen_prog.lighting
+    room.properties.energy.electric_equipment = kitchen_prog.electric_equipment
+    room.properties.energy.gas_equipment = kitchen_prog.gas_equipment
+    room.properties.energy.service_hot_water = kitchen_prog.service_hot_water
+    room.properties.energy.infiltration = kitchen_prog.infiltration
+    room.properties.energy.ventilation = kitchen_prog.ventilation
+    room.properties.energy.setpoint = kitchen_prog.setpoint
     _, room_def = room.to.inp(room)
     assert room_def[0] == \
        '"Tiny House Zone" = SPACE\n' \

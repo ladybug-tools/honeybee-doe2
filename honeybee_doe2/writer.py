@@ -23,6 +23,8 @@ from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
 from .schedule import energy_trans_sch_to_transmittance
 from .load import people_to_inp, lighting_to_inp, equipment_to_inp, hot_water_to_inp, \
     infiltration_to_inp, setpoint_to_inp, ventilation_to_inp
+from .programtype import program_type_to_inp, switch_dict_to_space_inp, \
+    switch_dict_to_zone_inp
 from .simulation import SimulationPar
 
 
@@ -460,17 +462,23 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     # set up attributes based on the Room's energy properties
     energy_attr_keywords = ['ZONE-TYPE']
     energy_attr_values = [room_doe2_conditioning_type(room)]
+    if room.properties.energy._program_type is not None:
+        energy_attr_keywords.append('C-ACTIVITY-DESC')
+        prog_uid = clean_doe2_string(
+            room.properties.energy.program_type.identifier, RES_CHARS)
+        prog_uid = prog_uid.replace(' ', '_')
+        energy_attr_values.append('*{}*'.format(prog_uid))
     # people
-    ppl_kwd, ppl_val = people_to_inp(room.properties.energy.people)
+    ppl_kwd, ppl_val = people_to_inp(room.properties.energy._people)
     energy_attr_keywords.extend(ppl_kwd)
     energy_attr_values.extend(ppl_val)
     # lighting
-    lgt_kwd, lgt_val = lighting_to_inp(room.properties.energy.lighting)
+    lgt_kwd, lgt_val = lighting_to_inp(room.properties.energy._lighting)
     energy_attr_keywords.extend(lgt_kwd)
     energy_attr_values.extend(lgt_val)
     # equipment
-    eq_kwd, eq_val = equipment_to_inp(room.properties.energy.electric_equipment,
-                                      room.properties.energy.gas_equipment)
+    eq_kwd, eq_val = equipment_to_inp(room.properties.energy._electric_equipment,
+                                      room.properties.energy._gas_equipment)
     energy_attr_keywords.extend(eq_kwd)
     energy_attr_values.extend(eq_val)
     # hot water usage
@@ -479,7 +487,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     energy_attr_keywords.extend(shw_kwd)
     energy_attr_values.extend(shw_val)
     # infiltration
-    inf_kwd, inf_val = infiltration_to_inp(room.properties.energy.infiltration)
+    inf_kwd, inf_val = infiltration_to_inp(room.properties.energy._infiltration)
     energy_attr_keywords.extend(inf_kwd)
     energy_attr_values.extend(inf_val)
 
@@ -688,7 +696,7 @@ def model_to_inp(
     )
     # reset identifiers to make them unique and derived from the display names
     model.reset_ids()
-    # assign attributes from user_data
+    # assign any doe2 properties previously supported through user_data
     for room in model.rooms:
         room.properties.doe2.apply_properties_from_user_data()
 
@@ -761,6 +769,11 @@ def model_to_inp(
             dr_con.identifier = dr_con.identifier + '_d'
         model_str.append(door_construction_to_inp(dr_con))
 
+    # gather together all of the program types in a dictionary for switch statements
+    switch_dict = {}
+    for program in model.properties.energy.program_types:
+        program_type_to_inp(program, switch_dict)
+
     # loop through rooms grouped by floor level and boundary to get polygons
     level_room_groups, level_geos, level_names = \
         group_rooms_by_doe2_level(model.rooms, model.tolerance)
@@ -807,6 +820,7 @@ def model_to_inp(
     model_str.append(header_comment_minor('Misc Cost Related Objects'))
     model_str.append(header_comment_major('Performance Curves'))
     model_str.append(header_comment_major('Floors / Spaces / Walls / Windows / Doors'))
+    model_str.append(switch_dict_to_space_inp(switch_dict))
     model_str.extend(bldg_geo_defs)
 
     # write in placeholder headers for various HVAC components
@@ -825,6 +839,7 @@ def model_to_inp(
     model_str.append(header_comment_minor('Steam Meters'))
     model_str.append(header_comment_minor('Chilled Water Meters'))
     model_str.append(header_comment_major('HVAC Systems / Zones'))
+    model_str.append(switch_dict_to_zone_inp(switch_dict))
 
     # assign HVAC systems given the specified hvac_mapping
     if hvac_mapping.upper() == 'STORY':
@@ -845,10 +860,10 @@ def model_to_inp(
             zone_keys = ['TYPE', 'SIZING-OPTION', 'SPACE']
             zone_vals = [zone_type, 'ADJUST-LOADS', '"{}"'.format(space_name)]
             if room.properties.energy.is_conditioned:
-                stp_kwd, stp_val = setpoint_to_inp(room.properties.energy.setpoint)
+                stp_kwd, stp_val = setpoint_to_inp(room.properties.energy._setpoint)
                 zone_keys.extend(stp_kwd)
                 zone_vals.extend(stp_val)
-                vt_kwd, vt_val = ventilation_to_inp(room.properties.energy.ventilation)
+                vt_kwd, vt_val = ventilation_to_inp(room.properties.energy._ventilation)
                 zone_keys.extend(vt_kwd)
                 zone_vals.extend(vt_val)
                 hvac_kwd, hvac_val = room.properties.doe2.to_inp()
