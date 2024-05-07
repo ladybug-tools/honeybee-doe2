@@ -49,6 +49,7 @@ shade_mesh_writer.inp = shade_mesh_to_inp
 from honeybee_energy.schedule.day import ScheduleDay
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
+from honeybee_energy.programtype import ProgramType
 from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass, \
     EnergyMaterialVegetation
 from honeybee_energy.construction.opaque import OpaqueConstruction
@@ -62,12 +63,14 @@ from .schedule import schedule_day_to_inp, schedule_ruleset_to_inp, \
     schedule_fixed_interval_to_inp
 from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
     window_construction_to_inp, air_construction_to_inp
+from .programtype import program_type_to_inp
 from .simulation import run_period_to_inp
 
 # add the methods to the honeybee-energy classes
 ScheduleDay.to_inp = schedule_day_to_inp
 ScheduleRuleset.to_inp = schedule_ruleset_to_inp
 ScheduleFixedInterval.to_inp = schedule_fixed_interval_to_inp
+ProgramType.to_inp = program_type_to_inp
 EnergyMaterial.to_inp = opaque_material_to_inp
 EnergyMaterialNoMass.to_inp = opaque_material_to_inp
 EnergyMaterialVegetation.to_inp = opaque_material_to_inp
