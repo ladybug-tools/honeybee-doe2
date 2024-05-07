@@ -16,7 +16,7 @@ from honeybee_energy.lib.constructionsets import generic_construction_set
 from .config import DOE2_TOLERANCE, DOE2_ANGLE_TOL, GEO_DEC_COUNT, RECT_WIN_SUBD, \
     DOE2_INTERIOR_BCS, GEO_CHARS, RES_CHARS
 from .util import generate_inp_string, header_comment_minor, \
-    header_comment_major
+    header_comment_major, switch_statement_id
 from .grouping import group_rooms_by_doe2_level, group_rooms_by_doe2_hvac
 from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
     window_construction_to_inp, door_construction_to_inp, air_construction_to_inp
@@ -464,9 +464,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     energy_attr_values = [room_doe2_conditioning_type(room)]
     if room.properties.energy._program_type is not None:
         energy_attr_keywords.append('C-ACTIVITY-DESC')
-        prog_uid = clean_doe2_string(
-            room.properties.energy.program_type.identifier, RES_CHARS)
-        prog_uid = prog_uid.replace(' ', '_')
+        prog_uid = switch_statement_id(room.properties.energy.program_type.identifier)
         energy_attr_values.append('*{}*'.format(prog_uid))
     # people
     ppl_kwd, ppl_val = people_to_inp(room.properties.energy._people)
@@ -860,9 +858,10 @@ def model_to_inp(
             zone_keys = ['TYPE', 'SIZING-OPTION', 'SPACE']
             zone_vals = [zone_type, 'ADJUST-LOADS', '"{}"'.format(space_name)]
             if room.properties.energy.is_conditioned:
-                stp_kwd, stp_val = setpoint_to_inp(room.properties.energy._setpoint)
-                zone_keys.extend(stp_kwd)
-                zone_vals.extend(stp_val)
+                if room.properties.energy._setpoint is not None:
+                    stp_kwd, stp_val = setpoint_to_inp(room.properties.energy._setpoint)
+                    zone_keys.extend(stp_kwd)
+                    zone_vals.extend(stp_val)
                 vt_kwd, vt_val = ventilation_to_inp(room.properties.energy._ventilation)
                 zone_keys.extend(vt_kwd)
                 zone_vals.extend(vt_val)
