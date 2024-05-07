@@ -3,6 +3,8 @@
 from honeybee.typing import float_in_range, float_positive
 from honeybee.altnumber import autocalculate
 
+from ..load import MECH_AIRFLOW_KEYS
+
 
 class RoomDoe2Properties(object):
     """DOE-2 Properties for Honeybee Room.
@@ -41,8 +43,6 @@ class RoomDoe2Properties(object):
         '_host', '_assigned_flow', '_flow_per_area', '_min_flow_ratio',
         '_min_flow_per_area', '_hmax_flow_ratio'
     )
-    INP_ATTR = ('ASSIGNED-FLOW', 'FLOW/AREA', 'MIN-FLOW-RATIO',
-                'MIN-FLOW/AREA', 'HMAX-FLOW-RATIO')
 
     def __init__(self, host, assigned_flow=None, flow_per_area=None, min_flow_ratio=None,
                  min_flow_per_area=None, hmax_flow_ratio=None):
@@ -194,7 +194,7 @@ class RoomDoe2Properties(object):
                  'min_flow_per_area', 'hmax_flow_ratio')
         data = self.host.user_data
         if data is not None:
-            for key, attr in zip(self.INP_ATTR, attrs):
+            for key, attr in zip(MECH_AIRFLOW_KEYS, attrs):
                 if key in data and getattr(self, attr) is None:
                     try:
                         setattr(self, attr, data[key])
@@ -232,7 +232,7 @@ class RoomDoe2Properties(object):
         values = []
         attrs = ('assigned_flow', 'flow_per_area', 'min_flow_ratio',
                  'min_flow_per_area', 'hmax_flow_ratio')
-        for key, attr in zip(self.INP_ATTR, attrs):
+        for key, attr in zip(MECH_AIRFLOW_KEYS, attrs):
             attr_value = getattr(self, attr)
             if attr_value is not None:
                 keywords.append(key)
