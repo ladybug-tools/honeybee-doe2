@@ -15,8 +15,8 @@ PEOPLE_KEYS = ('AREA/PERSON', 'PEOPLE-SCHEDULE')
 LIGHTING_KEYS = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN')
 EQUIP_KEYS = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
               'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
-HOT_WATER_KEYS = ('SOURCE-TYPE', 'SOURCE-POWER', 'SOURCE-SCHEDULE',
-                  'SOURCE-SENSIBLE', 'SOURCE-RAD-FRAC', 'SOURCE-LATENT')
+SOURCE_KEYS = ('SOURCE-TYPE', 'SOURCE-POWER', 'SOURCE-SCHEDULE',
+               'SOURCE-SENSIBLE', 'SOURCE-RAD-FRAC', 'SOURCE-LATENT')
 INFILTRATION_KEYS = ('INF-METHOD', 'INF-FLOW/AREA', 'INF-SCHEDULE')
 SETPOINT_KEYS = ('DESIGN-HEAT-T', 'DESIGN-COOL-T', 'HEAT-TEMP-SCH', 'COOL-TEMP-SCH')
 VENTILATION_KEYS = ('OA-FLOW/PER', 'OA-FLOW/AREA', 'OA-CHANGES', 'OUTSIDE-AIR-FLOW',
@@ -27,9 +27,8 @@ SCHEDULE_KEYS = (
     'PEOPLE-SCHEDULE', 'LIGHTING-SCHEDULE', 'EQUIP-SCHEDULE', 'SOURCE-SCHEDULE',
     'INF-SCHEDULE', 'HEAT-TEMP-SCH', 'COOL-TEMP-SCH', 'MIN-FLOW-SCH')
 
-
-# TODO: Add methods to translate daylight sensors
 # TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS
+# TODO: Add methods to translate daylight sensors
 
 
 def people_to_inp(people):
@@ -80,12 +79,11 @@ def lighting_to_inp(lighting):
     return LIGHTING_KEYS, (lpd, lgt_sch, lighting.return_air_fraction)
 
 
-def equipment_to_inp(electric_equip, gas_equip=None):
-    """Translate an Equipment definition(s) into INP (Keywords, Values).
+def electric_equipment_to_inp(electric_equip):
+    """Translate an ElectricEquipment into INP (Keywords, Values).
 
     Args:
-        electric_equip: A honeybee-energy ElectricEquipment definition. None is allowed.
-        gas_equip: A honeybee-energy GasEquipment definition. None is allowed.
+        electric_equip: A honeybee-energy ElectricEquipment definition.
 
     Returns:
         A tuple with two elements.
@@ -96,44 +94,26 @@ def equipment_to_inp(electric_equip, gas_equip=None):
         -   values: A tuple of text strings that aligns with the keywords and
             denotes the value for each keyword.
     """
-    # extract the properties from the equipment objects
-    if electric_equip is not None and gas_equip is not None:  # write them as lists
-        values = [[], [], [], [], []]
-        for equip in (electric_equip, gas_equip):
-            epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
-            values[0].append(round(epd, 3))
-            eqp_sch = clean_doe2_string(equip.schedule.identifier, RES_CHARS)
-            values[1].append('"{}"'.format(eqp_sch))
-            values[2].append(round(1 - equip.latent_fraction - equip.lost_fraction, 3))
-            values[3].append(round(equip.latent_fraction, 3))
-            values[4].append(round(equip.radiant_fraction, 3))
-        format_values = []
-        for v in values:
-            if isinstance(v[0], str):  # make sure the schedules do not go past 100 chars
-                format_values.append('({},\n{}{})'.format(v[0], ' ' * 31, v[1]))
-            else:
-                format_values.append('({}, {})'.format(v[0], v[1]))
-        values = format_values
-    elif electric_equip is not None or gas_equip is not None:  # write as a single item
-        equip = electric_equip if gas_equip is None else gas_equip
-        epd = EnergyFlux().to_unit([equip.watts_per_area], 'W/ft2', 'W/m2')[0]
-        epd = round(epd, 3)
-        eqp_sch = clean_doe2_string(equip.schedule.identifier, RES_CHARS)
-        eqp_sch = '("{}")'.format(eqp_sch)
-        sens_fract = 1 - equip.latent_fraction - equip.lost_fraction
-        values = (epd, eqp_sch, sens_fract, equip.latent_fraction,
-                  equip.radiant_fraction)
-    else:  # no equipment assigned
+    if electric_equip is None:
         return (), ()
-
+    epd = EnergyFlux().to_unit([electric_equip.watts_per_area], 'W/ft2', 'W/m2')[0]
+    epd = round(epd, 3)
+    eqp_sch = clean_doe2_string(electric_equip.schedule.identifier, RES_CHARS)
+    eqp_sch = '("{}")'.format(eqp_sch)
+    sens_fract = 1 - electric_equip.latent_fraction - electric_equip.lost_fraction
+    values = (epd, eqp_sch, sens_fract, electric_equip.latent_fraction,
+                electric_equip.radiant_fraction)
     return EQUIP_KEYS, values
 
 
-def hot_water_to_inp(hot_water, room_floor_area):
-    """Translate a ServiceHotWater definition into INP (Keywords, Values).
+def hot_water_and_gas_to_inp(hot_water, gas_equip, room_floor_area):
+    """Translate a ServiceHotWater and/or GasEquipment into INP (Keywords, Values).
 
     Args:
         hot_water: A honeybee-energy ServiceHotWater definition. None is allowed.
+            None is allowed.
+        gas_equip: gas_equip: A honeybee-energy GasEquipment definition.
+            None is allowed.
         room_floor_area: The host Room floor area in square feet, which will
             be used to convert the hot water flow per unit floor area to an
             absolute load in BTU/h.
@@ -147,21 +127,52 @@ def hot_water_to_inp(hot_water, room_floor_area):
         -   values: A tuple of text strings that aligns with the keywords and
             denotes the value for each keyword.
     """
-    if hot_water is None:
+    # first check whether anything is assigned
+    if hot_water is None and gas_equip is None:
         return (), ()
-    flow_den = hot_water.flow_per_area  # L/h-m2
-    flr_area = Area().to_unit([room_floor_area], 'm2', 'ft2')[0]  # m2
-    total_flow = flow_den * flr_area  # L/h
-    delta_t = 50  # assume the water heater must heat water from 10C to 60C
-    c_water = 4.186 # J/g-C, the specific heat of water
-    shw_heat = total_flow * c_water * delta_t  # J/h using Q = m * c * deltaT
-    shw_heat = shw_heat / 3600.  # Watts
-    shw_power = round(Power().to_unit([shw_heat], 'Btu/h', 'W')[0], 3)
-    shw_sch = clean_doe2_string(hot_water.schedule.identifier, RES_CHARS)
-    shw_sch = '"{}"'.format(shw_sch)
-    values = ('HOT-WATER', shw_power, shw_sch,
-              hot_water.sensible_fraction, 0, hot_water.latent_fraction)
-    return HOT_WATER_KEYS, values
+
+    # process the hot water and gas into absolute values in Btu/h
+    shw_values, gas_values = None, None
+    if hot_water is not None:
+        flow_den = hot_water.flow_per_area  # L/h-m2
+        flr_area = Area().to_unit([room_floor_area], 'm2', 'ft2')[0]  # m2
+        total_flow = flow_den * flr_area  # L/h
+        delta_t = 50  # assume the water heater must heat water from 10C to 60C
+        c_water = 4.186 # J/g-C, the specific heat of water
+        shw_heat = total_flow * c_water * delta_t  # J/h using Q = m * c * deltaT
+        shw_heat = shw_heat / 3600.  # Watts
+        shw_power = round(Power().to_unit([shw_heat], 'Btu/h', 'W')[0], 3)
+        shw_sch = clean_doe2_string(hot_water.schedule.identifier, RES_CHARS)
+        shw_sch = '"{}"'.format(shw_sch)
+        sens_fract = round(hot_water.sensible_fraction, 3)
+        lat_fract = round(hot_water.latent_fraction, 3)
+        shw_values = ('HOT-WATER', shw_power, shw_sch, sens_fract, 0.0, lat_fract)
+    if gas_equip is not None:
+        epd = EnergyFlux().to_unit([gas_equip.watts_per_area], 'Btu/h-ft2', 'W/m2')[0]
+        total_power = round(epd * flr_area, 3)  # Btu/h
+        eqp_sch = clean_doe2_string(gas_equip.schedule.identifier, RES_CHARS)
+        eqp_sch = '"{}"'.format(eqp_sch)
+        sens_fract = round(1 - gas_equip.latent_fraction - gas_equip.lost_fraction, 3)
+        rad_fract = round(gas_equip.radiant_fraction, 3)
+        lat_fract = round(gas_equip.latent_fraction, 3)
+        gas_values = ('GAS', total_power, eqp_sch, sens_fract, rad_fract, lat_fract)
+
+    # if both were specified, format them into a single set of numbers
+    if shw_values is not None and gas_values is not None:
+        total_load = round(shw_values[1] + gas_values[1], 3)
+        shw_weight = shw_values[1] / total_load
+        gas_weight = gas_values[1] / total_load
+        if gas_weight > shw_weight:
+            values = ['GAS', total_load, gas_values[2]]
+        else:
+            values = ['HOT-WATER', total_load, shw_values[2]]
+        for shw_v, gas_v in zip(shw_values[3:], gas_values[3:]):
+            new_v = (shw_v * shw_weight) + (gas_v * gas_weight)
+            values.append(round(new_v, 3))
+    else:
+        values = shw_values if shw_values is not None else gas_values
+
+    return SOURCE_KEYS, values
 
 
 def infiltration_to_inp(infiltration):

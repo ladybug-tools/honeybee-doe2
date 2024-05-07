@@ -21,8 +21,8 @@ from .grouping import group_rooms_by_doe2_level, group_rooms_by_doe2_hvac
 from .construction import opaque_material_to_inp, opaque_construction_to_inp, \
     window_construction_to_inp, door_construction_to_inp, air_construction_to_inp
 from .schedule import energy_trans_sch_to_transmittance
-from .load import people_to_inp, lighting_to_inp, equipment_to_inp, hot_water_to_inp, \
-    infiltration_to_inp, setpoint_to_inp, ventilation_to_inp
+from .load import people_to_inp, lighting_to_inp, electric_equipment_to_inp, \
+    hot_water_and_gas_to_inp, infiltration_to_inp, setpoint_to_inp, ventilation_to_inp
 from .programtype import program_type_to_inp, switch_dict_to_space_inp, \
     switch_dict_to_zone_inp
 from .simulation import SimulationPar
@@ -475,15 +475,16 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     energy_attr_keywords.extend(lgt_kwd)
     energy_attr_values.extend(lgt_val)
     # equipment
-    eq_kwd, eq_val = equipment_to_inp(room.properties.energy._electric_equipment,
-                                      room.properties.energy._gas_equipment)
+    eq_kwd, eq_val = electric_equipment_to_inp(
+        room.properties.energy._electric_equipment)
     energy_attr_keywords.extend(eq_kwd)
     energy_attr_values.extend(eq_val)
-    # hot water usage
-    shw_kwd, shw_val = hot_water_to_inp(room.properties.energy.service_hot_water,
-                                        room.floor_area)
-    energy_attr_keywords.extend(shw_kwd)
-    energy_attr_values.extend(shw_val)
+    # hot water and gas usage
+    shw_gas_kwd, shw_gas_val = hot_water_and_gas_to_inp(
+        room.properties.energy.service_hot_water,
+        room.properties.energy.gas_equipment, room.floor_area)
+    energy_attr_keywords.extend(shw_gas_kwd)
+    energy_attr_values.extend(shw_gas_val)
     # infiltration
     inf_kwd, inf_val = infiltration_to_inp(room.properties.energy._infiltration)
     energy_attr_keywords.extend(inf_kwd)

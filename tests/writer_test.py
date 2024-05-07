@@ -447,7 +447,7 @@ def test_room_writer_program():
        '   SOURCE-POWER             = 1.238\n' \
        '   SOURCE-SCHEDULE          = "ApartmentMidRise APT DHW SCH"\n' \
        '   SOURCE-SENSIBLE          = 0.2\n' \
-       '   SOURCE-RAD-FRAC          = 0\n' \
+       '   SOURCE-RAD-FRAC          = 0.0\n' \
        '   SOURCE-LATENT            = 0.05\n' \
        '   INF-METHOD               = AIR-CHANGE\n' \
        '   INF-FLOW/AREA            = 0.112\n' \
@@ -479,18 +479,17 @@ def test_room_writer_program():
        '   LIGHTING-W/AREA          = 1.09\n' \
        '   LIGHTING-SCHEDULE        = "RstrntStDwnBLDG_HENSCH20102013"\n' \
        '   LIGHT-TO-RETURN          = 0.0\n' \
-       '   EQUIPMENT-W/AREA         = (37.53, 60.317)\n' \
-       '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH",\n' \
-       '                               "RstrntStDwn Rst GAS EQUIP SCH")\n' \
-       '   EQUIP-SENSIBLE           = (0.55, 0.2)\n' \
-       '   EQUIP-LATENT             = (0.25, 0.1)\n' \
-       '   EQUIP-RAD-FRAC           = (0.3, 0.2)\n' \
-       '   SOURCE-TYPE              = HOT-WATER\n' \
-       '   SOURCE-POWER             = 29.943\n' \
-       '   SOURCE-SCHEDULE          = "RestaurantSitDown BLDG SWH SCH"\n' \
+       '   EQUIPMENT-W/AREA         = 37.53\n' \
+       '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH")\n' \
+       '   EQUIP-SENSIBLE           = 0.55\n' \
+       '   EQUIP-LATENT             = 0.25\n' \
+       '   EQUIP-RAD-FRAC           = 0.3\n' \
+       '   SOURCE-TYPE              = GAS\n' \
+       '   SOURCE-POWER             = 8634.118\n' \
+       '   SOURCE-SCHEDULE          = "RstrntStDwn Rst GAS EQUIP SCH"\n' \
        '   SOURCE-SENSIBLE          = 0.2\n' \
-       '   SOURCE-RAD-FRAC          = 0\n' \
-       '   SOURCE-LATENT            = 0.05\n' \
+       '   SOURCE-RAD-FRAC          = 0.199\n' \
+       '   SOURCE-LATENT            = 0.1\n' \
        '   INF-METHOD               = AIR-CHANGE\n' \
        '   INF-FLOW/AREA            = 0.112\n' \
        '   INF-SCHEDULE             = "RstrntStDwn INFIL HALF ON SCH"\n' \
