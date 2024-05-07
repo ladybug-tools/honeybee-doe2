@@ -9,6 +9,25 @@ from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
 from honeybee.typing import clean_doe2_string
 
 from .config import RES_CHARS
+
+# list of all keywords associated with different load types
+PEOPLE_KEYS = ('AREA/PERSON', 'PEOPLE-SCHEDULE')
+LIGHTING_KEYS = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN')
+EQUIP_KEYS = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
+              'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
+HOT_WATER_KEYS = ('SOURCE-TYPE', 'SOURCE-POWER', 'SOURCE-SCHEDULE',
+                  'SOURCE-SENSIBLE', 'SOURCE-RAD-FRAC', 'SOURCE-LATENT')
+INFILTRATION_KEYS = ('INF-METHOD', 'INF-FLOW/AREA', 'INF-SCHEDULE')
+SETPOINT_KEYS = ('DESIGN-HEAT-T', 'DESIGN-COOL-T', 'HEAT-TEMP-SCH', 'COOL-TEMP-SCH')
+VENTILATION_KEYS = ('OA-FLOW/PER', 'OA-FLOW/AREA', 'OA-CHANGES', 'OUTSIDE-AIR-FLOW',
+                    'MIN-FLOW-SCH')
+SPACE_KEYS = PEOPLE_KEYS + LIGHTING_KEYS + EQUIP_KEYS + INFILTRATION_KEYS
+ZONE_KEYS = SETPOINT_KEYS + VENTILATION_KEYS
+SCHEDULE_KEYS = (
+    'PEOPLE-SCHEDULE', 'LIGHTING-SCHEDULE', 'EQUIP-SCHEDULE', 'SOURCE-SCHEDULE',
+    'INF-SCHEDULE', 'HEAT-TEMP-SCH', 'COOL-TEMP-SCH', 'MIN-FLOW-SCH')
+
+
 # TODO: Add methods to translate daylight sensors
 # TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS
 
@@ -34,9 +53,7 @@ def people_to_inp(people):
     ppl_den = round(ppl_den, 3)
     ppl_sch = clean_doe2_string(people.occupancy_schedule.identifier, RES_CHARS)
     ppl_sch = '"{}"'.format(ppl_sch)
-    keywords = ('AREA/PERSON', 'PEOPLE-SCHEDULE')
-    values = (ppl_den, ppl_sch)
-    return keywords, values
+    return PEOPLE_KEYS, (ppl_den, ppl_sch)
 
 
 def lighting_to_inp(lighting):
@@ -60,9 +77,7 @@ def lighting_to_inp(lighting):
     lpd = round(lpd, 3)
     lgt_sch = clean_doe2_string(lighting.schedule.identifier, RES_CHARS)
     lgt_sch = '"{}"'.format(lgt_sch)
-    keywords = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN')
-    values = (lpd, lgt_sch, lighting.return_air_fraction)
-    return keywords, values
+    return LIGHTING_KEYS, (lpd, lgt_sch, lighting.return_air_fraction)
 
 
 def equipment_to_inp(electric_equip, gas_equip=None):
@@ -111,9 +126,7 @@ def equipment_to_inp(electric_equip, gas_equip=None):
     else:  # no equipment assigned
         return (), ()
 
-    keywords = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
-                'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
-    return keywords, values
+    return EQUIP_KEYS, values
 
 
 def hot_water_to_inp(hot_water, room_floor_area):
@@ -146,11 +159,9 @@ def hot_water_to_inp(hot_water, room_floor_area):
     shw_power = round(Power().to_unit([shw_heat], 'Btu/h', 'W')[0], 3)
     shw_sch = clean_doe2_string(hot_water.schedule.identifier, RES_CHARS)
     shw_sch = '"{}"'.format(shw_sch)
-    keywords = ('SOURCE-TYPE', 'SOURCE-POWER', 'SOURCE-SCHEDULE',
-                'SOURCE-SENSIBLE', 'SOURCE-RAD-FRAC', 'SOURCE-LATENT')
     values = ('HOT-WATER', shw_power, shw_sch,
               hot_water.sensible_fraction, 0, hot_water.latent_fraction)
-    return keywords, values
+    return HOT_WATER_KEYS, values
 
 
 def infiltration_to_inp(infiltration):
@@ -175,9 +186,7 @@ def infiltration_to_inp(infiltration):
     inf_den = round(inf_den, 3)
     inf_sch = clean_doe2_string(infiltration.schedule.identifier, RES_CHARS)
     inf_sch = '"{}"'.format(inf_sch)
-    keywords = ('INF-METHOD', 'INF-FLOW/AREA', 'INF-SCHEDULE')
-    values = ('AIR-CHANGE', inf_den, inf_sch)
-    return keywords, values
+    return INFILTRATION_KEYS, ('AIR-CHANGE', inf_den, inf_sch)
 
 
 def setpoint_to_inp(setpoint):
@@ -203,9 +212,7 @@ def setpoint_to_inp(setpoint):
     heat_sch = '"{}"'.format(heat_sch)
     cool_sch = clean_doe2_string(setpoint.cooling_schedule.identifier, RES_CHARS)
     cool_sch = '"{}"'.format(cool_sch)
-    keywords = ('DESIGN-HEAT-T', 'DESIGN-COOL-T', 'HEAT-TEMP-SCH', 'COOL-TEMP-SCH')
-    values = (heat_setpt, cool_setpt, heat_sch, cool_sch)
-    return keywords, values
+    return SETPOINT_KEYS, (heat_setpt, cool_setpt, heat_sch, cool_sch)
 
 
 def ventilation_to_inp(ventilation):
