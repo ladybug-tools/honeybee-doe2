@@ -113,8 +113,8 @@ def switch_dict_to_space_inp(switch_dict):
     all_switch_strs = []
     for s_key in SPACE_KEYS:
         try:
-            if s_key == 'LIGHTING-SCHEDULE':
-                s_key = 'LIGHTING-SCHEDUL'
+            if len(s_key) > 16:  # switch statements limit characters to 16
+                s_key = s_key[:16]
             switch_progs = switch_dict[s_key]
             switch_strs = ['SET-DEFAULT FOR SPACE']
             switch_strs.append('   {} ='.format(s_key))
@@ -126,6 +126,11 @@ def switch_dict_to_space_inp(switch_dict):
             all_switch_strs.append('\n'.join(switch_strs))
         except KeyError:
             pass  # none of the programs types have this space key
+    # add something to set the INF-METHOD for all spaces
+    inf_str = 'SET-DEFAULT FOR SPACE\n' \
+        '   INF-METHOD = AIR-CHANGE\n' \
+        '..\n'
+    all_switch_strs.append(inf_str)
     return '\n'.join(all_switch_strs)
 
 
