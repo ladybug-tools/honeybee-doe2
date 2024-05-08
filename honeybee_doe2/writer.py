@@ -693,7 +693,19 @@ def model_to_inp(
         subdivision_distance=RECT_WIN_SUBD, max_separation=0.0,
         merge_all=True, resolve_adjacency=False
     )
-    # reset identifiers to make them unique and derived from the display names
+    # reset identifiers to valid DOE-2 U-Names that are derived from the display names
+    for room in model.rooms:
+        room.display_name = clean_doe2_string(room.display_name, GEO_CHARS - 2)
+        for face in room.faces:
+            face.display_name = clean_doe2_string(face.display_name, GEO_CHARS - 2)
+            for ap in face.apertures:
+                ap.display_name = clean_doe2_string(ap.display_name, GEO_CHARS - 2)
+            for dr in face.doors:
+                dr.display_name = clean_doe2_string(dr.display_name, GEO_CHARS - 2)
+    for shade in model.shades:
+        shade.display_name = clean_doe2_string(shade.display_name, GEO_CHARS - 2)
+    for shd_mesh in model.shade_meshes:
+        shd_mesh.display_name = clean_doe2_string(shd_mesh.display_name, GEO_CHARS - 2)
     model.reset_ids()
     # assign any doe2 properties previously supported through user_data
     for room in model.rooms:
