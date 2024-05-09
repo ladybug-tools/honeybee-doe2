@@ -56,7 +56,7 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
     # perhaps we can just say NO-SHAPE and specify AREA, VOLUME, and HEIGHT
     # get the main properties that place the geometry in 3D space
     pts_3d = face_3d.lower_left_counter_clockwise_boundary
-    llc_origin = pts_3d[0]
+    llc_origin = face_3d.lower_left_corner
     tilt, azimuth = math.degrees(face_3d.tilt), math.degrees(face_3d.azimuth)
 
     # get the 2D vertices in the plane of the Face
