@@ -56,8 +56,14 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
     # perhaps we can just say NO-SHAPE and specify AREA, VOLUME, and HEIGHT
     # get the main properties that place the geometry in 3D space
     pts_3d = face_3d.lower_left_counter_clockwise_boundary
-    llc_origin = face_3d.lower_left_corner
     tilt, azimuth = math.degrees(face_3d.tilt), math.degrees(face_3d.azimuth)
+    llc_origin = face_3d.lower_left_corner
+    llc_coords = []
+    for coord in llc_origin:  # avoid signed zero
+        coord = round(coord, GEO_DEC_COUNT)
+        clean_coord = 0.0 if coord == 0 else coord
+        llc_coords.append(clean_coord)
+    llc_origin = Point3D.from_array(llc_coords)
 
     # get the 2D vertices in the plane of the Face
     if DOE2_ANGLE_TOL <= tilt <=  180 - DOE2_ANGLE_TOL:  # vertical or tilted
@@ -77,9 +83,9 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
     for pt in vertices:
         x_coord = round(pt.x, GEO_DEC_COUNT)
         y_coord = round(pt.y, GEO_DEC_COUNT)
-        if x_coord == 0 and math.copysign(1, x_coord):  # avoid signed zero
+        if x_coord == 0:  # avoid signed zero
             x_coord = 0.0
-        if y_coord == 0 and math.copysign(1, y_coord):  # avoid signed zero
+        if y_coord == 0:  # avoid signed zero
             y_coord = 0.0
         verts_values.append('({}, {})'.format(x_coord, y_coord))
     verts_keywords = tuple('V{}'.format(i + 1) for i in range(len(verts_values)))
@@ -422,8 +428,8 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0), location=None):
     return face_polygon, face_def
 
 
-def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=False,
-                exclude_interior_ceilings=False):
+def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
+                exclude_interior_walls=False, exclude_interior_ceilings=False):
     """Generate an INP string representation of a Room.
 
     This will include the Room's constituent Faces, Apertures and Doors with
@@ -441,6 +447,10 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
     Args:
         floor_origin: A ladybug-geometry Point3D for the origin of the
             floor (aka. story) to which the Room is a part of. (Default: (0, 0, 0)).
+        floor_height: An optional number for the parent story SPACE-HEIGHT,
+            which will be used to check the Room geometry to determine if
+            it must be written using POLYGONs. If None, no check will be
+            performed. (Default: None)
         exclude_interior_walls: Boolean to note whether interior wall Faces
             should be excluded from the resulting string. (Default: False).
         exclude_interior_ceilings: Boolean to note whether interior ceiling
@@ -507,6 +517,12 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), exclude_interior_walls=Fals
                 and denotes whether each face is downward (-1), vertical (0) or
                 upward (+1).
         """
+        # first check if we have to use POLYGONS because of the parent SPACE-HEIGHT
+        if floor_height is not None:
+            room_height = room.max.z - room.min.z
+            if abs(room_height - floor_height) > DOE2_TOLERANCE:
+                return False, []
+
         # set up the parameters for evaluating vertical or horizontal
         vert_vec = Vector3D(0, 0, 1)
         min_v_ang = math.radians(DOE2_ANGLE_TOL)
@@ -793,19 +809,22 @@ def model_to_inp(
         # create the story POLYGON and definition
         flr_polygon, pos_info = face_3d_to_inp(flr_geo, flr_name)
         flr_origin, _, _ = pos_info
-        rooms_f2f = [room.max.z - room.min.z for room in flr_rooms]
+        rooms_f2c = [room.max.z - room.min.z for room in flr_rooms]
+        sotry_f2f = max(rooms_f2c)
+        median_room_f2c = sorted(rooms_f2c)[int(len(rooms_f2c) / 2)]
         flr_keys = ('SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z',
                     'SPACE-HEIGHT', 'FLOOR-HEIGHT')
         flr_vals = ('POLYGON', '"{} Plg"'.format(flr_name), 0,
                     flr_origin.x, flr_origin.y, flr_origin.z,
-                    round(sum(rooms_f2f) / len(rooms_f2f), 3), round(max(rooms_f2f), 3))
+                    round(median_room_f2c, 3), round(sotry_f2f, 3))
         flr_def = generate_inp_string(flr_name, 'FLOOR', flr_keys, flr_vals)
         bldg_polygons.append(flr_polygon)
         bldg_geo_defs.append(flr_def)
         # add the room and face definitions + polygons
         for room in flr_rooms:
             room_polygons, room_defs = room_to_inp(
-                room, flr_origin, exclude_interior_walls, exclude_interior_ceilings)
+                room, flr_origin, median_room_f2c,
+                exclude_interior_walls, exclude_interior_ceilings)
             bldg_polygons.extend(room_polygons)
             bldg_geo_defs.extend(room_defs)
 
