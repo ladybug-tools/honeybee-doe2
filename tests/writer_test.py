@@ -303,10 +303,10 @@ def test_face_writer():
     face_polygon, face_def = face.to.inp(face)
     assert face_polygon == \
        '"floor face Plg" = POLYGON\n' \
-       '   V1                       = (0.0, 0.0)\n' \
-       '   V2                       = (-10.0, 0.0)\n' \
-       '   V3                       = (-10.0, -10.0)\n' \
-       '   V4                       = (0.0, -10.0)\n' \
+       '   V1                       = (10.0, 10.0)\n' \
+       '   V2                       = (0.0, 10.0)\n' \
+       '   V3                       = (0.0, 0.0)\n' \
+       '   V4                       = (10.0, 0.0)\n' \
        '   ..\n'
     assert face_def == \
        '"floor face" = UNDERGROUND-WALL\n' \
@@ -314,8 +314,8 @@ def test_face_writer():
        '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
        '   TILT                     = 180.0\n' \
        '   AZIMUTH                  = 180.0\n' \
-       '   X                        = 10.0\n' \
-       '   Y                        = 0.0\n' \
+       '   X                        = 0.0\n' \
+       '   Y                        = 10.0\n' \
        '   Z                        = 0.0\n' \
        '   LOCATION                 = BOTTOM\n' \
        '   ..\n'
