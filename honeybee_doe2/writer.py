@@ -1,6 +1,7 @@
 # coding=utf-8
 """Methods to write to inp."""
 from __future__ import division
+import os
 import math
 
 from ladybug_geometry.geometry2d import Vector2D, Point2D
@@ -918,7 +919,12 @@ def model_to_inp(
     for report in report_types:
         model_str.append(header_comment_minor(report))
     model_str.append('END ..\nCOMPUTE ..\nSTOP ..\n')
-    return '\n'.join(model_str)
+
+    # create the final string and ensure that it is windows-compatible
+    inp_str = '\n'.join(model_str)
+    if os.name != 'nt':  # we are on a unix-based system
+        inp_str = inp_str.replace('\n', '\r\n')
+    return inp_str
 
 
 def room_doe2_conditioning_type(room):

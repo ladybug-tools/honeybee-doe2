@@ -1,4 +1,6 @@
 """Test the translators for geometry to INP."""
+import os
+
 from ladybug_geometry.geometry3d import Point3D, Vector3D, Mesh3D
 
 from honeybee.model import Model
@@ -14,6 +16,13 @@ from honeybee_energy.material.opaque import EnergyMaterial
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 import honeybee_energy.lib.scheduletypelimits as schedule_types
 from honeybee_energy.lib.programtypes import office_program, program_type_by_identifier
+
+if os.name =='nt':
+   START_TEXT = 'INPUT ..\n\n'
+   END_TEXT = 'END ..\nCOMPUTE ..\nSTOP ..\n'
+else:
+   START_TEXT = 'INPUT ..\r\n\r\n'
+   END_TEXT = 'END ..\r\nCOMPUTE ..\r\nSTOP ..\r\n'
 
 
 def test_shade_writer():
@@ -515,8 +524,8 @@ def test_model_writer():
     model = Model('Tiny_House', [room], shade_meshes=[awning_1])
 
     inp_str = model.to.inp(model)
-    assert inp_str.startswith('INPUT ..\n\n')
-    assert inp_str.endswith('END ..\nCOMPUTE ..\nSTOP ..\n')
+    assert inp_str.startswith(START_TEXT)
+    assert inp_str.endswith(END_TEXT)
 
 
 def test_model_writer_from_standard_hbjson():
@@ -525,8 +534,8 @@ def test_model_writer_from_standard_hbjson():
     hb_model = Model.from_file(standard_test)
 
     inp_str = hb_model.to.inp(hb_model, hvac_mapping='Model')
-    assert inp_str.startswith('INPUT ..\n\n')
-    assert inp_str.endswith('END ..\nCOMPUTE ..\nSTOP ..\n')
+    assert inp_str.startswith(START_TEXT)
+    assert inp_str.endswith(END_TEXT)
 
 
 def test_model_writer_from_hvac_hbjson():
@@ -535,8 +544,8 @@ def test_model_writer_from_hvac_hbjson():
     hb_model = Model.from_file(hvac_test)
 
     inp_str = hb_model.to.inp(hb_model, hvac_mapping='AssignedHVAC')
-    assert inp_str.startswith('INPUT ..\n\n')
-    assert inp_str.endswith('END ..\nCOMPUTE ..\nSTOP ..\n')
+    assert inp_str.startswith(START_TEXT)
+    assert inp_str.endswith(END_TEXT)
 
 
 def test_model_writer_from_air_wall_hbjson():
@@ -545,8 +554,8 @@ def test_model_writer_from_air_wall_hbjson():
     hb_model = Model.from_file(air_wall_test)
 
     inp_str = hb_model.to.inp(hb_model, hvac_mapping='Room')
-    assert inp_str.startswith('INPUT ..\n\n')
-    assert inp_str.endswith('END ..\nCOMPUTE ..\nSTOP ..\n')
+    assert inp_str.startswith(START_TEXT)
+    assert inp_str.endswith(END_TEXT)
 
 
 def test_model_writer_from_ceil_adj_hbjson():
@@ -555,7 +564,7 @@ def test_model_writer_from_ceil_adj_hbjson():
     hb_model = Model.from_file(ceiling_adj_test)
 
     inp_str = hb_model.to.inp(hb_model, hvac_mapping='AssignedHVAC')
-    assert inp_str.startswith('INPUT ..\n\n')
-    assert inp_str.endswith('END ..\nCOMPUTE ..\nSTOP ..\n')
+    assert inp_str.startswith(START_TEXT)
+    assert inp_str.endswith(END_TEXT)
 
     
