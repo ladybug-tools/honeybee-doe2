@@ -36,14 +36,15 @@ class ModelDoe2Properties(object):
         assert 'doe2' in data['properties'], \
             'Dictionary possesses no ModelDoe2Properties.'
         room_doe2_dicts = []
-        for room_dict in data['rooms']:
-            try:
-                room_doe2_dicts.append(room_dict['properties']['doe2'])
-            except KeyError:
-                room_doe2_dicts.append(None)
-        for room, r_dict in zip(self.host.rooms, room_doe2_dicts):
-            if r_dict is not None:
-                room.properties.doe2.apply_properties_from_dict(r_dict)
+        if 'rooms' in data and data['rooms'] is not None:
+            for room_dict in data['rooms']:
+                try:
+                    room_doe2_dicts.append(room_dict['properties']['doe2'])
+                except KeyError:
+                    room_doe2_dicts.append(None)
+            for room, r_dict in zip(self.host.rooms, room_doe2_dicts):
+                if r_dict is not None:
+                    room.properties.doe2.apply_properties_from_dict(r_dict)
 
     def ToString(self):
         return self.__repr__()
