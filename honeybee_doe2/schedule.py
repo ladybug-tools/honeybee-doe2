@@ -5,9 +5,17 @@ from __future__ import division
 from ladybug.dt import Date, MONTHNAMES
 from ladybug.analysisperiod import AnalysisPeriod
 from honeybee.typing import clean_doe2_string
+from honeybee_energy.schedule.day import ScheduleDay
+from honeybee_energy.schedule.rule import ScheduleRule
+from honeybee_energy.schedule.ruleset import ScheduleRuleset
+from honeybee_energy.lib.scheduletypelimits import fractional, on_off, temperature
 
 from .config import RES_CHARS
-from .util import generate_inp_string, generate_inp_string_list_format
+from .util import generate_inp_string, generate_inp_string_list_format, \
+    parse_inp_string
+
+
+"""____________TRANSLATORS FROM HONEYBEE TO INP____________"""
 
 
 def schedule_type_limit_to_inp(type_limit):
@@ -271,7 +279,7 @@ def schedule_fixed_interval_to_inp(schedule):
     the simulation instead of DOE-2.
 
     Returns:
-        A tuple with two elements
+        A tuple with three elements
 
         -   year_schedule: Text string representation of the SCHEDULE
             describing this schedule.
@@ -323,6 +331,235 @@ def schedule_fixed_interval_to_inp(schedule):
     # return all of the strings
     year_schedule = generate_inp_string(doe2_id, 'SCHEDULE', year_keywords, year_values)
     return year_schedule, week_schedules, day_schedules
+
+
+
+
+"""____________TRANSLATORS FROM INP TO HONEYBEE____________"""
+
+def schedule_type_limit_from_inp(inp_type_string):
+    """Get a honeybee-energy ScheduleTypeLimit for a given DOE-2 schedule type."""
+    clean_type = inp_type_string.strip().upper()
+    if clean_type == 'ON/OFF':
+        return on_off
+    elif clean_type == 'TEMPERATURE':
+        return temperature
+    else:
+        return fractional
+
+
+def schedule_day_from_inp(inp_string):
+    """Create a Honeybee ScheduleDay from a DOE-2 INP text string.
+
+    Note that this method can accept both types of DOE-2 Day Schedules
+    (DAY-SCHEDULE, DAY-SCHEDULE-PD).
+
+    Args:
+        inp_string: A text string fully describing a DOE-2 DAY-SCHEDULE.
+    """
+    # parse the string into properties
+    u_name, command, keywords, values = parse_inp_string(inp_string)
+    # extract the hourly values of the schedule
+    hour_vals, sch_type = [], 'FRACTIONAL'
+    if command.upper() == 'DAY-SCHEDULE-PD':
+        field_dict = {k: v for k, v in zip(keywords, values)}
+        sch_type = field_dict['TYPE'].upper()
+        hour_vals_init = eval(field_dict['VALUES'].replace('&D', '"&D"'), {})
+        for val in hour_vals_init:
+            if val == '&D':
+                hour_vals.append(hour_vals[-1])
+            else:
+                hour_vals.append(float(val))
+        if len(hour_vals) < 24:
+            for _ in range(24 - len(hour_vals)):
+                hour_vals.append(hour_vals[-1])
+    elif command.upper() == 'DAY-SCHEDULE':
+        prev_count = 0
+        for key, val in zip(keywords, values):
+            if key == 'HOURS':
+                hr_range = eval(val, {})
+                prev_count = hr_range[-1] - hr_range[0] + 1
+            elif key == 'VALUES':
+                hr_vals = eval(val, {})
+                if isinstance(hr_vals, tuple):
+                    hour_vals.extend(hr_vals)
+                else:
+                    hour_vals.extend([hr_vals] * prev_count)
+            elif key == 'TYPE':
+                sch_type = val.upper()
+    else:
+        raise ValueError('Schedule type "{}" is not recognized.'.format(command))
+    # convert temperature values from F to C if type is TEMPERATURE
+    if sch_type == 'TEMPERATURE':
+        hour_vals = [round((v - 32.) * (5. / 9.), 2) for v in hour_vals]
+    return ScheduleDay.from_values_at_timestep(u_name, hour_vals)
+
+
+def _inp_day_schedule_dictionary(day_inp_strings):
+    """Get a dictionary of DaySchedule objects from an INP string list."""
+    day_schedule_dict = {}
+    for sch_str in day_inp_strings:
+        sch_str = sch_str.strip()
+        sch_obj = schedule_day_from_inp(sch_str)
+        day_schedule_dict[sch_obj.identifier] = sch_obj
+    return day_schedule_dict
+
+
+
+def extract_all_rules_from_inp_schedule_week(
+        week_inp_string, day_schedule_dict, start_date=None, end_date=None):
+    """Extract all ScheduleRule objects from an INP string of a WEEK-SCHEDULE-PD.
+
+    Args:
+        week_inp_string: A text string fully describing a DOE-2 WEEK-SCHEDULE-PD.
+        day_schedule_dict: A dictionary with the identifiers of ScheduleDay objects
+            as keys and the corresponding ScheduleDay objects as values. These objects
+            will be used to build the ScheduleRules using the week_idf_string.
+        start_date: A ladybug Date object for the start of the period over which
+            the ScheduleRules apply. If None, Jan 1 will be used.
+        end_date: A ladybug Date object for the end of the period over which
+            the ScheduleRules apply. If None, Dec 31 will be used.
+
+    Returns:
+        A tuple with five elements
+
+        -   u_name: The unique name of the WEEK-SCHEDULE-PD.
+
+        -   schedule_rules: A list of ScheduleRule objects that together describe
+            the WEEK-SCHEDULE-PD.
+
+        -   holiday: Text for the name of the SCHEDULE-DAY for the Holiday.
+        
+        -   winter_dd: Text for the name of the SCHEDULE-DAY for the Winter Design Day.
+
+        -   summer_dd: Text for the name of the SCHEDULE-DAY for the Summer Design Day.
+    """
+    # parse the string into properties
+    u_name, command, keywords, values = parse_inp_string(week_inp_string)
+    assert command.upper() == 'WEEK-SCHEDULE-PD', 'Week schedule must be in ' \
+        'WEEK-SCHEDULE-PD format. Got "{}".'.format(command)
+    # create the ScheduleRule objects from the parsed properties
+    schedule_rules = []
+    field_dict = {k: v for k, v in zip(keywords, values)}
+    week_vals = eval(field_dict['DAY-SCHEDULES'].replace('&D', '"&D"'), {})
+    applied_day_ids, prev_day = [], None
+    for i, day_sch_id in enumerate(week_vals[:7]):
+        day_sch_id = day_sch_id.replace('"', '')
+        day_sch_id = prev_day if day_sch_id == '&D' else day_sch_id
+        prev_day = day_sch_id  # increment it for the next item
+        if day_sch_id not in applied_day_ids:  # make a new rule
+            rule = ScheduleRule(day_schedule_dict[day_sch_id],
+                                start_date=start_date, end_date=end_date)
+            if i == 6:
+                rule.apply_day_by_dow(1)
+            else:
+                rule.apply_day_by_dow(i + 2)
+            schedule_rules.append(rule)
+            applied_day_ids.append(day_sch_id)
+        else:  # edit one of the existing rules to apply it to the new day
+            sch_rule_index = applied_day_ids.index(day_sch_id)
+            rule = schedule_rules[sch_rule_index]
+            if i == 6:
+                rule.apply_day_by_dow(1)
+            else:
+                rule.apply_day_by_dow(i + 2)
+    # process any of the specified Holiday or Design Day schedules
+    holiday = week_vals[7] if len(week_vals) > 7 and week_vals[7] != '&D' \
+        else prev_day
+    winter_dd = week_vals[8] if len(week_vals) > 8 and week_vals[8] != '&D' \
+        else holiday
+    summer_dd = week_vals[9] if len(week_vals) > 9 and week_vals[9] != '&D' \
+        else winter_dd
+    return u_name, schedule_rules, holiday, winter_dd, summer_dd
+
+
+def _inp_week_schedule_dictionary(week_inp_strings, day_sch_dict):
+    """Get a dictionary of ScheduleRule objects from WEEK-SCHEDULE-PD strings."""
+    week_schedule_dict = {}
+    week_designday_dict = {}
+    for sch_str in week_inp_strings:
+        sch_str = sch_str.strip()
+        u_name, rules, holiday, winter_dd, summer_dd = \
+            extract_all_rules_from_inp_schedule_week(sch_str, day_sch_dict)
+        week_schedule_dict[u_name] = rules
+        week_designday_dict[u_name] = [
+            day_sch_dict[holiday],
+            day_sch_dict[summer_dd],
+            day_sch_dict[winter_dd]
+        ]
+    return week_schedule_dict, week_designday_dict
+
+
+def schedule_ruleset_from_inp(year_inp_string, week_inp_strings, day_inp_strings):
+    """Create a ScheduleRuleset from a DOE-2 INP text strings.
+    
+    Args:
+        year_inp_string: An INP text string describing a DOE-2 SCHEDULE or SCHEDULE-PD.
+        week_inp_strings: A list of INP text strings for all of the WEEK-SCHEDULE-PD
+            objects used in the SCHEDULE.
+        day_inp_strings: A list of text strings for all of the DAY-SCHEDULE or
+            DAY-SCHEDULE-PD objects used in the week_inp_strings.
+    """
+    # process the schedule components
+    day_schedule_dict = _inp_day_schedule_dictionary(day_inp_strings)
+    week_sch_dict, week_dd_dict = _inp_week_schedule_dictionary(
+        week_inp_strings, day_schedule_dict)
+
+    # use the year schedule to bring it all together
+    u_name, command, keywords, values = parse_inp_string(year_inp_string)
+    field_dict = {k: v for k, v in zip(keywords, values)}
+    schedule_type = schedule_type_limit_from_inp(field_dict['TYPE'])
+    all_rules = []
+    if command.upper() == 'SCHEDULE-PD':
+        week_vals = eval(field_dict['WEEK-SCHEDULES'], {})
+        if not isinstance(week_vals, tuple):  # only one week for the whole year
+            week_id = week_vals.replace('"', '')
+            rules = week_sch_dict[week_id]
+            all_rules.extend(rules)
+        else:
+            month_vals = eval(field_dict['MONTH'], {})
+            day_vals = eval(field_dict['DAY'], {})
+            prev_month, prev_day = 1, 1
+            for month, day, week in zip(month_vals,day_vals, week_vals):
+                week_id = week.replace('"', '')
+                rules = week_sch_dict[week_id]
+                st_date = Date(int(prev_month), int(prev_day))
+                end_date = Date(int(month), int(day))
+                for rule in rules:
+                    rule.start_date = st_date
+                    rule.end_date = end_date
+                all_rules.extend(rules)
+                end_doy = end_date.doy + 1 if end_date.doy != 365 else 365
+                next_day = Date.from_doy(end_doy)
+                prev_month, prev_day = next_day.month, next_day.day
+    elif command.upper() == 'SCHEDULE':
+        prev_month, prev_day = 1, 1
+        for key, val in zip(keywords, values):
+            if key.startswith('THRU'):
+                week_id = val.replace('"', '')
+                rules = week_sch_dict[week_id]
+                st_date = Date(int(prev_month), int(prev_day))
+                date_vals = key.replace('THRU ', '').split(' ')
+                date_str = '{} {}'.format(date_vals[1], date_vals[0].title())
+                end_date = Date.from_date_string(date_str)
+                for rule in rules:
+                    rule.start_date = st_date
+                    rule.end_date = end_date
+                all_rules.extend(rules)
+                end_doy = end_date.doy + 1 if end_date.doy != 365 else 365
+                next_day = Date.from_doy(end_doy)
+                prev_month, prev_day = next_day.month, next_day.day
+
+    # create the ScheduleRuleset and apply the design days
+    default_day_schedule = all_rules[0].schedule_day
+    holiday_sch, summer_dd_sch, winter_dd_sch = week_dd_dict[week_id]
+    sched = ScheduleRuleset(u_name, default_day_schedule, all_rules[1:], schedule_type)
+    ScheduleRuleset._apply_designdays_with_check(
+        sched, holiday_sch, summer_dd_sch, winter_dd_sch)
+    return sched
+
+
+"""______EXTRA UTILITY FUNCTIONS RELATED TO SCHEDULES______"""
 
 
 def energy_trans_sch_to_transmittance(shade_obj):

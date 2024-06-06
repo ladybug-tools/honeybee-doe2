@@ -7,7 +7,9 @@ from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
 import honeybee_energy.lib.scheduletypelimits as schedule_types
 
 from honeybee_doe2.schedule import schedule_day_to_inp, schedule_ruleset_to_inp, \
-    schedule_fixed_interval_to_inp
+    schedule_fixed_interval_to_inp, schedule_day_from_inp, schedule_ruleset_from_inp
+
+from tests.util_test import SCHEDULE_DAY_STR, SCHEDULE_DAY_PD_STR
 
 
 def test_schedule_day_to_inp():
@@ -231,6 +233,13 @@ def test_schedule_ruleset_to_inp_date_range():
         '   ..\n'
     assert len(inp_week_strs) == 2
 
+    day_sch_strs = [schedule_day_to_inp(day_sch)
+                    for day_sch in school_schedule.day_schedules]
+    rebuilt_sch = schedule_ruleset_from_inp(inp_yr_str, inp_week_strs, day_sch_strs)
+    assert isinstance(rebuilt_sch, ScheduleRuleset)
+    inp_yr_str, inp_week_strs = schedule_ruleset_to_inp(rebuilt_sch)
+    assert len(inp_week_strs) >= 2
+
 
 def test_schedule_fixedinterval_to_inp():
     """Test the ScheduleFixedInterval to_inp method."""
@@ -295,3 +304,18 @@ def test_schedule_fixedinterval_to_inp():
         '      0.044,\n' \
         '   )\n' \
         '   ..\n'
+
+
+def test_schedule_day_from_inp():
+    """Test ScheduleDay from_inp."""
+    schedule_day = schedule_day_from_inp(SCHEDULE_DAY_STR)
+    assert schedule_day.identifier == 'College HTGSETP SCH Wkdy'
+    assert schedule_day.values == (15.56, 17.78, 20.0, 21.11, 15.56)
+    assert tuple(str(t) for t in schedule_day.times) == \
+        ('00:00', '06:00', '07:00', '08:00', '21:00')
+    
+    schedule_day = schedule_day_from_inp(SCHEDULE_DAY_PD_STR)
+    assert schedule_day.identifier == 'PRJ Heating SAT'
+    assert schedule_day.values == (18.33, 19.17, 20.0, 21.11, 18.33)
+    assert tuple(str(t) for t in schedule_day.times) == \
+        ('00:00', '06:00', '07:00', '08:00', '16:00')
