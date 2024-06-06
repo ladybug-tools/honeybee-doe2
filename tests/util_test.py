@@ -98,7 +98,7 @@ def test_parse_schedule_week_pd():
     assert command == 'WEEK-SCHEDULE-PD'
     assert len(keywords) == 2
     assert len(values) == 2
-    week_tuple = eval(values[-1])
+    week_tuple = eval(values[-1], {})
     assert len(week_tuple) == 10
 
 
@@ -110,7 +110,7 @@ def test_parse_schedule_week_pd2():
     assert command == 'WEEK-SCHEDULE-PD'
     assert len(keywords) == 2
     assert len(values) == 2
-    week_tuple = eval(values[-1].replace('&D', '"&D"'))
+    week_tuple = eval(values[-1].replace('&D', '"&D"'), {})
     assert len(week_tuple) == 7
 
 
