@@ -79,6 +79,61 @@ def generate_inp_string_list_format(u_name, command, keywords, values):
     return inp_str
 
 
+def parse_inp_string(inp_string):
+    """Parse an INP string of a single DOE-2 object into a list of values.
+
+    Note that this method is only equipped to parse DOE-2 test strings
+    that originate from eQuest or from this package. It has not yet
+    been generalized to parse all formats of text formats that can
+    appear in a DOE-2 file.
+
+    Args:
+        inp_string: An INP string for a single DOE-2 object.
+
+    Returns:
+        A tuple with four elements.
+
+        -   u_name: Text for the unique name of the object.
+
+        -   command: Text for the type of instruction that the DOE-2 object executes.
+
+        -   keywords: A list of text with the same length as the values that denote
+            the attributes of the DOE-2 object.
+        
+        -   values: A list of values with the same length as the keywords that describe
+            the values of the attributes for the object.
+    """
+    inp_string = inp_string.strip()
+    inp_strings = inp_string.split('..')
+    assert len(inp_strings) == 2, 'Received more than one object in inp_string.'
+    inp_string = re.sub(r'\$.*\n', '\n', inp_strings[0])  # remove all comments
+    doe2_fields = [e_str.strip() for e_str in inp_string.split('=')]
+    u_name = doe2_fields.pop(0).replace('"', '')
+    split_field_1 = doe2_fields[0].split('\n')
+    command = split_field_1[0].strip()
+    keywords = [split_field_1[1].strip()]
+    values = []
+    for field in doe2_fields[1:]:
+        split_field = [f.strip() for f in field.split('\n')]
+        if len(split_field) == 1:
+            values.append(split_field[0])
+        elif len(split_field) == 2 and not split_field[0].endswith(','):
+            values.append(split_field[0])
+            keywords.append(split_field[1])
+        else:
+            v_lines, end_val = [], False
+            for row in split_field:
+                if row.endswith(',') or row.endswith('('):
+                    v_lines.append(row)
+                elif not end_val:
+                    v_lines.append(row)
+                    end_val = True
+                else:
+                    keywords.append(row)
+            values.append(' '.join(v_lines))
+    return u_name, command, keywords, values
+
+
 def header_comment_minor(header_text):
     """Create a header given header_text, which can help organize the INP file contents.
     """
