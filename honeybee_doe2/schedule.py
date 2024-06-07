@@ -1,6 +1,7 @@
 # coding=utf-8
 """honeybee-doe2 schedule translators."""
 from __future__ import division
+import re
 
 from ladybug.dt import Date, MONTHNAMES
 from ladybug.analysisperiod import AnalysisPeriod
@@ -12,7 +13,7 @@ from honeybee_energy.lib.scheduletypelimits import fractional, on_off, temperatu
 
 from .config import RES_CHARS
 from .util import generate_inp_string, generate_inp_string_list_format, \
-    parse_inp_string
+    clean_inp_file_contents, parse_inp_string
 
 
 """____________TRANSLATORS FROM HONEYBEE TO INP____________"""
@@ -557,6 +558,39 @@ def schedule_ruleset_from_inp(year_inp_string, week_inp_strings, day_inp_strings
     ScheduleRuleset._apply_designdays_with_check(
         sched, holiday_sch, summer_dd_sch, winter_dd_sch)
     return sched
+
+
+def extract_all_schedule_ruleset_from_inp_file(inp_file):
+    """Extract all ScheduleRuleset objects from a DOE-2 INP file.
+
+    Args:
+        inp_file: A path to an INP file containing objects for SCHEDULE
+            (or SCHEDULE-PD) and corresponding WEEK-SCHEDULE-PD and DAY-SCHEDULE
+            (or DAY-SCHEDULE-PD) objects. The SCHEDULE will be used to assemble
+            all of these into a ScheduleRuleset.
+
+    Returns:
+        schedules -- A list of all Schedule objects in the INP file as
+        honeybee_energy ScheduleRuleset objects.
+    """
+    # read the file and remove lines of comments
+    file_contents = clean_inp_file_contents(inp_file)
+    # extract all of the DAY-SCHEDULE objects
+    day_pattern1 = re.compile(r'(?i)(".*=.*DAY-SCHEDULE\n[\s\S]*?\.\.)')
+    day_pattern2 = re.compile(r'(?i)(".*=.*DAY-SCHEDULE-PD\n[\s\S]*?\.\.)')
+    day_sch_str = day_pattern1.findall(file_contents) + \
+        day_pattern2.findall(file_contents)
+    day_schedule_dict = _inp_day_schedule_dictionary(day_sch_str)
+    # extract all of the WEEK-SCHEDULE-PD objects
+    week_pattern = re.compile(r'(?i)(".*=.*WEEK-SCHEDULE-PD\n[\s\S]*?\.\.)')
+    week_sch_str = week_pattern.findall(file_contents)
+    week_sch_dict, week_dd_dict = _inp_week_schedule_dictionary(
+        week_sch_str, day_schedule_dict)
+    # extract all of the SCHEDULE objects and convert to ScheduleRuleset
+    year_pattern1 = re.compile(r'(?i)(".*=.*SCHEDULE\n[\s\S]*?\.\.)')
+    year_pattern2 = re.compile(r'(?i)(".*=.*SCHEDULE-PD\n[\s\S]*?\.\.)')
+    year_sch_str = year_pattern1.findall(file_contents) + \
+        year_pattern2.findall(file_contents)
 
 
 """______EXTRA UTILITY FUNCTIONS RELATED TO SCHEDULES______"""

@@ -3,6 +3,7 @@
 from __future__ import division
 
 import re
+import os
 
 
 def generate_inp_string(u_name, command, keywords, values):
@@ -77,6 +78,26 @@ def generate_inp_string_list_format(u_name, command, keywords, values):
     body_str = '\n'.join(body_strs)
     inp_str = '"{}" = {}\n{}\n   ..\n'.format(u_name, command, body_str)
     return inp_str
+
+
+def clean_inp_file_contents(inp_file):
+    """Get the contents of an INP file without any commented lines.
+
+    These comment lines might interfere with regex parsing if they are present.
+
+    Args:
+        inp_file: A path to an IDF file containing objects to be parsed.
+
+    Returns:
+        A single string for the clean IDF file contents.
+    """
+    assert os.path.isfile(inp_file), 'Cannot find an INP file at: {}'.format(inp_file)
+    file_lines = []
+    with open(inp_file, 'r') as ep_file:
+        for line in ep_file:
+            if not line.startswith('$'):
+                file_lines.append(line)
+    return ''.join(file_lines)
 
 
 def parse_inp_string(inp_string):
