@@ -5,7 +5,7 @@ import re
 
 from ladybug.dt import Date, MONTHNAMES
 from ladybug.analysisperiod import AnalysisPeriod
-from honeybee.typing import clean_doe2_string
+from honeybee.typing import clean_doe2_string, clean_ep_string
 from honeybee_energy.schedule.day import ScheduleDay
 from honeybee_energy.schedule.rule import ScheduleRule
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
@@ -366,14 +366,17 @@ def schedule_day_from_inp(inp_string):
         field_dict = {k: v for k, v in zip(keywords, values)}
         sch_type = field_dict['TYPE'].upper()
         hour_vals_init = eval(field_dict['VALUES'].replace('&D', '"&D"'), {})
-        for val in hour_vals_init:
-            if val == '&D':
-                hour_vals.append(hour_vals[-1])
-            else:
-                hour_vals.append(float(val))
-        if len(hour_vals) < 24:
-            for _ in range(24 - len(hour_vals)):
-                hour_vals.append(hour_vals[-1])
+        if isinstance(hour_vals_init, tuple):
+            for val in hour_vals_init:
+                if val == '&D':
+                    hour_vals.append(hour_vals[-1])
+                else:
+                    hour_vals.append(float(val))
+            if len(hour_vals) < 24:
+                for _ in range(24 - len(hour_vals)):
+                    hour_vals.append(hour_vals[-1])
+        else:  # a constant schedule
+            hour_vals = [hour_vals_init] * 24
     elif command.upper() == 'DAY-SCHEDULE':
         prev_count = 0
         for key, val in zip(keywords, values):
@@ -393,7 +396,7 @@ def schedule_day_from_inp(inp_string):
     # convert temperature values from F to C if type is TEMPERATURE
     if sch_type == 'TEMPERATURE':
         hour_vals = [round((v - 32.) * (5. / 9.), 2) for v in hour_vals]
-    return ScheduleDay.from_values_at_timestep(u_name, hour_vals)
+    return ScheduleDay.from_values_at_timestep(clean_ep_string(u_name), hour_vals)
 
 
 def _inp_day_schedule_dictionary(day_inp_strings):
@@ -401,8 +404,11 @@ def _inp_day_schedule_dictionary(day_inp_strings):
     day_schedule_dict = {}
     for sch_str in day_inp_strings:
         sch_str = sch_str.strip()
-        sch_obj = schedule_day_from_inp(sch_str)
-        day_schedule_dict[sch_obj.identifier] = sch_obj
+        try:
+            sch_obj = schedule_day_from_inp(sch_str)
+            day_schedule_dict[sch_obj.identifier] = sch_obj
+        except Exception:
+            pass  # not a schedule that can be converted
     return day_schedule_dict
 
 
@@ -449,7 +455,7 @@ def extract_all_rules_from_inp_schedule_week(
         day_sch_id = prev_day if day_sch_id == '&D' else day_sch_id
         prev_day = day_sch_id  # increment it for the next item
         if day_sch_id not in applied_day_ids:  # make a new rule
-            rule = ScheduleRule(day_schedule_dict[day_sch_id],
+            rule = ScheduleRule(day_schedule_dict[clean_ep_string(day_sch_id)],
                                 start_date=start_date, end_date=end_date)
             if i == 6:
                 rule.apply_day_by_dow(1)
@@ -480,32 +486,29 @@ def _inp_week_schedule_dictionary(week_inp_strings, day_sch_dict):
     week_designday_dict = {}
     for sch_str in week_inp_strings:
         sch_str = sch_str.strip()
-        u_name, rules, holiday, winter_dd, summer_dd = \
-            extract_all_rules_from_inp_schedule_week(sch_str, day_sch_dict)
-        week_schedule_dict[u_name] = rules
-        week_designday_dict[u_name] = [
-            day_sch_dict[holiday],
-            day_sch_dict[summer_dd],
-            day_sch_dict[winter_dd]
-        ]
+        try:
+            u_name, rules, holiday, winter_dd, summer_dd = \
+                extract_all_rules_from_inp_schedule_week(sch_str, day_sch_dict)
+            week_schedule_dict[u_name] = rules
+            week_designday_dict[u_name] = [
+                day_sch_dict[clean_ep_string(holiday)],
+                day_sch_dict[clean_ep_string(summer_dd)],
+                day_sch_dict[clean_ep_string(winter_dd)]
+            ]
+        except Exception:
+            pass  # schedule is not translate-able
     return week_schedule_dict, week_designday_dict
 
 
-def schedule_ruleset_from_inp(year_inp_string, week_inp_strings, day_inp_strings):
-    """Create a ScheduleRuleset from a DOE-2 INP text strings.
+def _convert_schedule_year(year_inp_string, week_sch_dict, week_dd_dict):
+    """Convert an INP string of a year SCHEDULE or SCHEDULE-PD to a ScheduleRuleset.
     
     Args:
         year_inp_string: An INP text string describing a DOE-2 SCHEDULE or SCHEDULE-PD.
-        week_inp_strings: A list of INP text strings for all of the WEEK-SCHEDULE-PD
-            objects used in the SCHEDULE.
-        day_inp_strings: A list of text strings for all of the DAY-SCHEDULE or
-            DAY-SCHEDULE-PD objects used in the week_inp_strings.
+        week_sch_dict: A dictionary of ScheduleRules from _inp_week_schedule_dictionary.
+        week_dd_dict: A dictionary of design day ScheduleDay output from the
+            _inp_week_schedule_dictionary method.
     """
-    # process the schedule components
-    day_schedule_dict = _inp_day_schedule_dictionary(day_inp_strings)
-    week_sch_dict, week_dd_dict = _inp_week_schedule_dictionary(
-        week_inp_strings, day_schedule_dict)
-
     # use the year schedule to bring it all together
     u_name, command, keywords, values = parse_inp_string(year_inp_string)
     field_dict = {k: v for k, v in zip(keywords, values)}
@@ -551,13 +554,44 @@ def schedule_ruleset_from_inp(year_inp_string, week_inp_strings, day_inp_strings
                 next_day = Date.from_doy(end_doy)
                 prev_month, prev_day = next_day.month, next_day.day
 
-    # create the ScheduleRuleset and apply the design days
+    # check to be sure the schedule days don't already have a parent
+    for rule in all_rules:
+        if rule.schedule_day._parent is not None:
+            rule.schedule_day = rule.schedule_day.duplicate()
     default_day_schedule = all_rules[0].schedule_day
     holiday_sch, summer_dd_sch, winter_dd_sch = week_dd_dict[week_id]
-    sched = ScheduleRuleset(u_name, default_day_schedule, all_rules[1:], schedule_type)
+    if holiday_sch._parent is not None:
+        holiday_sch = holiday_sch.duplicate()
+    if summer_dd_sch._parent is not None:
+        summer_dd_sch = summer_dd_sch.duplicate()
+    if winter_dd_sch._parent is not None:
+        winter_dd_sch = summer_dd_sch.duplicate()
+
+    # create the ScheduleRuleset and apply the design days
+    sched = ScheduleRuleset(clean_ep_string(u_name), default_day_schedule,
+                            all_rules[1:], schedule_type)
     ScheduleRuleset._apply_designdays_with_check(
         sched, holiday_sch, summer_dd_sch, winter_dd_sch)
     return sched
+
+
+def schedule_ruleset_from_inp(year_inp_string, week_inp_strings, day_inp_strings):
+    """Create a ScheduleRuleset from a DOE-2 INP text strings.
+    
+    Args:
+        year_inp_string: An INP text string describing a DOE-2 SCHEDULE or SCHEDULE-PD.
+        week_inp_strings: A list of INP text strings for all of the WEEK-SCHEDULE-PD
+            objects used in the SCHEDULE.
+        day_inp_strings: A list of text strings for all of the DAY-SCHEDULE or
+            DAY-SCHEDULE-PD objects used in the week_inp_strings.
+    """
+    # process the schedule components
+    day_schedule_dict = _inp_day_schedule_dictionary(day_inp_strings)
+    week_sch_dict, week_dd_dict = _inp_week_schedule_dictionary(
+        week_inp_strings, day_schedule_dict)
+
+    # convert the year_inp_string into a ScheduleRuleset
+    return _convert_schedule_year(year_inp_string, week_sch_dict, week_dd_dict)
 
 
 def extract_all_schedule_ruleset_from_inp_file(inp_file):
@@ -591,6 +625,16 @@ def extract_all_schedule_ruleset_from_inp_file(inp_file):
     year_pattern2 = re.compile(r'(?i)(".*=.*SCHEDULE-PD\n[\s\S]*?\.\.)')
     year_sch_str = year_pattern1.findall(file_contents) + \
         year_pattern2.findall(file_contents)
+    
+    # translate each SCHEDULE and check to be sure ScheduleDay objects are unique
+    schedules = []
+    for year_sch in year_sch_str:
+        try:
+            yr_sch = _convert_schedule_year(year_sch, week_sch_dict, week_dd_dict)
+            schedules.append(yr_sch)
+        except Exception:
+            pass  # schedule is not translate-able
+    return schedules
 
 
 """______EXTRA UTILITY FUNCTIONS RELATED TO SCHEDULES______"""
