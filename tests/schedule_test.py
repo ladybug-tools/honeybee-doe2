@@ -27,6 +27,8 @@ def test_schedule_day_to_inp():
         '   HOURS                    = (18, 24)\n' \
         '   VALUES                   = (0.0)\n' \
         '   ..\n'
+    rebuilt_sch = schedule_day_from_inp(inp_str)
+    assert schedule_day_to_inp(rebuilt_sch) == inp_str
 
     simple_office2 = ScheduleDay(
         'Simple Office Occupancy', [1, 0.5, 1, 0.5, 1],
@@ -46,6 +48,8 @@ def test_schedule_day_to_inp():
         '   HOURS                    = (21, 24)\n' \
         '   VALUES                   = (1.0)\n' \
         '   ..\n'
+    rebuilt_sch = schedule_day_from_inp(inp_str)
+    assert schedule_day_to_inp(rebuilt_sch) == inp_str
 
     equest_sample = [0, 0, 0, 0, 0, 0, 0, 0, 0.3,0.6,0.8,
                      1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
@@ -64,6 +68,8 @@ def test_schedule_day_to_inp():
         '   HOURS                    = (19, 24)\n' \
         '   VALUES                   = (0.0)\n' \
         '   ..\n'
+    rebuilt_sch = schedule_day_from_inp(inp_str)
+    assert schedule_day_to_inp(rebuilt_sch) == inp_str
 
 
 def test_schedule_day_to_inp_start_end_change():
@@ -85,6 +91,8 @@ def test_schedule_day_to_inp_start_end_change():
         '                               0.25, 0.5, 0.75, 1.0, 0.75,\n' \
         '                               0.5, 0.25, 0.0)\n' \
         '   ..\n'
+    rebuilt_sch = schedule_day_from_inp(inp_str)
+    assert schedule_day_to_inp(rebuilt_sch) == inp_str
 
     hourly_vals_from_ep[-2] = 0
     complex_office = ScheduleDay.from_values_at_timestep(
@@ -103,6 +111,8 @@ def test_schedule_day_to_inp_start_end_change():
         '   HOURS                    = (23, 24)\n' \
         '   VALUES                   = (0.0)\n' \
         '   ..\n'
+    rebuilt_sch = schedule_day_from_inp(inp_str)
+    assert schedule_day_to_inp(rebuilt_sch) == inp_str
 
     hourly_vals_from_ep[1] = 1.0
     complex_office = ScheduleDay.from_values_at_timestep(
@@ -123,6 +133,8 @@ def test_schedule_day_to_inp_start_end_change():
         '   HOURS                    = (23, 24)\n' \
         '   VALUES                   = (0.0)\n' \
         '   ..\n'
+    rebuilt_sch = schedule_day_from_inp(inp_str)
+    assert schedule_day_to_inp(rebuilt_sch) == inp_str
     
     hourly_vals_from_ep[0] = 1.0
     hourly_vals_from_ep[1] = 0.0
@@ -144,6 +156,8 @@ def test_schedule_day_to_inp_start_end_change():
         '   HOURS                    = (23, 24)\n' \
         '   VALUES                   = (0.0)\n' \
         '   ..\n'
+    rebuilt_sch = schedule_day_from_inp(inp_str)
+    assert schedule_day_to_inp(rebuilt_sch) == inp_str
 
 
 def test_schedule_ruleset_to_inp():
@@ -186,6 +200,13 @@ def test_schedule_ruleset_to_inp():
         '      "Summer Office Occupancy", $ Summer Design Day,\n' \
         '   )\n' \
         '   ..\n'
+    
+    day_sch_strs = [schedule_day_to_inp(day_sch)
+                    for day_sch in schedule.day_schedules]
+    rebuilt_sch = schedule_ruleset_from_inp(inp_yr_str, inp_week_strs, day_sch_strs)
+    assert isinstance(rebuilt_sch, ScheduleRuleset)
+    inp_yr_str, inp_week_strs = schedule_ruleset_to_inp(rebuilt_sch)
+    assert len(inp_week_strs) == 1
 
 
 def test_schedule_ruleset_to_inp_date_range():
