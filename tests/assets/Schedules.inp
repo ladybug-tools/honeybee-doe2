@@ -1,0 +1,1136 @@
+
+$ ---------------------------------------------------------
+$              Day Schedules
+$ ---------------------------------------------------------
+
+"HDD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"CDD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 1 )
+   ..
+"Non-24Hr Fan WD" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 1, &D, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, 0 )
+   ..
+"Non-24Hr Fan SAT" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 1, &D, &D, &D, &D, &D, 
+         &D, &D, 0 )
+   ..
+"Non-24Hr Fan SUNH" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF
+   VALUES           = ( 0 )
+   ..
+"24Hr Fan WD" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF
+   VALUES           = ( 1 )
+   ..
+"24Hr Fan SAT" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF
+   VALUES           = ( 1 )
+   ..
+"24Hr Fan SUNH" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF
+   VALUES           = ( 1 )
+   ..
+"PRJ Heating WD" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 65, &D, &D, &D, 66.5, 68, 70, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, &D, 65 )
+   ..
+"PRJ Heating SAT" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 65, &D, &D, &D, &D, &D, 66.5, 68, 70, &D, &D, &D, &D, 
+         &D, &D, &D, 65 )
+   ..
+"PRJ Heating SUN, HOL" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 65 )
+   ..
+"PRJ Cooling WD" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 80, &D, &D, &D, &D, &D, 74, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, &D, 80 )
+   ..
+"PRJ Cooling SAT" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 80, &D, &D, &D, &D, &D, &D, &D, 74, &D, &D, &D, &D, 
+         &D, &D, &D, 80 )
+   ..
+"PRJ Cooling SUN, HOL" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 80 )
+   ..
+"Min OA WD" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0.001, &D, &D, &D, &D, &D, &D, -999, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, 0.001 )
+   ..
+"Min OA WEH" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0.001 )
+   ..
+"Min Flow WD" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, -999, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0 )
+   ..
+"Min Flow WEH" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0 )
+   ..
+"Exterior Lighting D" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 1 )
+   ..
+"Domestic HW WD, WEH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, 0.1, 0.2, 0.4, 0.6, 0.4, 0.1, 
+         &D, &D, &D, &D, &D, &D, 0.25, 0.35, 0.25, 0.2, 0.1, &D, 0.05 )
+   ..
+"Cooling 80 WD" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 80 )
+   ..
+"Cooling 74 WD" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 74 )
+   ..
+"Heating 60 WD" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 60 )
+   ..
+"Cooling 999 WD" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 999 )
+   ..
+"Always On Fraction WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 1 )
+   ..
+"Baseline HW Reset Temp WD" = DAY-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   OUTSIDE-HI       = 50
+   OUTSIDE-LO       = 20
+   SUPPLY-HI        = 180
+   SUPPLY-LO        = 150
+   ..
+"Baseline CHW Reset Temp WD" = DAY-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   OUTSIDE-HI       = 80
+   OUTSIDE-LO       = 60
+   SUPPLY-HI        = 54
+   SUPPLY-LO        = 44
+   ..
+"CW Reset Temp WD" = DAY-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   OUTSIDE-HI       = 80
+   OUTSIDE-LO       = 60
+   SUPPLY-HI        = 70
+   SUPPLY-LO        = 85
+   ..
+"Cond Blr HW Reset Temp WD" = DAY-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   OUTSIDE-HI       = 50
+   OUTSIDE-LO       = 30
+   SUPPLY-HI        = 140
+   SUPPLY-LO        = 120
+   ..
+"CHW Reset Temp WD" = DAY-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   OUTSIDE-HI       = 55
+   OUTSIDE-LO       = 50
+   SUPPLY-HI        = 50
+   SUPPLY-LO        = 42
+   ..
+"Office Occupancy WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.15, 0.5, 0.8, &D, &D, &D, 
+         0.5, 0.8, &D, &D, 0.5, 0.25, 0.15, &D, 0, &D, 0 )
+   ..
+"Office Occupancy SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.1, 0.25, &D, &D, &D, 
+         &D, &D, 0.1, 0 )
+   ..
+"Office Occupancy SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Office Lighting Usage WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.2, 0.4, 0.8, &D, &D, &D, &D, 
+         &D, &D, &D, 0.6, &D, 0.3, &D, 0.1, 0 )
+   ..
+"Office Lighting Usage SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.3, &D, &D, &D, 0.15, 
+         &D, &D, &D, 0 )
+   ..
+"Office Lighting Usage SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Office Equipment Usage WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, &D, &D, 0.3, 0.9, &D, &D, &D, 
+         0.8, 0.9, 0.8, 0.6, &D, 0.3, 0.15 )
+   ..
+"Office Equipment Usage SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, &D, &D, &D, 0.3, &D, &D, &D, 
+         0.2, &D, &D, &D, 0.15 )
+   ..
+"Office Equipment Usage SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15 )
+   ..
+"Lab Occupancy WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, 0.1, 0.2, 0.9, &D, &D, 
+         0.4, 0.9, &D, &D, &D, &D, 0.3, 0.1, &D, &D, 0.05 )
+   ..
+"Lab Occupancy SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, 0.1, 0.3, &D, &D, &D, 
+         &D, &D, &D, &D, 0.1, &D, 0.05 )
+   ..
+"Lab Occupancy SUN" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, &D, 0.1, 0.3, &D, &D, 
+         &D, &D, 0.1, &D, 0.05 )
+   ..
+"Lab Lighting Usage WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2, &D, &D, &D, &D, &D, 0.3, 0.5, 0.8, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, 0.5, &D, 0.3, &D, 0.2 )
+   ..
+"Lab Lighting Usage SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1, &D, &D, &D, &D, &D, &D, &D, 0.4, &D, &D, &D, 0.2, 
+         &D, &D, &D, &D, 0.1 )
+   ..
+"Lab Lighting Usage SUN" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1, &D, &D, &D, &D, &D, &D, &D, 0.2, 0.4, &D, &D, 
+         0.2, &D, 0.1 )
+   ..
+"Lab Equipment Usage WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2, &D, &D, &D, &D, &D, 0.3, 0.4, 0.7, 0.95, &D, &D, 
+         0.4, 0.9, 0.8, 0.6, &D, &D, 0.4, 0.3, 0.2 )
+   ..
+"Lab Equipment Usage SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2, &D, &D, &D, &D, &D, &D, &D, 0.3, 0.4, &D, &D, &D, 
+         &D, &D, 0.3, 0.2 )
+   ..
+"Lab Equipment Usage SUN" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2, &D, &D, &D, &D, &D, &D, &D, 0.3, 0.4, &D, &D, &D, 
+         0.3, 0.2 )
+   ..
+"Office Vent WD" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 1, &D, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, &D, &D, 0 )
+   ..
+"Office Vent SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 1, &D, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, 0 )
+   ..
+"Office Vent S/H" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0 )
+   ..
+"Office Min Flow WD" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0.3, &D, &D, &D, &D, &D, -999, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, &D, 0.3 )
+   ..
+"Office Min Flow SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0.3, &D, &D, &D, &D, &D, &D, &D, -999, &D, &D, &D, &D, 
+         &D, &D, &D, 0.3 )
+   ..
+"Office Min Flow SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 0.3 )
+   ..
+"Lab Min Flow WD" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( {#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")}, &D, 
+         &D, &D, &D, -999, &D, &D, &D, 
+         {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, -999, &D, &D, 
+         &D, {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, -999, &D, 
+         &D, &D, &D, {#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")} )
+   ..
+"Lab Min Flow SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( {#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")}, &D, 
+         &D, &D, &D, &D, &D, &D, -999, &D, 
+         {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, -999, 
+         {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, -999, &D, &D, 
+         {#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")} )
+   ..
+"Lab Min Flow SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( {#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")} )
+   ..
+"Baseline Lab Min Flow WD" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 
+{#pa("Lab ACH_unocc")/(#pa("Lab_design_cfmsf")*60/#pa("ceiling height"))
+ 
+$#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")}, &D, &D, &D, &D, -999, &D, 
+         &D, &D, {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, -999, 
+         &D, &D, &D, {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, 
+         -999, &D, &D, &D, &D, 
+{#pa("Lab ACH_unocc")/(#pa("Lab_design_cfmsf")*60/#pa("ceiling height"))
+ 
+$#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")} )
+   ..
+"Baseline Lab Min Flow SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 
+{#pa("Lab ACH_unocc")/(#pa("Lab_design_cfmsf")*60/#pa("ceiling height"))
+ 
+$#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")}, &D, &D, &D, &D, &D, &D, &D, 
+         -999, &D, {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, 
+         -999, {#pa("FH_driven_cfmsf")/#pa("Lab_design_cfmsf")}, &D, -999, 
+         &D, &D, 
+{#pa("Lab ACH_unocc")/(#pa("Lab_design_cfmsf")*60/#pa("ceiling height"))
+ 
+$#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")} )
+   ..
+"Baseline Lab Min Flow SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   VALUES           = ( 
+{#pa("Lab ACH_unocc")/(#pa("Lab_design_cfmsf")*60/#pa("ceiling height"))
+ 
+$#pa("Lab_unocc_cfmsf")/#pa("Lab_design_cfmsf")} )
+   ..
+"Lab Occupancy Holiday" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05 )
+   ..
+"Lab Lighting Usage Holiday" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1 )
+   ..
+"Lab Equipment Usage Holiday" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2 )
+   ..
+"Elec Mech Data Occ WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.5, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, &D, 0 )
+   ..
+"Elec Mech Data Occ SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.2, 0.4, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0.2, &D, 0 )
+   ..
+"Elec Mech Data Occ SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Elec Mech Data Ltg WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1, &D, &D, &D, &D, &D, 0.25, &D, &D, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, &D, &D, 0.1 )
+   ..
+"Elec Mech Data Ltg SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1, &D, &D, &D, &D, &D, &D, &D, 0.3, &D, &D, &D, &D, 
+         &D, &D, &D, 0.1 )
+   ..
+"Elec Mech Data Ltg SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1 )
+   ..
+"Elec Data Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.4, &D, &D, &D, &D, &D, 0.5, &D, 0.8, &D, &D, &D, &D, 
+         &D, &D, &D, 0.6, &D, 0.5, &D, 0.4 )
+   ..
+"Elec Data Eqp SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.4, &D, &D, &D, &D, &D, &D, &D, 0.5, &D, &D, &D, &D, 
+         &D, &D, &D, 0.4 )
+   ..
+"Elec Data Eqp SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.4 )
+   ..
+"Mech Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2, &D, &D, &D, &D, &D, 0.3, 0.5, 0.6, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0.5, 0.3, &D, 0.2 )
+   ..
+"Mech Eqp SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2, &D, &D, &D, &D, &D, &D, &D, 0.3, 0.4, &D, &D, &D, 
+         &D, &D, 0.3, 0.2 )
+   ..
+"Mech Eqp SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.2 )
+   ..
+"Corr Lobb Occ WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.1, &D, 1, 0.5, &D, &D, 1, 
+         0.5, &D, &D, 0.8, 0.5, 0.3, 0.2, 0 )
+   ..
+"Corr Lobb Occ SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.2, &D, &D, &D, &D, 
+         &D, &D, &D, 0 )
+   ..
+"Corr Lobb Occ SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Corr Lobb Ltg WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.25, &D, &D, &D, &D, &D, 0.5, &D, 1, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0.5, &D, 0.25 )
+   ..
+"Corr Lobb Ltg SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.25, &D, &D, &D, &D, &D, &D, &D, 0.4, &D, &D, &D, &D, 
+         &D, &D, &D, 0.25 )
+   ..
+"Corr Lobb Ltg SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.25 )
+   ..
+"Corr Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, 0.15, 0.3, 0.6, &D, &D, &D, 
+         0.4, 0.6, &D, &D, 0.3, &D, 0.15, &D, 0.05 )
+   ..
+"Corr Eqp SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, &D, 0.15, 0.2, &D, &D, 
+         &D, &D, &D, 0.15, 0.05 )
+   ..
+"Corr Eqp SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05 )
+   ..
+"Lobb Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, 0.15, 0.3, 0.6, &D, &D, &D, 
+         0.4, 0.6, &D, &D, 0.3, &D, 0.15, &D, 0.05 )
+   ..
+"Lobb Eqp SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, &D, 0.15, 0.25, &D, &D, 
+         &D, &D, &D, 0.15, 0.05 )
+   ..
+"Lobb Eqp SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05 )
+   ..
+"Toilet Storage Occ WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.1, 0.2, 0.5, 0.5, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0.2, 0.1, 0 )
+   ..
+"Toilet Storage Occ SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.1, 0.2, &D, &D, &D, 
+         &D, &D, 0.1, 0 )
+   ..
+"Toilet Storage Occ SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Toilet Storage Ltg WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.5, &D, 0.8, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0.5, &D, 0 )
+   ..
+"Toilet Storage Ltg SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.2, 0.4, &D, &D, &D, 
+         &D, &D, 0.2, 0 )
+   ..
+"Toilet Storage Ltg SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Toilet Storage Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.1, &D, 0.4, &D, &D, &D, 0.6, 
+         0.4, &D, &D, &D, &D, &D, &D, 0 )
+   ..
+"Toilet Storage Eqp SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.1, 0.2, &D, &D, &D, 
+         &D, &D, 0.1, 0 )
+   ..
+"Toilet Storage Eqp SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Stairs Occ WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, 0.2, 0.2, 0.4, &D, &D, &D, &D, 
+         &D, &D, &D, &D, 0.2, 0.2, 0.1, 0 )
+   ..
+"Stairs Occ SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.1, 0.2, &D, &D, &D, 
+         &D, &D, 0.1, 0 )
+   ..
+"Stairs Occ SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Stairs Ltg WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.5, &D, &D, &D, &D, &D, &D, &D, 1, &D, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0.6, &D, 0.5 )
+   ..
+"Stairs Ltg SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.5, &D, &D, &D, &D, &D, &D, &D, 1, &D, &D, &D, &D, 
+         &D, &D, &D, 0.5 )
+   ..
+"Stairs Ltg SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.5 )
+   ..
+"Stairs Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0 )
+   ..
+"Retail Occ WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, 0.1, 0.2, 0.5, &D, 0.7, &D, 
+         &D, &D, 0.8, &D, 0.5, &D, 0.3, &D, 0 )
+   ..
+"Retail Occ SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, 0.1, 0.2, 0.5, 0.6, 0.8, 
+         &D, &D, &D, &D, &D, 0.6, 0.2, &D, &D, 0.1, 0 )
+   ..
+"Retail Occ SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, &D, 0.1, 0.2, 0.4, &D, 
+         &D, &D, &D, &D, 0.2, 0.1, 0 )
+   ..
+"Retail Ltg WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, 0.2, 0.5, 1, &D, &D, &D, 
+         &D, &D, &D, &D, &D, 0.6, &D, 0.5, 0.2, 0.05 )
+   ..
+"Retail Ltg SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, 0.1, 0.3, 0.8, &D, 1, 
+         &D, &D, &D, &D, &D, &D, 0.5, 0.3, &D, 0.1, 0.05 )
+   ..
+"Retail Ltg SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, &D, 0.1, &D, 0.4, &D, 
+         0.6, &D, &D, &D, &D, 0.4, 0.2, 0.05 )
+   ..
+"Retail Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, 0.2, 0.5, 0.85, &D, &D, 
+         &D, &D, &D, &D, &D, &D, 0.6, &D, 0.5, 0.2, 0.05 )
+   ..
+"Retail Eqp SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, 0.1, 0.3, 0.85, &D, &D, 
+         &D, &D, &D, &D, &D, &D, 0.5, &D, 0.3, 0.1, 0.05 )
+   ..
+"Retail Eqp SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.05, &D, &D, &D, &D, &D, &D, &D, 0.1, 0.2, 0.4, &D, 
+         0.6, &D, &D, &D, &D, 0.4, 0.2, 0.05 )
+   ..
+"Restaurant Occ WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, 0.15, 0.05, 0, &D, &D, &D, 0.05, 0.05, &D, 0.2, 
+         0.5, 0.8, 0.7, 0.4, 0.2, &D, 0.5, 0.8, &D, &D, 0.5, 0.3, 0.2 )
+   ..
+"Restaurant Occ SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.3, 0.25, 0.05, 0, &D, &D, &D, &D, &D, 0.05, 0.2, 
+         0.5, &D, &D, 0.4, 0.3, &D, &D, 0.7, 0.9, &D, 0.7, 0.5, 0.4 )
+   ..
+"Restaurant Occ SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, 0.05, 0, &D, &D, &D, &D, &D, &D, 0.1, 0.2, 
+         &D, &D, 0.15, 0.2, &D, 0.4, 0.5, 0.7, &D, 0.4, 0.2 )
+   ..
+"Restaurant Ltg WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, 0.2, 0.4, &D, 0.5, &D, 0.8, 1, 
+         &D, &D, &D, &D, &D, &D, &D, &D, &D, 0.8, 0.5, 0.3 )
+   ..
+"Restaurant Ltg SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, &D, 0.3, &D, 0.5, &D, 0.8, 1, 
+         &D, &D, &D, &D, &D, &D, &D, &D, &D, 0.8, 0.5, 0.3 )
+   ..
+"Restaurant Ltg SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, &D, 0.3, &D, 0.5, &D, 0.7, 0.7, 
+         1, &D, &D, &D, &D, 0.8, 0.6, &D, &D, &D, 0.5, 0.3 )
+   ..
+"Restaurant Eqp WD" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, 0.2, 0.4, &D, 0.5, &D, 0.8, &D, 
+         &D, &D, &D, 0.9, &D, &D, &D, &D, &D, &D, 0.5, 0.3 )
+   ..
+"Restaurant Eqp SAT" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, &D, 0.3, &D, 0.5, &D, 0.8, &D, 
+         &D, &D, &D, &D, &D, 0.9, &D, &D, &D, &D, 0.5, 0.3 )
+   ..
+"Restaurant Eqp SUNH" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.15, &D, &D, &D, &D, &D, 0.3, &D, 0.5, &D, 0.7, &D, 
+         &D, &D, &D, &D, 0.8, &D, 0.6, &D, &D, &D, 0.5, 0.3 )
+   ..
+
+$ ---------------------------------------------------------
+$              Week Schedules
+$ ---------------------------------------------------------
+
+"Non-24Hr Fan Wk" = WEEK-SCHEDULE-PD
+   TYPE             = ON/OFF
+   DAY-SCHEDULES    = ( "Non-24Hr Fan WD", &D, &D, &D, &D, "Non-24Hr Fan SAT", 
+         "Non-24Hr Fan SUNH", &D, "Non-24Hr Fan WD" )
+   ..
+"24Hr Fan Wk" = WEEK-SCHEDULE-PD
+   TYPE             = ON/OFF
+   DAY-SCHEDULES    = ( "24Hr Fan WD", &D, &D, &D, &D, "24Hr Fan SAT", 
+         "24Hr Fan SUNH", &D, "24Hr Fan WD" )
+   ..
+"PRJ Heating Wk" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "PRJ Heating WD", &D, &D, &D, &D, "PRJ Heating SAT", 
+         "PRJ Heating SUN, HOL" )
+   ..
+"PRJ Cooling Wk" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "PRJ Cooling WD", &D, &D, &D, &D, "PRJ Cooling SAT", 
+         "PRJ Cooling SUN, HOL" )
+   ..
+"Min OA Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   DAY-SCHEDULES    = ( "Min OA WD", &D, &D, &D, &D, "Min OA WEH" )
+   ..
+"Min Flow Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   DAY-SCHEDULES    = ( "Min Flow WD", &D, &D, &D, &D, "Min Flow WEH" )
+   ..
+"Exterior Lighting Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Exterior Lighting D", &D, &D, &D, &D, &D, &D, &D, 
+         "HDD", "CDD" )
+   ..
+"Domestic HW Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Domestic HW WD, WEH", &D, &D, &D, &D, &D, &D, &D, 
+         "HDD", "HDD" )
+   ..
+"Cooling 80 Wk" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "Cooling 80 WD" )
+   ..
+"Cooling 74 Wk" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "Cooling 74 WD" )
+   ..
+"Heating 60 Wk" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "Heating 60 WD" )
+   ..
+"Cooling 999 Wk" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "Cooling 999 WD" )
+   ..
+"Always On Fraction Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Always On Fraction WD" )
+   ..
+"Baseline HW Reset Temp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   DAY-SCHEDULES    = ( "Baseline HW Reset Temp WD" )
+   ..
+"Baseline CHW Reset Temp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   DAY-SCHEDULES    = ( "Baseline CHW Reset Temp WD" )
+   ..
+"CW Reset Temp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   DAY-SCHEDULES    = ( "CW Reset Temp WD" )
+   ..
+"Cond Blr HW Reset Temp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   DAY-SCHEDULES    = ( "Cond Blr HW Reset Temp WD" )
+   ..
+"CHW Reset Temp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   DAY-SCHEDULES    = ( "CHW Reset Temp WD" )
+   ..
+"Office Occupancy Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Office Occupancy WD", &D, &D, &D, &D, 
+         "Office Occupancy SAT", "Office Occupancy SUNH" )
+   ..
+"Office Lighting Usage Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Office Lighting Usage WD", &D, &D, &D, &D, 
+         "Office Lighting Usage SAT", "Office Lighting Usage SUNH" )
+   ..
+"Office Equipment Usage Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Office Equipment Usage WD", &D, &D, &D, &D, 
+         "Office Equipment Usage SAT", "Office Equipment Usage SUNH" )
+   ..
+"Lab Occupancy Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Lab Occupancy WD", &D, &D, &D, &D, 
+         "Lab Occupancy SAT", "Lab Occupancy SUN", "Lab Occupancy Holiday" )
+   ..
+"Lab Lighting Usage Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Lab Lighting Usage WD", &D, &D, &D, &D, 
+         "Lab Lighting Usage SAT", "Lab Lighting Usage SUN", 
+         "Lab Lighting Usage Holiday" )
+   ..
+"Lab Equipment Usage Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Lab Equipment Usage WD", &D, &D, &D, &D, 
+         "Lab Equipment Usage SAT", "Lab Equipment Usage SUN", 
+         "Lab Equipment Usage Holiday" )
+   ..
+"Office Vent WK" = WEEK-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   DAY-SCHEDULES    = ( "Office Vent WD", &D, &D, &D, &D, "Office Vent SAT", 
+         "Office Vent S/H" )
+   ..
+"Office Min Flow Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   DAY-SCHEDULES    = ( "Office Min Flow WD", &D, &D, &D, &D, 
+         "Office Min Flow SAT", "Office Min Flow SUNH" )
+   ..
+"Lab Min Flow Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   DAY-SCHEDULES    = ( "Lab Min Flow WD", &D, &D, &D, &D, "Lab Min Flow SAT", 
+         "Lab Min Flow SUNH" )
+   ..
+"Baseline Lab Min Flow Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   DAY-SCHEDULES    = ( "Baseline Lab Min Flow WD", &D, &D, &D, &D, 
+         "Baseline Lab Min Flow SAT", "Baseline Lab Min Flow SUNH" )
+   ..
+"Elec Mech Data Occ Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Elec Mech Data Occ WD", &D, &D, &D, &D, 
+         "Elec Mech Data Occ SAT", "Elec Mech Data Occ SUNH" )
+   ..
+"Elec Mech Data Ltg Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Elec Mech Data Ltg WD", &D, &D, &D, &D, 
+         "Elec Mech Data Ltg SAT", "Elec Mech Data Ltg SUNH" )
+   ..
+"Elec Data Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Elec Data Eqp WD", &D, &D, &D, &D, 
+         "Elec Data Eqp SAT", "Elec Data Eqp SUNH" )
+   ..
+"Mech Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Mech Eqp WD", &D, &D, &D, &D, "Mech Eqp SAT", 
+         "Mech Eqp SUNH" )
+   ..
+"Corr Lobb Occ Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Corr Lobb Occ WD", &D, &D, &D, &D, 
+         "Corr Lobb Occ SAT", "Corr Lobb Occ SUNH" )
+   ..
+"Corr Lobb Ltg Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Corr Lobb Ltg WD", &D, &D, &D, &D, 
+         "Corr Lobb Ltg SAT", "Corr Lobb Ltg SUNH" )
+   ..
+"Corr Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Corr Eqp WD", &D, &D, &D, &D, "Corr Eqp SAT", 
+         "Corr Eqp SUNH" )
+   ..
+"Lobb Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Lobb Eqp WD", &D, &D, &D, &D, "Lobb Eqp SAT", 
+         "Lobb Eqp SUNH" )
+   ..
+"Toilet Storage Occ Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Toilet Storage Occ WD", &D, &D, &D, &D, 
+         "Toilet Storage Occ SAT", "Toilet Storage Occ SUNH" )
+   ..
+"Toilet Storage Ltg Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Toilet Storage Ltg WD", &D, &D, &D, &D, 
+         "Toilet Storage Ltg SAT", "Toilet Storage Ltg SUNH" )
+   ..
+"Toilet Storage Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Toilet Storage Eqp WD", &D, &D, &D, &D, 
+         "Toilet Storage Eqp SAT", "Toilet Storage Eqp SUNH" )
+   ..
+"Stairs Occ Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Stairs Occ WD", &D, &D, &D, &D, "Stairs Occ SAT", 
+         "Stairs Occ SUNH" )
+   ..
+"Stairs Ltg Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Stairs Ltg WD", &D, &D, &D, &D, "Stairs Ltg SAT", 
+         "Stairs Ltg SUNH" )
+   ..
+"Stairs Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Stairs Eqp WD", &D, &D, &D, &D, "Stairs Eqp WD" )
+   ..
+"Retail Occ Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Retail Occ WD", &D, &D, &D, &D, "Retail Occ SAT", 
+         "Retail Occ SUNH" )
+   ..
+"Retail Ltg Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Retail Ltg WD", &D, &D, &D, &D, "Retail Ltg SAT", 
+         "Retail Ltg SUNH" )
+   ..
+"Retail Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Retail Eqp WD", &D, &D, &D, &D, "Retail Eqp SAT", 
+         "Retail Eqp SUNH" )
+   ..
+"Restaurant Occ Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Restaurant Occ WD", &D, &D, &D, &D, 
+         "Restaurant Occ SAT", "Restaurant Occ SUNH" )
+   ..
+"Restaurant Ltg Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Restaurant Ltg WD", &D, &D, &D, &D, 
+         "Restaurant Ltg SAT", "Restaurant Ltg SUNH" )
+   ..
+"Restaurant Eqp Wk" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Restaurant Eqp WD", &D, &D, &D, &D, 
+         "Restaurant Eqp SAT", "Restaurant Eqp SUNH" )
+   ..
+
+$ ---------------------------------------------------------
+$              Annual Schedules
+$ ---------------------------------------------------------
+
+"Non-24Hr Fan Sch" = SCHEDULE-PD
+   TYPE             = ON/OFF
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Non-24Hr Fan Wk" )
+   ..
+"24Hr Fan Sch" = SCHEDULE-PD
+   TYPE             = ON/OFF
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "24Hr Fan Wk" )
+   ..
+"PRJ Heating Sch" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "PRJ Heating Wk" )
+   ..
+"PRJ Cooling Sch" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "PRJ Cooling Wk" )
+   ..
+"Min OA Sch" = SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Min OA Wk" )
+   ..
+"Min Flow Sch" = SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Min Flow Wk" )
+   ..
+"OFFICE ELEV" = SCHEDULE-PD
+   LIBRARY-ENTRY "OFFICE ELEV"
+   ..
+"Exterior Lighting Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   PHOTOCELL-CTRL   = DAY-OFF
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Exterior Lighting Wk" )
+   ..
+"Domestic HW Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Domestic HW Wk" )
+   ..
+"Cooling 80" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Cooling 80 Wk" )
+   ..
+"Cooling 74" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Cooling 74 Wk" )
+   ..
+"Heating 60" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Heating 60 Wk" )
+   ..
+"Cooling 999" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Cooling 999 Wk" )
+   ..
+"Always On Fraction Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Always On Fraction Wk" )
+   ..
+"Baseline HW Reset Temp Sch" = SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Baseline HW Reset Temp Wk" )
+   ..
+"Baseline CHW Reset Temp Sch" = SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Baseline CHW Reset Temp Wk" )
+   ..
+"CW Reset Temp Sch" = SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "CW Reset Temp Wk" )
+   ..
+"Cond Blr HW Reset Temp Sch" = SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Cond Blr HW Reset Temp Wk" )
+   ..
+"CHW Reset Temp Sch" = SCHEDULE-PD
+   TYPE             = RESET-TEMP
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "CHW Reset Temp Wk" )
+   ..
+"Office Occupancy Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Office Occupancy Wk" )
+   ..
+"Office Lighting Usage Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Office Lighting Usage Wk" )
+   ..
+"Office Equipment Usage Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Office Equipment Usage Wk" )
+   ..
+"Lab Occupancy Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Lab Occupancy Wk" )
+   ..
+"Lab Lighting Usage Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Lab Lighting Usage Wk" )
+   ..
+"Lab Equipment Usage Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Lab Equipment Usage Wk" )
+   ..
+"Office Vent Sch" = SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Office Vent WK" )
+   ..
+"Office Min Flow Sch" = SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Office Min Flow Wk" )
+   ..
+"Lab Min Flow Sch" = SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Lab Min Flow Wk" )
+   ..
+"Baseline Lab Min Flow Sch" = SCHEDULE-PD
+   TYPE             = FRAC/DESIGN
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Baseline Lab Min Flow Wk" )
+   ..
+"Elec Mech Data Occ Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Elec Mech Data Occ Wk" )
+   ..
+"Elec Mech Data Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Elec Mech Data Ltg Wk" )
+   ..
+"Elec Data Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Elec Data Eqp Wk" )
+   ..
+"Mech Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Mech Eqp Wk" )
+   ..
+"Corr Lobb Occ Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Corr Lobb Occ Wk" )
+   ..
+"Corr Lobb Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Corr Lobb Ltg Wk" )
+   ..
+"Corr Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Corr Eqp Wk" )
+   ..
+"Lobb Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Lobb Eqp Wk" )
+   ..
+"Toilet Storage Occ Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Toilet Storage Occ Wk" )
+   ..
+"Toilet Storage Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Toilet Storage Ltg Wk" )
+   ..
+"Toilet Storage Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Toilet Storage Eqp Wk" )
+   ..
+"Stairs Occ Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Stairs Occ Wk" )
+   ..
+"Stairs Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Stairs Ltg Wk" )
+   ..
+"Stairs Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Stairs Eqp Wk" )
+   ..
+"Retail Occ Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Retail Occ Wk" )
+   ..
+"Retail Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Retail Ltg Wk" )
+   ..
+"Retail Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Retail Eqp Wk" )
+   ..
+"Restaurant Occ Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Restaurant Occ Wk" )
+   ..
+"Restaurant Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Restaurant Ltg Wk" )
+   ..
+"Restaurant Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Restaurant Eqp Wk" )
+   ..
