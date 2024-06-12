@@ -118,8 +118,6 @@ class SimulationPar(object):
         sp_str.append(header_comment_minor('Compliance Data'))
         sp_str.append(header_comment_minor('Site and Building Data'))
         sp_str.append(self.site.to_inp())
-        # add the end tag for the project data
-        sp_str.append('PROJECT-DATA\n   ..\n')
         return '\n'.join(sp_str)
 
     def to_dict(self):

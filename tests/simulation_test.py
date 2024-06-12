@@ -52,7 +52,6 @@ def test_simulation_par_to_inp():
     assert title in inp_str
     assert DEFAULT_RUN_PERIOD in inp_str
     assert DEFAULT_SITE_DATA in inp_str
-    assert inp_str.endswith('PROJECT-DATA\n   ..\n')
 
 
 def test_simulation_par_init():
