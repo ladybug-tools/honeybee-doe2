@@ -64,7 +64,7 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
         else:  # otherwise, we need to figure out which Room belongs to which geometry
             # first get a set of Point2Ds that are inside each room in plan
             room_pts, z_axis = [], Vector3D(0, 0, 1)
-            for room in rooms:
+            for room in room_group:
                 for face in room.faces:
                     if math.degrees(z_axis.angle(face.normal)) >= 91:
                         down_geo = face.geometry
@@ -78,7 +78,7 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
                 flr_geo = flr_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
                 flr_poly = Polygon2D([Point2D(pt.x, pt.y) for pt in flr_geo.boundary])
                 flr_rooms = []
-                for room, room_pt in zip(rooms, room_pts):
+                for room, room_pt in zip(room_group, room_pts):
                     if flr_poly.is_point_inside_bound_rect(room_pt):
                         flr_rooms.append(room)
                 room_groups.append(flr_rooms)
