@@ -566,5 +566,3 @@ def test_model_writer_from_ceil_adj_hbjson():
     inp_str = hb_model.to.inp(hb_model, hvac_mapping='AssignedHVAC')
     assert inp_str.startswith(START_TEXT)
     assert inp_str.endswith(END_TEXT)
-
-    
