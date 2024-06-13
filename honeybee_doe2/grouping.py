@@ -4,7 +4,7 @@ from __future__ import division
 import math
 
 from ladybug_geometry.geometry2d import Point2D, Polygon2D
-from ladybug_geometry.geometry3d import Vector3D
+from ladybug_geometry.geometry3d import Vector3D, Face3D
 from honeybee.typing import clean_doe2_string
 from honeybee.room import Room
 
@@ -57,6 +57,8 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
         if len(hor_bounds) == 1:
             flr_geo = hor_bounds[0]
             flr_geo = flr_geo if flr_geo.normal.z >= 0 else flr_geo.flip()
+            if flr_geo.has_holes:  # remove holes as we only care about the boundary
+                flr_geo = Face3D(flr_geo.boundary, flr_geo.plane)
             flr_geo = flr_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
             room_groups.append(room_group)
             level_geometries.append(flr_geo)
@@ -75,6 +77,8 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
             # loop through floor geometries and determine all rooms associated with them
             for si, flr_geo in enumerate(hor_bounds):
                 flr_geo = flr_geo if flr_geo.normal.z >= 0 else flr_geo.flip()
+                if flr_geo.has_holes:  # remove holes as we only care about the boundary
+                    flr_geo = Face3D(flr_geo.boundary, flr_geo.plane)
                 flr_geo = flr_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
                 flr_poly = Polygon2D([Point2D(pt.x, pt.y) for pt in flr_geo.boundary])
                 flr_rooms = []
