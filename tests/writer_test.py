@@ -17,12 +17,12 @@ from honeybee_energy.schedule.ruleset import ScheduleRuleset
 import honeybee_energy.lib.scheduletypelimits as schedule_types
 from honeybee_energy.lib.programtypes import office_program, program_type_by_identifier
 
-if os.name =='nt':
-   START_TEXT = 'INPUT ..\n\n'
-   END_TEXT = 'END ..\nCOMPUTE ..\nSTOP ..\n'
+if os.name == 'nt':
+    START_TEXT = 'INPUT ..\n\n'
+    END_TEXT = 'END ..\nCOMPUTE ..\nSTOP ..\n'
 else:
-   START_TEXT = 'INPUT ..\r\n\r\n'
-   END_TEXT = 'END ..\r\nCOMPUTE ..\r\nSTOP ..\r\n'
+    START_TEXT = 'INPUT ..\r\n\r\n'
+    END_TEXT = 'END ..\r\nCOMPUTE ..\r\nSTOP ..\r\n'
 
 
 def test_shade_writer():
@@ -34,54 +34,54 @@ def test_shade_writer():
     shade_polygon, shade_def = shade.to.inp(shade)
     assert shade_polygon == ''
     assert shade_def == \
-       '"overhang" = FIXED-SHADE\n' \
-       '   SHAPE                    = RECTANGLE\n' \
-       '   HEIGHT                   = 1.0\n' \
-       '   WIDTH                    = 1.0\n' \
-       '   X-REF                    = 0.0\n' \
-       '   Y-REF                    = 0.0\n' \
-       '   Z-REF                    = 3.0\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   TRANSMITTANCE            = 0\n' \
-       '   ..\n'
+        '"overhang" = FIXED-SHADE\n' \
+        '   SHAPE                    = RECTANGLE\n' \
+        '   HEIGHT                   = 1.0\n' \
+        '   WIDTH                    = 1.0\n' \
+        '   X-REF                    = 0.0\n' \
+        '   Y-REF                    = 0.0\n' \
+        '   Z-REF                    = 3.0\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   TRANSMITTANCE            = 0\n' \
+        '   ..\n'
 
     shade = Shade.from_vertices('overhang', non_rect_verts)
     shade_polygon, shade_def = shade.to.inp(shade)
     assert shade_polygon == \
-       '"overhang Plg" = POLYGON\n' \
-       '   V1                       = (0.0, 0.0)\n' \
-       '   V2                       = (1.0, 0.0)\n' \
-       '   V3                       = (2.0, 1.0)\n' \
-       '   V4                       = (0.0, 1.0)\n' \
-       '   ..\n'
+        '"overhang Plg" = POLYGON\n' \
+        '   V1                       = (0.0, 0.0)\n' \
+        '   V2                       = (1.0, 0.0)\n' \
+        '   V3                       = (2.0, 1.0)\n' \
+        '   V4                       = (0.0, 1.0)\n' \
+        '   ..\n'
     assert shade_def == \
-       '"overhang" = FIXED-SHADE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "overhang Plg"\n' \
-       '   X-REF                    = 0.0\n' \
-       '   Y-REF                    = 0.0\n' \
-       '   Z-REF                    = 3.0\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   TRANSMITTANCE            = 0\n' \
-       '   ..\n'
+        '"overhang" = FIXED-SHADE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "overhang Plg"\n' \
+        '   X-REF                    = 0.0\n' \
+        '   Y-REF                    = 0.0\n' \
+        '   Z-REF                    = 3.0\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   TRANSMITTANCE            = 0\n' \
+        '   ..\n'
 
     fritted_glass_trans = ScheduleRuleset.from_constant_value(
-        'Fritted Glass', 0.5, schedule_types.fractional)
+         'Fritted Glass', 0.5, schedule_types.fractional)
     shade.properties.energy.transmittance_schedule = fritted_glass_trans
     shade_polygon, shade_def = shade.to.inp(shade)
     assert shade_def == \
-       '"overhang" = FIXED-SHADE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "overhang Plg"\n' \
-       '   X-REF                    = 0.0\n' \
-       '   Y-REF                    = 0.0\n' \
-       '   Z-REF                    = 3.0\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   TRANSMITTANCE            = 0.5\n' \
-       '   ..\n'
+        '"overhang" = FIXED-SHADE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "overhang Plg"\n' \
+        '   X-REF                    = 0.0\n' \
+        '   Y-REF                    = 0.0\n' \
+        '   Z-REF                    = 3.0\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   TRANSMITTANCE            = 0.5\n' \
+        '   ..\n'
 
     move_vals = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
                  0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0]
@@ -89,17 +89,17 @@ def test_shade_writer():
     shade.properties.energy.transmittance_schedule = moveable_trans
     shade_polygon, shade_def = shade.to.inp(shade)
     assert shade_def == \
-       '"overhang" = FIXED-SHADE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "overhang Plg"\n' \
-       '   X-REF                    = 0.0\n' \
-       '   Y-REF                    = 0.0\n' \
-       '   Z-REF                    = 3.0\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   TRANSMITTANCE            = 0.417\n' \
-       '   SHADE-SCHEDULE           = "Moveable Awning"\n' \
-       '   ..\n'
+        '"overhang" = FIXED-SHADE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "overhang Plg"\n' \
+        '   X-REF                    = 0.0\n' \
+        '   Y-REF                    = 0.0\n' \
+        '   Z-REF                    = 3.0\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   TRANSMITTANCE            = 0.417\n' \
+        '   SHADE-SCHEDULE           = "Moveable Awning"\n' \
+        '   ..\n'
 
 
 def test_shade_mesh_writer():
@@ -113,51 +113,51 @@ def test_shade_mesh_writer():
     assert len(shade_polygons) == 1
     assert len(shade_defs) == 2
     assert shade_polygons[0] == \
-       '"Awning 11 Plg" = POLYGON\n' \
-       '   V1                       = (0.0, 0.0)\n' \
-       '   V2                       = (2.0, 0.0)\n' \
-       '   V3                       = (0.0, 2.0)\n' \
-       '   ..\n'
+        '"Awning 11 Plg" = POLYGON\n' \
+        '   V1                       = (0.0, 0.0)\n' \
+        '   V2                       = (2.0, 0.0)\n' \
+        '   V3                       = (0.0, 2.0)\n' \
+        '   ..\n'
     assert shade_defs[0] == \
-       '"Awning 10" = FIXED-SHADE\n' \
-       '   SHAPE                    = RECTANGLE\n' \
-       '   HEIGHT                   = 2.0\n' \
-       '   WIDTH                    = 2.0\n' \
-       '   X-REF                    = 0.0\n' \
-       '   Y-REF                    = 0.0\n' \
-       '   Z-REF                    = 4.0\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   TRANSMITTANCE            = 0\n' \
-       '   ..\n'
+        '"Awning 10" = FIXED-SHADE\n' \
+        '   SHAPE                    = RECTANGLE\n' \
+        '   HEIGHT                   = 2.0\n' \
+        '   WIDTH                    = 2.0\n' \
+        '   X-REF                    = 0.0\n' \
+        '   Y-REF                    = 0.0\n' \
+        '   Z-REF                    = 4.0\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   TRANSMITTANCE            = 0\n' \
+        '   ..\n'
     assert shade_defs[1] == \
-       '"Awning 11" = FIXED-SHADE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Awning 11 Plg"\n' \
-       '   X-REF                    = 2.0\n' \
-       '   Y-REF                    = 0.0\n' \
-       '   Z-REF                    = 4.0\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   TRANSMITTANCE            = 0\n' \
-       '   ..\n'
-   
+        '"Awning 11" = FIXED-SHADE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "Awning 11 Plg"\n' \
+        '   X-REF                    = 2.0\n' \
+        '   Y-REF                    = 0.0\n' \
+        '   Z-REF                    = 4.0\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   TRANSMITTANCE            = 0\n' \
+        '   ..\n'
+
     fritted_glass_trans = ScheduleRuleset.from_constant_value(
-         'Fritted Glass', 0.5, schedule_types.fractional)
+          'Fritted Glass', 0.5, schedule_types.fractional)
     shade.properties.energy.transmittance_schedule = fritted_glass_trans
     shade_polygons, shade_defs = shade.to.inp(shade)
     assert shade_defs[0] == \
-       '"Awning 10" = FIXED-SHADE\n' \
-       '   SHAPE                    = RECTANGLE\n' \
-       '   HEIGHT                   = 2.0\n' \
-       '   WIDTH                    = 2.0\n' \
-       '   X-REF                    = 0.0\n' \
-       '   Y-REF                    = 0.0\n' \
-       '   Z-REF                    = 4.0\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   TRANSMITTANCE            = 0.5\n' \
-       '   ..\n'
+        '"Awning 10" = FIXED-SHADE\n' \
+        '   SHAPE                    = RECTANGLE\n' \
+        '   HEIGHT                   = 2.0\n' \
+        '   WIDTH                    = 2.0\n' \
+        '   X-REF                    = 0.0\n' \
+        '   Y-REF                    = 0.0\n' \
+        '   Z-REF                    = 4.0\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   TRANSMITTANCE            = 0.5\n' \
+        '   ..\n'
 
 
 def test_aperture_writer():
@@ -176,13 +176,13 @@ def test_aperture_writer():
     assert wa.properties.energy.construction.identifier == 'Generic Double Pane'
     inp_str = wa.to.inp(wa)
     assert inp_str == \
-       '"wall window" = WINDOW\n' \
-       '   X                        = 1.0\n' \
-       '   Y                        = 1.0\n' \
-       '   WIDTH                    = 2.0\n' \
-       '   HEIGHT                   = 1.5\n' \
-       '   GLASS-TYPE               = "Generic Double Pane"\n' \
-       '   ..\n'
+        '"wall window" = WINDOW\n' \
+        '   X                        = 1.0\n' \
+        '   Y                        = 1.0\n' \
+        '   WIDTH                    = 2.0\n' \
+        '   HEIGHT                   = 1.5\n' \
+        '   GLASS-TYPE               = "Generic Double Pane"\n' \
+        '   ..\n'
 
     wf2 = Face.from_vertices('wall_face2', vertices_parent_wall_2)
     wa2 = Aperture.from_vertices('wall_window2', vertices_wall_2)
@@ -192,13 +192,13 @@ def test_aperture_writer():
     assert wa.properties.energy.construction.identifier == 'Generic Single Pane'
     inp_str = wa.to.inp(wa)
     assert inp_str == \
-       '"wall window" = WINDOW\n' \
-       '   X                        = 1.0\n' \
-       '   Y                        = 1.0\n' \
-       '   WIDTH                    = 2.0\n' \
-       '   HEIGHT                   = 1.5\n' \
-       '   GLASS-TYPE               = "Generic Single Pane"\n' \
-       '   ..\n'
+        '"wall window" = WINDOW\n' \
+        '   X                        = 1.0\n' \
+        '   Y                        = 1.0\n' \
+        '   WIDTH                    = 2.0\n' \
+        '   HEIGHT                   = 1.5\n' \
+        '   GLASS-TYPE               = "Generic Single Pane"\n' \
+        '   ..\n'
 
     rf = Face.from_vertices('roof_face', vertices_parent_roof)
     ra = Aperture.from_vertices('roof_window', vertices_roof)
@@ -207,13 +207,13 @@ def test_aperture_writer():
     assert ra.properties.energy.construction.identifier == 'Generic Double Pane'
     inp_str = ra.to.inp(ra)
     assert inp_str == \
-       '"roof window" = WINDOW\n' \
-       '   X                        = 1.0\n' \
-       '   Y                        = 1.0\n' \
-       '   WIDTH                    = 3.0\n' \
-       '   HEIGHT                   = 3.0\n' \
-       '   GLASS-TYPE               = "Generic Double Pane"\n' \
-       '   ..\n'
+        '"roof window" = WINDOW\n' \
+        '   X                        = 1.0\n' \
+        '   Y                        = 1.0\n' \
+        '   WIDTH                    = 3.0\n' \
+        '   HEIGHT                   = 3.0\n' \
+        '   GLASS-TYPE               = "Generic Double Pane"\n' \
+        '   ..\n'
 
 
 def test_door_writer():
@@ -230,13 +230,13 @@ def test_door_writer():
     assert wd.properties.energy.construction.identifier == 'Generic Exterior Door'
     inp_str = wd.to.inp(wd)
     assert inp_str == \
-       '"wall door" = DOOR\n' \
-       '   X                        = 1.0\n' \
-       '   Y                        = 0.1\n' \
-       '   WIDTH                    = 1.0\n' \
-       '   HEIGHT                   = 2.7\n' \
-       '   CONSTRUCTION             = "Generic Exterior Door"\n' \
-       '   ..\n'
+        '"wall door" = DOOR\n' \
+        '   X                        = 1.0\n' \
+        '   Y                        = 0.1\n' \
+        '   WIDTH                    = 1.0\n' \
+        '   HEIGHT                   = 2.7\n' \
+        '   CONSTRUCTION             = "Generic Exterior Door"\n' \
+        '   ..\n'
 
     rf = Face.from_vertices('roof_face', vertices_parent_roof)
     rd = Door.from_vertices('roof_door', vertices_roof)
@@ -245,13 +245,13 @@ def test_door_writer():
     assert rd.properties.energy.construction.identifier == 'Generic Exterior Door'
     inp_str = rd.to.inp(rd)
     assert inp_str == \
-       '"roof door" = DOOR\n' \
-       '   X                        = 3.0\n' \
-       '   Y                        = 3.0\n' \
-       '   WIDTH                    = 1.0\n' \
-       '   HEIGHT                   = 1.0\n' \
-       '   CONSTRUCTION             = "Generic Exterior Door"\n' \
-       '   ..\n'
+        '"roof door" = DOOR\n' \
+        '   X                        = 3.0\n' \
+        '   Y                        = 3.0\n' \
+        '   WIDTH                    = 1.0\n' \
+        '   HEIGHT                   = 1.0\n' \
+        '   CONSTRUCTION             = "Generic Exterior Door"\n' \
+        '   ..\n'
 
 
 def test_face_writer():
@@ -269,65 +269,65 @@ def test_face_writer():
     face.properties.energy.construction = thick_constr
     face_polygon, face_def = face.to.inp(face)
     assert face_polygon == \
-       '"wall face Plg" = POLYGON\n' \
-       '   V1                       = (0.0, 0.0)\n' \
-       '   V2                       = (10.0, 0.0)\n' \
-       '   V3                       = (10.0, 10.0)\n' \
-       '   V4                       = (0.0, 10.0)\n' \
-       '   ..\n'
+        '"wall face Plg" = POLYGON\n' \
+        '   V1                       = (0.0, 0.0)\n' \
+        '   V2                       = (10.0, 0.0)\n' \
+        '   V3                       = (10.0, 10.0)\n' \
+        '   V4                       = (0.0, 10.0)\n' \
+        '   ..\n'
     assert face_def == \
-       '"wall face" = EXTERIOR-WALL\n' \
-       '   POLYGON                  = "wall face Plg"\n' \
-       '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
-       '   TILT                     = 90.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 0.0\n' \
-       '   Z                        = 0.0\n' \
-       '   ..\n'
+        '"wall face" = EXTERIOR-WALL\n' \
+        '   POLYGON                  = "wall face Plg"\n' \
+        '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
+        '   TILT                     = 90.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 0.0\n' \
+        '   Z                        = 0.0\n' \
+        '   ..\n'
 
     face = Face.from_vertices('roof_face', roof_pts)
     face.properties.energy.construction = thick_constr
     face_polygon, face_def = face.to.inp(face)
     assert face_polygon == \
-       '"roof face Plg" = POLYGON\n' \
-       '   V1                       = (0.0, 0.0)\n' \
-       '   V2                       = (10.0, 0.0)\n' \
-       '   V3                       = (10.0, 10.0)\n' \
-       '   V4                       = (0.0, 10.0)\n' \
-       '   ..\n'
+        '"roof face Plg" = POLYGON\n' \
+        '   V1                       = (0.0, 0.0)\n' \
+        '   V2                       = (10.0, 0.0)\n' \
+        '   V3                       = (10.0, 10.0)\n' \
+        '   V4                       = (0.0, 10.0)\n' \
+        '   ..\n'
     assert face_def == \
-       '"roof face" = ROOF\n' \
-       '   POLYGON                  = "roof face Plg"\n' \
-       '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
-       '   TILT                     = 0.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 0.0\n' \
-       '   Z                        = 3.0\n' \
-       '   ..\n'
-    
+        '"roof face" = ROOF\n' \
+        '   POLYGON                  = "roof face Plg"\n' \
+        '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
+        '   TILT                     = 0.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 0.0\n' \
+        '   Z                        = 3.0\n' \
+        '   ..\n'
+
     face = Face.from_vertices('floor_face', floor_pts)
     face.properties.energy.construction = thick_constr
     face_polygon, face_def = face.to.inp(face)
     assert face_polygon == \
-       '"floor face Plg" = POLYGON\n' \
-       '   V1                       = (10.0, 10.0)\n' \
-       '   V2                       = (0.0, 10.0)\n' \
-       '   V3                       = (0.0, 0.0)\n' \
-       '   V4                       = (10.0, 0.0)\n' \
-       '   ..\n'
+        '"floor face Plg" = POLYGON\n' \
+        '   V1                       = (10.0, 10.0)\n' \
+        '   V2                       = (0.0, 10.0)\n' \
+        '   V3                       = (0.0, 0.0)\n' \
+        '   V4                       = (10.0, 0.0)\n' \
+        '   ..\n'
     assert face_def == \
-       '"floor face" = UNDERGROUND-WALL\n' \
-       '   POLYGON                  = "floor face Plg"\n' \
-       '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
-       '   TILT                     = 180.0\n' \
-       '   AZIMUTH                  = 180.0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 10.0\n' \
-       '   Z                        = 0.0\n' \
-       '   LOCATION                 = BOTTOM\n' \
-       '   ..\n'
+        '"floor face" = UNDERGROUND-WALL\n' \
+        '   POLYGON                  = "floor face Plg"\n' \
+        '   CONSTRUCTION             = "Thick Concrete Construction"\n' \
+        '   TILT                     = 180.0\n' \
+        '   AZIMUTH                  = 180.0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 10.0\n' \
+        '   Z                        = 0.0\n' \
+        '   LOCATION                 = BOTTOM\n' \
+        '   ..\n'
 
 
 def test_room_writer():
@@ -341,46 +341,46 @@ def test_room_writer():
 
     room_polygons, room_def = room.to.inp(room)
     assert room_polygons[0] == \
-       '"Tiny House Zone Plg" = POLYGON\n' \
-       '   V1                       = (0.0, 0.0)\n' \
-       '   V2                       = (15.0, 0.0)\n' \
-       '   V3                       = (15.0, 30.0)\n' \
-       '   V4                       = (0.0, 30.0)\n' \
-       '   ..\n'
+        '"Tiny House Zone Plg" = POLYGON\n' \
+        '   V1                       = (0.0, 0.0)\n' \
+        '   V2                       = (15.0, 0.0)\n' \
+        '   V3                       = (15.0, 30.0)\n' \
+        '   V4                       = (0.0, 30.0)\n' \
+        '   ..\n'
     assert room_def[0] == \
-       '"Tiny House Zone" = SPACE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Tiny House Zone Plg"\n' \
-       '   AZIMUTH                  = 0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 0.0\n' \
-       '   Z                        = 0.0\n' \
-       '   VOLUME                   = 4500\n' \
-       '   ZONE-TYPE                = UNCONDITIONED\n' \
-       '   ..\n'
+        '"Tiny House Zone" = SPACE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "Tiny House Zone Plg"\n' \
+        '   AZIMUTH                  = 0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 0.0\n' \
+        '   Z                        = 0.0\n' \
+        '   VOLUME                   = 4500\n' \
+        '   ZONE-TYPE                = UNCONDITIONED\n' \
+        '   ..\n'
 
     room.properties.energy.program_type = office_program
     room.properties.energy.add_default_ideal_air()
     room_polygons, room_def = room.to.inp(room)
     assert room_polygons[0] == \
-       '"Tiny House Zone Plg" = POLYGON\n' \
-       '   V1                       = (0.0, 0.0)\n' \
-       '   V2                       = (15.0, 0.0)\n' \
-       '   V3                       = (15.0, 30.0)\n' \
-       '   V4                       = (0.0, 30.0)\n' \
-       '   ..\n'
+        '"Tiny House Zone Plg" = POLYGON\n' \
+        '   V1                       = (0.0, 0.0)\n' \
+        '   V2                       = (15.0, 0.0)\n' \
+        '   V3                       = (15.0, 30.0)\n' \
+        '   V4                       = (0.0, 30.0)\n' \
+        '   ..\n'
     assert room_def[0] == \
-       '"Tiny House Zone" = SPACE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Tiny House Zone Plg"\n' \
-       '   AZIMUTH                  = 0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 0.0\n' \
-       '   Z                        = 0.0\n' \
-       '   VOLUME                   = 4500\n' \
-       '   ZONE-TYPE                = CONDITIONED\n' \
-       '   C-ACTIVITY-DESC          = *rgrm*\n' \
-       '   ..\n'
+        '"Tiny House Zone" = SPACE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "Tiny House Zone Plg"\n' \
+        '   AZIMUTH                  = 0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 0.0\n' \
+        '   Z                        = 0.0\n' \
+        '   VOLUME                   = 4500\n' \
+        '   ZONE-TYPE                = CONDITIONED\n' \
+        '   C-ACTIVITY-DESC          = *rgrm*\n' \
+        '   ..\n'
 
     room.properties.energy.program_type = None
     room.properties.energy.people = office_program.people
@@ -391,30 +391,30 @@ def test_room_writer():
     room.properties.energy.setpoint = office_program.setpoint
     room_polygons, room_def = room.to.inp(room)
     assert room_def[0] == \
-       '"Tiny House Zone" = SPACE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Tiny House Zone Plg"\n' \
-       '   AZIMUTH                  = 0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 0.0\n' \
-       '   Z                        = 0.0\n' \
-       '   VOLUME                   = 4500\n' \
-       '   ZONE-TYPE                = CONDITIONED\n' \
-       '   AREA/PERSON              = 190.512\n' \
-       '   PEOPLE-SCHEDULE          = "Generic Office Occupancy"\n' \
-       '   LIGHTING-W/AREA          = 0.98\n' \
-       '   LIGHTING-SCHEDULE        = "Generic Office Lighting"\n' \
-       '   LIGHT-TO-RETURN          = 0.0\n' \
-       '   LIGHT-RAD-FRAC           = 0.7\n' \
-       '   EQUIPMENT-W/AREA         = 0.96\n' \
-       '   EQUIP-SCHEDULE           = ("Generic Office Equipment")\n' \
-       '   EQUIP-SENSIBLE           = 1.0\n' \
-       '   EQUIP-LATENT             = 0.0\n' \
-       '   EQUIP-RAD-FRAC           = 0.5\n' \
-       '   INF-METHOD               = AIR-CHANGE\n' \
-       '   INF-FLOW/AREA            = 0.045\n' \
-       '   INF-SCHEDULE             = "Generic Office Infiltration"\n' \
-       '   ..\n'
+        '"Tiny House Zone" = SPACE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "Tiny House Zone Plg"\n' \
+        '   AZIMUTH                  = 0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 0.0\n' \
+        '   Z                        = 0.0\n' \
+        '   VOLUME                   = 4500\n' \
+        '   ZONE-TYPE                = CONDITIONED\n' \
+        '   AREA/PERSON              = 190.512\n' \
+        '   PEOPLE-SCHEDULE          = "Generic Office Occupancy"\n' \
+        '   LIGHTING-W/AREA          = 0.98\n' \
+        '   LIGHTING-SCHEDULE        = "Generic Office Lighting"\n' \
+        '   LIGHT-TO-RETURN          = 0.0\n' \
+        '   LIGHT-RAD-FRAC           = 0.7\n' \
+        '   EQUIPMENT-W/AREA         = 0.96\n' \
+        '   EQUIP-SCHEDULE           = ("Generic Office Equipment")\n' \
+        '   EQUIP-SENSIBLE           = 1.0\n' \
+        '   EQUIP-LATENT             = 0.0\n' \
+        '   EQUIP-RAD-FRAC           = 0.5\n' \
+        '   INF-METHOD               = AIR-CHANGE\n' \
+        '   INF-FLOW/AREA            = 0.045\n' \
+        '   INF-SCHEDULE             = "Generic Office Infiltration"\n' \
+        '   ..\n'
 
 
 def test_room_writer_program():
@@ -434,36 +434,36 @@ def test_room_writer_program():
     room.properties.energy.setpoint = apartment_prog.setpoint
     _, room_def = room.to.inp(room)
     assert room_def[0] == \
-       '"Tiny House Zone" = SPACE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Tiny House Zone Plg"\n' \
-       '   AZIMUTH                  = 0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 0.0\n' \
-       '   Z                        = 0.0\n' \
-       '   VOLUME                   = 4500\n' \
-       '   ZONE-TYPE                = CONDITIONED\n' \
-       '   AREA/PERSON              = 380.228\n' \
-       '   PEOPLE-SCHEDULE          = "ApartmentMidRise OCC APT SCH"\n' \
-       '   LIGHTING-W/AREA          = 0.87\n' \
-       '   LIGHTING-SCHEDULE        = "ApartmentMidRise LTG APT SCH"\n' \
-       '   LIGHT-TO-RETURN          = 0.0\n' \
-       '   LIGHT-RAD-FRAC           = 0.6\n' \
-       '   EQUIPMENT-W/AREA         = 0.62\n' \
-       '   EQUIP-SCHEDULE           = ("ApartmentMidRise EQP APT SCH")\n' \
-       '   EQUIP-SENSIBLE           = 1.0\n' \
-       '   EQUIP-LATENT             = 0.0\n' \
-       '   EQUIP-RAD-FRAC           = 0.5\n' \
-       '   SOURCE-TYPE              = HOT-WATER\n' \
-       '   SOURCE-POWER             = 1.238\n' \
-       '   SOURCE-SCHEDULE          = "ApartmentMidRise APT DHW SCH"\n' \
-       '   SOURCE-SENSIBLE          = 0.2\n' \
-       '   SOURCE-RAD-FRAC          = 0.0\n' \
-       '   SOURCE-LATENT            = 0.05\n' \
-       '   INF-METHOD               = AIR-CHANGE\n' \
-       '   INF-FLOW/AREA            = 0.112\n' \
-       '   INF-SCHEDULE             = "ApartmentMidRise INF APT SCH"\n' \
-       '   ..\n'
+        '"Tiny House Zone" = SPACE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "Tiny House Zone Plg"\n' \
+        '   AZIMUTH                  = 0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 0.0\n' \
+        '   Z                        = 0.0\n' \
+        '   VOLUME                   = 4500\n' \
+        '   ZONE-TYPE                = CONDITIONED\n' \
+        '   AREA/PERSON              = 380.228\n' \
+        '   PEOPLE-SCHEDULE          = "ApartmentMidRise OCC APT SCH"\n' \
+        '   LIGHTING-W/AREA          = 0.87\n' \
+        '   LIGHTING-SCHEDULE        = "ApartmentMidRise LTG APT SCH"\n' \
+        '   LIGHT-TO-RETURN          = 0.0\n' \
+        '   LIGHT-RAD-FRAC           = 0.6\n' \
+        '   EQUIPMENT-W/AREA         = 0.62\n' \
+        '   EQUIP-SCHEDULE           = ("ApartmentMidRise EQP APT SCH")\n' \
+        '   EQUIP-SENSIBLE           = 1.0\n' \
+        '   EQUIP-LATENT             = 0.0\n' \
+        '   EQUIP-RAD-FRAC           = 0.5\n' \
+        '   SOURCE-TYPE              = HOT-WATER\n' \
+        '   SOURCE-POWER             = 1.238\n' \
+        '   SOURCE-SCHEDULE          = "ApartmentMidRise APT DHW SCH"\n' \
+        '   SOURCE-SENSIBLE          = 0.2\n' \
+        '   SOURCE-RAD-FRAC          = 0.0\n' \
+        '   SOURCE-LATENT            = 0.05\n' \
+        '   INF-METHOD               = AIR-CHANGE\n' \
+        '   INF-FLOW/AREA            = 0.112\n' \
+        '   INF-SCHEDULE             = "ApartmentMidRise INF APT SCH"\n' \
+        '   ..\n'
 
     kitchen_prog = program_type_by_identifier('2019::FullServiceRestaurant::Kitchen')
     room.properties.energy.people = kitchen_prog.people
@@ -476,36 +476,36 @@ def test_room_writer_program():
     room.properties.energy.setpoint = kitchen_prog.setpoint
     _, room_def = room.to.inp(room)
     assert room_def[0] == \
-       '"Tiny House Zone" = SPACE\n' \
-       '   SHAPE                    = POLYGON\n' \
-       '   POLYGON                  = "Tiny House Zone Plg"\n' \
-       '   AZIMUTH                  = 0\n' \
-       '   X                        = 0.0\n' \
-       '   Y                        = 0.0\n' \
-       '   Z                        = 0.0\n' \
-       '   VOLUME                   = 4500\n' \
-       '   ZONE-TYPE                = CONDITIONED\n' \
-       '   AREA/PERSON              = 200.0\n' \
-       '   PEOPLE-SCHEDULE          = "RestaurantSitDown BLDG OCC SCH"\n' \
-       '   LIGHTING-W/AREA          = 1.09\n' \
-       '   LIGHTING-SCHEDULE        = "RstrntStDwnBLDG_HENSCH20102013"\n' \
-       '   LIGHT-TO-RETURN          = 0.0\n' \
-       '   LIGHT-RAD-FRAC           = 0.7\n' \
-       '   EQUIPMENT-W/AREA         = 37.53\n' \
-       '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH")\n' \
-       '   EQUIP-SENSIBLE           = 0.55\n' \
-       '   EQUIP-LATENT             = 0.25\n' \
-       '   EQUIP-RAD-FRAC           = 0.3\n' \
-       '   SOURCE-TYPE              = GAS\n' \
-       '   SOURCE-POWER             = 8634.118\n' \
-       '   SOURCE-SCHEDULE          = "RstrntStDwn Rst GAS EQUIP SCH"\n' \
-       '   SOURCE-SENSIBLE          = 0.2\n' \
-       '   SOURCE-RAD-FRAC          = 0.199\n' \
-       '   SOURCE-LATENT            = 0.1\n' \
-       '   INF-METHOD               = AIR-CHANGE\n' \
-       '   INF-FLOW/AREA            = 0.112\n' \
-       '   INF-SCHEDULE             = "RstrntStDwn INFIL HALF ON SCH"\n' \
-       '   ..\n'
+        '"Tiny House Zone" = SPACE\n' \
+        '   SHAPE                    = POLYGON\n' \
+        '   POLYGON                  = "Tiny House Zone Plg"\n' \
+        '   AZIMUTH                  = 0\n' \
+        '   X                        = 0.0\n' \
+        '   Y                        = 0.0\n' \
+        '   Z                        = 0.0\n' \
+        '   VOLUME                   = 4500\n' \
+        '   ZONE-TYPE                = CONDITIONED\n' \
+        '   AREA/PERSON              = 200.0\n' \
+        '   PEOPLE-SCHEDULE          = "RestaurantSitDown BLDG OCC SCH"\n' \
+        '   LIGHTING-W/AREA          = 1.09\n' \
+        '   LIGHTING-SCHEDULE        = "RstrntStDwnBLDG_HENSCH20102013"\n' \
+        '   LIGHT-TO-RETURN          = 0.0\n' \
+        '   LIGHT-RAD-FRAC           = 0.7\n' \
+        '   EQUIPMENT-W/AREA         = 37.53\n' \
+        '   EQUIP-SCHEDULE           = ("RstrntStDwn BLDG EQUIP SCH")\n' \
+        '   EQUIP-SENSIBLE           = 0.55\n' \
+        '   EQUIP-LATENT             = 0.25\n' \
+        '   EQUIP-RAD-FRAC           = 0.3\n' \
+        '   SOURCE-TYPE              = GAS\n' \
+        '   SOURCE-POWER             = 8634.118\n' \
+        '   SOURCE-SCHEDULE          = "RstrntStDwn Rst GAS EQUIP SCH"\n' \
+        '   SOURCE-SENSIBLE          = 0.2\n' \
+        '   SOURCE-RAD-FRAC          = 0.199\n' \
+        '   SOURCE-LATENT            = 0.1\n' \
+        '   INF-METHOD               = AIR-CHANGE\n' \
+        '   INF-FLOW/AREA            = 0.112\n' \
+        '   INF-SCHEDULE             = "RstrntStDwn INFIL HALF ON SCH"\n' \
+        '   ..\n'
 
 
 def test_model_writer():
