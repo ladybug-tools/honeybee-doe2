@@ -36,7 +36,7 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
             their vertices are counter-clockwise when viewed from above. They
             will also have colinear vertices removed such that they are ready
             to be translated to INP POLYGONS.
-        
+
         -   level_names: A list of text strings that align with the level
             geometry and contain suggested names for the DOE-2 levels.
     """
@@ -112,7 +112,7 @@ def group_rooms_by_doe2_hvac(model, hvac_mapping):
 
         -   room_groups: A list of lists where each sub-list contains Honeybee
             Rooms that should ave the same HVAC system.
-        
+
         -   hvac_names: A list of text strings that align with the room_groups
             and contain suggested names for the DOE-2 HVAC systems.
     """

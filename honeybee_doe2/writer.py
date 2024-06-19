@@ -67,7 +67,7 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
     llc_origin = Point3D.from_array(llc_coords)
 
     # get the 2D vertices in the plane of the Face
-    if DOE2_ANGLE_TOL <= tilt <=  180 - DOE2_ANGLE_TOL:  # vertical or tilted
+    if DOE2_ANGLE_TOL <= tilt <= 180 - DOE2_ANGLE_TOL:  # vertical or tilted
         proj_y = Vector3D(0, 0, 1).project(face_3d.normal)
         proj_x = proj_y.rotate(face_3d.normal, math.pi / -2)
         ref_plane = Plane(face_3d.normal, llc_origin, proj_x)
@@ -112,12 +112,12 @@ def face_3d_to_inp_rectangle(face_3d):
         translated, this will be a tuple with five elements.
 
         -   width: A number for the width of the rectangle.
-        
+
         -   height: A number for the height of the rectangle.
 
         -   llc_origin: A Point3D for the lower-left corner of the Shade
             geometry origin.
-        
+
         -   tilt: A number for the tilt of the rectangle in degrees.
 
         -   azimuth: A number for the azimuth of the rectangle in degrees.
@@ -149,7 +149,7 @@ def shade_mesh_to_inp(shade_mesh):
     Args:
         shade_mesh: A honeybee ShadeMesh for which an INP representation
             will be returned.
-        
+
     Returns:
         A tuple with two elements.
 
@@ -278,7 +278,7 @@ def door_to_inp(door):
     apt_urc = door.geometry.upper_right_corner
 
     # determine the width and height and origin in the parent coordinate system
-    if DOE2_ANGLE_TOL <= door.tilt <=  180 - DOE2_ANGLE_TOL:  # vertical or tilted
+    if DOE2_ANGLE_TOL <= door.tilt <= 180 - DOE2_ANGLE_TOL:  # vertical or tilted
         proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
         proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
     else:  # located within the XY plane
@@ -331,7 +331,7 @@ def aperture_to_inp(aperture):
     apt_urc = aperture.geometry.upper_right_corner
 
     # determine the width and height and origin in the parent coordinate system
-    if DOE2_ANGLE_TOL <= aperture.tilt <=  180 - DOE2_ANGLE_TOL:  # vertical or tilted
+    if DOE2_ANGLE_TOL <= aperture.tilt <= 180 - DOE2_ANGLE_TOL:  # vertical or tilted
         proj_y = Vector3D(0, 0, 1).project(rel_plane.n)
         proj_x = proj_y.rotate(rel_plane.n, math.pi / -2)
     else:  # located within the XY plane
@@ -371,7 +371,7 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0), location=None):
         location: An optional text string to note the DOE-2 LOCATION of the
             Face on the parent Room. When this is specified, the Face will be
             written without using a POLYGON. (Default: None).
-    
+
     Returns:
         A tuple with two elements.
 
@@ -407,9 +407,9 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0), location=None):
         origin = face_origin - space_origin
         keywords = ['POLYGON', 'CONSTRUCTION', 'TILT', 'AZIMUTH', 'X', 'Y', 'Z']
         values = ['"{} Plg"'.format(doe2_id), '"{}"'.format(constr), tilt, az,
-                round(origin.x, GEO_DEC_COUNT),
-                round(origin.y, GEO_DEC_COUNT),
-                round(origin.z, GEO_DEC_COUNT)]
+                  round(origin.x, GEO_DEC_COUNT),
+                  round(origin.y, GEO_DEC_COUNT),
+                  round(origin.z, GEO_DEC_COUNT)]
 
     # add information related to the boundary condition
     if bc_str == 'Surface':
@@ -441,7 +441,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
     The resulting string will also include all internal gain definitions for the
     Room (people, lights, equipment), infiltration definitions, ventilation
     requirements, and thermostat objects.
-    
+
     However, complete schedule definitions assigned to these load objects are
     excluded as well as any construction or material definitions.
 
@@ -501,14 +501,12 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
     energy_attr_keywords.extend(inf_kwd)
     energy_attr_values.extend(inf_val)
 
-
-    # sense when a Room is an extruded floor plate
     def _is_room_3d_extruded(hb_room):
         """Test if a Room is a pure extrusion.
-        
+
         Args:
             hb_room: The Honeybee Room to be tested.
-        
+
         Returns:
             A tuple with two elements.
 
@@ -928,7 +926,7 @@ def model_to_inp(
 
 
 def room_doe2_conditioning_type(room):
-    """Get the DOE-2 conditioning type that should be assigned to both the Space and Zone.
+    """Get the DOE-2 conditioning type to be assigned to both the Space and Zone.
 
     Args:
         room: A Honeybee Room for which the conditioning type will be returned.

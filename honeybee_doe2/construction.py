@@ -44,7 +44,7 @@ def opaque_material_to_inp(material):
 
 def opaque_construction_to_inp(construction):
     """Convert an OpaqueConstruction into a CONSTRUCTION INP string.
-    
+
     This will include both the LAYERS definition as well as the CONSTRUCTION but
     it does NOT include the constituent MATERIAL definitions and their properties.
     """
@@ -83,7 +83,7 @@ def window_construction_to_inp(construction):
 
 def door_construction_to_inp(construction):
     """Convert an OpaqueConstruction or WindowConstruction to a CONSTRUCTION INP string.
-    
+
     This translation pathway always uses a NoMass U-VALUE Construction.
     """
     doe2_id = clean_doe2_string(construction.identifier, RES_CHARS)
@@ -95,7 +95,7 @@ def door_construction_to_inp(construction):
 
 def air_construction_to_inp(construction):
     """Convert an AirBoundaryConstruction to a CONSTRUCTION INP string.
-    
+
     This translation pathway always uses a NoMass U-VALUE Construction.
     """
     doe2_id = clean_doe2_string(construction.identifier, RES_CHARS)
