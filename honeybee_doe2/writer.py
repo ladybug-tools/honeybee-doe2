@@ -6,6 +6,7 @@ import math
 
 from ladybug_geometry.geometry2d import Vector2D, Point2D
 from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
+from ladybug_geometry.bounding import bounding_box
 from honeybee.typing import clean_doe2_string
 from honeybee.boundarycondition import Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
@@ -549,66 +550,90 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
                 pass
         return True, face_orientations
 
-    # if the room is extruded, determine the locations for each face
+    # if the room is extruded, determine the locations of each face
     face_locations = []
     is_extrusion, face_orientations = _is_room_3d_extruded(room)
     if is_extrusion:  # try to translate without using POLYGON for the Room faces
-        r_geo = room.horizontal_boundary(match_walls=True, tolerance=DOE2_TOLERANCE)
-        r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
-        r_geo = r_geo.remove_duplicate_vertices(DOE2_TOLERANCE)
-        rm_pts = r_geo.lower_left_counter_clockwise_boundary
-        rm_height = room.max.z - room.min.z
-        ceil_count = len([orient for orient in face_orientations if orient == 1])
-        floor_count = len([orient for orient in face_orientations if orient == -1])
-        for face, orient in zip(room.faces, face_orientations):
-            if orient == 0:  # wall to associate with a room vertex
-                clean_geo = face.geometry.remove_colinear_vertices(DOE2_TOLERANCE)
-                face_height = face.max.z - face.min.z
-                if clean_geo.boundary_polygon2d.is_rectangle(DOE2_ANGLE_TOL) and \
-                        abs(rm_height - face_height) <= DOE2_TOLERANCE:
-                    f_origin = face.geometry.lower_left_corner
-                    for i, r_pt in enumerate(rm_pts):
-                        if f_origin.is_equivalent(r_pt, DOE2_TOLERANCE):
-                            face_locations.append('SPACE-V{}'.format(i + 1))
-                            break
-                    else:  # not associated with any Room vertex
+        try:
+            r_geo = room.horizontal_boundary(match_walls=True, tolerance=DOE2_TOLERANCE)
+        except Exception:  # we may need to write it with NO-SHAPE
+            r_geo = None
+        if r_geo is not None:
+            r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
+            r_geo = r_geo.remove_duplicate_vertices(DOE2_TOLERANCE)
+            rm_pts = r_geo.lower_left_counter_clockwise_boundary
+            rm_height = room.max.z - room.min.z
+            ceil_count = len([orient for orient in face_orientations if orient == 1])
+            floor_count = len([orient for orient in face_orientations if orient == -1])
+            for face, orient in zip(room.faces, face_orientations):
+                if orient == 0:  # wall to associate with a room vertex
+                    clean_geo = face.geometry.remove_colinear_vertices(DOE2_TOLERANCE)
+                    face_height = face.max.z - face.min.z
+                    if clean_geo.boundary_polygon2d.is_rectangle(DOE2_ANGLE_TOL) and \
+                            abs(rm_height - face_height) <= DOE2_TOLERANCE:
+                        f_origin = face.geometry.lower_left_corner
+                        for i, r_pt in enumerate(rm_pts):
+                            if f_origin.is_equivalent(r_pt, DOE2_TOLERANCE):
+                                face_locations.append('SPACE-V{}'.format(i + 1))
+                                break
+                        else:  # not associated with any Room vertex
+                            face_locations.append(None)
+                    else:  # not a rectangular geometry
                         face_locations.append(None)
-                else:  # not a rectangular geometry
-                    face_locations.append(None)
-            elif orient == 1:
-                loc = 'TOP' if ceil_count == 1 else None
-                face_locations.append(loc)
-            else:
-                loc = 'BOTTOM' if floor_count == 1 else None
-                face_locations.append(loc)
+                elif orient == 1:
+                    loc = 'TOP' if ceil_count == 1 else None
+                    face_locations.append(loc)
+                else:
+                    loc = 'BOTTOM' if floor_count == 1 else None
+                    face_locations.append(loc)
 
     # if the room is not extruded, just use the generic horizontal boundary
     if len(face_locations) == 0:
-        r_geo = room.horizontal_boundary(match_walls=False, tolerance=DOE2_TOLERANCE)
-        r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
-        r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
+        try:
+            r_geo = room.horizontal_boundary(match_walls=False, tolerance=DOE2_TOLERANCE)
+            r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
+            r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
+        except Exception:  # we may need to write it with NO-SHAPE
+            r_geo = None
         face_locations = [None] * len(room.faces)
 
-    # create the room polygon string from the geometry
-    room_polygon, pos_info = face_3d_to_inp(r_geo, doe2_id)
-    space_origin, _, _ = pos_info
-    origin = space_origin - floor_origin
+    # create the space definition
+    if r_geo is None:   # the room volume is so bad that we have to use NO-SHAPE
+        space_origin = room.min
+        origin = space_origin - floor_origin
+        keywords = ['SHAPE', 'AZIMUTH', 'X', 'Y', 'Z', 'AREA', 'VOLUME']
+        values = ['NO-SHAPE', 0, round(origin.x, GEO_DEC_COUNT),
+                  round(origin.y, GEO_DEC_COUNT), round(origin.z, GEO_DEC_COUNT),
+                  round(room.floor_area, GEO_DEC_COUNT),
+                  round(room.volume, GEO_DEC_COUNT)]
+        if room.multiplier != 1:
+            keywords.append('MULTIPLIER')
+            values.append(room.multiplier)
+        keywords.extend(energy_attr_keywords)
+        values.extend(energy_attr_values)
+        space_def = generate_inp_string(doe2_id, 'SPACE', keywords, values)
+        room_polygons = []
+        room_defs = [space_def]
+    else:
+        # create the room polygon string from the geometry
+        room_polygon, pos_info = face_3d_to_inp(r_geo, doe2_id)
+        space_origin, _, _ = pos_info
+        origin = space_origin - floor_origin
+        # create the space definition, which includes the position info
+        keywords = ['SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z', 'VOLUME']
+        values = ['POLYGON', '"{} Plg"'.format(doe2_id), 0,
+                  round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
+                  round(origin.z, GEO_DEC_COUNT), round(room.volume, GEO_DEC_COUNT)]
+        if room.multiplier != 1:
+            keywords.append('MULTIPLIER')
+            values.append(room.multiplier)
+        keywords.extend(energy_attr_keywords)
+        values.extend(energy_attr_values)
+        space_def = generate_inp_string(doe2_id, 'SPACE', keywords, values)
+        room_polygons = [room_polygon]
+        room_defs = [space_def]
 
-    # create the space definition, which includes the position info
-    keywords = ['SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z', 'VOLUME']
-    values = ['POLYGON', '"{} Plg"'.format(doe2_id), 0,
-              round(origin.x, GEO_DEC_COUNT), round(origin.y, GEO_DEC_COUNT),
-              round(origin.z, GEO_DEC_COUNT), round(room.volume, GEO_DEC_COUNT)]
-    if room.multiplier != 1:
-        keywords.append('MULTIPLIER')
-        values.append(room.multiplier)
-    keywords.extend(energy_attr_keywords)
-    values.extend(energy_attr_values)
-    space_def = generate_inp_string(doe2_id, 'SPACE', keywords, values)
-
-    # gather together all definitions and polygons to define the room
-    room_polygons = [room_polygon]
-    room_defs = [space_def]
+    # gather together all face definitions and polygons to define the room
     for face, f_loc in zip(room.faces, face_locations):
         # first check if this is a face that should be excluded
         if isinstance(face.boundary_condition, Surface):
@@ -805,19 +830,30 @@ def model_to_inp(
         group_rooms_by_doe2_level(model.rooms, model.tolerance)
     bldg_polygons, bldg_geo_defs = [], []
     for flr_rooms, flr_geo, flr_name in zip(level_room_groups, level_geos, level_names):
-        # create the story POLYGON and definition
-        flr_polygon, pos_info = face_3d_to_inp(flr_geo, flr_name)
-        flr_origin, _, _ = pos_info
+        # create the story definition
         rooms_f2c = [room.max.z - room.min.z for room in flr_rooms]
         sotry_f2f = max(rooms_f2c)
         median_room_f2c = sorted(rooms_f2c)[int(len(rooms_f2c) / 2)]
-        flr_keys = ('SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z',
-                    'SPACE-HEIGHT', 'FLOOR-HEIGHT')
-        flr_vals = ('POLYGON', '"{} Plg"'.format(flr_name), 0,
-                    flr_origin.x, flr_origin.y, flr_origin.z,
-                    round(median_room_f2c, 3), round(sotry_f2f, 3))
+        if flr_geo is None:  # write the level wit NO-SHAPE
+            flr_origin, _ = bounding_box([room.min for room in flr_rooms])
+            flr_area = sum(room.floor_area for room in flr_rooms)
+            flr_volume = sum(room.volume for room in flr_rooms)
+            flr_keys = ('SHAPE', 'AREA', 'VOLUME', 'AZIMUTH', 'X', 'Y', 'Z',
+                        'SPACE-HEIGHT', 'FLOOR-HEIGHT')
+            flr_vals = ('NO-SHAPE', round(flr_area, GEO_DEC_COUNT),
+                        round(flr_volume, GEO_DEC_COUNT), 0,
+                        flr_origin.x, flr_origin.y, flr_origin.z,
+                        round(median_room_f2c, 3), round(sotry_f2f, 3))
+        else:  # write the level with a POLYGON
+            flr_polygon, pos_info = face_3d_to_inp(flr_geo, flr_name)
+            flr_origin, _, _ = pos_info
+            flr_keys = ('SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z',
+                        'SPACE-HEIGHT', 'FLOOR-HEIGHT')
+            flr_vals = ('POLYGON', '"{} Plg"'.format(flr_name), 0,
+                        flr_origin.x, flr_origin.y, flr_origin.z,
+                        round(median_room_f2c, 3), round(sotry_f2f, 3))
+            bldg_polygons.append(flr_polygon)
         flr_def = generate_inp_string(flr_name, 'FLOOR', flr_keys, flr_vals)
-        bldg_polygons.append(flr_polygon)
         bldg_geo_defs.append(flr_def)
         # add the room and face definitions + polygons
         for room in flr_rooms:

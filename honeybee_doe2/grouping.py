@@ -47,14 +47,21 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
     grouped_rooms, _ = Room.group_by_floor_height(rooms, FLOOR_LEVEL_TOL)
     for fi, room_group in enumerate(grouped_rooms):
         # then, group the rooms by contiguous horizontal boundary
-        hor_bounds = Room.grouped_horizontal_boundary(
-            room_group, tolerance=model_tolerance, floors_only=True)
-        if len(hor_bounds) == 0:  # possible when Rooms have no floors
+        try:
             hor_bounds = Room.grouped_horizontal_boundary(
-                room_group, tolerance=model_tolerance, floors_only=False)
+                room_group, tolerance=model_tolerance, floors_only=True)
+            if len(hor_bounds) == 0:  # possible when Rooms have no floors
+                hor_bounds = Room.grouped_horizontal_boundary(
+                    room_group, tolerance=model_tolerance, floors_only=False)
+        except Exception:  # level geometry is overlapping or not clean
+            hor_bounds = []
 
         # if we got lucky and everything is one contiguous polygon, we're done!
-        if len(hor_bounds) == 1:
+        if len(hor_bounds) == 0:  # we will write the story with NO-SHAPE
+            room_groups.append(room_group)
+            level_geometries.append(None)
+            level_names.append('Level_{}'.format(fi))
+        elif len(hor_bounds) == 1:  # just one clean polygon for the level
             flr_geo = hor_bounds[0]
             flr_geo = flr_geo if flr_geo.normal.z >= 0 else flr_geo.flip()
             if flr_geo.has_holes:  # remove holes as we only care about the boundary
@@ -63,7 +70,7 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
             room_groups.append(room_group)
             level_geometries.append(flr_geo)
             level_names.append('Level_{}'.format(fi))
-        else:  # otherwise, we need to figure out which Room belongs to which geometry
+        else:  # we need to figure out which Room belongs to which geometry
             # first get a set of Point2Ds that are inside each room in plan
             room_pts, z_axis = [], Vector3D(0, 0, 1)
             for room in room_group:
