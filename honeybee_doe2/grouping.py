@@ -4,7 +4,7 @@ from __future__ import division
 import math
 
 from ladybug_geometry.geometry2d import Point2D, Polygon2D
-from ladybug_geometry.geometry3d import Vector3D, Face3D
+from ladybug_geometry.geometry3d import Vector3D, Point3D, Face3D
 from honeybee.typing import clean_doe2_string
 from honeybee.room import Room
 
@@ -47,14 +47,22 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
     grouped_rooms, _ = Room.group_by_floor_height(rooms, FLOOR_LEVEL_TOL)
     for fi, room_group in enumerate(grouped_rooms):
         # then, group the rooms by contiguous horizontal boundary
-        try:
-            hor_bounds = Room.grouped_horizontal_boundary(
-                room_group, tolerance=model_tolerance, floors_only=True)
-            if len(hor_bounds) == 0:  # possible when Rooms have no floors
-                hor_bounds = Room.grouped_horizontal_boundary(
-                    room_group, tolerance=model_tolerance, floors_only=False)
-        except Exception:  # level geometry is overlapping or not clean
-            hor_bounds = []
+        floor_geos = []
+        for room in room_group:
+            if room.properties.doe2.space_polygon_geometry is not None:
+                floor_geos.append(room.properties.doe2.space_polygon_geometry)
+            try:
+                flr_geo = room.horizontal_floor_boundaries(tolerance=model_tolerance)
+                if len(flr_geo) == 0:  # possible when Rooms have no floors
+                    flr_geo = room.horizontal_boundary(tolerance=model_tolerance)
+                    floor_geos.append(flr_geo)
+                else:
+                    floor_geos.extend(flr_geo)
+            except Exception:  # level geometry is overlapping or not clean
+                pass
+
+        # join all of the floors into horizontal boundaries
+        hor_bounds = _grouped_floor_boundary(floor_geos, model_tolerance)
 
         # if we got lucky and everything is one contiguous polygon, we're done!
         if len(hor_bounds) == 0:  # we will write the story with NO-SHAPE
@@ -154,3 +162,60 @@ def group_rooms_by_doe2_hvac(model, hvac_mapping):
             hvac_names.append(clean_doe2_string(hvac_name, RES_CHARS))
 
     return room_groups, hvac_names
+
+
+def _grouped_floor_boundary(floor_geos, tolerance=0.01):
+    """Get a list of Face3D for the boundary around several horizontal Face3Ds.
+
+    Args:
+        floor_geos: A list of Honeybee Rooms for which the horizontal boundary will
+            be computed.
+        tolerance: The maximum difference between coordinate values of two
+            vertices at which they can be considered equivalent. (Default: 0.01,
+            suitable for objects in meters).
+    """
+    # remove colinear vertices and degenerate faces
+    clean_floor_geos = []
+    for geo in floor_geos:
+        try:
+            clean_floor_geos.append(geo.remove_colinear_vertices(tolerance))
+        except AssertionError:  # degenerate geometry to ignore
+            pass
+    if len(clean_floor_geos) == 0:
+        return []  # no Room boundary to be found
+
+    # convert the floor Face3Ds into counterclockwise Polygon2Ds
+    floor_polys, z_vals = [], []
+    for flr_geo in clean_floor_geos:
+        z_vals.append(flr_geo.min.z)
+        b_poly = Polygon2D([Point2D(pt.x, pt.y) for pt in flr_geo.boundary])
+        floor_polys.append(b_poly)
+        if flr_geo.has_holes:
+            for hole in flr_geo.holes:
+                h_poly = Polygon2D([Point2D(pt.x, pt.y) for pt in hole])
+                floor_polys.append(h_poly)
+    z_min = min(z_vals)
+
+    # find the joined intersected boundary
+    closed_polys = Polygon2D.joined_intersected_boundary(floor_polys, tolerance)
+
+    # remove colinear vertices from the resulting polygons
+    clean_polys = []
+    for poly in closed_polys:
+        try:
+            clean_polys.append(poly.remove_colinear_vertices(tolerance))
+        except AssertionError:
+            pass  # degenerate polygon to ignore
+
+    # figure out if polygons represent holes in the others and make Face3D
+    if len(clean_polys) == 0:
+        return []
+    elif len(clean_polys) == 1:  # can be represented with a single Face3D
+        pts3d = [Point3D(pt.x, pt.y, z_min) for pt in clean_polys[0]]
+        return [Face3D(pts3d)]
+    else:  # need to separate holes from distinct Face3Ds
+        bound_faces = []
+        for poly in clean_polys:
+            pts3d = tuple(Point3D(pt.x, pt.y, z_min) for pt in poly)
+            bound_faces.append(Face3D(pts3d))
+        return Face3D.merge_faces_to_holes(bound_faces, tolerance)

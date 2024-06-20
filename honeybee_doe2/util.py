@@ -69,7 +69,7 @@ def generate_inp_string_list_format(u_name, command, keywords, values):
     body_strs = []
     for kwd, s, val in zip(keywords, spc, values):
         if isinstance(val, (list, tuple)):
-            body_strs.append('   {}{}= ('.format(kwd, s, val))
+            body_strs.append('   {}{}= ('.format(kwd, s))
             for v in val:
                 body_strs.append('      {},'.format(v))
             body_strs.append('   )')
@@ -120,7 +120,7 @@ def parse_inp_string(inp_string):
 
         -   keywords: A list of text with the same length as the values that denote
             the attributes of the DOE-2 object.
-        
+
         -   values: A list of values with the same length as the keywords that describe
             the values of the attributes for the object.
     """
