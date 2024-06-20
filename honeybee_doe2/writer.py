@@ -599,6 +599,8 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
 
     # create the space definition
     if r_geo is None:   # the room volume is so bad that we have to use NO-SHAPE
+        msg = 'Using NO-SHAPE for SPACE "{}".'.format(room.display_name)
+        print(msg)
         space_origin = room.min
         origin = space_origin - floor_origin
         keywords = ['SHAPE', 'AZIMUTH', 'X', 'Y', 'Z', 'AREA', 'VOLUME']
@@ -835,6 +837,8 @@ def model_to_inp(
         sotry_f2f = max(rooms_f2c)
         median_room_f2c = sorted(rooms_f2c)[int(len(rooms_f2c) / 2)]
         if flr_geo is None:  # write the level wit NO-SHAPE
+            msg = 'Using NO-SHAPE for FLOOR "{}".'.format(flr_name)
+            print(msg)
             flr_origin, _ = bounding_box([room.min for room in flr_rooms])
             flr_area = sum(room.floor_area for room in flr_rooms)
             flr_volume = sum(room.volume for room in flr_rooms)
