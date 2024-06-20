@@ -250,7 +250,8 @@ class RoomDoe2Properties(object):
         if self.hmax_flow_ratio is not None:
             base['doe2']['hmax_flow_ratio'] = self.hmax_flow_ratio
         if self.space_polygon_geometry is not None:
-            base['doe2']['space_polygon_geometry'] = self.space_polygon_geometry
+            base['doe2']['space_polygon_geometry'] = \
+                self.space_polygon_geometry.to_dict()
         return base
 
     def to_inp(self):
