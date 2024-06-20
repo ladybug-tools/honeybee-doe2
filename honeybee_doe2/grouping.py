@@ -51,15 +51,16 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
         for room in room_group:
             if room.properties.doe2.space_polygon_geometry is not None:
                 floor_geos.append(room.properties.doe2.space_polygon_geometry)
-            try:
-                flr_geo = room.horizontal_floor_boundaries(tolerance=model_tolerance)
-                if len(flr_geo) == 0:  # possible when Rooms have no floors
-                    flr_geo = room.horizontal_boundary(tolerance=model_tolerance)
-                    floor_geos.append(flr_geo)
-                else:
-                    floor_geos.extend(flr_geo)
-            except Exception:  # level geometry is overlapping or not clean
-                pass
+            else:
+                try:
+                    flr_geo = room.horizontal_floor_boundaries(tolerance=model_tolerance)
+                    if len(flr_geo) == 0:  # possible when Rooms have no floors
+                        flr_geo = room.horizontal_boundary(tolerance=model_tolerance)
+                        floor_geos.append(flr_geo)
+                    else:
+                        floor_geos.extend(flr_geo)
+                except Exception:  # level geometry is overlapping or not clean
+                    pass
 
         # join all of the floors into horizontal boundaries
         hor_bounds = _grouped_floor_boundary(floor_geos, model_tolerance)
