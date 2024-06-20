@@ -47,7 +47,7 @@ def schedule_day_to_inp(day_schedule, type_limit=None):
     # setup a function to format list of values correctly
     def _format_day_values(values_to_format):
         if len(values_to_format) == 1:
-            return'({})'.format(round(values_to_format[0], 3))
+            return '({})'.format(round(values_to_format[0], 3))
         elif len(values_to_format) < 5:
             return str(tuple(round(v, 3) for v in values_to_format))
         else:  # we have to format it with multiple lines
@@ -105,7 +105,7 @@ def schedule_day_to_inp(day_schedule, type_limit=None):
 
 def schedule_ruleset_to_inp(schedule):
     """Convert a ScheduleRuleset into a WEEK-SCHEDULE-PD and SCHEDULE INP strings.
-    
+
     Note that this method only outputs SCHEDULE and WEEK-SCHEDULE objects
     However, to write the full schedule into an INP, the schedules's
     day_schedules must also be written.
@@ -287,7 +287,7 @@ def schedule_fixed_interval_to_inp(schedule):
 
         -   week_schedules: A list of WEEK-SCHEDULE text strings that are
             referenced in the year_schedule.
-        
+
         -   day_schedules: A list of DAY-SCHEDULE-PD text strings that are
             referenced in the week_schedules.
     """
@@ -334,9 +334,8 @@ def schedule_fixed_interval_to_inp(schedule):
     return year_schedule, week_schedules, day_schedules
 
 
-
-
 """____________TRANSLATORS FROM INP TO HONEYBEE____________"""
+
 
 def schedule_type_limit_from_inp(inp_type_string):
     """Get a honeybee-energy ScheduleTypeLimit for a given DOE-2 schedule type."""
@@ -412,7 +411,6 @@ def _inp_day_schedule_dictionary(day_inp_strings):
     return day_schedule_dict
 
 
-
 def extract_all_rules_from_inp_schedule_week(
         week_inp_string, day_schedule_dict, start_date=None, end_date=None):
     """Extract all ScheduleRule objects from an INP string of a WEEK-SCHEDULE-PD.
@@ -436,7 +434,7 @@ def extract_all_rules_from_inp_schedule_week(
             the WEEK-SCHEDULE-PD.
 
         -   holiday: Text for the name of the SCHEDULE-DAY for the Holiday.
-        
+
         -   winter_dd: Text for the name of the SCHEDULE-DAY for the Winter Design Day.
 
         -   summer_dd: Text for the name of the SCHEDULE-DAY for the Summer Design Day.
@@ -502,7 +500,7 @@ def _inp_week_schedule_dictionary(week_inp_strings, day_sch_dict):
 
 def _convert_schedule_year(year_inp_string, week_sch_dict, week_dd_dict):
     """Convert an INP string of a year SCHEDULE or SCHEDULE-PD to a ScheduleRuleset.
-    
+
     Args:
         year_inp_string: An INP text string describing a DOE-2 SCHEDULE or SCHEDULE-PD.
         week_sch_dict: A dictionary of ScheduleRules from _inp_week_schedule_dictionary.
@@ -524,7 +522,7 @@ def _convert_schedule_year(year_inp_string, week_sch_dict, week_dd_dict):
             month_vals = eval(field_dict['MONTH'], {})
             day_vals = eval(field_dict['DAY'], {})
             prev_month, prev_day = 1, 1
-            for month, day, week in zip(month_vals,day_vals, week_vals):
+            for month, day, week in zip(month_vals, day_vals, week_vals):
                 week_id = week.replace('"', '')
                 rules = week_sch_dict[week_id]
                 st_date = Date(int(prev_month), int(prev_day))
@@ -577,7 +575,7 @@ def _convert_schedule_year(year_inp_string, week_sch_dict, week_dd_dict):
 
 def schedule_ruleset_from_inp(year_inp_string, week_inp_strings, day_inp_strings):
     """Create a ScheduleRuleset from a DOE-2 INP text strings.
-    
+
     Args:
         year_inp_string: An INP text string describing a DOE-2 SCHEDULE or SCHEDULE-PD.
         week_inp_strings: A list of INP text strings for all of the WEEK-SCHEDULE-PD
@@ -625,7 +623,7 @@ def extract_all_schedule_ruleset_from_inp_file(inp_file):
     year_pattern2 = re.compile(r'(?i)(".*=.*SCHEDULE-PD\n[\s\S]*?\.\.)')
     year_sch_str = year_pattern1.findall(file_contents) + \
         year_pattern2.findall(file_contents)
-    
+
     # translate each SCHEDULE and check to be sure ScheduleDay objects are unique
     schedules = []
     for year_sch in year_sch_str:

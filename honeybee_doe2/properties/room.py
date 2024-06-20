@@ -1,5 +1,6 @@
 # coding=utf-8
 """Room DOE-2 Properties."""
+from ladybug_geometry.geometry3d import Face3D
 from honeybee.typing import float_in_range, float_positive
 from honeybee.altnumber import autocalculate
 
@@ -30,6 +31,12 @@ class RoomDoe2Properties(object):
             (or fixed) heating airflow to the cooling airflow. The specific
             meaning varies according to the type of zone terminal. If None, this
             parameter will not be written into the INP. (Default: None).
+        space_polygon_geometry: An optional horizontal Face3D object, which will
+            be used to set the SPACE polygon during export to INP. If None,
+            the SPACE polygon is auto-calculated from the 3D Room geometry.
+            Specifying a geometry here can help overcome some limitations of
+            this auto-calculation, particularly for cases where the floors
+            of the Room are composed of AirBoundaries. (Default: None).
 
     Properties:
         * host
@@ -38,14 +45,17 @@ class RoomDoe2Properties(object):
         * min_flow_ratio
         * min_flow_per_area
         * hmax_flow_ratio
+        * space_polygon_geometry
     """
     __slots__ = (
         '_host', '_assigned_flow', '_flow_per_area', '_min_flow_ratio',
-        '_min_flow_per_area', '_hmax_flow_ratio'
+        '_min_flow_per_area', '_hmax_flow_ratio', '_space_polygon_geometry'
     )
 
-    def __init__(self, host, assigned_flow=None, flow_per_area=None, min_flow_ratio=None,
-                 min_flow_per_area=None, hmax_flow_ratio=None):
+    def __init__(
+        self, host, assigned_flow=None, flow_per_area=None, min_flow_ratio=None,
+        min_flow_per_area=None, hmax_flow_ratio=None, space_polygon_geometry=None
+    ):
         """Initialize Room DOE-2 properties."""
         # set the main properties of the Room
         self._host = host
@@ -54,6 +64,7 @@ class RoomDoe2Properties(object):
         self.min_flow_ratio = min_flow_ratio
         self.min_flow_per_area = min_flow_per_area
         self.hmax_flow_ratio = hmax_flow_ratio
+        self.space_polygon_geometry = space_polygon_geometry
 
     @property
     def host(self):
@@ -118,6 +129,20 @@ class RoomDoe2Properties(object):
             value = float_in_range(value, 0.0, 1.0, 'zone heating max flow ratio')
         self._hmax_flow_ratio = value
 
+    @property
+    def space_polygon_geometry(self):
+        """Get or set a horizontal Face3D to set the space polygon geometry."""
+        return self._space_polygon_geometry
+
+    @space_polygon_geometry.setter
+    def space_polygon_geometry(self, value):
+        if value is not None:
+            assert isinstance(value, Face3D), \
+                'Expected ladybug_geometry Face3D. Got {}'.format(type(value))
+            if value.normal.z < 0:  # ensure upward-facing Face3D
+                self._floor_geometry = value.flip()
+        self._space_polygon_geometry = value
+
     @classmethod
     def from_dict(cls, data, host):
         """Create RoomDoe2Properties from a dictionary.
@@ -135,7 +160,8 @@ class RoomDoe2Properties(object):
             "flow_per_area": 1,  # number in cfm/ft2
             "min_flow_ratio": 0.3, # number between 0 and 1
             "min_flow_per_area": 0.3, # number in cfm/ft2
-            "hmax_flow_ratio": 0.3  # number between 0 and 1
+            "hmax_flow_ratio": 0.3,  # number between 0 and 1
+            "space_polygon_geometry": {}  # optional Face3D dictionary
             }
         """
         assert data['type'] == 'RoomDoe2Properties', \
@@ -152,6 +178,10 @@ class RoomDoe2Properties(object):
             new_prop.min_flow_per_area = data['min_flow_per_area']
         if 'hmax_flow_ratio' in data and data['hmax_flow_ratio'] != auto_dict:
             new_prop.hmax_flow_ratio = data['hmax_flow_ratio']
+        if 'space_polygon_geometry' in data and \
+                data['space_polygon_geometry'] is not None:
+            new_prop.space_polygon_geometry = \
+                Face3D.from_dict(data['space_polygon_geometry'])
         return new_prop
 
     def apply_properties_from_dict(self, data):
@@ -171,6 +201,10 @@ class RoomDoe2Properties(object):
             self.min_flow_per_area = data['min_flow_per_area']
         if 'hmax_flow_ratio' in data and data['hmax_flow_ratio'] != auto_dict:
             self.hmax_flow_ratio = data['hmax_flow_ratio']
+        if 'space_polygon_geometry' in data and \
+                data['space_polygon_geometry'] is not None:
+            self.space_polygon_geometry = \
+                Face3D.from_dict(data['space_polygon_geometry'])
 
     def apply_properties_from_user_data(self):
         """Apply properties from a the user_data assigned to the host room.
@@ -215,6 +249,8 @@ class RoomDoe2Properties(object):
             base['doe2']['min_flow_per_area'] = self.min_flow_per_area
         if self.hmax_flow_ratio is not None:
             base['doe2']['hmax_flow_ratio'] = self.hmax_flow_ratio
+        if self.space_polygon_geometry is not None:
+            base['doe2']['space_polygon_geometry'] = self.space_polygon_geometry
         return base
 
     def to_inp(self):
@@ -249,7 +285,7 @@ class RoomDoe2Properties(object):
         _host = new_host or self._host
         new_room = RoomDoe2Properties(
             _host, self.assigned_flow, self.flow_per_area, self.min_flow_ratio,
-            self.min_flow_per_area, self.hmax_flow_ratio)
+            self.min_flow_per_area, self.hmax_flow_ratio, self.space_polygon_geometry)
         return new_room
 
     def ToString(self):

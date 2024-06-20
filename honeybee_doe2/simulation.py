@@ -207,7 +207,7 @@ class SiteData(object):
         # create the INP string for the site
         keywords = ('ALTITUDE', 'C-STATE', 'C-WEATHER-FILE',
                     'C-COUNTRY', 'C-901-LOCATION')
-        values = (self.altitude, '21', '*TMY2\HARTFOCT.bin*', '1', '1092')
+        values = (self.altitude, '21', '*TMY2\\HARTFOCT.bin*', '1', '1092')
         site_str = generate_inp_string('Site Data', 'SITE-PARAMETERS', keywords, values)
         # create the INP string for the building data
         keywords, values = ('HOLIDAYS',), ('"Standard US Holidays"',)

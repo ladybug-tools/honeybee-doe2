@@ -554,10 +554,14 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
     face_locations = []
     is_extrusion, face_orientations = _is_room_3d_extruded(room)
     if is_extrusion:  # try to translate without using POLYGON for the Room faces
-        try:
-            r_geo = room.horizontal_boundary(match_walls=True, tolerance=DOE2_TOLERANCE)
-        except Exception:  # we may need to write it with NO-SHAPE
-            r_geo = None
+        if room.properties.doe2.space_polygon_geometry is not None:
+            r_geo = room.properties.doe2.space_polygon_geometry
+        else:
+            try:
+                r_geo = room.horizontal_boundary(
+                    match_walls=True, tolerance=DOE2_TOLERANCE)
+            except Exception:  # we may need to write it with NO-SHAPE
+                r_geo = None
         if r_geo is not None:
             r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
             r_geo = r_geo.remove_duplicate_vertices(DOE2_TOLERANCE)
@@ -589,16 +593,20 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
 
     # if the room is not extruded, just use the generic horizontal boundary
     if len(face_locations) == 0:
-        try:
-            r_geo = room.horizontal_boundary(match_walls=False, tolerance=DOE2_TOLERANCE)
-            r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
-            r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
-        except Exception:  # we may need to write it with NO-SHAPE
-            r_geo = None
+        if room.properties.doe2.space_polygon_geometry is not None:
+            r_geo = room.properties.doe2.space_polygon_geometry
+        else:
+            try:
+                r_geo = room.horizontal_boundary(
+                    match_walls=False, tolerance=DOE2_TOLERANCE)
+                r_geo = r_geo if r_geo.normal.z >= 0 else r_geo.flip()
+                r_geo = r_geo.remove_colinear_vertices(tolerance=DOE2_TOLERANCE)
+            except Exception:  # we may need to write it with NO-SHAPE
+                r_geo = None
         face_locations = [None] * len(room.faces)
 
     # create the space definition
-    if r_geo is None:   # the room volume is so bad that we have to use NO-SHAPE
+    if r_geo is None:   # we have to use NO-SHAPE
         msg = 'Using NO-SHAPE for SPACE "{}".'.format(room.display_name)
         print(msg)
         space_origin = room.min
