@@ -776,10 +776,11 @@ def model_to_inp(
             # check that day schedules aren't referenced by other model schedules
             day_scheds = []
             for day in sched.day_schedules:
-                if day.identifier not in used_day_sched_ids:
+                sch_doe2_id = clean_doe2_string(day.identifier, RES_CHARS)
+                if sch_doe2_id not in used_day_sched_ids:
                     day_scheds.append(day.to_inp(sched.schedule_type_limit))
-                    used_day_sched_ids[day.identifier] = day
-                elif day != used_day_sched_ids[day.identifier]:
+                    used_day_sched_ids[sch_doe2_id] = day
+                elif day != used_day_sched_ids[sch_doe2_id]:
                     new_day = day.duplicate()
                     new_day.identifier = 'Schedule Day {}'.format(used_day_count)
                     day_scheds.append(new_day.to_inp(sched.schedule_type_limit))
