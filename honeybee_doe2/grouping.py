@@ -140,7 +140,7 @@ def group_rooms_by_doe2_hvac(model, hvac_mapping):
         hvac_name = clean_doe2_string('{}_Sys'.format(model.display_name), RES_CHARS)
         return [model.rooms], [hvac_name]
     elif hvac_mapping == 'ROOM':
-        hvac_names = [clean_doe2_string('{}_Sys'.format(room.display_name), RES_CHARS)
+        hvac_names = [clean_doe2_string('{}_Sys'.format(room.identifier), RES_CHARS)
                       for room in model.rooms]
         room_groups = [[room] for room in model.rooms]
     else:  # assume that it is the assigned HVAC
@@ -157,10 +157,16 @@ def group_rooms_by_doe2_hvac(model, hvac_mapping):
                     hvac_dict['Unassigned'].append(room)
                 except KeyError:  # the first time that we have an unassigned room
                     hvac_dict['Unassigned'] = [room]
-        room_groups, hvac_names = [], []
+        room_groups, hvac_names, existing_dict = [], [], {}
         for hvac_name, rooms in hvac_dict.items():
             room_groups.append(rooms)
-            hvac_names.append(clean_doe2_string(hvac_name, RES_CHARS))
+            hvac_doe2_name = clean_doe2_string(hvac_name, RES_CHARS - 2)
+            if hvac_doe2_name in existing_dict:
+                existing_dict[hvac_doe2_name] += 1
+                hvac_names.append(hvac_doe2_name + str(existing_dict[hvac_doe2_name]))
+            else:
+                existing_dict[hvac_doe2_name] = 1
+                hvac_names.append(hvac_doe2_name)
 
     return room_groups, hvac_names
 

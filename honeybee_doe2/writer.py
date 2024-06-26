@@ -585,7 +585,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
                     else:  # not a rectangular geometry
                         face_locations.append(None)
                 elif orient == 1:
-                    loc = 'TOP' if ceil_count == 1 else None
+                    loc = 'TOP' if ceil_count == 1 and not r_geo.has_holes else None
                     face_locations.append(loc)
                 else:
                     loc = 'BOTTOM' if floor_count == 1 else None
