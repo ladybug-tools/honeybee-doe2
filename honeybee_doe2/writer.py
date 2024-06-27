@@ -7,7 +7,7 @@ import math
 from ladybug_geometry.geometry2d import Vector2D, Point2D
 from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
 from ladybug_geometry.bounding import bounding_box
-from honeybee.typing import clean_doe2_string
+from honeybee.typing import clean_doe2_string, clean_string
 from honeybee.boundarycondition import Surface
 from honeybee.facetype import Wall, Floor, RoofCeiling
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
@@ -745,17 +745,23 @@ def model_to_inp(
     )
     # reset identifiers to valid DOE-2 U-Names that are derived from the display names
     for room in model.rooms:
-        room.display_name = clean_doe2_string(room.display_name, GEO_CHARS - 2)
+        base_name = clean_doe2_string(room.display_name, GEO_CHARS - 2)
+        room.display_name = clean_string(base_name)
         for face in room.faces:
-            face.display_name = clean_doe2_string(face.display_name, GEO_CHARS - 2)
+            base_name = clean_doe2_string(face.display_name, GEO_CHARS - 2)
+            face.display_name = clean_string(base_name)
             for ap in face.apertures:
-                ap.display_name = clean_doe2_string(ap.display_name, GEO_CHARS - 2)
+                base_name = clean_doe2_string(ap.display_name, GEO_CHARS - 2)
+                ap.display_name = clean_string(base_name)
             for dr in face.doors:
-                dr.display_name = clean_doe2_string(dr.display_name, GEO_CHARS - 2)
+                base_name = clean_doe2_string(dr.display_name, GEO_CHARS - 2)
+                dr.display_name = clean_string(base_name)
     for shade in model.shades:
-        shade.display_name = clean_doe2_string(shade.display_name, GEO_CHARS - 2)
+        base_name = clean_doe2_string(shade.display_name, GEO_CHARS - 2)
+        shade.display_name = clean_string(base_name)
     for shd_mesh in model.shade_meshes:
-        shd_mesh.display_name = clean_doe2_string(shd_mesh.display_name, GEO_CHARS - 2)
+        base_name = clean_doe2_string(shd_mesh.display_name, GEO_CHARS - 2)
+        shd_mesh.display_name = clean_string(base_name)
     model.reset_ids()
     # assign any doe2 properties previously supported through user_data
     for room in model.rooms:
