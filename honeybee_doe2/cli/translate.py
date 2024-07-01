@@ -1,7 +1,6 @@
 """honeybee-doe2 translation commands."""
 import click
 import sys
-import os
 import json
 import logging
 
@@ -48,12 +47,17 @@ def translate():
     'note whether interior ceilings should be excluded from the export.',
     default=True, show_default=True)
 @click.option(
+    '--equest-version', '-eq', help='optional text string to denote the version '
+    'of eQuest for which the INP definition will be generated. If unspecified '
+    'or unrecognized, the latest version of eQuest will be used.',
+    default='3.65', show_default=True, type=str)
+@click.option(
     '--output-file', '-o', help='Optional INP file path to output the INP string '
     'of the translation. By default this will be printed out to stdout.',
     type=click.File('w'), default='-', show_default=True)
 def model_to_inp_file(
     model_file, sim_par_json, hvac_mapping, include_interior_walls,
-    include_interior_ceilings, output_file
+    include_interior_ceilings, equest_version, output_file
 ):
     """Translate a Model (HBJSON) file to an INP file.
 
@@ -74,7 +78,8 @@ def model_to_inp_file(
         x_int_c = not include_interior_ceilings
 
         # create the strings for the model
-        inp_str = model.to.inp(model, sim_par, hvac_mapping, x_int_w, x_int_c)
+        inp_str = model.to.inp(model, sim_par, hvac_mapping, x_int_w, x_int_c,
+                               equest_version)
 
         # write out the INP file
         output_file.write(inp_str)
