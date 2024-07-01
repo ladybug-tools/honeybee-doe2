@@ -5,7 +5,7 @@ import os
 import math
 
 from ladybug_geometry.geometry2d import Vector2D, Point2D
-from ladybug_geometry.geometry3d import Vector3D, Point3D, Plane, Face3D
+from ladybug_geometry.geometry3d import Vector3D, Point3D, LineSegment3D, Plane, Face3D
 from ladybug_geometry.bounding import bounding_box
 from honeybee.typing import clean_doe2_string, clean_string
 from honeybee.boundarycondition import Surface
@@ -144,12 +144,15 @@ def face_3d_to_inp_rectangle(face_3d):
     return None
 
 
-def shade_mesh_to_inp(shade_mesh):
+def shade_mesh_to_inp(shade_mesh, equest_version=None):
     """Generate an INP string representation of a ShadeMesh.
 
     Args:
         shade_mesh: A honeybee ShadeMesh for which an INP representation
             will be returned.
+        equest_version: An optional text string to denote the version of eQuest
+            for which the Shade INP definition will be generated. If unspecified
+            or unrecognized, the latest version of eQuest will be used.
 
     Returns:
         A tuple with two elements.
@@ -180,7 +183,24 @@ def shade_mesh_to_inp(shade_mesh):
         shd_geo = f_geo if f_geo.altitude > 0 else f_geo.flip()
         clean_geo = shd_geo.remove_colinear_vertices(DOE2_TOLERANCE)
         rect_info = face_3d_to_inp_rectangle(clean_geo)
-        if rect_info is not None:  # shade is a rectangle; translate it without POLYGON
+        if equest_version == '3.64':
+            shade_polygon = ''
+            if rect_info is not None:
+                width, height, origin, tilt, az = rect_info
+            else:  # take the bounding rectangle around the Face3D
+                min_pt, max_pt = clean_geo.min, clean_geo.max
+                f_tilt = math.degrees(clean_geo.tilt)
+                if 90 - DOE2_ANGLE_TOL <= f_tilt <= 90 + DOE2_ANGLE_TOL:  # vertical
+                    seg_dir = Vector3D(max_pt.x - min_pt.x, max_pt.y - min_pt.y, 0)
+                    seg = LineSegment3D(min_pt, seg_dir)
+                    ext_dir = Vector3D(0, 0, max_pt.z - min_pt.z)
+                else:  # horizontal or tilted
+                    seg = LineSegment3D(min_pt, Vector3D(max_pt.x - min_pt.x, 0, 0))
+                    ext_dir = Vector3D(0, max_pt.y - min_pt.y, max_pt.z - min_pt.z)
+                rect_geo = Face3D.from_extrusion(seg, ext_dir)
+                width, height, origin, tilt, az = face_3d_to_inp_rectangle(rect_geo)
+            geo_kwd, geo_vals = ['HEIGHT', 'WIDTH'], [height, width]
+        elif rect_info is not None:  # shade is a rectangle; translate it without POLYGON
             width, height, origin, tilt, az = rect_info
             geo_kwd = ['SHAPE', 'HEIGHT', 'WIDTH']
             geo_vals = ['RECTANGLE', height, width]
@@ -202,11 +222,14 @@ def shade_mesh_to_inp(shade_mesh):
     return shade_polygons, shade_defs
 
 
-def shade_to_inp(shade):
+def shade_to_inp(shade, equest_version=None):
     """Generate an INP string representation of a Shade.
 
     Args:
         shade: A honeybee Shade for which an INP representation will be returned.
+        equest_version: An optional text string to denote the version of eQuest
+            for which the Shade INP definition will be generated. If unspecified
+            or unrecognized, the latest version of eQuest will be used.
 
     Returns:
         A tuple with two elements.
@@ -229,7 +252,24 @@ def shade_to_inp(shade):
     shd_geo = shade.geometry if shade.altitude > 0 else shade.geometry.flip()
     clean_geo = shd_geo.remove_colinear_vertices(DOE2_TOLERANCE)
     rect_info = face_3d_to_inp_rectangle(clean_geo)
-    if rect_info is not None:  # shade is a rectangle; translate it without POLYGON
+    if equest_version == '3.64':
+        shade_polygon = ''
+        if rect_info is not None:
+            width, height, origin, tilt, az = rect_info
+        else:  # take the bounding rectangle around the Face3D
+            min_pt, max_pt = clean_geo.min, clean_geo.max
+            f_tilt = math.degrees(clean_geo.tilt)
+            if 90 - DOE2_ANGLE_TOL <= f_tilt <= 90 + DOE2_ANGLE_TOL:  # vertical
+                seg_dir = Vector3D(max_pt.x - min_pt.x, max_pt.y - min_pt.y, 0)
+                seg = LineSegment3D(min_pt, seg_dir)
+                ext_dir = Vector3D(0, 0, max_pt.z - min_pt.z)
+            else:  # horizontal or tilted
+                seg = LineSegment3D(min_pt, Vector3D(max_pt.x - min_pt.x, 0, 0))
+                ext_dir = Vector3D(0, max_pt.y - min_pt.y, max_pt.z - min_pt.z)
+            rect_geo = Face3D.from_extrusion(seg, ext_dir)
+            width, height, origin, tilt, az = face_3d_to_inp_rectangle(rect_geo)
+        geo_kwd, geo_vals = ['HEIGHT', 'WIDTH'], [height, width]
+    elif rect_info is not None:  # shade is a rectangle; translate it without POLYGON
         width, height, origin, tilt, az = rect_info
         geo_kwd = ['SHAPE', 'HEIGHT', 'WIDTH']
         geo_vals = ['RECTANGLE', height, width]
@@ -669,7 +709,7 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
 
 def model_to_inp(
     model, simulation_par=None, hvac_mapping='Story',
-    exclude_interior_walls=False, exclude_interior_ceilings=False
+    exclude_interior_walls=False, exclude_interior_ceilings=False, equest_version=None
 ):
     """Generate an INP string representation of a Model.
 
@@ -701,6 +741,9 @@ def model_to_inp(
             should be excluded from the resulting string. (Default: False).
         exclude_interior_ceilings: Boolean to note whether interior ceiling
             Faces should be excluded from the resulting string. (Default: False).
+        equest_version: An optional text string to denote the version of eQuest
+            for which the INP definition will be generated. If unspecified
+            or unrecognized, the latest version of eQuest will be used.
 
     Usage:
 
@@ -885,12 +928,12 @@ def model_to_inp(
     # loop through the shades and get their definitions and polygons
     shade_polygons, shade_geo_defs = [], []
     for shade in model.shades:
-        shade_polygon, shade_def = shade_to_inp(shade)
+        shade_polygon, shade_def = shade_to_inp(shade, equest_version)
         if shade_polygon != '':  # shade written with a RECTANGLE
             shade_polygons.append(shade_polygon)
         shade_geo_defs.append(shade_def)
     for shade in model.shade_meshes:
-        shade_polygon, shade_def = shade_mesh_to_inp(shade)
+        shade_polygon, shade_def = shade_mesh_to_inp(shade, equest_version)
         shade_polygons.extend(shade_polygon)
         shade_geo_defs.extend(shade_def)
 
