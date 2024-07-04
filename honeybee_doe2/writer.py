@@ -894,27 +894,34 @@ def model_to_inp(
         rooms_f2c = [room.max.z - room.min.z for room in flr_rooms]
         sotry_f2f = max(rooms_f2c)
         median_room_f2c = sorted(rooms_f2c)[int(len(rooms_f2c) / 2)]
-        if flr_geo is None:  # write the level wit NO-SHAPE
+        if flr_geo is None:  # write the level with NO-SHAPE
             msg = 'Using NO-SHAPE for FLOOR "{}".'.format(flr_name)
             print(msg)
             flr_origin, _ = bounding_box([room.min for room in flr_rooms])
             flr_area = sum(room.floor_area for room in flr_rooms)
             flr_volume = sum(room.volume for room in flr_rooms)
-            flr_keys = ('SHAPE', 'AREA', 'VOLUME', 'AZIMUTH', 'X', 'Y', 'Z',
-                        'SPACE-HEIGHT', 'FLOOR-HEIGHT')
-            flr_vals = ('NO-SHAPE', round(flr_area, GEO_DEC_COUNT),
+            flr_keys = ['SHAPE', 'AREA', 'VOLUME', 'AZIMUTH', 'X', 'Y', 'Z',
+                        'SPACE-HEIGHT', 'FLOOR-HEIGHT']
+            flr_vals = ['NO-SHAPE', round(flr_area, GEO_DEC_COUNT),
                         round(flr_volume, GEO_DEC_COUNT), 0,
                         flr_origin.x, flr_origin.y, flr_origin.z,
-                        round(median_room_f2c, 3), round(sotry_f2f, 3))
+                        round(median_room_f2c, 3), round(sotry_f2f, 3)]
         else:  # write the level with a POLYGON
             flr_polygon, pos_info = face_3d_to_inp(flr_geo, flr_name)
             flr_origin, _, _ = pos_info
-            flr_keys = ('SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z',
-                        'SPACE-HEIGHT', 'FLOOR-HEIGHT')
-            flr_vals = ('POLYGON', '"{} Plg"'.format(flr_name), 0,
+            flr_keys = ['SHAPE', 'POLYGON', 'AZIMUTH', 'X', 'Y', 'Z',
+                        'SPACE-HEIGHT', 'FLOOR-HEIGHT']
+            flr_vals = ['POLYGON', '"{} Plg"'.format(flr_name), 0,
                         flr_origin.x, flr_origin.y, flr_origin.z,
-                        round(median_room_f2c, 3), round(sotry_f2f, 3))
+                        round(median_room_f2c, 3), round(sotry_f2f, 3)]
             bldg_polygons.append(flr_polygon)
+        r_mult = flr_rooms[0].multiplier
+        if r_mult != 1 and all(room.multiplier == r_mult for room in flr_rooms):
+            # set the multiplier for the entire story instead of room-by-room
+            flr_keys.append('MULTIPLIER')
+            flr_vals.append(r_mult)
+            for room in flr_rooms:
+                room.multiplier = 1
         flr_def = generate_inp_string(flr_name, 'FLOOR', flr_keys, flr_vals)
         bldg_geo_defs.append(flr_def)
         # add the room and face definitions + polygons
