@@ -23,7 +23,7 @@ def schedule_type_limit_to_inp(type_limit):
     """Get the DOE-2 type for a honeybee-energy ScheduleTypeLimit."""
     if type_limit is None:
         return 'FRACTION'
-    elif type_limit  == 'Multiplier':
+    elif type_limit.display_name  == 'Multiplier':
         return "MULTIPLIER"
     elif type_limit.unit_type == 'Temperature':
         return 'TEMPERATURE'
