@@ -1,5 +1,7 @@
 # coding=utf-8
 """Room DOE-2 Properties."""
+import math
+
 from ladybug_geometry.geometry3d import Face3D
 from honeybee.typing import float_in_range, float_positive
 from honeybee.altnumber import autocalculate
@@ -142,6 +144,63 @@ class RoomDoe2Properties(object):
             if value.normal.z < 0:  # ensure upward-facing Face3D
                 self._floor_geometry = value.flip()
         self._space_polygon_geometry = value
+
+    def move(self, moving_vec):
+        """Move this object along a vector.
+
+        Args:
+            moving_vec: A ladybug_geometry Vector3D with the direction and distance
+                to move the object.
+        """
+        if self.space_polygon_geometry is not None:
+            self._space_polygon_geometry = self.space_polygon_geometry.move(moving_vec)
+
+    def rotate(self, angle, axis, origin):
+        """Rotate this object by a certain angle around an axis and origin.
+
+        Args:
+            angle: An angle for rotation in degrees.
+            axis: Rotation axis as a Vector3D.
+            origin: A ladybug_geometry Point3D for the origin around which the
+                object will be rotated.
+        """
+        if self.space_polygon_geometry is not None:
+            self._space_polygon_geometry = \
+                self.space_polygon_geometry.rotate(math.radians(angle), axis, origin)
+
+    def rotate_xy(self, angle, origin):
+        """Rotate this object counterclockwise in the world XY plane by a certain angle.
+
+        Args:
+            angle: An angle in degrees.
+            origin: A ladybug_geometry Point3D for the origin around which the
+                object will be rotated.
+        """
+        if self.space_polygon_geometry is not None:
+            self._space_polygon_geometry = \
+                self.space_polygon_geometry.rotate_xy(math.radians(angle), origin)
+
+    def reflect(self, plane):
+        """Reflect this object across a plane.
+
+        Args:
+            plane: A ladybug_geometry Plane across which the object will
+                be reflected.
+        """
+        if self.space_polygon_geometry is not None:
+            self._space_polygon_geometry = self.space_polygon_geometry.reflect(plane)
+
+    def scale(self, factor, origin=None):
+        """Scale this object by a factor from an origin point.
+
+        Args:
+            factor: A number representing how much the object should be scaled.
+            origin: A ladybug_geometry Point3D representing the origin from which
+                to scale. If None, it will be scaled from the World origin (0, 0, 0).
+        """
+        if self.space_polygon_geometry is not None:
+            self._space_polygon_geometry = \
+                self.space_polygon_geometry.scale(factor, origin)
 
     @classmethod
     def from_dict(cls, data, host):
