@@ -4,8 +4,8 @@ import os
 from click.testing import CliRunner
 
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
-from honeybee_doe2.cli.translate import model_to_inp_file, schedule_from_inp, \
-    schedule_to_inp
+from honeybee_doe2.cli.translate import model_to_inp_cli, schedule_from_inp_cli, \
+    schedule_to_inp_cli
 
 
 def test_model_to_inp_cli():
@@ -19,7 +19,7 @@ def test_model_to_inp_cli():
         input_hb_model, '--hvac-mapping', hvac_mapping,
         '--exclude-interior-walls',  '--exclude-interior-ceilings',
         '--output-file', out_file]
-    result = runner.invoke(model_to_inp_file, in_args)
+    result = runner.invoke(model_to_inp_cli, in_args)
 
     assert result.exit_code == 0
     assert os.path.isfile(out_file)
@@ -30,7 +30,7 @@ def test_schedule_to_from_inp():
     runner = CliRunner()
     input_hb_sch = './tests/assets/Schedules.inp'
 
-    result = runner.invoke(schedule_from_inp, [input_hb_sch, '--list'])
+    result = runner.invoke(schedule_from_inp_cli, [input_hb_sch, '--array'])
     assert result.exit_code == 0
     result_dict = json.loads(result.output)
     schedules = [ScheduleRuleset.from_dict(sch) for sch in result_dict]
@@ -38,11 +38,11 @@ def test_schedule_to_from_inp():
 
     output_hb_json = './tests/assets/schedules.json'
     result = runner.invoke(
-        schedule_from_inp, [input_hb_sch, '--output-file', output_hb_json])
+        schedule_from_inp_cli, [input_hb_sch, '--output-file', output_hb_json])
     assert result.exit_code == 0
     assert os.path.isfile(output_hb_json)
 
-    result = runner.invoke(schedule_to_inp, [output_hb_json])
+    result = runner.invoke(schedule_to_inp_cli, [output_hb_json])
     assert result.exit_code == 0
 
     os.remove(output_hb_json)
