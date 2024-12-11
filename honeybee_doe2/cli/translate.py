@@ -1,10 +1,10 @@
 """honeybee-doe2 translation commands."""
 import sys
-import os
 import json
 import logging
 import click
 
+from ladybug.commandutil import process_content_to_output
 from honeybee.typing import clean_doe2_string
 from honeybee.model import Model
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
@@ -128,7 +128,7 @@ def model_to_inp(
         exclude_interior_walls, exclude_interior_ceilings, equest_version)
 
     # write out the INP file
-    return _process_content_to_output(inp_str, output_file)
+    return process_content_to_output(inp_str, output_file)
 
 
 @translate.command('schedules-to-inp')
@@ -215,7 +215,7 @@ def schedule_to_inp(schedule_json, output_file=None):
     inp_str = '\n'.join(inp_str_list)
 
     # write out the INP file
-    return _process_content_to_output(inp_str, output_file)
+    return process_content_to_output(inp_str, output_file)
 
 
 @translate.command('schedules-from-inp')
@@ -272,20 +272,4 @@ def schedule_from_inp(schedule_inp, array=False, output_file=None, dictionary=Tr
         hb_objs = {sch.identifier: sch.to_dict() for sch in schedules}
     # write out the JSON file
     content_str = json.dumps(hb_objs)
-    return _process_content_to_output(content_str, output_file)
-
-
-def _process_content_to_output(content_str, output_file):
-    """Process content strings for various types of output_files."""
-    if output_file is None:
-        return content_str
-    elif isinstance(output_file, str):
-        if not os.path.isdir(os.path.dirname(output_file)):
-            os.makedirs(os.path.dirname(output_file))
-        with open(output_file, 'w') as of:
-            of.write(content_str)
-    else:
-        if 'stdout' not in str(output_file):
-            if not os.path.isdir(os.path.dirname(output_file.name)):
-                os.makedirs(os.path.dirname(output_file.name))
-        output_file.write(content_str)
+    return process_content_to_output(content_str, output_file)
