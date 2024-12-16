@@ -1,7 +1,7 @@
 Welcome to honeybee-doe2's documentation!
 ===================================
 
-Honeybee extension for import and export to/from IES-VE
+Honeybee extension for import and export to/from eQuest/DOE-2
 
 
 Installation
