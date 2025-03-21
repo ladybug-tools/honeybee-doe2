@@ -22,7 +22,6 @@ def test_from_dict():
 
     model = Model('Tiny_House', [room])
 
-
     model_dict = model.to_dict()
     new_model = Model.from_dict(model_dict)
     assert new_model.to_dict() == model_dict
