@@ -781,6 +781,10 @@ def model_to_inp(
         error = 'Failed to remove degenerate Rooms.\nYour Model units system is: {}. ' \
             'Is this correct?'.format(original_model.units)
         raise ValueError(error)
+    # remove interior sub-faces as they cannot be placed in INP extrusion walls
+    for face in model.faces:
+        if isinstance(face.boundary_condition, Surface) and face.has_sub_faces:
+            face.remove_sub_faces()
     # convert all of the Aperture geometries to rectangles so they can be translated
     model.rectangularize_apertures(
         subdivision_distance=RECT_WIN_SUBD, max_separation=0.0,
