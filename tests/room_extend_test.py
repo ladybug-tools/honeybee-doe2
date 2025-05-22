@@ -54,7 +54,7 @@ def test_duplicate():
         room_dup_1.properties.doe2.min_flow_per_area
     assert room_original.properties.doe2.hmax_flow_ratio == \
         room_dup_1.properties.doe2.hmax_flow_ratio
-    
+
     room_original.properties.doe2.assigned_flow = 100
     room_original.properties.doe2.flow_per_area = 1
     room_original.properties.doe2.min_flow_ratio = 0.3
@@ -110,7 +110,6 @@ def test_from_dict():
     rd = room.to_dict()
     new_room = Room.from_dict(rd)
     assert new_room.to_dict() == rd
-
 
 
 def test_to_inp():

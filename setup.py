@@ -29,7 +29,6 @@ setuptools.setup(
         "console_scripts": ["honeybee-doe2 = honeybee_doe2.cli:doe2"]
     },
     classifiers=[
-        "Programming Language :: IronPython :: 2.7",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.12",
