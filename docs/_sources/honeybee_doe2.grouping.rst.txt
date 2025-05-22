@@ -1,0 +1,7 @@
+honeybee\_doe2.grouping module
+==============================
+
+.. automodule:: honeybee_doe2.grouping
+   :members:
+   :undoc-members:
+   :show-inheritance:
