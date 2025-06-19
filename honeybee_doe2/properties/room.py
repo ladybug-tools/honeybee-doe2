@@ -202,6 +202,59 @@ class RoomDoe2Properties(object):
             self._space_polygon_geometry = \
                 self.space_polygon_geometry.scale(factor, origin)
 
+    def check_no_holes(self, raise_exception=True, detailed=False):
+        """Check whether the Room's geometry has holes.
+
+        EQuest currently has no way to represent such rooms so, if the issue
+        is not addressed, the hole will simply be removed as part of the
+        process of exporting to an INP file.
+
+        Args:
+            raise_exception: If True, a ValueError will be raised if the Room
+                floor plate has one or more holes. (Default: True).
+            detailed: Boolean for whether the returned object is a detailed list of
+                dicts with error info or a string with a message. (Default: False).
+
+        Returns:
+            A string with the message or a list with a dictionary if detailed is True.
+        """
+        # check the room floor plate for holes
+        msg = None
+        spg = self.space_polygon_geometry
+        if spg is not None and spg.has_holes:
+            hole_count = len(spg.holes)
+            hole_msg = 'a hole' if hole_count == 1 else '{} holes'.format(hole_count)
+            msg = 'Room "{}" has a floor plate with {}, which the eQuest interface ' \
+                'cannot represent.'.format(self.host.display_name, hole_msg)
+
+        # check the room faces for holes
+        hole_count = 0
+        for face in self.host.faces:
+            if face.geometry.has_holes:
+                hole_count += len(face.geometry.holes)
+        if hole_count != 0:
+            if hole_count == 1:
+                f_msg, hole_msg = 'a face', 'a hole'
+            else:
+                f_msg, hole_msg = 'faces', '{} total holes'.format(hole_count)
+            g_msg = 'Room "{}" has {} with {}, which the eQuest interface ' \
+                'cannot represent.'.format(self.host.display_name, f_msg, hole_msg)
+            msg = g_msg if msg is None else '{}\n{}'.format(msg, g_msg)
+
+        # report the error if holes were found
+        if msg is not None:
+            if raise_exception:
+                raise ValueError(msg)
+            full_msg = self.host._validation_message_child(
+                msg, self.host, detailed, '030102', extension='DOE2',
+                error_type='Room Contains Holes')
+            if detailed:
+                return [full_msg]
+            if raise_exception:
+                raise ValueError(full_msg)
+            return full_msg
+        return [] if detailed else ''
+
     @classmethod
     def from_dict(cls, data, host):
         """Create RoomDoe2Properties from a dictionary.

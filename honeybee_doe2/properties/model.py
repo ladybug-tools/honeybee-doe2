@@ -67,19 +67,10 @@ class ModelDoe2Properties(object):
         msgs.append(self.host.check_all_air_boundaries_adjacent(False, detailed))
 
         # perform checks that are specific to DOE-2
-        # perform checks for duplicate identifiers
         e_prop = self.host.properties.energy
-        msgs.append(e_prop.check_duplicate_material_identifiers(False, detailed))
-        msgs.append(e_prop.check_duplicate_construction_identifiers(False, detailed))
-        msgs.append(e_prop.check_duplicate_construction_set_identifiers(False, detailed))
-        msgs.append(
-            e_prop.check_duplicate_schedule_type_limit_identifiers(False, detailed))
-        msgs.append(e_prop.check_duplicate_schedule_identifiers(False, detailed))
-        msgs.append(e_prop.check_duplicate_program_type_identifiers(False, detailed))
-        msgs.append(e_prop.check_duplicate_hvac_identifiers(False, detailed))
-        msgs.append(e_prop.check_duplicate_shw_identifiers(False, detailed))
-        # perform checks for specific energy simulation rules
         msgs.append(e_prop.check_interior_constructions_reversed(False, detailed))
+        msgs.append(self.check_no_room_holes(False, detailed))
+        # TODO: Add checks for the number of room face vertices and courtyards
 
         # output a final report of errors or raise an exception
         full_msgs = [msg for msg in msgs if msg]
@@ -87,6 +78,96 @@ class ModelDoe2Properties(object):
             return [m for msg in full_msgs for m in msg]
         full_msg = '\n'.join(full_msgs)
         if raise_exception and len(full_msgs) != 0:
+            raise ValueError(full_msg)
+        return full_msg
+
+    def check_generic(self, raise_exception=True, detailed=False):
+        """Check generic of the aspects of the Model DOE-2 properties.
+
+        This includes checks for everything except holes in floor plates and
+        courtyard stories.
+
+        Args:
+            raise_exception: Boolean to note whether a ValueError should be raised
+                if any errors are found. If False, this method will simply
+                return a text string with all errors that were found.
+            detailed: Boolean for whether the returned object is a detailed list of
+                dicts with error info or a string with a message. (Default: False).
+
+        Returns:
+            A text string with all errors that were found or a list if detailed is True.
+            This string (or list) will be empty if no errors were found.
+        """
+        # set up defaults to ensure the method runs correctly
+        detailed = False if raise_exception else detailed
+        msgs = []
+        # perform checks for specific doe-2 simulation rules
+        # TODO: Add checks for the number of room face vertices
+        # output a final report of errors or raise an exception
+        full_msgs = [msg for msg in msgs if msg]
+        if detailed:
+            return [m for msg in full_msgs for m in msg]
+        full_msg = '\n'.join(full_msgs)
+        if raise_exception and len(full_msgs) != 0:
+            raise ValueError(full_msg)
+        return full_msg
+
+    def check_all(self, raise_exception=True, detailed=False):
+        """Check all of the aspects of the Model DOE-2 properties.
+
+        Args:
+            raise_exception: Boolean to note whether a ValueError should be raised
+                if any errors are found. If False, this method will simply
+                return a text string with all errors that were found.
+            detailed: Boolean for whether the returned object is a detailed list of
+                dicts with error info or a string with a message. (Default: False).
+
+        Returns:
+            A text string with all errors that were found or a list if detailed is True.
+            This string (or list) will be empty if no errors were found.
+        """
+        # set up defaults to ensure the method runs correctly
+        detailed = False if raise_exception else detailed
+        msgs = []
+        # perform checks for specific doe-2 simulation rules
+        # TODO: Add checks for the number of room face vertices and courtyards
+        # output a final report of errors or raise an exception
+        full_msgs = [msg for msg in msgs if msg]
+        if detailed:
+            return [m for msg in full_msgs for m in msg]
+        full_msg = '\n'.join(full_msgs)
+        if raise_exception and len(full_msgs) != 0:
+            raise ValueError(full_msg)
+        return full_msg
+
+    def check_no_room_holes(self, raise_exception=True, detailed=False):
+        """Check whether any Room has geometry with holes.
+
+        EQuest currently has no way to represent such geometry so, if the issue
+        is not addressed, the hole will simply be removed as part of the
+        process of exporting to an INP file.
+
+        Args:
+            raise_exception: If True, a ValueError will be raised if the Room2D
+                floor plate has one or more holes. (Default: True).
+            detailed: Boolean for whether the returned object is a detailed list of
+                dicts with error info or a string with a message. (Default: False).
+
+        Returns:
+            A string with the message or a list with a dictionary if detailed is True.
+        """
+        detailed = False if raise_exception else detailed
+        msgs = []
+        for room in self.host.rooms:
+            msg = room.properties.doe2.check_no_holes(False, detailed)
+            if detailed:
+                msgs.extend(msg)
+            elif msg != '':
+                msgs.append(msg)
+        if detailed:
+            return msgs
+        full_msg = '\n'.join(msgs)
+        if raise_exception and len(msgs) != 0:
             raise ValueError(full_msg)
         return full_msg
 
