@@ -118,9 +118,10 @@ def clean_inp_file_contents(inp_file):
             file_lines.extend(param_block)
             i += 1
             continue
-        
+ 
         # Try and replace/remove the global parameters expressions
         if '#PA' in line:
+      
             matches = re.finditer(r'{([^}]*#PA\(".*?"\)[^}]*)}', line)
             for m in matches:
                 expr = m.group(1)
@@ -209,8 +210,6 @@ def parse_inp_string(inp_string):
 
     doe2_fields = [e_str.strip() for e_str in inp_string.split('=')]
     u_name = doe2_fields.pop(0).replace('"', '')
-    if u_name == "Baseline Data":
-        r =2
     split_field_1 = doe2_fields[0].split('\n')
     command = split_field_1[0].strip()
     
