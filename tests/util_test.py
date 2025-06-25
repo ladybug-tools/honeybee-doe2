@@ -160,6 +160,12 @@ def test_parse_inp_file():
     space_obj = inp_object_dict['SPACE'][known_space]
     assert isinstance(space_obj, dict)
 
+    return inp_object_dict
 
-inp_file_path = os.path.join(os.path.dirname(__file__), 'assets', 'test_project.inp')
-inp_object_dict = parse_inp_file(inp_file_path)
+
+
+
+
+
+
+
