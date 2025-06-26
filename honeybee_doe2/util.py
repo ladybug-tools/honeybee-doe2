@@ -163,14 +163,14 @@ def calculate_value_with_global_parameter(global_parameters, input_expr):
 
     Args:
         global_parameters: A dict with parameter names as keys and floats as values.
-        input_expr: A string of an expression to be evaluated. For example.
-
-        .. code-block:: python
-
-            '{0.66 * #PA("...")}' or '{0.66 * #PA("...") + #PA("...")}
+        input_expr: A string of an expression to be evaluated. See an example below.
 
     Returns:
         Evaluated float result or None is not an inline math expression.
+
+    .. code-block:: python
+
+        '{0.66 * #PA("...")}' or '{0.66 * #PA("...") + #PA("...")}
     """
     # TODO: Add the ability to evaluate SWITCH and IF statements using GlobaL Parameters
     try:
