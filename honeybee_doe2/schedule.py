@@ -1,6 +1,7 @@
 # coding=utf-8
 """honeybee-doe2 schedule translators."""
 from __future__ import division
+import os
 import re
 
 from ladybug.dt import Date, MONTHNAMES
@@ -23,7 +24,7 @@ def schedule_type_limit_to_inp(type_limit):
     """Get the DOE-2 type for a honeybee-energy ScheduleTypeLimit."""
     if type_limit is None:
         return 'FRACTION'
-    elif type_limit.display_name  == 'Multiplier':
+    elif type_limit.display_name == 'Multiplier':
         return "MULTIPLIER"
     elif type_limit.unit_type == 'Temperature':
         return 'TEMPERATURE'
@@ -608,7 +609,10 @@ def extract_all_schedule_ruleset_from_inp_file(inp_file):
         honeybee_energy ScheduleRuleset objects.
     """
     # read the file and remove lines of comments
-    file_contents = clean_inp_file_contents(inp_file)
+    assert os.path.isfile(inp_file), 'Cannot find an INP file at: {}'.format(inp_file)
+    with open(inp_file, 'r') as doe_file:
+        inp_content = doe_file.read()
+    file_contents = clean_inp_file_contents(inp_content)
     # extract all of the DAY-SCHEDULE objects
     day_pattern1 = re.compile(r'(?i)(".*=.*DAY-SCHEDULE\n[\s\S]*?\.\.)')
     day_pattern2 = re.compile(r'(?i)(".*=.*DAY-SCHEDULE-PD\n[\s\S]*?\.\.)')

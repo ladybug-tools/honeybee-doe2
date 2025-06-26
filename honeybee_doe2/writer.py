@@ -1,5 +1,5 @@
 # coding=utf-8
-"""Methods to write to inp."""
+"""Methods to write Honeybee core objects to inp."""
 from __future__ import division
 import os
 import math

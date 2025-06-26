@@ -1,8 +1,5 @@
 """Test the utility functions."""
-import os
-
-from honeybee_doe2.util import parse_inp_string, parse_inp_file
-
+from honeybee_doe2.util import parse_inp_string
 
 
 SCHEDULE_DAY_STR = """
@@ -140,32 +137,3 @@ def test_parse_schedule_year_pd():
     assert len(values) == 4
     assert keywords[0] == 'TYPE'
     assert values[0] == 'TEMPERATURE'
-
-
-def test_parse_inp_file():
-    """Test parsing of a DOE-2 INP file into object dict"""
-    inp_file_path = os.path.join(os.path.dirname(__file__), 'assets', 'test_project.inp')
-    inp_object_dict = parse_inp_file(inp_file_path)
-
-    assert isinstance(inp_object_dict, dict)
-    assert 'PARAMETER' in inp_object_dict or len(inp_object_dict) > 0
-
-    assert 'SPACE' in inp_object_dict
-    assert isinstance(inp_object_dict['SPACE'], dict)
-    assert len(inp_object_dict['SPACE']) > 0
-
-    known_space = 'L1WNE Perim Spc (G.NE1)' 
-    assert known_space in inp_object_dict['SPACE']
-
-    space_obj = inp_object_dict['SPACE'][known_space]
-    assert isinstance(space_obj, dict)
-
-    return inp_object_dict
-
-
-
-
-
-
-
-
