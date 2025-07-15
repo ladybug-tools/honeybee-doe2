@@ -106,9 +106,12 @@ def parse_inp_string(inp_string):
             the values of the attributes for the object.
     """
     inp_string = inp_string.strip()
-    inp_strings = inp_string.split('..')
+
+    inp_strings = inp_string.rsplit('..', 1) # r split incase '..' in u_name
+
     assert len(inp_strings) > 1, 'Input inp_string is not an INP object.'
     assert len(inp_strings) == 2, 'Received more than one object in inp_string.'
+
     inp_string = re.sub(r'\$.*\n', '\n', inp_strings[0])  # remove all comments
 
     if inp_string.startswith("PARAMETER"):
@@ -125,6 +128,10 @@ def parse_inp_string(inp_string):
 
     doe2_fields = [e_str.strip() for e_str in inp_string.split('=')]
     u_name = doe2_fields.pop(0).replace('"', '')
+    
+    if not doe2_fields or not doe2_fields[0].strip():     # blank after '='
+        return u_name, None, None, None
+    
     split_field_1 = doe2_fields[0].split('\n')
     command = split_field_1[0].strip()
 
@@ -220,57 +227,52 @@ def doe2_object_blocks(inp_file_contents):
 
 
 def clean_inp_file_contents(inp_file_contents):
-    """Clean the contents of an INP file by removing comment lines.
-
-    Global parameter lines are also solved if they are inline math expressions.
+    """Clean an INP file’s text by removing comment lines and resolving
+    inline #PA() parameter expressions.
 
     Args:
-        inp_file_contents: The file contents of an INP file as a text string.
+        inp_file_contents: Complete text of an INP file.
 
     Returns:
-        The input text string cleaned of comments and with global parameters solved.
+        The cleaned text, ready for further parsing.
     """
-    # split the lines of the file
-    lines = inp_file_contents.splitlines(keepends=True)
+    lines = inp_file_contents.splitlines(keepends=True)  # keep original new-lines
     global_parameters = {}
     file_lines = []
 
-    # loop through the lines and pull out any global parameters
     i = 0
     while i < len(lines):
-        line = lines[i].strip()
-        if line == "PARAMETER":
-            param_block = [lines[i]]
+        full_line = lines[i]       
+        stripped  = full_line.strip()
+
+        if stripped == "PARAMETER":
+            param_block = [full_line]
             i += 1
             while i < len(lines):
                 param_block.append(lines[i])
                 if lines[i].strip().endswith(".."):
                     break
                 i += 1
-            full_param = ''.join(param_block)
-
+            full_param = "".join(param_block)
             _, _, keys, vals = parse_inp_string(full_param)
-            # Save the parameter to solve the lines later
-            global_parameters[keys[0]] = vals[0]
-            file_lines.extend(param_block)
+            global_parameters[keys[0]] = vals[0]          
+            file_lines.extend(param_block)               
             i += 1
             continue
 
-        # try and replace/remove the global parameters expressions
-        if '#PA' in line:
-            matches = re.finditer(r'{([^}]*#PA\(".*?"\)[^}]*)}', line)
-            for m in matches:
-                expr = m.group(1)
-                replacement = calculate_value_with_global_parameter(global_parameters, expr)
-                if replacement is not None:
-                    line = line.replace(expr, str(replacement))
+        if "#PA" in full_line:
+            def _repl(match):
+                expr = match.group(1)                  
+                val  = calculate_value_with_global_parameter(global_parameters, expr)
+                return str(val) if val is not None else match.group(0)
+            full_line = re.sub(r"\{([^}]*#PA\(\".*?\"\)[^}]*)\}", _repl, full_line)
 
-        # skip comment lines
-        if not line.startswith('$'):
-            file_lines.append(lines[i])
+        if not stripped.startswith("$"):
+            file_lines.append(full_line)
+
         i += 1
 
-    return ''.join(file_lines)
+    return "".join(file_lines)
 
 
 def header_comment_minor(header_text):
