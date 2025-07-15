@@ -76,13 +76,21 @@ def command_dict_from_inp(inp_file_contents):
     return dict(result)
 
 def model_from_inp(inp_file_path):
+    """Convert an inp file to an HBJSON Model object
+
+    Args:
+        inp_file_path: The file path to an inp file
+
+    Returns:
+        A honeybee Model object. This only converts the geometry 
+
+    """
     with open(inp_file_path, 'r') as doe_file:
         inp_file_contents = doe_file.read()
 
     inp = command_dict_from_inp(inp_file_contents)
-
-    floors  = inp.get("FLOOR", {})
-    polys   = inp.get("POLYGON", {})
+    floors = inp.get("FLOOR", {})
+    polys  = inp.get("POLYGON", {})
     glob_az = float(inp.get("BUILD-PARAMETERS", {}).get("AZIMUTH", 0) or 0)
 
     if not floors:
@@ -90,125 +98,156 @@ def model_from_inp(inp_file_path):
 
     rooms = []
 
-    # ── loop floors ────────────────────────────────────────────────────
     for flr_name, flr in floors.items():
-        floor_x, floor_y, floor_z = _get_origin(flr)
-        flr_az = float(flr.get("AZIMUTH", 0) or 0)
-        # floor polygon (optional – used for FLOOR-V anchoring)
-        flr_poly_name = flr.get("POLYGON")
-        floor_verts_dict = polys.get(flr_poly_name.strip('"')) if flr_poly_name else []
-        floor_verts_local = _verts_to_tuples(floor_verts_dict)
-        floor_pts_global = []
-        if floor_verts_local:
-            p_local = [Point3D(v[0], v[1], 0) for v in floor_verts_local]
-            # rotate by floor az, then translate to floor origin, then global az
-            tmp = _transform_points(p_local, -flr_az, (0, 0, 0))
-            floor_pts_global = _transform_points(
-                tmp, glob_az, (floor_x, floor_y, floor_z)
-            )
+        fx, fy, fz = _get_origin(flr)
+        flr_origin = Point3D(fx, fy, fz)
+        flr_az     = float(flr.get("AZIMUTH", 0) or 0)
+        floor_poly = (flr.get("POLYGON") or "").strip('"')
+        floor_verts = _verts_to_tuples(polys.get(floor_poly, {}))
 
         spaces = child_objects_from_parent(inp, flr_name, "FLOOR", "SPACE")
         for spc_name, spc in spaces.items():
-
             shape = (spc.get("SHAPE") or "").upper()
-            if shape in ("", "NO-SHAPE"):
+            if not shape or shape == "NO-SHAPE":
                 continue
             if shape == "BOX":
-                raise ValueError(f"{spc_name} is BOX – convert to POLYGON first.")
+                raise ValueError(f"{spc_name} is defined by a BOX – convert to POLYGON first.")
 
-            # local space verts
-            poly_name = spc.get("POLYGON", "").strip('"')
-            verts_local_dict = polys.get(poly_name)
-            verts_local = _verts_to_tuples(verts_local_dict)
+            # local footprint
+            plg = spc.get("POLYGON", "").strip('"')
+            verts_local = _verts_to_tuples(polys.get(plg, {}))
             if not verts_local:
                 continue
             pts_local = [Point3D(x, y, 0) for x, y in verts_local]
 
-            # transform space
-            sx, sy, sz = _get_origin(spc)
-            spc_az = float(spc.get("AZIMUTH", 0) or 0) * -1
-            pts_floor = _transform_points(pts_local, spc_az, (sx, sy, sz))
-
-            # 
-            pts_glob_pre = _transform_points(pts_floor, -flr_az, (0, 0, 0))
-            pts_global   = _transform_points(
-                pts_glob_pre, glob_az, (floor_x, floor_y, floor_z)
+            # space transform
+            sx, sy, sz, spc_az = _space_origin_and_azimuth(spc, floor_verts)
+            spc_points = _transform_space_points(
+                pts_local,
+                Point3D(sx, sy, sz),
+                spc_az,
+                flr_origin,
+                flr_az,
+                glob_az
             )
 
-            # 4. decide detailed volume or extrusion
             walls = surfaces_from_space(inp, spc_name)
-            detailed = walls and all(w.get("POLYGON") for w in walls.values())
-
+            detailed = walls and all(w.get("POLYGON") for w in walls.values()) # If all walls are POLYGON shape
             if detailed:
-                faces = _volume_from_polygons(spc, walls, polys,
-                                              pts_global, spc_name)
+                faces = _volume_from_polygons(walls, 
+                    polys,
+                    spc_points, pts_local, spc_name, 
+                    flr_origin, flr_az, glob_az,  
+                    inp
+                )
             else:
-                edge_info = _edge_info_map(spc, walls, pts_global, inp)
-                faces = _extruded_shell(spc, pts_global, edge_info, spc_name)
+                edge_info = _edge_info_map(walls, spc_points, inp)
+                faces = _extruded_shell(spc, spc_points, edge_info, spc_name, flr)
 
-            
-            room = Room(identifier= clean_string(spc_name), faces= faces)
+            room = Room(identifier=clean_string(spc_name), faces=faces)
             room.display_name = spc_name
             room.story = flr_name
             rooms.append(room)
-            
-    model_name = clean_string(os.path.splitext(os.path.basename(inp_file_path))[0])
 
+    model_name = clean_string(os.path.splitext(os.path.basename(inp_file_path))[0])
     return Model(model_name, rooms)
 
 
-
-def _volume_from_polygons(spc, walls_dict, polys, spc_pts_global, spc_name):
-    """Return list[Face] when every wall has its own POLYGON."""
+def _volume_from_polygons(walls, polys, spc_pts_global, spc_pts_local, spc_name, flr_origin, flr_az, glob_az, inp_dict):
+    """Build detailed faces when each wall has its own POLYGON."""
     faces = []
-    height = float(spc.get("HEIGHT", 0) or 0)
     idx = 1
 
-    for w_name, wall_attrs in walls_dict.items():
-        poly_name = wall_attrs.get("POLYGON")
-        if not poly_name:
-            continue
-        verts_local = polys.get(poly_name.strip('"'))
+    base_z = spc_pts_global[0].z if spc_pts_global else 0
+
+    for w_name, w_attrs in walls:
+        plg = (w_attrs.get("POLYGON") or "").strip('"')
+        verts_local = _verts_to_tuples(polys.get(plg, {}))
         if not verts_local:
             continue
-        wx, wy, wz = _get_origin(wall_attrs)
-        wall_az    = float(wall_attrs.get("AZIMUTH", 0) or 0)
+
+        wx, wy, wz = _get_origin(w_attrs)
+        wall_az    = float(w_attrs.get("AZIMUTH", 0) or 0)
+        loc        = w_attrs.get("LOCATION","") 
+
+        if loc.startswith("SPACE-V"):
+            try:
+                edge = int(loc[7:]) - 1
+                if 0 <= edge < len(spc_pts_local):
+                    wx, wy = spc_pts_local[edge]
+                    next_i = 0 if edge + 1 == len(spc_pts_local) else edge + 1 # check if its the last vert
+                    wall_az = _calc_azimuth(spc_pts_local[edge], spc_pts_local[next_i])
+            except:
+                pass
+
+        try:
+            tilt = float(w_attrs.get("TILT", 90) or 90)
+        except:
+            tilt = 90
+        if loc.startswith("SPACE-V"): 
+            tilt = 90
+        elif loc == "TOP":
+            tilt = 0
+        elif loc == "BOTTOM":
+            tilt = 180
+
         pts = [Point3D(x, y, 0) for x, y in verts_local]
-        
-        # rotate and translate wall plane
-        pts1 = _transform_points(pts, wall_az, (wx, wy, wz))
-        
-        anchor = spc_pts_global[0]
-        anchor_vec = Vector3D(anchor.x, anchor.y, anchor.z)
-        pts_glob = [p.move(anchor_vec) for p in pts1]
-        if _is_vertical(wall_attrs):
-            pts_top = [Point3D(p.x, p.y, p.z + height) for p in pts_glob]
-            verts = pts_glob + pts_top[::-1]
-        else:
-            verts = pts_glob
+        if abs(tilt) > 1e-9:
+            ang = math.radians(tilt)
+            axis = Vector3D(1, 0, 0)
+            pts = [p.rotate(axis, ang, Point3D(0, 0, 0)) for p in pts]
 
-        bc = Outdoors()
-        wtyp = (wall_attrs.get("TYPE") or "").upper()
-        if wtyp.startswith("INTERIOR"):
-            bc = Adiabatic()
-        elif wtyp.startswith("UNDER"):
-            bc = Ground()
-
-        faces.append(
-            Face(
-                identifier=f"{clean_string(spc_name)}_Face_{idx}",
-                geometry=Face3D([_feet_to_meters((p.x, p.y, p.z)) for p in verts]),
-                type = Wall() if _is_vertical(wall_attrs) else RoofCeiling(), 
-                boundary_condition=bc,
-            )
+        pts_space = _transform_points(pts, 180.0 - wall_az, (wx, wy, wz))
+        pts_global = _transform_space_points(
+            pts_space,
+            Point3D(spc_pts_global[0].x, spc_pts_global[0].y, spc_pts_global[0].z),
+            0,
+            flr_origin,
+            flr_az,
+            glob_az
         )
+
+        cmd = w_attrs.get("cmd")
+        if cmd.startswith("INTERIOR"):
+            bc = Adiabatic()
+        elif cmd.startswith("UNDER"):
+            bc = Ground()
+        else:
+            bc = Outdoors()
+
+        t = abs(tilt % 360)
+        if t > 180 - DOE2_ANGLE_TOL:
+            t = 180 - t
+        if 45 - DOE2_ANGLE_TOL <= t <= 135 + DOE2_ANGLE_TOL:
+            ftype = Wall()
+        else:
+            if loc == "BOTTOM" or abs((tilt % 360) - 180) < DOE2_ANGLE_TOL:
+                ftype = Floor()
+            else:
+                ftype = RoofCeiling()
+
+        face = Face(
+            identifier=f"{clean_string(spc_name)}_Face_{idx}",
+            geometry=Face3D([_feet_to_meters((p.x, p.y, p.z)) for p in pts_global]),
+            type=ftype,
+            boundary_condition=bc
+        )
+        #If an exterior wall check for doors and aperatures
+        if cmd.startswith("EXTERIOR") and len(pts_global) >= 2:
+            gp1, gp2 = pts_global[0], pts_global[1]
+            apps = _apertures_from_wall(inp_dict, w_name, idx, gp1, gp2, base_z)
+            drs  = _doors_from_wall(inp_dict, w_name, idx, gp1, gp2, base_z)
+            if apps:
+                face.add_apertures(apps)
+            if drs:
+                face.add_doors(drs)
+
+        faces.append(face)
         idx += 1
+
     return faces
 
 
-# ────────────────────────────────────────────────────────────────────────
-# extrusion path + edge data
-# ────────────────────────────────────────────────────────────────────────
 class _EdgeInfo:
     __slots__ = ("bc", "apertures", "doors")
     def __init__(self):
@@ -217,10 +256,18 @@ class _EdgeInfo:
         self.doors = []
 
 
-def _edge_info_map(spc, walls_dict, verts_glob, objectdict):  
-    """
-    
-    
+def _edge_info_map(walls_dict, verts_glob, objectdict):  
+    """Creates a dictionary mapping each vertex index to its corresponding EdgeInfo object
+
+    Parameters:
+        walls_attr: Dict of walls with their attributes, keyed by wall u_name.
+        verts_glob: List of transformed space verts that define the space footprint
+        objectdict: The command dict repersenting all the DOE2 objects in the inp file
+
+    Returns:
+            A dictionary mapping vertex indexs to _EdgeInfo instances, populated with:
+                - Boundary conditions ('adiabatic', 'ground', 'outdoors').
+                - Lists of apertures and doors positioned along each edge.
     """
     info = {i: _EdgeInfo() for i in range(len(verts_glob))}
 
@@ -245,17 +292,33 @@ def _edge_info_map(spc, walls_dict, verts_glob, objectdict):
         p2 = verts_glob[0] if idx == len(verts_glob) - 1 else verts_glob[idx + 1]
         base_z = p1.z
 
-        info[idx].apertures = _apertures_from_wall(objectdict, w_name, spc, idx, p1, p2, base_z)
-        info[idx].doors     = _doors_from_wall    (objectdict, w_name, spc, idx, p1, p2, base_z)
+        info[idx].apertures = _apertures_from_wall(objectdict, w_name, idx, p1, p2, base_z)
+        info[idx].doors     = _doors_from_wall(objectdict, w_name, idx, p1, p2, base_z)
 
     return info
 
 
-def _extruded_shell(spc, verts_glob, edge_info, spc_name):
-    """Extrude footprint to walls + floor/ceiling."""
+def _extruded_shell(spc_attrs, verts_glob, edge_info, spc_name, flr_attrs):
+    """Creates a list of honeybee Face objects representing the space shell geometry (floor, ceiling, walls).
+
+    Parameters:
+        spc_attrs: Dict of space attributes 
+        verts_glob: List of transformed vertices defining the space footprint
+        edge_info: Dictionary mapping vertex indices to corresponding EdgeInfo instances.
+        spc_name: Name current space.
+        flr_attrs: Dict of floor attributes
+
+    Returns:
+        A list of Face instances, each representing:
+            - Floor face (boundary condition: ground).
+            - Ceiling face (boundary condition: outdoors).
+            - Wall faces, each populated with:
+                - Appropriate boundary condition ('adiabatic', 'ground', 'outdoors').
+                - Apertures and doors, if present.
+    """
     faces = []
     vcount = len(verts_glob)
-    height = float(spc.get("HEIGHT", 0) or 10)
+    height = _space_height(spc_attrs, flr_attrs)
 
     # floor
     floor_m = [_feet_to_meters((p.x, p.y, p.z)) for p in verts_glob]
@@ -330,7 +393,7 @@ def _wall_start_point(wall_attrs, verts_glob):
     return None, -1
 
 
-def _apertures_from_wall(objectdict, w_name, spc, idx, gp1, gp2, z0):
+def _apertures_from_wall(objectdict, w_name, idx, gp1, gp2, z0):
     apps = []
     dx, dy = gp2.x - gp1.x, gp2.y - gp1.y
     length = math.hypot(dx, dy)
@@ -357,7 +420,7 @@ def _apertures_from_wall(objectdict, w_name, spc, idx, gp1, gp2, z0):
     return apps
 
 
-def _doors_from_wall(objectdict, w_name, spc, idx, gp1, gp2, z0):
+def _doors_from_wall(objectdict, w_name, idx, gp1, gp2, z0):
     doors = []
     dx, dy = gp2.x - gp1.x, gp2.y - gp1.y
     length = math.hypot(dx, dy)
@@ -384,7 +447,7 @@ def _doors_from_wall(objectdict, w_name, spc, idx, gp1, gp2, z0):
     return doors
 
 
-    # Helpers
+# Helpers
 def _get_origin(attrs):
     """Return (x, y, z) from a DOE-2 object dict, default 0."""
     return (
@@ -415,22 +478,12 @@ def _transform_points(pts, az_deg, origin_vec):
 
 
 def _build_subface_corners(origin, ux, uy, offx, offy, width, height, z0):
-    """Return list[4] of [x,y,z] (ft) for a window/door rectangle."""
-    bl = [origin[0] + ux * offx,           origin[1] + uy * offx,           z0 + offy]
+    """"""
+    bl = [origin[0] + ux * offx, origin[1] + uy * offx, z0 + offy]
     br = [origin[0] + ux * (offx + width), origin[1] + uy * (offx + width), z0 + offy]
     tr = [br[0], br[1], z0 + offy + height]
     tl = [bl[0], bl[1], tr[2]]
     return [bl, br, tr, tl]
-
-
-def _is_vertical(obj):
-    """True if DOE-2 surface has tilt ≈ 90°."""
-    tilt = float(obj.get("TILT", 90) or 90)
-    t = abs(tilt % 360)
-    if t > 180 - 1e-3:
-        t = 180 - t
-    return 45 - 1e-3 <= t <= 135 + 1e-3
-
 
 
 def _verts_to_tuples(text):
@@ -516,6 +569,97 @@ def surfaces_from_space(objectdict, space_name):
         children = child_objects_from_parent(objectdict, space_name, "SPACE", surf)
         surfs.update(children)
     return surfs
+
+def _calc_azimuth(v1, v2):
+    """
+    """
+    dx, dy = v2[0] - v1[0], v2[1] - v1[1]
+    ang = math.degrees(math.atan2(dy, dx))  
+    return ang + 360 if ang < 0 else ang   
+
+def _space_origin_and_azimuth(spc_attrs, floor_vertices):
+    """
+    """
+    loc = (spc_attrs.get("LOCATION") or "").upper()
+
+    if loc.startswith("FLOOR-V"):
+        idx = int(loc[7:])            
+        v1 = floor_vertices[idx - 1]
+        v2 = floor_vertices[0 if idx == len(floor_vertices) else idx]
+        sx, sy = v1
+        sz = float(spc_attrs.get("Z", 0) or 0)
+        spc_az_cw = _calc_azimuth(v1, v2)       
+    else:
+        sx,sy,sz = _get_origin(spc_attrs)
+        spc_az_cw = -float(spc_attrs.get("AZIMUTH", 0) or 0)
+    return sx, sy, sz, spc_az_cw
+
+
+def _space_height(spc_attrs, flr_attrs):
+    """
+    Return the height of a SPACE. 
+
+    Ar
+
+    """
+    def _to_float(val):
+        try:
+            return float(val)
+        except (TypeError, ValueError):
+            return None
+
+    h = _to_float(spc_attrs.get("HEIGHT"))
+    if h is not None:
+        return h
+
+    h = _to_float(flr_attrs.get("SPACE-HEIGHT"))
+    if h is not None:
+        return h
+
+    h = _to_float(flr_attrs.get("FLOOR-HEIGHT"))
+    if h is not None:
+        return h
+
+    raise ValueError(
+        "Cannot determine height for Space, missing HEIGHT attribute or parent floor is missing"
+        "is missing 'SPACE-HEIGHT' or 'FLOOR-HEIGHT attribute"
+    )
+
+
+
+
+
+
+def _transform_space_points(local_pts, space_origin, spc_az, floor_origin, flr_az, glob_az):
+    """
+
+    """
+    if not local_pts:
+        return []
+
+    # Rotate around its own origin first
+    if abs(spc_az) > 1e-9:
+        ang = math.radians(spc_az)
+        local_pts = [p.rotate_xy(ang, Point3D(0, 0, 0)) for p in local_pts]
+
+    # Translate the points
+    space_vec = Vector3D(space_origin.x, space_origin.y, space_origin.z)
+    pts = [p.move(space_vec) for p in local_pts]
+
+    # Rotate about the floor azimuth
+    if abs(flr_az) > 1e-9:
+        pts = [p.rotate_xy(math.radians(-flr_az), Point3D(0, 0, 0)) for p in pts]
+
+    # Rotate about the building azimuth if there is one
+    if abs(glob_az) > 1e-9:
+        pts = [p.rotate_xy(math.radians(-glob_az), Point3D(0, 0, 0)) for p in pts]
+
+    # Move the points 
+    floor_vec = Vector3D(floor_origin.x, floor_origin.y, floor_origin.z)
+    return [p.move(floor_vec) for p in pts]
+
+
+
 
      
 
