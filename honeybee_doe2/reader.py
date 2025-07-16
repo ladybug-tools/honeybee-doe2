@@ -93,10 +93,10 @@ def model_from_inp(inp_file_path) -> Model:
     with open(inp_file_path, 'r') as doe_file:
         inp_file_contents = doe_file.read()
 
-    inp = command_dict_from_inp(inp_file_contents)
-    floors = inp.get("FLOOR", {})
-    polys  = inp.get("POLYGON", {})
-    glob_az = -float(inp.get("BUILD-PARAMETERS", {}).get("AZIMUTH", 0) or 0)
+    cmd_dict = command_dict_from_inp(inp_file_contents)
+    floors = cmd_dict.get("FLOOR", {})
+    polys  = cmd_dict.get("POLYGON", {})
+    glob_az = -float(cmd_dict.get("BUILD-PARAMETERS", {}).get("AZIMUTH", 0) or 0)
 
     if not floors:
         raise ValueError("No FLOOR objects found in INP – nothing to translate.")
@@ -108,8 +108,9 @@ def model_from_inp(inp_file_path) -> Model:
         flr_origin = Point3D(fx, fy, fz)
         floor_poly = (flr.get("POLYGON") or "").strip('"')
         floor_verts = _verts_to_tuples(polys.get(floor_poly, {}))
+        flr_mult = (flr.get("MULTIPLIER") or 1.0)
 
-        spaces = child_objects_from_parent(inp, flr_name, "FLOOR", "SPACE")
+        spaces = child_objects_from_parent(cmd_dict, flr_name, "FLOOR", "SPACE")
         for spc_name, spc in spaces.items():
             shape = (spc.get("SHAPE") or "").upper()
             if not shape or shape == "NO-SHAPE":
@@ -127,40 +128,41 @@ def model_from_inp(inp_file_path) -> Model:
             # Space transform
             sx, sy, sz, spc_az = _origin_and_azimuth(spc, floor_verts, False)
             spc_pts_global = _transform_space_points(
-                spc_pts_local,
-                Point3D(sx, sy, sz),
-                spc_az,
-                flr_origin,
-                flr_az,
+                spc_pts_local, Point3D(sx, sy, sz), spc_az,
+                flr_origin, flr_az,
                 glob_az
             )
 
-            walls = surfaces_from_space(inp, spc_name)
+            walls = surfaces_from_space(cmd_dict, spc_name)
             detailed = walls and all(w.get("POLYGON") for w in walls.values()) # If all walls are POLYGON shape
             if detailed:
-                faces = _volume_from_polygons(walls, 
+                faces = _volume_from_polygons(
+                    cmd_dict,
+                    walls, 
                     polys,
                     spc_pts_global, spc_pts_local, spc_name, 
                     flr_origin, flr_az, glob_az,  
-                    inp
                 )
             else:
-                edge_info, floor_bc, ceiling_bc  = _edge_info_map(walls, spc_pts_global, spc_pts_local, inp)
+                edge_info, floor_bc, ceiling_bc  = _edge_info_map(cmd_dict, walls, spc_pts_global, spc_pts_local)
                 faces = _extruded_shell(spc, spc_pts_global, edge_info, floor_bc, ceiling_bc, spc_name, flr)
 
             room = Room(identifier=clean_string(spc_name), faces=faces)
             room.display_name = spc_name
             room.story = flr_name
+            room.multiplier = flr_mult
             rooms.append(room)
 
     model_name = clean_string(os.path.splitext(os.path.basename(inp_file_path))[0])
+    
     return Model(model_name, rooms)
 
 
-def _volume_from_polygons(walls, polys, spc_pts_global, spc_pts_local, spc_name, flr_origin, flr_az, glob_az, inp_dict):
+def _volume_from_polygons(cmd_dict, walls, polys, spc_pts_global, spc_pts_local, spc_name, flr_origin, flr_az, glob_az):
     """Build detailed faces when each wall has its own POLYGON.
     
     Args:
+        cmd_dict: Command dictionary containing all DOE2 objects.
         walls: Dictionary of wall objects and their attributes.
         polys: Dictionary of polygon objects and their attributes.
         spc_pts_global: List of space points in global coordinates.
@@ -169,8 +171,7 @@ def _volume_from_polygons(walls, polys, spc_pts_global, spc_pts_local, spc_name,
         flr_origin: Point3D object representing the floor origin.
         flr_az: Floor azimuth angle in degrees.
         glob_az: Global azimuth angle in degrees.
-        inp_dict: Dictionary containing all DOE2 objects.
-
+     
     Returns:
         list[Face]: A list of honeybee Face objects representing the space geometry,
         including walls, floor, and ceiling with their respective apertures and doors.
@@ -231,8 +232,8 @@ def _volume_from_polygons(walls, polys, spc_pts_global, spc_pts_local, spc_name,
         #If an exterior wall check for doors and aperatures
         if cmd == "EXTERIOR-WALL" and len(pts_global) >= 2:
             gp1, gp2 = pts_global[0], pts_global[1]
-            apps = _apertures_from_wall(inp_dict, w_name, idx, gp1, gp2, base_z)
-            drs  = _doors_from_wall(inp_dict, w_name, idx, gp1, gp2, base_z)
+            apps = _apertures_from_wall(cmd_dict, w_name, idx, gp1, gp2, base_z)
+            drs  = _doors_from_wall(cmd_dict, w_name, idx, gp1, gp2, base_z)
             if apps:
                 face.add_apertures(apps)
             if drs:
@@ -247,21 +248,21 @@ def _volume_from_polygons(walls, polys, spc_pts_global, spc_pts_local, spc_name,
 class _EdgeInfo:
     __slots__ = ("bc", "apertures", "doors")
     def __init__(self):
-        self.bc    = Outdoors() # convert the string backto a boundry condition 
+        self.bc    = Outdoors() 
         self.apertures  = []
         self.doors = []
 
 
-def _edge_info_map(walls_dict, spc_verts_global, spc_verts_local, objectdict):  
+def _edge_info_map(cmd_dict, walls_dict, spc_verts_global, spc_verts_local):  
     """Creates a dictionary mapping each vertex index to its corresponding EdgeInfo object.
     
     Args:
+        cmd_dict: Command dictionary containing all DOE2 objects.
         walls_dict: Dictionary of walls with their attributes, keyed by wall u_name.
         spc_verts_global: List of global space vertices that define the space footprint.
         spc_verts_local: List of local space vertices that define the space footprint.
-        objectdict: Dictionary containing all DOE2 objects from the inp file.
         
- Returns:
+    Returns:
         tuple[dict[int, _EdgeInfo], BoundaryCondition, BoundaryCondition]:
             - edge_info: mapping from vertex index to its _EdgeInfo (with bc, apertures, doors)
             - floor_bc: The floor BoundaryCondition 
@@ -271,7 +272,6 @@ def _edge_info_map(walls_dict, spc_verts_global, spc_verts_local, objectdict):
     info = {i: _EdgeInfo() for i in range(len(spc_verts_global))}
     floor_bc = Outdoors()
     ceiling_bc = Outdoors()
-
 
     for w_name, w_attrs in walls_dict.items():
 
@@ -293,8 +293,8 @@ def _edge_info_map(walls_dict, spc_verts_global, spc_verts_local, objectdict):
             p2 = spc_verts_global[0] if idx == len(spc_verts_global) - 1 else spc_verts_global[idx + 1]
             base_z = p1.z
             
-            info[idx].apertures = _apertures_from_wall(objectdict, w_name, idx, p1, p2, base_z)
-            info[idx].doors     = _doors_from_wall(objectdict, w_name, idx, p1, p2, base_z)
+            info[idx].apertures = _apertures_from_wall(cmd_dict, w_name, idx, p1, p2, base_z)
+            info[idx].doors     = _doors_from_wall(cmd_dict, w_name, idx, p1, p2, base_z)
         else:
             loc = w_attrs.get("LOCATION", "")
             cmd = w_attrs.get("cmd")
@@ -304,6 +304,7 @@ def _edge_info_map(walls_dict, spc_verts_global, spc_verts_local, objectdict):
                 floor_bc = _CMD_TO_BC[cmd]()
             else:
                 pass
+    
     return info, floor_bc, ceiling_bc
 
 
@@ -400,11 +401,11 @@ def _wall_start_point(wall_attrs, spc_verts_local):
     return None, -1
 
 
-def _apertures_from_wall(objectdict, w_name, idx, gp1, gp2, z0):
+def _apertures_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
     """Create aperture objects for windows in a wall.
     
     Args:
-        objectdict: Dictionary containing all DOE2 objects.
+        cmd_dict: Command dictionary containing all DOE2 objects.
         w_name: Name of the parent wall.
         idx: Index of the wall's starting vertex.
         gp1: Point3D representing wall's start point.
@@ -421,7 +422,7 @@ def _apertures_from_wall(objectdict, w_name, idx, gp1, gp2, z0):
         return apps
     ux, uy = dx / length, dy / length
 
-    wins = child_objects_from_parent(objectdict, w_name, "EXTERIOR-WALL", "WINDOW")
+    wins = child_objects_from_parent(cmd_dict, w_name, "EXTERIOR-WALL", "WINDOW")
     n = 1
     for win in wins.values():
         w  = float(win.get("WIDTH", 0) or 0)
@@ -440,11 +441,11 @@ def _apertures_from_wall(objectdict, w_name, idx, gp1, gp2, z0):
     return apps
 
 
-def _doors_from_wall(objectdict, w_name, idx, gp1, gp2, z0):
+def _doors_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
     """Create door objects for a wall.
     
     Args:
-        objectdict: Dictionary containing all DOE2 objects.
+        cmd_dict: Command dictionary containing all DOE2 objects.
         w_name: Name of the parent wall.
         idx: Index of the wall's starting vertex.
         gp1: Point3D representing wall's start point.
@@ -461,7 +462,7 @@ def _doors_from_wall(objectdict, w_name, idx, gp1, gp2, z0):
         return doors
     ux, uy = dx / length, dy / length
 
-    drs = child_objects_from_parent(objectdict, w_name, "EXTERIOR-WALL", "DOOR")
+    drs = child_objects_from_parent(cmd_dict, w_name, "EXTERIOR-WALL", "DOOR")
     n = 1
     for d in drs.values():
         w  = float(d.get("WIDTH", 3.0) or 3.0)
@@ -483,7 +484,7 @@ def _get_origin(attrs):
     """Return (x, y, z) coordinates from a DOE-2 object dict.
     
     Args:
-        attrs: Dictionary containing DOE-2 object attributes.
+        attrs: Dictionary containing DOE2 object attributes.
         
     Returns:
         tuple[float, float, float]: The (x, y, z) coordinates, defaulting to 0
@@ -497,7 +498,7 @@ def _get_origin(attrs):
 
 
 def _feet_to_meters(pt):
-    """Convert a 3-D point from feet to metres.
+    """Convert a 3D point from feet to metres.
 
     Args:
         pt (Point3D): The point expressed in feet 
@@ -569,14 +570,14 @@ def _verts_to_tuples(verts_dict):
     pairs = coord_pat.findall(str(verts_dict))    
     return [(float(x), float(y)) for x, y in pairs]
 
-def child_objects_from_parent(objectdict, parent_name, parent_command, child_command):
+def child_objects_from_parent(cmd_dict, parent_name, parent_command, child_command):
     """
     Given the full dict of parsed INP blocks, and one parent instance,
     return all of the child_command objects that fall between that
     parent’s line and its next‐sibling parent’s line.
 
     Args:
-        objectdict: A dictionary of parsed INP blocks
+        cmd_dict: Command dictionary containing all DOE2 objects.
         parent_name: Name of the parent from the objectdict
         parent_command: The command name of the parent
         child_command: The command of the child objects to return
@@ -587,7 +588,7 @@ def child_objects_from_parent(objectdict, parent_name, parent_command, child_com
     """
 
     # Sort the parents by __line__ just in case
-    parents = objectdict.get(parent_command, {})
+    parents = cmd_dict.get(parent_command, {})
     sorted_parents = sorted(
         parents.items(),
         key=lambda item: item[1].get("__line__", float("inf"))
@@ -609,7 +610,7 @@ def child_objects_from_parent(objectdict, parent_name, parent_command, child_com
         return {}
 
     # Find children in between the line
-    children = objectdict.get(child_command, {})
+    children = cmd_dict.get(child_command, {})
     in_block = {
         c_name: c_data
         for c_name, c_data in children.items()
@@ -618,11 +619,11 @@ def child_objects_from_parent(objectdict, parent_name, parent_command, child_com
 
     return in_block
 
-def surfaces_from_space(objectdict, space_name):
+def surfaces_from_space(cmd_dict, space_name):
     """Return all surface‐type child objects (e.g., walls, roofs) for a given SPACE.
 
     Args:
-        objectdict (dict): The full parsed INP dictionary.
+        cmd_dict: Command dictionary containing all DOE2 objects.
         space_name (str):  Unique name of the SPACE object.
 
     Returns:
@@ -632,7 +633,7 @@ def surfaces_from_space(objectdict, space_name):
     surf_types = ['EXTERIOR-WALL', 'INTERIOR-WALL', 'UNDERGROUND-WALL', 'ROOF']
     surfs = {}
     for surf in surf_types:
-        children = child_objects_from_parent(objectdict, space_name, "SPACE", surf)
+        children = child_objects_from_parent(cmd_dict, space_name, "SPACE", surf)
         surfs.update(children)
     return surfs
 
@@ -705,7 +706,7 @@ def _origin_and_azimuth(obj_attrs, parent_vertices, is_wall):
 
 
 def _space_height(spc_attrs, flr_attrs):
-    """Return the height of a SPACE in feet, raising if undefined.
+    """Return the height of a SPACE in feet
 
     Args:
         spc_attrs (dict): Attributes dictionary for the SPACE.
@@ -716,7 +717,7 @@ def _space_height(spc_attrs, flr_attrs):
 
     Raises:
         ValueError: If neither SPACE["HEIGHT"], FLOOR["SPACE-HEIGHT"], nor
-                    FLOOR["FLOOR-HEIGHT"] is provided or valid.
+                    FLOOR["FLOOR-HEIGHT"] is provided 
     """
     def _to_float(val):
         try:
@@ -747,10 +748,10 @@ def _transform_space_points(local_pts, space_origin, spc_az,
     Args:
         local_pts (list[Point3D]): Vertices in space‐local coords (feet).
         space_origin (Point3D):   Origin of the space in parent coords.
-        spc_az (float):           Space azimuth (deg, +CW).
+        spc_az (float):           Space azimuth in degrees 
         floor_origin (Point3D):   Origin of the floor in global coords.
-        flr_az (float):           Floor azimuth (deg, +CW).
-        glob_az (float):          Building azimuth (deg, +CW).
+        flr_az (float):           Floor azimuth in degrees 
+        glob_az (float):          Building azimuth in degrees
 
     Returns:
         list[Point3D]: Transformed vertices in global coords (feet).
