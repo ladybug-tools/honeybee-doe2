@@ -72,4 +72,3 @@ def test_school_project_from_wiz():
     model.to_hbjson(out_path)
 
 
-test_convert_sloped_roof_from_hbjson()
