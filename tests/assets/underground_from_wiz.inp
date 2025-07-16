@@ -1,0 +1,796 @@
+INPUT ..
+LIST COMMENTS ..
+
+TITLE
+   LINE-1           = *underground_from_wiz*
+   ..
+
+"Entire Year" = RUN-PERIOD-PD
+   BEGIN-MONTH      = 1
+   BEGIN-DAY        = 1
+   BEGIN-YEAR       = 2025
+   END-MONTH        = 12
+   END-DAY          = 31
+   END-YEAR         = 2025
+   ..
+
+"Cooling Design Day" = DESIGN-DAY
+   TYPE             = COOLING
+   DRYBULB-HIGH     = 91
+   DRYBULB-RANGE    = 14
+   WETBULB-AT-HIGH  = 67
+   MONTH            = 7
+   NUMBER-OF-DAYS   = 120
+   ..
+
+"Heating Design Day" = DESIGN-DAY
+   TYPE             = HEATING
+   DRYBULB-HIGH     = 37
+   ..
+
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY    = "US"
+   ..
+
+"Site Data" = SITE-PARAMETERS
+   ALTITUDE         = 97
+   ..
+
+"Building Data" = BUILD-PARAMETERS
+   HOLIDAYS         = "Standard US Holidays"
+   ..
+
+"Baseline Data" = BASELINE
+   ..
+
+
+$ ----------------------------------------------------------------
+$ GLASS-TYPE commands for ShellWiz component 'Bldg Envelope & Loads 1'
+$ ----------------------------------------------------------------
+"Window Type #1 GT" = GLASS-TYPE
+   TYPE             = GLASS-TYPE-CODE
+   GLASS-TYPE-CODE  = "2004"
+   ..
+
+"Window Type #2 GT" = GLASS-TYPE
+   TYPE             = GLASS-TYPE-CODE
+   GLASS-TYPE-CODE  = "2203"
+   ..
+
+"Door Type #1 GT" = GLASS-TYPE
+   TYPE             = GLASS-TYPE-CODE
+   GLASS-TYPE-CODE  = "1001"
+   ..
+
+
+$ ----------------------------------------------------------------
+$ CONSTRUCTION commands for ShellWiz component 'Bldg Envelope & Loads 1'
+$ ----------------------------------------------------------------
+"EWall Cons Mat 2 (8.6)" = MATERIAL
+   TYPE             = RESISTANCE
+   RESISTANCE       = 8.6
+   ..
+
+"EWall Cons Layers" = LAYERS
+   MATERIAL         = ( "Plywd 5/8in (PW04)", "Insul Bd 3/4in (IN62)",
+                        "EWall Cons Mat 2 (8.6)", "GypBd 1/2in (GP01)" )
+   ..
+
+"EWall Construction" = CONSTRUCTION
+   TYPE             = LAYERS
+   LAYERS           = "EWall Cons Layers"
+   ABSORPTANCE      = 0.6
+   ROUGHNESS        = 4
+   ..
+
+"Roof Cons Mat 4 (2.8)" = MATERIAL
+   TYPE             = RESISTANCE
+   RESISTANCE       = 2.8
+   ..
+
+"Roof Cons Layers" = LAYERS
+   MATERIAL         = ( "Blt-Up Roof 3/8in (BR01)", "Polyurethane 3in (IN46)",
+                        "Plywd 5/8in (PW04)", "Roof Cons Mat 4 (2.8)",
+                        "AcousTile 1/2in (AC02)" )
+   ..
+
+"Roof Construction" = CONSTRUCTION
+   TYPE             = LAYERS
+   LAYERS           = "Roof Cons Layers"
+   ABSORPTANCE      = 0.6
+   ROUGHNESS        = 1
+   ..
+
+"Ceilg Cons Layers" = LAYERS
+   MATERIAL         = ( "AcousTile 1/2in (AC02)" )
+   ..
+
+"Ceilg Construction" = CONSTRUCTION
+   TYPE             = LAYERS
+   LAYERS           = "Ceilg Cons Layers"
+   ..
+
+"IWall Construction" = CONSTRUCTION
+   TYPE             = U-VALUE
+   U-VALUE          = 2.7
+   ..
+
+"IFlr Cons Layers" = LAYERS
+   MATERIAL         = ( "Conc HW 140lb 6in (HF-C13)", "Linoleum Tile (LT01)" )
+   ..
+
+"IFlr Construction" = CONSTRUCTION
+   TYPE             = LAYERS
+   LAYERS           = "IFlr Cons Layers"
+   ..
+
+
+$ ----------------------------------------------------------------
+$ POLYGON commands for ShellWiz component 'Bldg Envelope & Loads 1'
+$ ----------------------------------------------------------------
+"Floor Polygon" = POLYGON
+   V1 = (     0.00,     0.00 )
+   V2 = (    80.00,     0.00 )
+   V3 = (    80.00,    65.00 )
+   V4 = (     0.00,    65.00 )
+   ..
+
+
+
+$ ----------------------------------------------------------------
+$ SCHEDULE (space & zone) commands for ShellWiz component 'Bldg Envelope & Loads 1'
+$ ----------------------------------------------------------------
+"Undgnd Occ 1/0 D1" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, 0.9, &D, &D, &D, &D,
+                        &D, &D, &D, &D, 0, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Occ 1/0 D2" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Occ 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Undgnd Occ 1/0 D1", &D, &D, &D, &D,
+                        "Undgnd Occ 1/0 D2", &D, &D, &D, &D )
+   ..
+
+"Undgnd Occ Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Undgnd Occ 1/0 W1" )
+   ..
+
+"Undgnd Ltg 1/0 D1" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.011, &D, &D, &D, &D, &D, &D, 0.4555, 0.9, &D, &D,
+                        &D, &D, &D, &D, &D, &D, 0.4555, 0.011, &D, &D, &D, &D,
+                        &D )
+   ..
+
+"Undgnd Ltg 1/0 D2" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.011, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Ltg 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Undgnd Ltg 1/0 D1", &D, &D, &D, &D,
+                        "Undgnd Ltg 1/0 D2", &D, &D, &D, &D )
+   ..
+
+"Undgnd Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Undgnd Ltg 1/0 W1" )
+   ..
+
+"Undgnd Eqp 1/0 D1" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1582, &D, &D, &D, &D, &D, &D, &D, 0.9, &D, &D, &D,
+                        &D, &D, &D, &D, &D, 0.1582, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Eqp 1/0 D2" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1582, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Eqp 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "Undgnd Eqp 1/0 D1", &D, &D, &D, &D,
+                        "Undgnd Eqp 1/0 D2", &D, &D, &D, &D )
+   ..
+
+"Undgnd Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Undgnd Eqp 1/0 W1" )
+   ..
+
+"Undgnd Sys1 Cool 1/0 D1" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 82, &D, &D, &D, &D, &D, &D, &D, 76, &D, &D, &D, &D,
+                        &D, &D, &D, &D, 82, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Cool 1/0 D2" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 82, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Cool 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "Undgnd Sys1 Cool 1/0 D1", &D, &D, &D, &D,
+                        "Undgnd Sys1 Cool 1/0 D2", &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Cool Sch" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Undgnd Sys1 Cool 1/0 W1" )
+   ..
+
+"Undgnd Sys1 Heat 1/0 D1" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 64, &D, &D, &D, &D, &D, &D, &D, 70, &D, &D, &D, &D,
+                        &D, &D, &D, &D, 64, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Heat 1/0 D2" = DAY-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   VALUES           = ( 64, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Heat 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   DAY-SCHEDULES    = ( "Undgnd Sys1 Heat 1/0 D1", &D, &D, &D, &D,
+                        "Undgnd Sys1 Heat 1/0 D2", &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Heat Sch" = SCHEDULE-PD
+   TYPE             = TEMPERATURE
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Undgnd Sys1 Heat 1/0 W1" )
+   ..
+
+"Undgnd Sys1 Inf 1/0/1 D1" = DAY-SCHEDULE-PD
+   TYPE             = MULTIPLIER
+   VALUES           = ( 1, &D, &D, &D, &D, &D, &D, 1.25, &D, 0.5, &D, &D, &D,
+                        &D, &D, &D, 1.25, &D, 1, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Inf 1/0/1 D2" = DAY-SCHEDULE-PD
+   TYPE             = MULTIPLIER
+   VALUES           = ( 1, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Infil 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = MULTIPLIER
+   DAY-SCHEDULES    = ( "Undgnd Sys1 Inf 1/0/1 D1", &D, &D, &D, &D,
+                        "Undgnd Sys1 Inf 1/0/1 D2", &D, &D, &D, &D )
+   ..
+
+"Undgnd Sys1 Infil Sch" = SCHEDULE-PD
+   TYPE             = MULTIPLIER
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Undgnd Sys1 Infil 1/0 W1" )
+   ..
+
+"GndFlr Ltg 1/0 D1" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.019, &D, &D, &D, &D, &D, &D, 0.4595, 0.9, &D, &D,
+                        &D, &D, &D, &D, &D, &D, 0.4595, 0.019, &D, &D, &D, &D,
+                        &D )
+   ..
+
+"GndFlr Ltg 1/0 D2" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.019, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"GndFlr Ltg 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "GndFlr Ltg 1/0 D1", &D, &D, &D, &D,
+                        "GndFlr Ltg 1/0 D2", &D, &D, &D, &D )
+   ..
+
+"GndFlr Ltg Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "GndFlr Ltg 1/0 W1" )
+   ..
+
+"GndFlr Eqp 1/0 D1" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1458, &D, &D, &D, &D, &D, &D, &D, 0.9, &D, &D, &D,
+                        &D, &D, &D, &D, &D, 0.1458, &D, &D, &D, &D, &D, &D )
+   ..
+
+"GndFlr Eqp 1/0 D2" = DAY-SCHEDULE-PD
+   TYPE             = FRACTION
+   VALUES           = ( 0.1458, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"GndFlr Eqp 1/0 W1" = WEEK-SCHEDULE-PD
+   TYPE             = FRACTION
+   DAY-SCHEDULES    = ( "GndFlr Eqp 1/0 D1", &D, &D, &D, &D,
+                        "GndFlr Eqp 1/0 D2", &D, &D, &D, &D )
+   ..
+
+"GndFlr Eqp Sch" = SCHEDULE-PD
+   TYPE             = FRACTION
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "GndFlr Eqp 1/0 W1" )
+   ..
+
+
+$ ----------------------------------------------------------------
+$ SCHEDULE (system) commands for HVACWiz component 'HVAC System 1'
+$ ----------------------------------------------------------------
+"Sys1 (PSZ) Fans D1-1" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF/FLAG
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, 1, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, 0, &D, &D, &D, &D, &D )
+   ..
+
+"Sys1 (PSZ) Fans D1-2" = DAY-SCHEDULE-PD
+   TYPE             = ON/OFF/FLAG
+   VALUES           = ( 0, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D, &D,
+                        &D, &D, &D, &D, &D, &D, &D, &D, &D, &D )
+   ..
+
+"Sys1 (PSZ) Fans W1" = WEEK-SCHEDULE-PD
+   TYPE             = ON/OFF/FLAG
+   DAY-SCHEDULES    = ( "Sys1 (PSZ) Fans D1-1", &D, &D, &D, &D,
+                        "Sys1 (PSZ) Fans D1-2", &D, &D, &D, &D )
+   ..
+
+"Sys1 (PSZ) Fan Sch" = SCHEDULE-PD
+   TYPE             = ON/OFF/FLAG
+   MONTH            = ( 12 )
+   DAY              = ( 31 )
+   WEEK-SCHEDULES   = ( "Sys1 (PSZ) Fans W1" )
+   ..
+
+
+$ ----------------------------------------------------------------
+$ FLOOR, SPACE... commands for ShellWiz component 'Bldg Envelope & Loads 1'
+$ ----------------------------------------------------------------
+"Below-Grade Flr" = FLOOR
+   SHAPE            = POLYGON
+   POLYGON          = "Floor Polygon"
+   AZIMUTH          = 360
+   FLOOR-HEIGHT     = 8
+   SPACE-HEIGHT     = 8
+   Z                = -8
+   C-DIAGRAM-DATA   = "Bldg Envelope & Loads 1 Diag Data"
+   ..
+
+$ ActArea 1:  76.92% of Space,  54.95% of ActArea, or  4000.0 SqFt
+$ ActArea 2:  10.99% of Space,  54.95% of ActArea, or   571.4 SqFt
+$ ActArea 4:   5.49% of Space,  54.95% of ActArea, or   285.7 SqFt
+$ ActArea 5:   4.40% of Space,  54.95% of ActArea, or   228.6 SqFt
+$ ActArea 7:   2.20% of Space,  54.95% of ActArea, or   114.3 SqFt
+$ ----------------------------------------------------------------
+$ AA Sum   : 100.00%                                   5200.0 SqFt
+"Spc (B.1)" = SPACE
+   SHAPE            = POLYGON
+   POLYGON          = "Floor Polygon"
+   ZONE-TYPE        = CONDITIONED
+   C-ACTIVITY-DESC  = "Office (Executive/Private) (77%)"
+   AREA/PERSON      = 137.574
+   PEOPLE-HG-SENS   = 248.656
+   PEOPLE-HG-LAT    = 200.95
+   PEOPLE-SCHEDULE  = "Undgnd Occ Sch"
+   LIGHTING-W/AREA  = 1.2022
+   TASK-LT-W/AREA   = 0
+   EQUIPMENT-W/AREA = 1.2967
+   LIGHTING-SCHEDUL = "Undgnd Ltg Sch"
+   TASK-LIGHT-SCH   = "Undgnd Occ Sch"
+   EQUIP-SCHEDULE   = "Undgnd Eqp Sch"
+   ..
+
+"UFMat (B.1.U2.M1)" = MATERIAL
+   TYPE             = RESISTANCE
+   RESISTANCE       = 100
+   ..
+
+"UFLyrs (B.1.U2)" = LAYERS
+   MATERIAL         = ( "UFMat (B.1.U2.M1)", "Light Soil, Damp 12in",
+                        "Conc HW 140lb 6in (HF-C13)", "Linoleum Tile (LT01)" )
+   ..
+
+"UFCons (B.1.U2)" = CONSTRUCTION
+   TYPE             = LAYERS
+   LAYERS           = "UFLyrs (B.1.U2)"
+   ..
+
+"Flr (B.1.U1)" = UNDERGROUND-WALL
+   CONSTRUCTION     = "UFCons (B.1.U2)"
+   LOCATION         = BOTTOM
+   ..
+
+"UWMat (B.1.U2.M1)" = MATERIAL
+   TYPE             = RESISTANCE
+   RESISTANCE       = 0.943711
+   ..
+
+"UWLyrs (B.1.U2)" = LAYERS
+   MATERIAL         = ( "UWMat (B.1.U2.M1)", "Light Soil, Damp 12in",
+                        "Conc HW 140lb 6in (HF-C13)" )
+   ..
+
+"UWCons (B.1.U2)" = CONSTRUCTION
+   TYPE             = LAYERS
+   LAYERS           = "UWLyrs (B.1.U2)"
+   ..
+
+"South Wall (B.1.U2)" = UNDERGROUND-WALL
+   CONSTRUCTION     = "UWCons (B.1.U2)"
+   LOCATION         = SPACE-V1
+   ..
+
+"East Wall (B.1.U3)" = UNDERGROUND-WALL
+   CONSTRUCTION     = "UWCons (B.1.U2)"
+   LOCATION         = SPACE-V2
+   ..
+
+"North Wall (B.1.U4)" = UNDERGROUND-WALL
+   CONSTRUCTION     = "UWCons (B.1.U2)"
+   LOCATION         = SPACE-V3
+   ..
+
+"West Wall (B.1.U5)" = UNDERGROUND-WALL
+   CONSTRUCTION     = "UWCons (B.1.U2)"
+   LOCATION         = SPACE-V4
+   ..
+
+"Ceiling (B.1.I1)" = INTERIOR-WALL
+   CONSTRUCTION     = "Ceilg Construction"
+   LOCATION         = TOP
+   NEXT-TO          = "Spc (G.2)"
+   ..
+
+"Ground Flr" = FLOOR
+   SHAPE            = POLYGON
+   POLYGON          = "Floor Polygon"
+   AZIMUTH          = 360
+   FLOOR-HEIGHT     = 8
+   SPACE-HEIGHT     = 8
+   C-DIAGRAM-DATA   = "Bldg Envelope & Loads 1 Diag Data"
+   ..
+
+$ ActArea 1:  63.08% of Space,  45.05% of ActArea, or  3280.0 SqFt
+$ ActArea 2:   9.01% of Space,  45.05% of ActArea, or   468.6 SqFt
+$ ActArea 3:  10.00% of Space, 100.00% of ActArea, or   520.0 SqFt
+$ ActArea 4:   4.51% of Space,  45.05% of ActArea, or   234.3 SqFt
+$ ActArea 5:   3.60% of Space,  45.05% of ActArea, or   187.4 SqFt
+$ ActArea 6:   8.00% of Space, 100.00% of ActArea, or   416.0 SqFt
+$ ActArea 7:   1.80% of Space,  45.05% of ActArea, or    93.7 SqFt
+$ ----------------------------------------------------------------
+$ AA Sum   : 100.00%                                   5200.0 SqFt
+"Spc (G.2)" = SPACE
+   SHAPE            = POLYGON
+   POLYGON          = "Floor Polygon"
+   ZONE-TYPE        = CONDITIONED
+   C-ACTIVITY-DESC  = "Office (Executive/Private) (63%)"
+   AREA/PERSON      = 146.954
+   PEOPLE-HG-SENS   = 248.823
+   PEOPLE-HG-LAT    = 207.037
+   PEOPLE-SCHEDULE  = "Undgnd Occ Sch"
+   LIGHTING-W/AREA  = 1.1518
+   TASK-LT-W/AREA   = 0
+   EQUIPMENT-W/AREA = 1.1293
+   LIGHTING-SCHEDUL = "GndFlr Ltg Sch"
+   TASK-LIGHT-SCH   = "Undgnd Occ Sch"
+   EQUIP-SCHEDULE   = "GndFlr Eqp Sch"
+   INF-FLOW/AREA    = 0.0169538
+   INF-METHOD       = AIR-CHANGE
+   INF-SCHEDULE     = "Undgnd Sys1 Infil Sch"
+   ..
+
+"Flr (G.2.I2)" = INTERIOR-WALL
+   CONSTRUCTION     = "IFlr Construction"
+   LOCATION         = BOTTOM
+   NEXT-TO          = "Spc (B.1)"
+   ..
+
+"South Wall (G.2.E1)" = EXTERIOR-WALL
+   CONSTRUCTION     = "EWall Construction"
+   LOCATION         = SPACE-V1
+   ..
+
+"South Win (G.2.E1.W1)" = WINDOW
+   GLASS-TYPE       = "Window Type #2 GT"
+   X                = 5.30833
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 25.3833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"South Win (G.2.E1.W2)" = WINDOW
+   GLASS-TYPE       = "Window Type #2 GT"
+   X                = 49.3083
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 25.3833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"South Door (G.2.E1.D1)" = WINDOW
+   GLASS-TYPE       = "Door Type #1 GT"
+   X                = 37.25
+   Y                = 0.25
+   HEIGHT           = 6.5
+   WIDTH            = 5.5
+   FRAME-WIDTH      = 0.25
+   FRAME-CONDUCT    = 3.079
+   ..
+
+"East Wall (G.2.E2)" = EXTERIOR-WALL
+   CONSTRUCTION     = "EWall Construction"
+   LOCATION         = SPACE-V2
+   ..
+
+"East Win (G.2.E2.W1)" = WINDOW
+   GLASS-TYPE       = "Window Type #2 GT"
+   X                = 3.95833
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 20.5833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"East Win (G.2.E2.W2)" = WINDOW
+   GLASS-TYPE       = "Window Type #2 GT"
+   X                = 40.4583
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 20.5833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"East Door (G.2.E2.D1)" = WINDOW
+   GLASS-TYPE       = "Door Type #1 GT"
+   X                = 29.75
+   Y                = 0.25
+   HEIGHT           = 6.5
+   WIDTH            = 5.5
+   FRAME-WIDTH      = 0.25
+   FRAME-CONDUCT    = 3.079
+   ..
+
+"North Wall (G.2.E3)" = EXTERIOR-WALL
+   CONSTRUCTION     = "EWall Construction"
+   LOCATION         = SPACE-V3
+   ..
+
+"North Win (G.2.E3.W1)" = WINDOW
+   GLASS-TYPE       = "Window Type #1 GT"
+   X                = 5.30833
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 25.3833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"North Win (G.2.E3.W2)" = WINDOW
+   GLASS-TYPE       = "Window Type #1 GT"
+   X                = 49.3083
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 25.3833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"North Door (G.2.E3.D1)" = WINDOW
+   GLASS-TYPE       = "Door Type #1 GT"
+   X                = 37.25
+   Y                = 0.25
+   HEIGHT           = 6.5
+   WIDTH            = 5.5
+   FRAME-WIDTH      = 0.25
+   FRAME-CONDUCT    = 3.079
+   ..
+
+"West Wall (G.2.E4)" = EXTERIOR-WALL
+   CONSTRUCTION     = "EWall Construction"
+   LOCATION         = SPACE-V4
+   ..
+
+"West Win (G.2.E4.W1)" = WINDOW
+   GLASS-TYPE       = "Window Type #2 GT"
+   X                = 3.95833
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 20.5833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"West Win (G.2.E4.W2)" = WINDOW
+   GLASS-TYPE       = "Window Type #2 GT"
+   X                = 40.4583
+   Y                = 3.10833
+   HEIGHT           = 4.78333
+   WIDTH            = 20.5833
+   FRAME-WIDTH      = 0.108333
+   FRAME-CONDUCT    = 2.781
+   ..
+
+"West Door (G.2.E4.D1)" = WINDOW
+   GLASS-TYPE       = "Door Type #1 GT"
+   X                = 29.75
+   Y                = 0.25
+   HEIGHT           = 6.5
+   WIDTH            = 5.5
+   FRAME-WIDTH      = 0.25
+   FRAME-CONDUCT    = 3.079
+   ..
+
+"Roof (G.2.E5)" = EXTERIOR-WALL
+   CONSTRUCTION     = "Roof Construction"
+   LOCATION         = TOP
+   ..
+
+$----------------------------------------------
+$ Activity Area Summary:
+$    ActArea 1:  70.0% of Bldg, or   7280 SqFt
+$    ActArea 2:  10.0% of Bldg, or   1040 SqFt
+$    ActArea 3:   5.0% of Bldg, or    520 SqFt
+$    ActArea 4:   5.0% of Bldg, or    520 SqFt
+$    ActArea 5:   4.0% of Bldg, or    416 SqFt
+$    ActArea 6:   4.0% of Bldg, or    416 SqFt
+$    ActArea 7:   2.0% of Bldg, or    208 SqFt
+$    ActArea 8:   0.0% of Bldg, or      0 SqFt
+$----------------------------------------------
+
+MASTER-METERS
+   MSTR-ELEC-METER = EM1
+   MSTR-FUEL-METER = FM1
+   ..
+
+$ Represents 100.00% of total flow
+"DHW Plant 1 Loop (1)" = CIRCULATION-LOOP
+   TYPE             = DHW
+   PROCESS-FLOW     = ( 0.135524 )
+   PROCESS-T        = ( 135 )
+   PROCESS-SCH      = ( "Undgnd Occ Sch" )
+   DESIGN-HEAT-T    = 135
+   ..
+
+"Sys1 (PSZ) (B.1)" = SYSTEM
+   TYPE             = PSZ
+   SIZING-RATIO     = 1.15
+   HEAT-SOURCE      = FURNACE
+   FURNACE-AUX      = 0
+   ZONE-HEAT-SOURCE = NONE
+   BASEBOARD-SOURCE = NONE
+   CONTROL-ZONE     = "Zn (B.1)"
+   COOLING-EIR      = 0.34565
+   FURNACE-HIR      = 1.24069
+   FAN-SCHEDULE     = "Sys1 (PSZ) Fan Sch"
+   SUPPLY-STATIC    = 1.25
+   SUPPLY-EFF       = 0.53
+   RETURN-EFF       = 0.53
+   OA-CONTROL       = OA-TEMP
+   DRYBULB-LIMIT    = 70
+   ECONO-LOCKOUT    = NO
+   MIN-SUPPLY-T     = 55
+   MAX-SUPPLY-T     = 120
+   ..
+
+"Zn (B.1)" = ZONE
+   TYPE             = CONDITIONED
+   SPACE            = "Spc (B.1)"
+   SIZING-OPTION    = "ADJUST-LOADS"
+   DESIGN-COOL-T    = 75
+   DESIGN-HEAT-T    = 72
+   FLOW/AREA        = 0.5
+   OA-FLOW/PER      = 24.2489
+   COOL-TEMP-SCH    = "Undgnd Sys1 Cool Sch"
+   HEAT-TEMP-SCH    = "Undgnd Sys1 Heat Sch"
+   ..
+
+"Sys1 (PSZ) (G.2)" = SYSTEM
+   TYPE             = PSZ
+   SIZING-RATIO     = 1.15
+   HEAT-SOURCE      = FURNACE
+   FURNACE-AUX      = 0
+   ZONE-HEAT-SOURCE = NONE
+   BASEBOARD-SOURCE = NONE
+   CONTROL-ZONE     = "Zn (G.2)"
+   COOLING-EIR      = 0.34565
+   FURNACE-HIR      = 1.24069
+   FAN-SCHEDULE     = "Sys1 (PSZ) Fan Sch"
+   SUPPLY-STATIC    = 1.25
+   SUPPLY-EFF       = 0.53
+   RETURN-EFF       = 0.53
+   OA-CONTROL       = OA-TEMP
+   DRYBULB-LIMIT    = 70
+   ECONO-LOCKOUT    = NO
+   MIN-SUPPLY-T     = 55
+   MAX-SUPPLY-T     = 120
+   ..
+
+"Zn (G.2)" = ZONE
+   TYPE             = CONDITIONED
+   SPACE            = "Spc (G.2)"
+   SIZING-OPTION    = "ADJUST-LOADS"
+   DESIGN-COOL-T    = 75
+   DESIGN-HEAT-T    = 72
+   FLOW/AREA        = 0.5
+   OA-FLOW/PER      = 23.2971
+   COOL-TEMP-SCH    = "Undgnd Sys1 Cool Sch"
+   HEAT-TEMP-SCH    = "Undgnd Sys1 Heat Sch"
+   ..
+
+"DHW Plant 1 Wtr Htr (1)" = DW-HEATER
+   TYPE             = GAS
+   DHW-LOOP         = "DHW Plant 1 Loop (1)"
+   CAPACITY         = 0.0487691
+   TANK-VOLUME      = 36.5915
+   TANK-UA          = 1.52465
+   C-TANK-EXT-RVAL  = 12
+   LOCATION         = ZONE
+   ZONE-NAME        = "Zn (B.1)"
+   C-ENERGY-FACTOR  = 0.550476
+   C-RECOV-EFF      = 0.8
+   C-STBY-LOSS-FRAC = 3.11132
+   HIR-FPLR         = "DW-Gas-Pilotless-HIR-fPLR"
+   ..
+
+"SCE GS-2 Elec Rate" = UTILITY-RATE
+   LIBRARY-ENTRY "SCE GS-2 Elec Rate"
+   ..
+
+"SoCalGas GN-10 Gas Rate" = UTILITY-RATE
+   LIBRARY-ENTRY "SoCalGas GN-10 Gas Rate"
+   ..
+
+LOADS-REPORT
+   VERIFICATION    =(ALL-VERIFICATION)
+   SUMMARY         =(ALL-SUMMARY)
+   ..
+SYSTEMS-REPORT
+   VERIFICATION    =(ALL-VERIFICATION)
+   SUMMARY         =(ALL-SUMMARY)
+   ..
+PLANT-REPORT
+   VERIFICATION    =(ALL-VERIFICATION)
+   SUMMARY         =(ALL-SUMMARY)
+   ..
+ECONOMICS-REPORT
+   VERIFICATION    =(ALL-VERIFICATION)
+   SUMMARY         =(ALL-SUMMARY)
+   ..
+
+END ..
+COMPUTE ..
+STOP ..

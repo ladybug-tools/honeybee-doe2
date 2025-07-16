@@ -1,0 +1,770 @@
+INPUT ..
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+TITLE
+   LINE-1           = *Unnamed*
+   ..
+
+"Default Run Period" = RUN-PERIOD-PD
+   BEGIN-MONTH              = 1
+   BEGIN-DAY                = 1
+   BEGIN-YEAR               = 2021
+   END-MONTH                = 12
+   END-DAY                  = 31
+   END-YEAR                 = 2021
+   ..
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY            = "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Site and Building Data
+$ ---------------------------------------------------------
+
+
+"Site Data" = SITE-PARAMETERS
+   ALTITUDE                 = 150
+   C-STATE                  = 21
+   C-WEATHER-FILE           = *TMY2\HARTFOCT.bin*
+   C-COUNTRY                = 1
+   C-901-LOCATION           = 1092
+   ..
+"Building Data" = BUILD-PARAMETERS
+   HOLIDAYS                 = "Standard US Holidays"
+   ..
+
+$ ---------------------------------------------------------
+$              Day Schedules
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Week Schedules
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Annual Schedules
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.066
+   CONDUCTIVITY             = 0.035
+   DENSITY                  = 22.974
+   SPECIFIC-HEAT            = 0.141
+   ..
+
+"Generic Brick" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.52
+   DENSITY                  = 119.865
+   SPECIFIC-HEAT            = 0.189
+   ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.306
+   DENSITY                  = 79.91
+   SPECIFIC-HEAT            = 0.201
+   ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.386
+   DENSITY                  = 0.08
+   SPECIFIC-HEAT            = 0.239
+   ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.656
+   CONDUCTIVITY             = 1.127
+   DENSITY                  = 139.843
+   SPECIFIC-HEAT            = 0.215
+   ..
+
+"Generic 25mm Wood" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.083
+   CONDUCTIVITY             = 0.087
+   DENSITY                  = 37.957
+   SPECIFIC-HEAT            = 0.389
+   ..
+
+"Generic Roof Membrane" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.033
+   CONDUCTIVITY             = 0.093
+   DENSITY                  = 69.921
+   SPECIFIC-HEAT            = 0.349
+   ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.164
+   CONDUCTIVITY             = 0.017
+   DENSITY                  = 2.684
+   SPECIFIC-HEAT            = 0.289
+   ..
+
+"Generic Painted Metal" = MATERIAL
+   TYPE                     = RESISTANCE
+   RESISTANCE               = 0.000189
+   ..
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.321
+   DENSITY                  = 0.08
+   SPECIFIC-HEAT            = 0.239
+   ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.042
+   CONDUCTIVITY             = 0.093
+   DENSITY                  = 49.944
+   SPECIFIC-HEAT            = 0.26
+   ..
+
+"Generic Ground Slab_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+   )
+   ..
+"Generic Ground Slab" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.7
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Ground Slab_l"
+   ..
+
+"Generic Roof_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Roof Membrane",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile",
+   )
+   ..
+"Generic Roof" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.65
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Roof_l"
+   ..
+
+"Generic Underground Roof_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile",
+   )
+   ..
+"Generic Underground Roof" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.7
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Underground Roof_l"
+   ..
+
+"Generic Interior Wall_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Gypsum Board",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board",
+   )
+   ..
+"Generic Interior Wall" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.5
+   ROUGHNESS                = 4
+   LAYERS                   = "Generic Interior Wall_l"
+   ..
+
+"Generic Exterior Wall_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Brick",
+      "Generic LW Concrete",
+      "Generic 50mm Insulation",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board",
+   )
+   ..
+"Generic Exterior Wall" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.65
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Exterior Wall_l"
+   ..
+
+"Generic Interior Ceiling_l" = LAYERS
+   MATERIAL                 = (
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile",
+   )
+   ..
+"Generic Interior Ceiling" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.8
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Interior Ceiling_l"
+   ..
+
+"Generic Air Boundary" = CONSTRUCTION
+   TYPE                     = U-VALUE
+   U-VALUE                  = 1.0
+   ..
+
+"Generic Exposed Floor_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Painted Metal",
+      "Generic Ceiling Air Gap",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete",
+   )
+   ..
+"Generic Exposed Floor" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.5
+   ROUGHNESS                = 5
+   LAYERS                   = "Generic Exposed Floor_l"
+   ..
+
+"Generic Interior Floor_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Acoustic Tile",
+      "Generic Ceiling Air Gap",
+      "Generic LW Concrete",
+   )
+   ..
+"Generic Interior Floor" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.2
+   ROUGHNESS                = 4
+   LAYERS                   = "Generic Interior Floor_l"
+   ..
+
+"Generic Interior Door_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 25mm Wood",
+   )
+   ..
+"Generic Interior Door" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.5
+   ROUGHNESS                = 4
+   LAYERS                   = "Generic Interior Door_l"
+   ..
+
+"Generic Underground Wall_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board",
+   )
+   ..
+"Generic Underground Wall" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.7
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Underground Wall_l"
+   ..
+
+$ ---------------------------------------------------------
+$              Glass Types
+$ ---------------------------------------------------------
+
+
+"Generic Double Pane" = GLASS-TYPE
+   TYPE                     = SHADING-COEF
+   SHADING-COEF             = 0.487
+   GLASS-CONDUCT            = 0.297237
+   ..
+
+$ ---------------------------------------------------------
+$              Door Construction
+$ ---------------------------------------------------------
+
+
+"Generic Exterior Door" = CONSTRUCTION
+   TYPE                     = U-VALUE
+   U-VALUE                  = 0.176613
+   ..
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+"L1GGround Flr Plg" = POLYGON
+   V1                       = (38.3299, 0.0)
+   V2                       = (53.2831, 3.0131)
+   V3                       = (95.933, 9.5775)
+   V4                       = (174.6684, 22.7234)
+   V5                       = (240.2862, 35.8385)
+   V6                       = (279.6406, 42.3925)
+   V7                       = (315.7317, 48.9416)
+   V8                       = (279.6357, 265.4818)
+   V9                       = (0.0, 216.1441)
+   ..
+
+"L1GWest Perim Spc G.W1 Plg" = POLYGON
+   V1                       = (38.3299, 0.0)
+   V2                       = (53.2831, 3.0131)
+   V3                       = (95.933, 9.5775)
+   V4                       = (135.2817, 16.1638)
+   V5                       = (174.6684, 22.7234)
+   V6                       = (240.2862, 35.8385)
+   V7                       = (279.6406, 42.3925)
+   V8                       = (315.7317, 48.9416)
+   V9                       = (279.6357, 265.4818)
+   V10                      = (0.0, 216.1441)
+   V11                      = (23.2642, 84.9563)
+   V12                      = (30.2301, 45.675)
+   ..
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Fixed and Building Shades
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Performance Curves
+$ **                                                     **
+$ *********************************************************
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Floors / Spaces / Walls / Windows / Doors
+$ **                                                     **
+$ *********************************************************
+
+
+SET-DEFAULT FOR SPACE
+   INF-METHOD = AIR-CHANGE
+..
+
+"L1GGround Flr" = FLOOR
+   SHAPE                    = POLYGON
+   POLYGON                  = "L1GGround Flr Plg"
+   AZIMUTH                  = 0
+   X                        = 130.4604
+   Y                        = 466.1335
+   Z                        = 0.0
+   SPACE-HEIGHT             = 111.877
+   FLOOR-HEIGHT             = 111.877
+   ..
+
+"L1GWest Perim Spc G.W1" = SPACE
+   SHAPE                    = POLYGON
+   POLYGON                  = "L1GWest Perim Spc G.W1 Plg"
+   AZIMUTH                  = 0
+   X                        = 0.0
+   Y                        = 0.0
+   Z                        = 0.0
+   VOLUME                   = 6958756.2156
+   ZONE-TYPE                = UNCONDITIONED
+   ..
+
+"L1GWstPrmSpcG.W1..Fc0" = UNDERGROUND-WALL
+   CONSTRUCTION             = "Generic Ground Slab"
+   LOCATION                 = BOTTOM
+   ..
+
+"L1GWstPrmSpcG.W1..Fc1" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V9
+   ..
+
+"L1GWstPrmSp ..Fc1Glz30" = WINDOW
+   X                        = 110.6288
+   Y                        = 92.5197
+   WIDTH                    = 20.9974
+   HEIGHT                   = 15.0919
+   GLASS-TYPE               = "Generic Double Pane"
+   ..
+
+"L1GWstPrmSp ..Fc1Glz61" = WINDOW
+   X                        = 202.8204
+   Y                        = 92.5197
+   WIDTH                    = 20.9974
+   HEIGHT                   = 15.0919
+   GLASS-TYPE               = "Generic Double Pane"
+   ..
+
+"L1GWstPrmSp ..Fc1Glz22" = WINDOW
+   X                        = 79.7889
+   Y                        = 92.5197
+   WIDTH                    = 20.9974
+   HEIGHT                   = 15.0919
+   GLASS-TYPE               = "Generic Double Pane"
+   ..
+
+"L1GWstPrmSp ..Fc1Glz43" = WINDOW
+   X                        = 141.4687
+   Y                        = 92.5197
+   WIDTH                    = 20.9974
+   HEIGHT                   = 15.0919
+   GLASS-TYPE               = "Generic Double Pane"
+   ..
+
+"L1GWstPrmSp ..Fc1Glz54" = WINDOW
+   X                        = 171.9805
+   Y                        = 92.5197
+   WIDTH                    = 20.9974
+   HEIGHT                   = 15.0919
+   GLASS-TYPE               = "Generic Double Pane"
+   ..
+
+"L1GWstPrmSp ..Fc1Glz15" = WINDOW
+   X                        = 48.949
+   Y                        = 92.5197
+   WIDTH                    = 20.9974
+   HEIGHT                   = 15.0919
+   GLASS-TYPE               = "Generic Double Pane"
+   ..
+
+"L1GWstPrmSpcG.W1..Fc2" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V10
+   ..
+
+"L1GWstPrmSp W1..Fc2Dr1" = DOOR
+   X                        = 0.0328
+   Y                        = 0.0328
+   WIDTH                    = 9.8097
+   HEIGHT                   = 22.9331
+   CONSTRUCTION             = "Generic Exterior Door"
+   ..
+
+"L1GWstPrmSp W1..Fc2Dr2" = DOOR
+   X                        = 16.4042
+   Y                        = 9.8425
+   WIDTH                    = 9.8425
+   HEIGHT                   = 22.9659
+   CONSTRUCTION             = "Generic Exterior Door"
+   ..
+
+"L1GWstPrmSpcG.W1..Fc3" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V11
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc4" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V12
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc5" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V1
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc6" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V2
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc7" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V3
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc8" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V4
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc9" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V5
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc10" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V6
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc11" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V7
+   INT-WALL-TYPE            = ADIABATIC
+   ..
+
+"L1GWstPrmSpcG.W1..Fc12" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V8
+   ..
+
+"L1GWstPrmSpcG.W1..Fc13" = ROOF
+   CONSTRUCTION             = "Generic Roof"
+   LOCATION                 = TOP
+   ..
+
+$ *********************************************************
+$ **                                                     **
+$                   Electric & Fuel Meters
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   HVAC Circulation Loops / Plant Equipment
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Steam & Chilled Water Meters
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   HVAC Systems / Zones
+$ **                                                     **
+$ *********************************************************
+
+
+
+"L1GGround Flr_Sys" = SYSTEM
+   TYPE                     = SUM
+   HEAT-SOURCE              = NONE
+   SYSTEM-REPORTS           = NO
+   ..
+
+"L1GWest Perim Spc G.W1_Zn" = ZONE
+   TYPE                     = UNCONDITIONED
+   SIZING-OPTION            = ADJUST-LOADS
+   SPACE                    = "L1GWest Perim Spc G.W1"
+   ..
+
+$ *********************************************************
+$ **                                                     **
+$                   Metering & Misc HVAC
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Utility Rates
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Output Reporting
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+
+END ..
+COMPUTE ..
+STOP ..
