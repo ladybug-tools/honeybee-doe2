@@ -95,9 +95,10 @@ def parse_inp_string(inp_string):
         A tuple with four elements.
 
         -   u_name: Text for the unique name of the object. Will be None if the object
-            is a Parameter.
+            is a Parameter. DOE-2 object defaults will return a tuple (command, command_type)
+            (i.e ZONE default u_name would be: ('ZONE', 'CONDITIONED'))
 
-        -   command: Text for the type of instruction that the DOE-2 object executes.
+        -   command: Text for the type of instruction that the DOE-2 object executes. 
 
         -   keywords: A list of text with the same length as the values that denote
             the attributes of the DOE-2 object.
@@ -119,12 +120,53 @@ def parse_inp_string(inp_string):
         if len(lines) < 2:
             raise ValueError('Invalid parameter block: {}'.format(inp_string))
         param_line = lines[1].strip()
+        
         if '=' in param_line:
             key, val = [s.strip().replace('"', '') for s in param_line.split('=', 1)]
             return None, "PARAMETER", [key], [val]
         else:
             raise ValueError(
                 'Global parameter missing "=" assignment: {}'.format(inp_string))
+    
+    if inp_string.startswith("TITLE"):
+        lines = inp_string.splitlines()[1:]  # Skip "TITLE"
+        keywords = []
+        values = []
+        for line in lines:
+            line = line.strip()
+            if '=' in line:
+                k, v = [s.strip().replace('"', '') for s in line.split('=', 1)]
+                keywords.append(k)
+                values.append(v)
+        return None, "TITLE", keywords, values
+    
+    if inp_string.startswith("SET-DEFAULT FOR"):
+        lines = inp_string.splitlines()
+        
+        # Get the command from the first line
+        match = re.match(r"SET-DEFAULT FOR (\w+)", lines[0])
+        if not match:
+            raise ValueError(
+                'Invalid SET-DEFAULT header: {}'.format(inp_string))
+        command = match.group(1).strip()
+        
+        keywords = []
+        values = []
+        for line in lines[1:]:
+            line = line.strip()
+            if not line:
+                continue
+            if '=' in line:
+                k, v = [s.strip().replace('"', '') for s in line.split('=', 1)]
+                keywords.append(k)
+                values.append(v)
+        
+        command_type = "" # Set to empty string for objects without TYPE attrs
+        if "TYPE" in keywords:
+            type_index = keywords.index("TYPE")
+            command_type = values[type_index]
+
+        return (command, command_type), "DEFAULTS", keywords, values
 
     doe2_fields = [e_str.strip() for e_str in inp_string.split('=')]
     u_name = doe2_fields.pop(0).replace('"', '')
@@ -208,7 +250,7 @@ def doe2_object_blocks(inp_file_contents):
         A list of strings, where each string is a complete block of the INP file.
     """
     blocks, buffer = [], []
-    ignore_blocks = ['INPUT', 'TITLE', 'END', 'COMPUTE', 'STOP']
+    ignore_blocks = ['INPUT', 'END', 'COMPUTE', 'STOP']
 
     for line in inp_file_contents.splitlines():
         buffer.append(line)
