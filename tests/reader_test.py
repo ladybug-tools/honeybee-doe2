@@ -10,7 +10,7 @@ def test_parse_inp_file():
     with open(inp_file_path, 'r') as doe_file:
         inp_content = doe_file.read()
     inp_object_dict = command_dict_from_inp(inp_content)
-
+    
     assert isinstance(inp_object_dict, dict)
     assert 'PARAMETER' in inp_object_dict or len(inp_object_dict) > 0
 
@@ -29,7 +29,9 @@ def test_convert_underground_from_wiz():
     """Test converting an underground space from wizard to HBJSON."""
     inp_path = os.path.join(os.path.dirname(__file__), 'assets', 'underground_from_wiz.inp')
     out_path = os.path.join(os.path.dirname(__file__), 'assets', 'out_underground_from_wiz.hbjson')
-    model = model_from_inp(inp_path)
+    with open(inp_path, 'r') as doe_file:
+        inp_content = doe_file.read()
+    model = model_from_inp(inp_content)
     model.to_hbjson(out_path)
 
 
@@ -37,7 +39,9 @@ def test_convert_stacked_rect_from_wiz():
     """Test converting stacked rectangular geometry from wizard to HBJSON."""
     inp_path = os.path.join(os.path.dirname(__file__), 'assets', 'stacked_rect_from_wiz.inp')
     out_path = os.path.join(os.path.dirname(__file__), 'assets', 'out_stacked_rect_from_wiz.hbjson')
-    model = model_from_inp(inp_path)
+    with open(inp_path, 'r') as doe_file:
+        inp_content = doe_file.read()
+    model = model_from_inp(inp_content)
     model.to_hbjson(out_path)
 
 
@@ -45,7 +49,9 @@ def test_convert_square_from_hbjson():
     """Test converting square geometry from HBJSON back to HBJSON."""
     inp_path = os.path.join(os.path.dirname(__file__), 'assets', 'square_from_hbjson.inp')
     out_path = os.path.join(os.path.dirname(__file__), 'assets', 'out_square_from_hbjson.hbjson')
-    model = model_from_inp(inp_path)
+    with open(inp_path, 'r') as doe_file:
+        inp_content = doe_file.read()
+    model = model_from_inp(inp_content)
     model.to_hbjson(out_path)
 
 
@@ -53,7 +59,9 @@ def test_convert_stacked_squa_from_hbjson():
     """Test converting stacked square geometry from HBJSON back to HBJSON."""
     inp_path = os.path.join(os.path.dirname(__file__), 'assets', 'stacked_squa_from_hbjson.inp')
     out_path = os.path.join(os.path.dirname(__file__), 'assets', 'out_stacked_squa_from_hbjson.hbjson')
-    model = model_from_inp(inp_path)
+    with open(inp_path, 'r') as doe_file:
+        inp_content = doe_file.read()
+    model = model_from_inp(inp_content)
     model.to_hbjson(out_path)
 
 
@@ -61,14 +69,18 @@ def test_convert_sloped_roof_from_hbjson():
     """Test converting sloped roof geometry from HBJSON back to HBJSON."""
     inp_path = os.path.join(os.path.dirname(__file__), 'assets', 'sloped_roof_from_hbjson.inp')
     out_path = os.path.join(os.path.dirname(__file__), 'assets', 'out_sloped_roof_from_hbjson.hbjson')
-    model = model_from_inp(inp_path)
+    with open(inp_path, 'r') as doe_file:
+        inp_content = doe_file.read()
+    model = model_from_inp(inp_content)
     model.to_hbjson(out_path)
 
 def test_school_project_from_wiz():
     """Test full school project from wizard to HBJSON."""
     inp_path = os.path.join(os.path.dirname(__file__), 'assets', 'school_project_from_wiz.inp')
     out_path = os.path.join(os.path.dirname(__file__), 'assets', 'out_school_project_from_wiz.hbjson')
-    model = model_from_inp(inp_path)
+    with open(inp_path, 'r') as doe_file:
+        inp_content = doe_file.read()
+    model = model_from_inp(inp_content)
     model.to_hbjson(out_path)
 
 
