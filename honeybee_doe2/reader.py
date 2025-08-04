@@ -1,3 +1,5 @@
+"""Methods to read inp files to Honeybee."""
+from __future__ import division
 import os
 import math
 import re
@@ -13,18 +15,16 @@ from honeybee_energy.boundarycondition import Adiabatic
 from honeybee.boundarycondition import Outdoors, Ground
 from honeybee.typing import clean_string
 
-from .config import DOE2_ANGLE_TOL, GEO_DEC_COUNT
+from .config import DOE2_ANGLE_TOL, GEO_DEC_COUNT, DOE2_TOLERANCE
 from .util import clean_inp_file_contents, doe2_object_blocks, parse_inp_string
 
-
-_FEET_TO_METERS = 0.3048
-_TOL            = 1e-6 
 _CMD_TO_BC      = {
                     "EXTERIOR-WALL":   Outdoors,
                     "INTERIOR-WALL":   Adiabatic,
                     "UNDERGROUND-WALL": Ground,
                     "ROOF":            Outdoors,  
 }
+
 def command_dict_from_inp(inp_file_contents):
     """Get a dictionary of INP commands and U-names from a INP file content string.
 
@@ -41,10 +41,11 @@ def command_dict_from_inp(inp_file_contents):
     inp_file_contents = clean_inp_file_contents(inp_file_contents)
     blocks = doe2_object_blocks(inp_file_contents)
     global_parameters = {}
-    non_parameter_blocks = []
+    result = defaultdict(dict)
+    cmd_blocks = []
     block_line_count = 1
 
-    # Get globals first since they are formatted slightly differently
+    # Get globals and TITLE first since they are formatted slightly differently
     for blk in blocks:
         u_name, cmd, keys, vals = parse_inp_string(blk)
         if cmd == "PARAMETER":
@@ -53,12 +54,13 @@ def command_dict_from_inp(inp_file_contents):
                 global_parameters[key] = float(val_raw)
             except ValueError:
                 global_parameters[key] = val_raw
+        elif cmd == "TITLE":
+            key, val = keys[0], vals[0]
+            result["TITLE"][key] = val
         else:
-            non_parameter_blocks.append(blk)
+            cmd_blocks.append(blk)
 
-    result = defaultdict(dict)
-
-    for blk in non_parameter_blocks:
+    for blk in cmd_blocks:
         u_name, cmd, keys, vals = parse_inp_string(blk)
 
         if keys is None or vals is None:
@@ -80,19 +82,16 @@ def command_dict_from_inp(inp_file_contents):
 
     return dict(result)
 
-def model_from_inp(inp_file_path) -> Model:
+def model_from_inp(inp_file_contents):
     """Convert an inp file to an HBJSON Model object
 
     Args:
-        inp_file_path: The file path to an inp file
+        inp_file_contents: A text string of the complete contents of an INP file.
 
     Returns:
         A honeybee Model object. This only converts the geometry 
 
     """
-    with open(inp_file_path, 'r') as doe_file:
-        inp_file_contents = doe_file.read()
-
     cmd_dict = command_dict_from_inp(inp_file_contents)
     floors = cmd_dict.get("FLOOR", {})
     polys  = cmd_dict.get("POLYGON", {})
@@ -116,6 +115,7 @@ def model_from_inp(inp_file_path) -> Model:
             if not shape or shape == "NO-SHAPE":
                 continue
             if shape == "BOX":
+                # TODO: Support BOX SHAPE SPACE objects... Need to find or create INP example file
                 raise ValueError(f"{spc_name} is defined by a BOX – convert to POLYGON first.")
 
             # Local footprint
@@ -144,6 +144,7 @@ def model_from_inp(inp_file_path) -> Model:
                     flr_origin, flr_az, glob_az,  
                 )
             else:
+                # TODO: Support the ability to preserve the original face geometry
                 edge_info, floor_bc, ceiling_bc  = _edge_info_map(cmd_dict, walls, spc_pts_global, spc_pts_local)
                 faces = _extruded_shell(spc, spc_pts_global, edge_info, floor_bc, ceiling_bc, spc_name, flr)
 
@@ -153,10 +154,9 @@ def model_from_inp(inp_file_path) -> Model:
             room.multiplier = flr_mult
             rooms.append(room)
 
-    model_name = clean_string(os.path.splitext(os.path.basename(inp_file_path))[0])
+    model_name = cmd_dict.get("TITLE", {}).get("LINE-1", "Model From DOE2").replace("*","")
     
-    return Model(model_name, rooms)
-
+    return Model(clean_string(model_name), rooms, units='Feet', tolerance=DOE2_TOLERANCE, angle_tolerance=DOE2_ANGLE_TOL)
 
 def _volume_from_polygons(cmd_dict, walls, polys, spc_pts_global, spc_pts_local, spc_name, flr_origin, flr_az, glob_az):
     """Build detailed faces when each wall has its own POLYGON.
@@ -191,7 +191,7 @@ def _volume_from_polygons(cmd_dict, walls, polys, spc_pts_global, spc_pts_local,
         tilt = _get_wall_tilt(w_attrs)
 
         pts = [Point3D(x, y, 0) for x, y in verts_local]
-        if abs(tilt) > 1e-9:
+        if abs(tilt) > DOE2_ANGLE_TOL:
             ang = math.radians(tilt)
             axis = Vector3D(1, 0, 0)
             pts = [p.rotate(axis, ang, Point3D(0, 0, 0)) for p in pts]
@@ -225,7 +225,7 @@ def _volume_from_polygons(cmd_dict, walls, polys, spc_pts_global, spc_pts_local,
 
         face = Face(
             identifier=f"{clean_string(spc_name)}_Face_{idx}",
-            geometry=Face3D([_feet_to_meters((p.x, p.y, p.z)) for p in pts_global]),
+            geometry=Face3D([Point3D(p.x, p.y, p.z) for p in pts_global]),
             type=ftype,
             boundary_condition=bc
         )
@@ -244,14 +244,12 @@ def _volume_from_polygons(cmd_dict, walls, polys, spc_pts_global, spc_pts_local,
 
     return faces
 
-
 class _EdgeInfo:
     __slots__ = ("bc", "apertures", "doors")
     def __init__(self):
         self.bc    = Outdoors() 
         self.apertures  = []
         self.doors = []
-
 
 def _edge_info_map(cmd_dict, walls_dict, spc_verts_global, spc_verts_local):  
     """Creates a dictionary mapping each vertex index to its corresponding EdgeInfo object.
@@ -328,22 +326,22 @@ def _extruded_shell(spc_attrs, verts_glob, edge_info, floor_bc, ceiling_bc, spc_
     height = _space_height(spc_attrs, flr_attrs)
 
     # Floor
-    floor_m = [_feet_to_meters((p.x, p.y, p.z)) for p in verts_glob]
+    floor_pts = [Point3D(p.x, p.y, p.z) for p in verts_glob]
     faces.append(
         Face(
             identifier= f"{clean_string(spc_name)}_Floor",
-            geometry= Face3D(floor_m),
+            geometry= Face3D(floor_pts),
             type=Floor(),  
             boundary_condition= floor_bc
         )
     )
 
     # Ceiling
-    ceil_m = [_feet_to_meters((p.x, p.y, p.z + height)) for p in verts_glob]
+    ceil_pts = [Point3D(p.x, p.y, p.z + height) for p in verts_glob]
     faces.append(
         Face(
             identifier= f"{clean_string(spc_name)}_Ceiling",
-            geometry= Face3D(ceil_m),
+            geometry= Face3D(ceil_pts),
             type = RoofCeiling(), 
             boundary_condition= ceiling_bc
         )
@@ -353,17 +351,16 @@ def _extruded_shell(spc_attrs, verts_glob, edge_info, floor_bc, ceiling_bc, spc_
     for i in range(vcount):
         p1 = verts_glob[i]
         p2 = verts_glob[0] if i == vcount - 1 else verts_glob[i + 1]
-        wall_ft = [
-            (p1.x, p1.y, p1.z),
-            (p2.x, p2.y, p2.z),
-            (p2.x, p2.y, p2.z + height),
-            (p1.x, p1.y, p1.z + height),
+        wall_pts = [
+            Point3D(p1.x, p1.y, p1.z),
+            Point3D(p2.x, p2.y, p2.z),
+            Point3D(p2.x, p2.y, p2.z + height),
+            Point3D(p1.x, p1.y, p1.z + height),
         ]
-        wall_m = [_feet_to_meters(pt) for pt in wall_ft]
-
+    
         face = Face(
             identifier=f"{clean_string(spc_name)}_Wall_{i + 1}",
-            geometry=Face3D(wall_m),
+            geometry=Face3D(wall_pts),
             type= Wall(), 
             boundary_condition = edge_info[i].bc
         )
@@ -396,10 +393,9 @@ def _wall_start_point(wall_attrs, spc_verts_local):
 
     ox, oy, _ = _get_origin(wall_attrs)
     for i, v in enumerate(spc_verts_local):
-        if abs(v.x - ox) < _TOL and abs(v.y - oy) < _TOL:
+        if abs(v.x - ox) < DOE2_TOLERANCE and abs(v.y - oy) < DOE2_TOLERANCE:
             return (v.x, v.y), i
     return None, -1
-
 
 def _apertures_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
     """Create aperture objects for windows in a wall.
@@ -418,7 +414,7 @@ def _apertures_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
     apps = []
     dx, dy = gp2.x - gp1.x, gp2.y - gp1.y
     length = math.hypot(dx, dy)
-    if length < _TOL:
+    if length < DOE2_TOLERANCE:
         return apps
     ux, uy = dx / length, dy / length
 
@@ -429,17 +425,16 @@ def _apertures_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
         h  = float(win.get("HEIGHT", 0) or 0)
         xo = float(win.get("X", 0) or 0)
         yo = float(win.get("Y", 0) or 0)
-        pts_ft = _build_subface_corners((gp1.x, gp1.y), ux, uy, xo, yo, w, h, z0)
+        pts = _build_subface_corners((gp1.x, gp1.y), ux, uy, xo, yo, w, h, z0)
         apps.append(
             Aperture(
                 f"{clean_string(w_name)}_Win{idx}_{n}",
-                Face3D([_feet_to_meters(p) for p in pts_ft]),
+                Face3D(pts),
                 boundary_condition=Outdoors(),
             )
         )
         n += 1
     return apps
-
 
 def _doors_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
     """Create door objects for a wall.
@@ -458,7 +453,7 @@ def _doors_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
     doors = []
     dx, dy = gp2.x - gp1.x, gp2.y - gp1.y
     length = math.hypot(dx, dy)
-    if length < _TOL:
+    if length < DOE2_TOLERANCE:
         return doors
     ux, uy = dx / length, dy / length
 
@@ -469,11 +464,11 @@ def _doors_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
         h  = float(d.get("HEIGHT", 7.0) or 7.0)
         xo = float(d.get("X", 0) or 0)
         yo = float(d.get("Y", 0) or 0)
-        pts_ft = _build_subface_corners((gp1.x, gp1.y), ux, uy, xo, yo, w, h, z0)
+        pts = _build_subface_corners((gp1.x, gp1.y), ux, uy, xo, yo, w, h, z0)
         doors.append(
             Door(
                 f"{clean_string(w_name)}_Door{idx}_{n}",
-                Face3D([_feet_to_meters(p) for p in pts_ft]),
+                Face3D(pts),
                 boundary_condition= Outdoors(),
             )
         )
@@ -496,21 +491,6 @@ def _get_origin(attrs):
         float(attrs.get("Z", 0) or 0),
     )
 
-
-def _feet_to_meters(pt):
-    """Convert a 3D point from feet to metres.
-
-    Args:
-        pt (Point3D): The point expressed in feet 
-
-    Returns:
-        Point3D: A new point whose coordinates have been converted to metres
-    """
-    return Point3D(pt[0] * _FEET_TO_METERS,
-                   pt[1] * _FEET_TO_METERS,
-                   pt[2] * _FEET_TO_METERS)
-
-
 def _transform_points(pts, az_deg, origin_vec):
     """Rotate points about Z axis and then translate them.
 
@@ -530,9 +510,8 @@ def _transform_points(pts, az_deg, origin_vec):
         out.append(p.rotate_xy(angle, Point3D(0, 0, 0)).move(move_vec))
     return out
 
-
 def _build_subface_corners(origin, ux, uy, offx, offy, width, height, z0):
-    """Generate the four corner coordinates of a rectangular sub-surface.
+    """Generate the four corner Point3D objects of a rectangular sub-surface.
 
     Args:
         origin (tuple[float, float, float]): Base point of the parent wall.
@@ -545,12 +524,12 @@ def _build_subface_corners(origin, ux, uy, offx, offy, width, height, z0):
         z0 (float): Base elevation of the parent wall.
 
     Returns:
-        list[list[float]]: Corner coordinates 
+        list[Point3D]: Corner points as Point3D objects.
     """
-    bl = [origin[0] + ux * offx, origin[1] + uy * offx, z0 + offy]
-    br = [origin[0] + ux * (offx + width), origin[1] + uy * (offx + width), z0 + offy]
-    tr = [br[0], br[1], z0 + offy + height]
-    tl = [bl[0], bl[1], tr[2]]
+    bl = Point3D(origin[0] + ux * offx, origin[1] + uy * offx, z0 + offy)
+    br = Point3D(origin[0] + ux * (offx + width), origin[1] + uy * (offx + width), z0 + offy)
+    tr = Point3D(br.x, br.y, z0 + offy + height)
+    tl = Point3D(bl.x, bl.y, tr.z)
     return [bl, br, tr, tl]
 
 def _verts_to_tuples(verts_dict):
@@ -637,7 +616,6 @@ def surfaces_from_space(cmd_dict, space_name):
         surfs.update(children)
     return surfs
 
-
 def _calc_azimuth(v1, v2):
     """Calculate the azimuth from point v1 to v2 in degrees clockwise from north.
 
@@ -651,7 +629,6 @@ def _calc_azimuth(v1, v2):
     dx, dy = v2[0] - v1[0], v2[1] - v1[1]
     ang = math.degrees(math.atan2(dy, dx))
     return ang + 360 if ang < 0 else ang
-
 
 def _get_wall_tilt(w_attrs):
     """Return the wall’s tilt angle in degrees, with overrides for special LOCATIONs.
@@ -674,7 +651,6 @@ def _get_wall_tilt(w_attrs):
     if loc == "BOTTOM":
         return 180
     return tilt
-
 
 def _origin_and_azimuth(obj_attrs, parent_vertices, is_wall):
     """Compute the local origin (x, y, z) and azimuth for a SPACE, WALL, or FLOOR.
@@ -703,7 +679,6 @@ def _origin_and_azimuth(obj_attrs, parent_vertices, is_wall):
         if not is_wall:
             az = - az # Reverse azimuth for SPACE and FLOOR
     return x, y, z, az
-
 
 def _space_height(spc_attrs, flr_attrs):
     """Return the height of a SPACE in feet
@@ -739,7 +714,6 @@ def _space_height(spc_attrs, flr_attrs):
         "Cannot determine height for Space: missing 'HEIGHT', 'SPACE-HEIGHT', or 'FLOOR-HEIGHT'."
     )
 
-
 def _transform_space_points(local_pts, space_origin, spc_az,
                             floor_origin, flr_az, glob_az):
     
@@ -760,7 +734,7 @@ def _transform_space_points(local_pts, space_origin, spc_az,
         return []
 
     # Rotate by space azimuth
-    if abs(spc_az) > 1e-9:
+    if abs(spc_az) > DOE2_TOLERANCE:
         ang = math.radians(spc_az)
         local_pts = [p.rotate_xy(ang, Point3D(0, 0, 0)) for p in local_pts]
 
@@ -769,12 +743,12 @@ def _transform_space_points(local_pts, space_origin, spc_az,
     pts = [p.move(space_vec) for p in local_pts]
     
     # Rotate by floor azimuth
-    if abs(flr_az) > 1e-9:
+    if abs(flr_az) > DOE2_TOLERANCE:
         ang = math.radians(flr_az)
         pts = [p.rotate_xy(ang, Point3D(0, 0, 0)) for p in pts]
 
     # Rotate by building azimuth
-    if abs(glob_az) > 1e-9:
+    if abs(glob_az) > DOE2_TOLERANCE:
         ang = math.radians(glob_az)
         pts = [p.rotate_xy(ang, Point3D(0, 0, 0)) for p in pts]
 
