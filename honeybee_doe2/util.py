@@ -94,11 +94,12 @@ def parse_inp_string(inp_string):
     Returns:
         A tuple with four elements.
 
-        -   u_name: Text for the unique name of the object. Will be None if the object
-            is a Parameter. DOE-2 object defaults will return a tuple (command, command_type)
-            (i.e ZONE default u_name would be: ('ZONE', 'CONDITIONED'))
+        -   u_name: Text for the unique name of the object. Will be None if
+            the object is a Parameter. DOE-2 object defaults will return a
+            tuple (command, command_type). For example, ZONE default u_name
+            would be: ('ZONE', 'CONDITIONED')
 
-        -   command: Text for the type of instruction that the DOE-2 object executes. 
+        -   command: Text for the type of instruction that the DOE-2 object executes.
 
         -   keywords: A list of text with the same length as the values that denote
             the attributes of the DOE-2 object.
@@ -108,7 +109,7 @@ def parse_inp_string(inp_string):
     """
     inp_string = inp_string.strip()
 
-    inp_strings = inp_string.rsplit('..', 1) # r split incase '..' in u_name
+    inp_strings = inp_string.rsplit('..', 1)  # r split incase '..' in u_name
 
     assert len(inp_strings) > 1, 'Input inp_string is not an INP object.'
     assert len(inp_strings) == 2, 'Received more than one object in inp_string.'
@@ -120,14 +121,14 @@ def parse_inp_string(inp_string):
         if len(lines) < 2:
             raise ValueError('Invalid parameter block: {}'.format(inp_string))
         param_line = lines[1].strip()
-        
+
         if '=' in param_line:
             key, val = [s.strip().replace('"', '') for s in param_line.split('=', 1)]
             return None, "PARAMETER", [key], [val]
         else:
             raise ValueError(
                 'Global parameter missing "=" assignment: {}'.format(inp_string))
-    
+
     if inp_string.startswith("TITLE"):
         lines = inp_string.splitlines()[1:]  # Skip "TITLE"
         keywords = []
@@ -139,17 +140,17 @@ def parse_inp_string(inp_string):
                 keywords.append(k)
                 values.append(v)
         return None, "TITLE", keywords, values
-    
+
     if inp_string.startswith("SET-DEFAULT FOR"):
         lines = inp_string.splitlines()
-        
+
         # Get the command from the first line
         match = re.match(r"SET-DEFAULT FOR (\w+)", lines[0])
         if not match:
             raise ValueError(
                 'Invalid SET-DEFAULT header: {}'.format(inp_string))
         command = match.group(1).strip()
-        
+
         keywords = []
         values = []
         for line in lines[1:]:
@@ -160,8 +161,8 @@ def parse_inp_string(inp_string):
                 k, v = [s.strip().replace('"', '') for s in line.split('=', 1)]
                 keywords.append(k)
                 values.append(v)
-        
-        command_type = "" # Set to empty string for objects without TYPE attrs
+
+        command_type = ''  # Set to empty string for objects without TYPE attrs
         if "TYPE" in keywords:
             type_index = keywords.index("TYPE")
             command_type = values[type_index]
@@ -170,10 +171,10 @@ def parse_inp_string(inp_string):
 
     doe2_fields = [e_str.strip() for e_str in inp_string.split('=')]
     u_name = doe2_fields.pop(0).replace('"', '')
-    
+
     if not doe2_fields or not doe2_fields[0].strip():     # blank after '='
         return u_name, None, None, None
-    
+
     split_field_1 = doe2_fields[0].split('\n')
     command = split_field_1[0].strip()
 
@@ -235,7 +236,7 @@ def calculate_value_with_global_parameter(global_parameters, input_expr):
             if param_name in global_parameters:
                 param_val = str(global_parameters[param_name])
                 expr = expr.replace('#PA("{}")'.format(param_name), param_val)
-        return eval(expr, {"__builtins__": None}, {})
+        return eval(expr, {'__builtins__': None}, {})
     except Exception:
         return None
 
@@ -254,7 +255,7 @@ def doe2_object_blocks(inp_file_contents):
 
     for line in inp_file_contents.splitlines():
         buffer.append(line)
-        if line.strip().endswith(".."):
+        if line.strip().endswith('..'):
             if not any(buffer[0].strip().startswith(b) for b in ignore_blocks):
                 blocks.append('\n'.join(buffer))
                 buffer = []
@@ -269,8 +270,10 @@ def doe2_object_blocks(inp_file_contents):
 
 
 def clean_inp_file_contents(inp_file_contents):
-    """Clean an INP file’s text by removing comment lines and resolving
-    inline #PA() parameter expressions.
+    """Clean an INP file's text.
+
+    This includes removing comment lines and resolving inline #PA() parameter
+    expressions.
 
     Args:
         inp_file_contents: Complete text of an INP file.
@@ -284,8 +287,8 @@ def clean_inp_file_contents(inp_file_contents):
 
     i = 0
     while i < len(lines):
-        full_line = lines[i]       
-        stripped  = full_line.strip()
+        full_line = lines[i]
+        stripped = full_line.strip()
 
         if stripped == "PARAMETER":
             param_block = [full_line]
@@ -297,15 +300,15 @@ def clean_inp_file_contents(inp_file_contents):
                 i += 1
             full_param = "".join(param_block)
             _, _, keys, vals = parse_inp_string(full_param)
-            global_parameters[keys[0]] = vals[0]          
-            file_lines.extend(param_block)               
+            global_parameters[keys[0]] = vals[0]
+            file_lines.extend(param_block)
             i += 1
             continue
 
         if "#PA" in full_line:
             def _repl(match):
-                expr = match.group(1)                  
-                val  = calculate_value_with_global_parameter(global_parameters, expr)
+                expr = match.group(1)
+                val = calculate_value_with_global_parameter(global_parameters, expr)
                 return str(val) if val is not None else match.group(0)
             full_line = re.sub(r"\{([^}]*#PA\(\".*?\"\)[^}]*)\}", _repl, full_line)
 
