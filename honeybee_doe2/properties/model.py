@@ -12,6 +12,10 @@ class ModelDoe2Properties(object):
     Properties:
         * host
     """
+    # dictionary mapping validation error codes to a corresponding check function
+    ERROR_MAP = {
+        '030102': 'check_no_room_holes'
+    }
 
     def __init__(self, host):
         """Initialize ModelDoe2Properties."""
