@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>honeybee_doe2.schedule &#8212; honeybee-doe2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e6365d57" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/honeybee.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          honeybee-doe2</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cli/translate.html">translate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate">honeybee-doe2 translate</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-model-to-inp">model-to-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-from-inp">schedules-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-to-inp">schedules-to-inp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html">honeybee_doe2.cli.translate module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedule_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedule_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.properties.html">honeybee_doe2.properties package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.model.html">honeybee_doe2.properties.model module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_all"><code class="docutils literal notranslate"><span class="pre">check_all()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_for_extension"><code class="docutils literal notranslate"><span class="pre">check_for_extension()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_generic"><code class="docutils literal notranslate"><span class="pre">check_generic()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_no_room_holes"><code class="docutils literal notranslate"><span class="pre">check_no_room_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ERROR_MAP"><code class="docutils literal notranslate"><span class="pre">ERROR_MAP</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.room.html">honeybee_doe2.properties.room module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_user_data"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_user_data()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.check_no_holes"><code class="docutils literal notranslate"><span class="pre">check_no_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.move"><code class="docutils literal notranslate"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.reflect"><code class="docutils literal notranslate"><span class="pre">reflect()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate_xy"><code class="docutils literal notranslate"><span class="pre">rotate_xy()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.assigned_flow"><code class="docutils literal notranslate"><span class="pre">assigned_flow</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.flow_per_area"><code class="docutils literal notranslate"><span class="pre">flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.hmax_flow_ratio"><code class="docutils literal notranslate"><span class="pre">hmax_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_per_area"><code class="docutils literal notranslate"><span class="pre">min_flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_ratio"><code class="docutils literal notranslate"><span class="pre">min_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.space_polygon_geometry"><code class="docutils literal notranslate"><span class="pre">space_polygon_geometry</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#module-honeybee_doe2.properties">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.config.html">honeybee_doe2.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.construction.html">honeybee_doe2.construction module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.air_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">air_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.door_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">door_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_material_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_material_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.window_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">window_construction_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.grouping.html">honeybee_doe2.grouping module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_hvac"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_hvac()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_level"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.load.html">honeybee_doe2.load module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_to_inp"><code class="docutils literal notranslate"><span class="pre">electric_equipment_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.hot_water_and_gas_to_inp"><code class="docutils literal notranslate"><span class="pre">hot_water_and_gas_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_to_inp"><code class="docutils literal notranslate"><span class="pre">infiltration_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_to_inp"><code class="docutils literal notranslate"><span class="pre">lighting_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_to_inp"><code class="docutils literal notranslate"><span class="pre">people_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_to_inp"><code class="docutils literal notranslate"><span class="pre">setpoint_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_to_inp"><code class="docutils literal notranslate"><span class="pre">ventilation_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.programtype.html">honeybee_doe2.programtype module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.program_type_to_inp"><code class="docutils literal notranslate"><span class="pre">program_type_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_space_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_space_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_zone_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_zone_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.reader.html">honeybee_doe2.reader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.command_dict_from_inp"><code class="docutils literal notranslate"><span class="pre">command_dict_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp"><code class="docutils literal notranslate"><span class="pre">model_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp_file"><code class="docutils literal notranslate"><span class="pre">model_from_inp_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.schedule.html">honeybee_doe2.schedule module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.energy_trans_sch_to_transmittance"><code class="docutils literal notranslate"><span class="pre">energy_trans_sch_to_transmittance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_rules_from_inp_schedule_week"><code class="docutils literal notranslate"><span class="pre">extract_all_rules_from_inp_schedule_week()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_schedule_ruleset_from_inp_file"><code class="docutils literal notranslate"><span class="pre">extract_all_schedule_ruleset_from_inp_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_fixed_interval_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_fixed_interval_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.simulation.html">honeybee_doe2.simulation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar"><code class="docutils literal notranslate"><span class="pre">SimulationPar</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.run_period"><code class="docutils literal notranslate"><span class="pre">run_period</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.site"><code class="docutils literal notranslate"><span class="pre">site</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.title"><code class="docutils literal notranslate"><span class="pre">title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData"><code class="docutils literal notranslate"><span class="pre">SiteData</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.altitude"><code class="docutils literal notranslate"><span class="pre">altitude</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.run_period_to_inp"><code class="docutils literal notranslate"><span class="pre">run_period_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.util.html">honeybee_doe2.util module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.calculate_value_with_global_parameter"><code class="docutils literal notranslate"><span class="pre">calculate_value_with_global_parameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.clean_inp_file_contents"><code class="docutils literal notranslate"><span class="pre">clean_inp_file_contents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.doe2_object_blocks"><code class="docutils literal notranslate"><span class="pre">doe2_object_blocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string"><code class="docutils literal notranslate"><span class="pre">generate_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string_list_format"><code class="docutils literal notranslate"><span class="pre">generate_inp_string_list_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_major"><code class="docutils literal notranslate"><span class="pre">header_comment_major()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_minor"><code class="docutils literal notranslate"><span class="pre">header_comment_minor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.inp_path_from_folder"><code class="docutils literal notranslate"><span class="pre">inp_path_from_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.parse_inp_string"><code class="docutils literal notranslate"><span class="pre">parse_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.switch_statement_id"><code class="docutils literal notranslate"><span class="pre">switch_statement_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.writer.html">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.aperture_to_inp"><code class="docutils literal notranslate"><span class="pre">aperture_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.door_to_inp"><code class="docutils literal notranslate"><span class="pre">door_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp_rectangle"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp_rectangle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_to_inp"><code class="docutils literal notranslate"><span class="pre">face_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_doe2_conditioning_type"><code class="docutils literal notranslate"><span class="pre">room_doe2_conditioning_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_to_inp"><code class="docutils literal notranslate"><span class="pre">room_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_mesh_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_mesh_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <h1>Source code for honeybee_doe2.schedule</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="sd">&quot;&quot;&quot;honeybee-doe2 schedule translators.&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">division</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.dt</span><span class="w"> </span><span class="kn">import</span> <span class="n">Date</span><span class="p">,</span> <span class="n">MONTHNAMES</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.analysisperiod</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnalysisPeriod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_doe2_string</span><span class="p">,</span> <span class="n">clean_ep_string</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.schedule.day</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScheduleDay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.schedule.rule</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScheduleRule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.schedule.ruleset</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScheduleRuleset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.lib.scheduletypelimits</span><span class="w"> </span><span class="kn">import</span> <span class="n">fractional</span><span class="p">,</span> <span class="n">on_off</span><span class="p">,</span> <span class="n">temperature</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">RES_CHARS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_inp_string</span><span class="p">,</span> <span class="n">generate_inp_string_list_format</span><span class="p">,</span> \
+    <span class="n">clean_inp_file_contents</span><span class="p">,</span> <span class="n">parse_inp_string</span>
+
+
+<span class="sd">&quot;&quot;&quot;____________TRANSLATORS FROM HONEYBEE TO INP____________&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="schedule_type_limit_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">schedule_type_limit_to_inp</span><span class="p">(</span><span class="n">type_limit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the DOE-2 type for a honeybee-energy ScheduleTypeLimit.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">type_limit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;FRACTION&#39;</span>
+    <span class="k">elif</span> <span class="n">type_limit</span><span class="o">.</span><span class="n">display_name</span> <span class="o">==</span> <span class="s1">&#39;Multiplier&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;MULTIPLIER&quot;</span>
+    <span class="k">elif</span> <span class="n">type_limit</span><span class="o">.</span><span class="n">unit_type</span> <span class="o">==</span> <span class="s1">&#39;Temperature&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;TEMPERATURE&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">type_limit</span><span class="o">.</span><span class="n">numeric_type</span> <span class="o">==</span> <span class="s1">&#39;Discrete&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;ON/OFF&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;FRACTION&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="schedule_day_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">schedule_day_to_inp</span><span class="p">(</span><span class="n">day_schedule</span><span class="p">,</span> <span class="n">type_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a ScheduleDay into a DAY-SCHEDULE INP string.&quot;&quot;&quot;</span>
+    <span class="c1"># setup the DOE-2 identifier and lists for keywords and values</span>
+    <span class="n">doe2_id</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">type_text</span> <span class="o">=</span> <span class="n">schedule_type_limit_to_inp</span><span class="p">(</span><span class="n">type_limit</span><span class="p">)</span>
+    <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">type_text</span><span class="p">]</span>
+    <span class="n">hour_values</span> <span class="o">=</span> <span class="n">day_schedule</span><span class="o">.</span><span class="n">values_at_timestep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># convert temperature to fahrenheit if the type if temperature</span>
+    <span class="k">if</span> <span class="n">type_text</span> <span class="o">==</span> <span class="s1">&#39;TEMPERATURE&#39;</span><span class="p">:</span>
+        <span class="n">hour_values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="p">(</span><span class="mf">9.</span> <span class="o">/</span> <span class="mf">5.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">hour_values</span><span class="p">]</span>
+
+    <span class="c1"># setup a function to format list of values correctly</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_format_day_values</span><span class="p">(</span><span class="n">values_to_format</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values_to_format</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">values_to_format</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">values_to_format</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values_to_format</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># we have to format it with multiple lines</span>
+            <span class="n">spc</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">31</span>
+            <span class="n">full_str</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values_to_format</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">values_to_format</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">full_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">full_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;,</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">spc</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">full_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span>
+            <span class="k">return</span> <span class="n">full_str</span>
+
+    <span class="c1"># loop through the hourly values and write them in the format DOE-2 likes</span>
+    <span class="n">prev_count</span><span class="p">,</span> <span class="n">prev_hour</span><span class="p">,</span> <span class="n">prev_values</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">hour_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hour_values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># ignore the first value already in the list</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">prev_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">prev_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prev_values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;HOURS&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">prev_hour</span> <span class="o">!=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prev_hour</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+                    <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;VALUES&#39;</span><span class="p">)</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_format_day_values</span><span class="p">(</span><span class="n">prev_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="n">prev_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">prev_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                    <span class="n">prev_hour</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prev_hour</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+                    <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;VALUES&#39;</span><span class="p">)</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_format_day_values</span><span class="p">(</span><span class="n">prev_values</span><span class="p">))</span>
+                    <span class="n">prev_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">prev_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                    <span class="n">prev_hour</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">continue</span>  <span class="c1"># wait for the value to change</span>
+        <span class="k">if</span> <span class="n">prev_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># just keep assembling the list of values</span>
+            <span class="n">prev_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;HOURS&#39;</span><span class="p">)</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prev_hour</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+            <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;VALUES&#39;</span><span class="p">)</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_format_day_values</span><span class="p">(</span><span class="n">prev_values</span><span class="p">))</span>
+            <span class="n">prev_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="p">]</span>
+            <span class="n">prev_hour</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">prev_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;HOURS&#39;</span><span class="p">)</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prev_hour</span><span class="p">,</span> <span class="mi">24</span><span class="p">))</span>
+    <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;VALUES&#39;</span><span class="p">)</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_format_day_values</span><span class="p">(</span><span class="n">prev_values</span><span class="p">))</span>
+
+    <span class="c1"># return the INP string</span>
+    <span class="k">return</span> <span class="n">generate_inp_string</span><span class="p">(</span><span class="n">doe2_id</span><span class="p">,</span> <span class="s1">&#39;DAY-SCHEDULE&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="schedule_ruleset_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">schedule_ruleset_to_inp</span><span class="p">(</span><span class="n">schedule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a ScheduleRuleset into a WEEK-SCHEDULE-PD and SCHEDULE INP strings.</span>
+
+<span class="sd">    Note that this method only outputs SCHEDULE and WEEK-SCHEDULE objects</span>
+<span class="sd">    However, to write the full schedule into an INP, the schedules&#39;s</span>
+<span class="sd">    day_schedules must also be written.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements</span>
+
+<span class="sd">        -   year_schedule: Text string representation of the SCHEDULE</span>
+<span class="sd">            describing this schedule.</span>
+
+<span class="sd">        -   week_schedules: A list of WEEK-SCHEDULE-PD text strings that are</span>
+<span class="sd">            referenced in the year_schedule.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># setup the DOE-2 identifier and lists for keywords and values</span>
+    <span class="n">doe2_id</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">type_text</span> <span class="o">=</span> <span class="n">schedule_type_limit_to_inp</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">schedule_type_limit</span><span class="p">)</span>
+    <span class="n">day_types</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;Monday&#39;</span><span class="p">,</span> <span class="s1">&#39;Tuesday&#39;</span><span class="p">,</span> <span class="s1">&#39;Wednesday&#39;</span><span class="p">,</span> <span class="s1">&#39;Thursday&#39;</span><span class="p">,</span> <span class="s1">&#39;Friday&#39;</span><span class="p">,</span> <span class="s1">&#39;Saturday&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Sunday&#39;</span><span class="p">,</span> <span class="s1">&#39;Holiday&#39;</span><span class="p">,</span> <span class="s1">&#39;Winter Design Day&#39;</span><span class="p">,</span> <span class="s1">&#39;Summer Design Day&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_week_list</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">rule_indices</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a list of the ScheduleDay identifiers applied on each day of the week.&quot;&quot;&quot;</span>
+        <span class="n">week_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">dow</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rule_indices</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_schedule_rules</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">week_apply_tuple</span><span class="p">[</span><span class="n">dow</span><span class="p">]:</span>
+                    <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_schedule_rules</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">schedule_day</span><span class="o">.</span><span class="n">identifier</span>
+                    <span class="n">week_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># no rule applies; use default_day_schedule.</span>
+                <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">default_day_schedule</span><span class="o">.</span><span class="n">identifier</span>
+                <span class="n">week_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+        <span class="n">week_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">week_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># DOE-2 starts week on Monday; not Sunday</span>
+        <span class="k">return</span> <span class="n">week_list</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_extra_week_fields</span><span class="p">(</span><span class="n">schedule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get schedule identifiers of extra days in Schedule:Week.&quot;&quot;&quot;</span>
+        <span class="c1"># add summer and winter design days</span>
+        <span class="n">week_fields</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_holiday_schedule</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_holiday_schedule</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">week_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_default_day_schedule</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">week_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_winter_designday_schedule</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_winter_designday_schedule</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">week_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_default_day_schedule</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">week_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_summer_designday_schedule</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_summer_designday_schedule</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">week_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">_default_day_schedule</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">week_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">week_fields</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inp_week_schedule_from_rule_indices</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">rule_indices</span><span class="p">,</span> <span class="n">week_index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an INP string of a week schedule from a list of rules indices.&quot;&quot;&quot;</span>
+        <span class="n">week_sch_id</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_Week </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">week_index</span><span class="p">)</span>
+        <span class="n">week_sch_id</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">week_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+        <span class="n">week_fields</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># check rules that apply for the days of the week</span>
+        <span class="n">week_fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_get_week_list</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">rule_indices</span><span class="p">))</span>
+        <span class="c1"># add extra days (including summer and winter design days)</span>
+        <span class="n">week_fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_get_extra_week_fields</span><span class="p">(</span><span class="n">schedule</span><span class="p">))</span>
+        <span class="n">week_keywords</span><span class="p">,</span> <span class="n">week_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">type_text</span><span class="p">]</span>
+        <span class="n">day_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">day_type</span><span class="p">,</span> <span class="n">day_sch</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">day_types</span><span class="p">,</span> <span class="n">week_fields</span><span class="p">):</span>
+            <span class="n">day_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;, $ </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">day_sch</span><span class="p">,</span> <span class="n">day_type</span><span class="p">))</span>
+        <span class="n">week_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;DAY-SCHEDULES&#39;</span><span class="p">)</span>
+        <span class="n">week_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">day_list</span><span class="p">)</span>
+        <span class="n">week_schedule</span> <span class="o">=</span> <span class="n">generate_inp_string_list_format</span><span class="p">(</span>
+            <span class="n">week_sch_id</span><span class="p">,</span> <span class="s1">&#39;WEEK-SCHEDULE-PD&#39;</span><span class="p">,</span> <span class="n">week_keywords</span><span class="p">,</span> <span class="n">week_values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">week_schedule</span><span class="p">,</span> <span class="n">week_sch_id</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inp_week_schedule_from_week_list</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">week_list</span><span class="p">,</span> <span class="n">week_index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an INP string of a week schedule from a list ScheduleDay identifiers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">week_sch_id</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_Week </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">week_index</span><span class="p">)</span>
+        <span class="n">week_sch_id</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">week_sch_id</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+        <span class="n">week_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">week_list</span><span class="p">)</span>
+        <span class="n">week_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">week_fields</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># DOE-2 starts week on Monday; not Sunday</span>
+        <span class="n">week_fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_get_extra_week_fields</span><span class="p">(</span><span class="n">schedule</span><span class="p">))</span>
+        <span class="n">week_keywords</span><span class="p">,</span> <span class="n">week_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">type_text</span><span class="p">]</span>
+        <span class="n">day_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">day_type</span><span class="p">,</span> <span class="n">day_sch</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">day_types</span><span class="p">,</span> <span class="n">week_fields</span><span class="p">):</span>
+            <span class="n">day_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;, $ </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">day_sch</span><span class="p">,</span> <span class="n">day_type</span><span class="p">))</span>
+        <span class="n">week_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;DAY-SCHEDULES&#39;</span><span class="p">)</span>
+        <span class="n">week_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">day_list</span><span class="p">)</span>
+        <span class="n">week_schedule</span> <span class="o">=</span> <span class="n">generate_inp_string_list_format</span><span class="p">(</span>
+            <span class="n">week_sch_id</span><span class="p">,</span> <span class="s1">&#39;WEEK-SCHEDULE-PD&#39;</span><span class="p">,</span> <span class="n">week_keywords</span><span class="p">,</span> <span class="n">week_values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">week_schedule</span><span class="p">,</span> <span class="n">week_sch_id</span>
+
+    <span class="c1"># prepare to create a full Schedule:Year</span>
+    <span class="n">week_schedules</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">schedule</span><span class="o">.</span><span class="n">is_single_week</span><span class="p">:</span>  <span class="c1"># create the only one week schedule</span>
+        <span class="n">wk_sch</span><span class="p">,</span> <span class="n">wk_sch_id</span> <span class="o">=</span> \
+            <span class="n">_inp_week_schedule_from_rule_indices</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">schedule</span><span class="p">)),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">week_schedules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wk_sch</span><span class="p">)</span>
+        <span class="n">yr_wk_s_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">wk_sch_id</span><span class="p">]</span>
+        <span class="n">yr_wk_dt_range</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Date</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">Date</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)]]</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># create a set of week schedules throughout the year</span>
+        <span class="c1"># loop through 365 days of the year to find unique combinations of rules</span>
+        <span class="n">rules_each_day</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">doy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">366</span><span class="p">):</span>
+            <span class="n">rules_on_doy</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rule</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">_schedule_rules</span><span class="p">)</span>
+                                 <span class="k">if</span> <span class="n">rule</span><span class="o">.</span><span class="n">does_rule_apply_doy</span><span class="p">(</span><span class="n">doy</span><span class="p">))</span>
+            <span class="n">rules_each_day</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rules_on_doy</span><span class="p">)</span>
+        <span class="n">unique_rule_sets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">rules_each_day</span><span class="p">)</span>
+        <span class="c1"># check if any combination yield the same week schedule and remove duplicates</span>
+        <span class="n">week_tuples</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">_get_week_list</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">rule_set</span><span class="p">))</span>
+                       <span class="k">for</span> <span class="n">rule_set</span> <span class="ow">in</span> <span class="n">unique_rule_sets</span><span class="p">]</span>
+        <span class="n">unique_week_tuples</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">week_tuples</span><span class="p">))</span>
+        <span class="c1"># create the unique week schedules from the combinations of rules</span>
+        <span class="n">week_sched_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">week_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">unique_week_tuples</span><span class="p">):</span>
+            <span class="n">wk_schedule</span><span class="p">,</span> <span class="n">wk_sch_id</span> <span class="o">=</span> \
+                <span class="n">_inp_week_schedule_from_week_list</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">week_list</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">week_schedules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wk_schedule</span><span class="p">)</span>
+            <span class="n">week_sched_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wk_sch_id</span><span class="p">)</span>
+        <span class="c1"># create a dictionary mapping unique rule index lists to week schedule ids</span>
+        <span class="n">rule_set_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">rule_i</span><span class="p">,</span> <span class="n">week_list</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">unique_rule_sets</span><span class="p">,</span> <span class="n">week_tuples</span><span class="p">):</span>
+            <span class="n">unique_week_i</span> <span class="o">=</span> <span class="n">unique_week_tuples</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">week_list</span><span class="p">)</span>
+            <span class="n">rule_set_map</span><span class="p">[</span><span class="n">rule_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">week_sched_ids</span><span class="p">[</span><span class="n">unique_week_i</span><span class="p">]</span>
+        <span class="c1"># loop through all 365 days of the year to find when rules change</span>
+        <span class="n">yr_wk_s_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">yr_wk_dt_range</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">prev_week_sched</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">doy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">366</span><span class="p">):</span>
+            <span class="n">week_sched</span> <span class="o">=</span> <span class="n">rule_set_map</span><span class="p">[</span><span class="n">rules_each_day</span><span class="p">[</span><span class="n">doy</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">week_sched</span> <span class="o">!=</span> <span class="n">prev_week_sched</span><span class="p">:</span>  <span class="c1"># change to a new rule set</span>
+                <span class="n">yr_wk_s_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">week_sched</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">doy</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">yr_wk_dt_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Date</span><span class="o">.</span><span class="n">from_doy</span><span class="p">(</span><span class="n">doy</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+                    <span class="n">yr_wk_dt_range</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">Date</span><span class="o">.</span><span class="n">from_doy</span><span class="p">(</span><span class="n">doy</span><span class="p">)])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">yr_wk_dt_range</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">Date</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+                <span class="n">prev_week_sched</span> <span class="o">=</span> <span class="n">week_sched</span>
+        <span class="n">yr_wk_dt_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Date</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">))</span>
+
+    <span class="c1"># create the year fields</span>
+    <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">type_text</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">wk_sch_id</span><span class="p">,</span> <span class="n">dt_range</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">yr_wk_s_ids</span><span class="p">,</span> <span class="n">yr_wk_dt_range</span><span class="p">)):</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">dt_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">thru</span> <span class="o">=</span> <span class="s1">&#39;THRU </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">MONTHNAMES</span><span class="p">[</span><span class="n">end_date</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">end_date</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thru</span><span class="p">)</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wk_sch_id</span><span class="p">))</span>
+    <span class="n">year_schedule</span> <span class="o">=</span> <span class="n">generate_inp_string</span><span class="p">(</span><span class="n">doe2_id</span><span class="p">,</span> <span class="s1">&#39;SCHEDULE&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">year_schedule</span><span class="p">,</span> <span class="n">week_schedules</span></div>
+
+
+
+<div class="viewcode-block" id="schedule_fixed_interval_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_fixed_interval_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">schedule_fixed_interval_to_inp</span><span class="p">(</span><span class="n">schedule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a ScheduleFixedInterval to INP strings.</span>
+
+<span class="sd">    Note that true Fixed Interval schedules are not supported by DOE-2 and there</span>
+<span class="sd">    is no way to faithfully translate them given that DOE-2 SCHEDULE objects have</span>
+<span class="sd">    a hard limit of 12 THRU statements. This method tries to write as best of</span>
+<span class="sd">    an approximation for the schedule as possible by averaging the hourly values</span>
+<span class="sd">    from each day of the fixed interval schedule. A separate day schedule will</span>
+<span class="sd">    be used for each month in an attempt to account for changes in the fixed</span>
+<span class="sd">    interval schedule over the year.</span>
+
+<span class="sd">    All of this will allow the translation to succeed and gives roughly matching</span>
+<span class="sd">    behavior of the DOE-2 simulation to the EnergyPlus simulation. However, it is</span>
+<span class="sd">    recommended that users replace ScheduleFixedIntervals with ScheduleRulesets</span>
+<span class="sd">    that they know best represents the schedule. Or EnergyPlus should be used for</span>
+<span class="sd">    the simulation instead of DOE-2.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with three elements</span>
+
+<span class="sd">        -   year_schedule: Text string representation of the SCHEDULE</span>
+<span class="sd">            describing this schedule.</span>
+
+<span class="sd">        -   week_schedules: A list of WEEK-SCHEDULE text strings that are</span>
+<span class="sd">            referenced in the year_schedule.</span>
+
+<span class="sd">        -   day_schedules: A list of DAY-SCHEDULE-PD text strings that are</span>
+<span class="sd">            referenced in the week_schedules.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># setup the DOE-2 identifier and lists for keywords and values</span>
+    <span class="n">doe2_id</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">base_id</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">type_text</span> <span class="o">=</span> <span class="n">schedule_type_limit_to_inp</span><span class="p">(</span><span class="n">schedule</span><span class="o">.</span><span class="n">schedule_type_limit</span><span class="p">)</span>
+
+    <span class="c1"># loop through the months of the year and create appropriate schedules</span>
+    <span class="n">day_schedules</span><span class="p">,</span> <span class="n">week_schedules</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">year_keywords</span><span class="p">,</span> <span class="n">year_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">type_text</span><span class="p">]</span>
+    <span class="n">sch_data</span> <span class="o">=</span> <span class="n">schedule</span><span class="o">.</span><span class="n">data_collection</span>
+    <span class="k">if</span> <span class="n">sch_data</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">analysis_period</span><span class="o">.</span><span class="n">timestep</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sch_data</span> <span class="o">=</span> <span class="n">sch_data</span><span class="o">.</span><span class="n">cull_to_timestep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">month_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">):</span>
+        <span class="c1"># create the day schedules</span>
+        <span class="n">month_name</span> <span class="o">=</span> <span class="n">AnalysisPeriod</span><span class="o">.</span><span class="n">MONTHNAMES</span><span class="p">[</span><span class="n">month_i</span><span class="p">]</span>
+        <span class="n">month_days</span> <span class="o">=</span> <span class="n">AnalysisPeriod</span><span class="o">.</span><span class="n">NUMOFDAYSEACHMONTH</span><span class="p">[</span><span class="n">month_i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">week_id</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_id</span><span class="p">,</span> <span class="n">month_name</span><span class="p">)</span>
+        <span class="n">day_id</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">week_id</span><span class="p">,</span> <span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+        <span class="n">period</span> <span class="o">=</span> <span class="n">AnalysisPeriod</span><span class="p">(</span><span class="n">st_month</span><span class="o">=</span><span class="n">month_i</span><span class="p">,</span> <span class="n">end_month</span><span class="o">=</span><span class="n">month_i</span><span class="p">,</span> <span class="n">end_day</span><span class="o">=</span><span class="n">month_days</span><span class="p">)</span>
+        <span class="n">month_data</span> <span class="o">=</span> <span class="n">sch_data</span><span class="o">.</span><span class="n">filter_by_analysis_period</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+        <span class="n">mon_per_hr</span> <span class="o">=</span> <span class="n">month_data</span><span class="o">.</span><span class="n">average_monthly_per_hour</span><span class="p">()</span>
+        <span class="n">hour_values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mon_per_hr</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">type_text</span> <span class="o">==</span> <span class="s1">&#39;TEMPERATURE&#39;</span><span class="p">:</span>
+            <span class="n">hour_values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="p">(</span><span class="mf">9.</span> <span class="o">/</span> <span class="mf">5.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">hour_values</span><span class="p">]</span>
+        <span class="n">day_keywords</span><span class="p">,</span> <span class="n">day_values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;VALUES&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">type_text</span><span class="p">,</span> <span class="n">hour_values</span><span class="p">]</span>
+        <span class="n">day_inp_str</span> <span class="o">=</span> <span class="n">generate_inp_string_list_format</span><span class="p">(</span>
+            <span class="n">day_id</span><span class="p">,</span> <span class="s1">&#39;DAY-SCHEDULE-PD&#39;</span><span class="p">,</span> <span class="n">day_keywords</span><span class="p">,</span> <span class="n">day_values</span><span class="p">)</span>
+        <span class="n">day_schedules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">day_inp_str</span><span class="p">)</span>
+        <span class="c1"># create week schedule</span>
+        <span class="n">week_keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;DAYS&#39;</span><span class="p">,</span> <span class="s1">&#39;DAY-SCHEDULES&#39;</span><span class="p">]</span>
+        <span class="n">week_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">type_text</span><span class="p">,</span> <span class="s1">&#39;(ALL)&#39;</span><span class="p">,</span> <span class="s1">&#39;(&quot;</span><span class="si">{}</span><span class="s1">&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">day_id</span><span class="p">)]</span>
+        <span class="n">week_sch</span> <span class="o">=</span> <span class="n">generate_inp_string</span><span class="p">(</span>
+            <span class="n">week_id</span><span class="p">,</span> <span class="s1">&#39;WEEK-SCHEDULE&#39;</span><span class="p">,</span> <span class="n">week_keywords</span><span class="p">,</span> <span class="n">week_values</span><span class="p">)</span>
+        <span class="n">week_schedules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">week_sch</span><span class="p">)</span>
+        <span class="c1"># add values to the year schedules</span>
+        <span class="n">thru</span> <span class="o">=</span> <span class="s1">&#39;THRU </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">month_name</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">period</span><span class="o">.</span><span class="n">end_day</span><span class="p">)</span>
+        <span class="n">year_keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thru</span><span class="p">)</span>
+        <span class="n">year_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">week_id</span><span class="p">))</span>
+
+    <span class="c1"># return all of the strings</span>
+    <span class="n">year_schedule</span> <span class="o">=</span> <span class="n">generate_inp_string</span><span class="p">(</span><span class="n">doe2_id</span><span class="p">,</span> <span class="s1">&#39;SCHEDULE&#39;</span><span class="p">,</span> <span class="n">year_keywords</span><span class="p">,</span> <span class="n">year_values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">year_schedule</span><span class="p">,</span> <span class="n">week_schedules</span><span class="p">,</span> <span class="n">day_schedules</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;____________TRANSLATORS FROM INP TO HONEYBEE____________&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="schedule_type_limit_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">schedule_type_limit_from_inp</span><span class="p">(</span><span class="n">inp_type_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a honeybee-energy ScheduleTypeLimit for a given DOE-2 schedule type.&quot;&quot;&quot;</span>
+    <span class="n">clean_type</span> <span class="o">=</span> <span class="n">inp_type_string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">clean_type</span> <span class="o">==</span> <span class="s1">&#39;ON/OFF&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">on_off</span>
+    <span class="k">elif</span> <span class="n">clean_type</span> <span class="o">==</span> <span class="s1">&#39;TEMPERATURE&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">temperature</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fractional</span></div>
+
+
+
+<div class="viewcode-block" id="schedule_day_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">schedule_day_from_inp</span><span class="p">(</span><span class="n">inp_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a Honeybee ScheduleDay from a DOE-2 INP text string.</span>
+
+<span class="sd">    Note that this method can accept both types of DOE-2 Day Schedules</span>
+<span class="sd">    (DAY-SCHEDULE, DAY-SCHEDULE-PD).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inp_string: A text string fully describing a DOE-2 DAY-SCHEDULE.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># parse the string into properties</span>
+    <span class="n">u_name</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">parse_inp_string</span><span class="p">(</span><span class="n">inp_string</span><span class="p">)</span>
+    <span class="c1"># extract the hourly values of the schedule</span>
+    <span class="n">hour_vals</span><span class="p">,</span> <span class="n">sch_type</span> <span class="o">=</span> <span class="p">[],</span> <span class="s1">&#39;FRACTIONAL&#39;</span>
+    <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;DAY-SCHEDULE-PD&#39;</span><span class="p">:</span>
+        <span class="n">field_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)}</span>
+        <span class="n">sch_type</span> <span class="o">=</span> <span class="n">field_dict</span><span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="n">hour_vals_init</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">field_dict</span><span class="p">[</span><span class="s1">&#39;VALUES&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&amp;D&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&amp;D&quot;&#39;</span><span class="p">),</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hour_vals_init</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">hour_vals_init</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&amp;D&#39;</span><span class="p">:</span>
+                    <span class="n">hour_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hour_vals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">hour_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hour_vals</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">hour_vals</span><span class="p">)):</span>
+                    <span class="n">hour_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hour_vals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># a constant schedule</span>
+            <span class="n">hour_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">hour_vals_init</span><span class="p">]</span> <span class="o">*</span> <span class="mi">24</span>
+    <span class="k">elif</span> <span class="n">command</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;DAY-SCHEDULE&#39;</span><span class="p">:</span>
+        <span class="n">prev_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;HOURS&#39;</span><span class="p">:</span>
+                <span class="n">hr_range</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">prev_count</span> <span class="o">=</span> <span class="n">hr_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">hr_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;VALUES&#39;</span><span class="p">:</span>
+                <span class="n">hr_vals</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hr_vals</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                    <span class="n">hour_vals</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hr_vals</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">hour_vals</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">hr_vals</span><span class="p">]</span> <span class="o">*</span> <span class="n">prev_count</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;TYPE&#39;</span><span class="p">:</span>
+                <span class="n">sch_type</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Schedule type &quot;</span><span class="si">{}</span><span class="s1">&quot; is not recognized.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">))</span>
+    <span class="c1"># convert temperature values from F to C if type is TEMPERATURE</span>
+    <span class="k">if</span> <span class="n">sch_type</span> <span class="o">==</span> <span class="s1">&#39;TEMPERATURE&#39;</span><span class="p">:</span>
+        <span class="n">hour_vals</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">((</span><span class="n">v</span> <span class="o">-</span> <span class="mf">32.</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">5.</span> <span class="o">/</span> <span class="mf">9.</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">hour_vals</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ScheduleDay</span><span class="o">.</span><span class="n">from_values_at_timestep</span><span class="p">(</span><span class="n">clean_ep_string</span><span class="p">(</span><span class="n">u_name</span><span class="p">),</span> <span class="n">hour_vals</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_inp_day_schedule_dictionary</span><span class="p">(</span><span class="n">day_inp_strings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a dictionary of DaySchedule objects from an INP string list.&quot;&quot;&quot;</span>
+    <span class="n">day_schedule_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">sch_str</span> <span class="ow">in</span> <span class="n">day_inp_strings</span><span class="p">:</span>
+        <span class="n">sch_str</span> <span class="o">=</span> <span class="n">sch_str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sch_obj</span> <span class="o">=</span> <span class="n">schedule_day_from_inp</span><span class="p">(</span><span class="n">sch_str</span><span class="p">)</span>
+            <span class="n">day_schedule_dict</span><span class="p">[</span><span class="n">sch_obj</span><span class="o">.</span><span class="n">identifier</span><span class="p">]</span> <span class="o">=</span> <span class="n">sch_obj</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># not a schedule that can be converted</span>
+    <span class="k">return</span> <span class="n">day_schedule_dict</span>
+
+
+<div class="viewcode-block" id="extract_all_rules_from_inp_schedule_week">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_rules_from_inp_schedule_week">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_all_rules_from_inp_schedule_week</span><span class="p">(</span>
+        <span class="n">week_inp_string</span><span class="p">,</span> <span class="n">day_schedule_dict</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract all ScheduleRule objects from an INP string of a WEEK-SCHEDULE-PD.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        week_inp_string: A text string fully describing a DOE-2 WEEK-SCHEDULE-PD.</span>
+<span class="sd">        day_schedule_dict: A dictionary with the identifiers of ScheduleDay objects</span>
+<span class="sd">            as keys and the corresponding ScheduleDay objects as values. These objects</span>
+<span class="sd">            will be used to build the ScheduleRules using the week_idf_string.</span>
+<span class="sd">        start_date: A ladybug Date object for the start of the period over which</span>
+<span class="sd">            the ScheduleRules apply. If None, Jan 1 will be used.</span>
+<span class="sd">        end_date: A ladybug Date object for the end of the period over which</span>
+<span class="sd">            the ScheduleRules apply. If None, Dec 31 will be used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with five elements</span>
+
+<span class="sd">        -   u_name: The unique name of the WEEK-SCHEDULE-PD.</span>
+
+<span class="sd">        -   schedule_rules: A list of ScheduleRule objects that together describe</span>
+<span class="sd">            the WEEK-SCHEDULE-PD.</span>
+
+<span class="sd">        -   holiday: Text for the name of the SCHEDULE-DAY for the Holiday.</span>
+
+<span class="sd">        -   winter_dd: Text for the name of the SCHEDULE-DAY for the Winter Design Day.</span>
+
+<span class="sd">        -   summer_dd: Text for the name of the SCHEDULE-DAY for the Summer Design Day.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># parse the string into properties</span>
+    <span class="n">u_name</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">parse_inp_string</span><span class="p">(</span><span class="n">week_inp_string</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">command</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;WEEK-SCHEDULE-PD&#39;</span><span class="p">,</span> <span class="s1">&#39;Week schedule must be in &#39;</span> \
+        <span class="s1">&#39;WEEK-SCHEDULE-PD format. Got &quot;</span><span class="si">{}</span><span class="s1">&quot;.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+    <span class="c1"># create the ScheduleRule objects from the parsed properties</span>
+    <span class="n">schedule_rules</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">field_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)}</span>
+    <span class="n">week_vals</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">field_dict</span><span class="p">[</span><span class="s1">&#39;DAY-SCHEDULES&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&amp;D&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&amp;D&quot;&#39;</span><span class="p">),</span> <span class="p">{})</span>
+    <span class="n">applied_day_ids</span><span class="p">,</span> <span class="n">prev_day</span> <span class="o">=</span> <span class="p">[],</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">day_sch_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">week_vals</span><span class="p">[:</span><span class="mi">7</span><span class="p">]):</span>
+        <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">day_sch_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">day_sch_id</span> <span class="o">=</span> <span class="n">prev_day</span> <span class="k">if</span> <span class="n">day_sch_id</span> <span class="o">==</span> <span class="s1">&#39;&amp;D&#39;</span> <span class="k">else</span> <span class="n">day_sch_id</span>
+        <span class="n">prev_day</span> <span class="o">=</span> <span class="n">day_sch_id</span>  <span class="c1"># increment it for the next item</span>
+        <span class="k">if</span> <span class="n">day_sch_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">applied_day_ids</span><span class="p">:</span>  <span class="c1"># make a new rule</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="n">ScheduleRule</span><span class="p">(</span><span class="n">day_schedule_dict</span><span class="p">[</span><span class="n">clean_ep_string</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">)],</span>
+                                <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="n">rule</span><span class="o">.</span><span class="n">apply_day_by_dow</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rule</span><span class="o">.</span><span class="n">apply_day_by_dow</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">schedule_rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+            <span class="n">applied_day_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># edit one of the existing rules to apply it to the new day</span>
+            <span class="n">sch_rule_index</span> <span class="o">=</span> <span class="n">applied_day_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">day_sch_id</span><span class="p">)</span>
+            <span class="n">rule</span> <span class="o">=</span> <span class="n">schedule_rules</span><span class="p">[</span><span class="n">sch_rule_index</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="n">rule</span><span class="o">.</span><span class="n">apply_day_by_dow</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rule</span><span class="o">.</span><span class="n">apply_day_by_dow</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># process any of the specified Holiday or Design Day schedules</span>
+    <span class="n">holiday</span> <span class="o">=</span> <span class="n">week_vals</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">week_vals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">week_vals</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&amp;D&#39;</span> \
+        <span class="k">else</span> <span class="n">prev_day</span>
+    <span class="n">winter_dd</span> <span class="o">=</span> <span class="n">week_vals</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">week_vals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">8</span> <span class="ow">and</span> <span class="n">week_vals</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&amp;D&#39;</span> \
+        <span class="k">else</span> <span class="n">holiday</span>
+    <span class="n">summer_dd</span> <span class="o">=</span> <span class="n">week_vals</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">week_vals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">9</span> <span class="ow">and</span> <span class="n">week_vals</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&amp;D&#39;</span> \
+        <span class="k">else</span> <span class="n">winter_dd</span>
+    <span class="k">return</span> <span class="n">u_name</span><span class="p">,</span> <span class="n">schedule_rules</span><span class="p">,</span> <span class="n">holiday</span><span class="p">,</span> <span class="n">winter_dd</span><span class="p">,</span> <span class="n">summer_dd</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_inp_week_schedule_dictionary</span><span class="p">(</span><span class="n">week_inp_strings</span><span class="p">,</span> <span class="n">day_sch_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a dictionary of ScheduleRule objects from WEEK-SCHEDULE-PD strings.&quot;&quot;&quot;</span>
+    <span class="n">week_schedule_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">week_designday_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">sch_str</span> <span class="ow">in</span> <span class="n">week_inp_strings</span><span class="p">:</span>
+        <span class="n">sch_str</span> <span class="o">=</span> <span class="n">sch_str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">u_name</span><span class="p">,</span> <span class="n">rules</span><span class="p">,</span> <span class="n">holiday</span><span class="p">,</span> <span class="n">winter_dd</span><span class="p">,</span> <span class="n">summer_dd</span> <span class="o">=</span> \
+                <span class="n">extract_all_rules_from_inp_schedule_week</span><span class="p">(</span><span class="n">sch_str</span><span class="p">,</span> <span class="n">day_sch_dict</span><span class="p">)</span>
+            <span class="n">week_schedule_dict</span><span class="p">[</span><span class="n">u_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">rules</span>
+            <span class="n">week_designday_dict</span><span class="p">[</span><span class="n">u_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">day_sch_dict</span><span class="p">[</span><span class="n">clean_ep_string</span><span class="p">(</span><span class="n">holiday</span><span class="p">)],</span>
+                <span class="n">day_sch_dict</span><span class="p">[</span><span class="n">clean_ep_string</span><span class="p">(</span><span class="n">summer_dd</span><span class="p">)],</span>
+                <span class="n">day_sch_dict</span><span class="p">[</span><span class="n">clean_ep_string</span><span class="p">(</span><span class="n">winter_dd</span><span class="p">)]</span>
+            <span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># schedule is not translate-able</span>
+    <span class="k">return</span> <span class="n">week_schedule_dict</span><span class="p">,</span> <span class="n">week_designday_dict</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_convert_schedule_year</span><span class="p">(</span><span class="n">year_inp_string</span><span class="p">,</span> <span class="n">week_sch_dict</span><span class="p">,</span> <span class="n">week_dd_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert an INP string of a year SCHEDULE or SCHEDULE-PD to a ScheduleRuleset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        year_inp_string: An INP text string describing a DOE-2 SCHEDULE or SCHEDULE-PD.</span>
+<span class="sd">        week_sch_dict: A dictionary of ScheduleRules from _inp_week_schedule_dictionary.</span>
+<span class="sd">        week_dd_dict: A dictionary of design day ScheduleDay output from the</span>
+<span class="sd">            _inp_week_schedule_dictionary method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># use the year schedule to bring it all together</span>
+    <span class="n">u_name</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">parse_inp_string</span><span class="p">(</span><span class="n">year_inp_string</span><span class="p">)</span>
+    <span class="n">field_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)}</span>
+    <span class="n">schedule_type</span> <span class="o">=</span> <span class="n">schedule_type_limit_from_inp</span><span class="p">(</span><span class="n">field_dict</span><span class="p">[</span><span class="s1">&#39;TYPE&#39;</span><span class="p">])</span>
+    <span class="n">all_rules</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">command</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;SCHEDULE-PD&#39;</span><span class="p">:</span>
+        <span class="n">week_vals</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">field_dict</span><span class="p">[</span><span class="s1">&#39;WEEK-SCHEDULES&#39;</span><span class="p">],</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">week_vals</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>  <span class="c1"># only one week for the whole year</span>
+            <span class="n">week_id</span> <span class="o">=</span> <span class="n">week_vals</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">rules</span> <span class="o">=</span> <span class="n">week_sch_dict</span><span class="p">[</span><span class="n">week_id</span><span class="p">]</span>
+            <span class="n">all_rules</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">month_vals</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">field_dict</span><span class="p">[</span><span class="s1">&#39;MONTH&#39;</span><span class="p">],</span> <span class="p">{})</span>
+            <span class="n">day_vals</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">field_dict</span><span class="p">[</span><span class="s1">&#39;DAY&#39;</span><span class="p">],</span> <span class="p">{})</span>
+            <span class="n">prev_month</span><span class="p">,</span> <span class="n">prev_day</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">week</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">month_vals</span><span class="p">,</span> <span class="n">day_vals</span><span class="p">,</span> <span class="n">week_vals</span><span class="p">):</span>
+                <span class="n">week_id</span> <span class="o">=</span> <span class="n">week</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">rules</span> <span class="o">=</span> <span class="n">week_sch_dict</span><span class="p">[</span><span class="n">week_id</span><span class="p">]</span>
+                <span class="n">st_date</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">prev_month</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">prev_day</span><span class="p">))</span>
+                <span class="n">end_date</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+                    <span class="n">rule</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">st_date</span>
+                    <span class="n">rule</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span>
+                <span class="n">all_rules</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span>
+                <span class="n">end_doy</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">doy</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">end_date</span><span class="o">.</span><span class="n">doy</span> <span class="o">!=</span> <span class="mi">365</span> <span class="k">else</span> <span class="mi">365</span>
+                <span class="n">next_day</span> <span class="o">=</span> <span class="n">Date</span><span class="o">.</span><span class="n">from_doy</span><span class="p">(</span><span class="n">end_doy</span><span class="p">)</span>
+                <span class="n">prev_month</span><span class="p">,</span> <span class="n">prev_day</span> <span class="o">=</span> <span class="n">next_day</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">next_day</span><span class="o">.</span><span class="n">day</span>
+    <span class="k">elif</span> <span class="n">command</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;SCHEDULE&#39;</span><span class="p">:</span>
+        <span class="n">prev_month</span><span class="p">,</span> <span class="n">prev_day</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;THRU&#39;</span><span class="p">):</span>
+                <span class="n">week_id</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">rules</span> <span class="o">=</span> <span class="n">week_sch_dict</span><span class="p">[</span><span class="n">week_id</span><span class="p">]</span>
+                <span class="n">st_date</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">prev_month</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">prev_day</span><span class="p">))</span>
+                <span class="n">date_vals</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;THRU &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">date_str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">date_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+                <span class="n">end_date</span> <span class="o">=</span> <span class="n">Date</span><span class="o">.</span><span class="n">from_date_string</span><span class="p">(</span><span class="n">date_str</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+                    <span class="n">rule</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">st_date</span>
+                    <span class="n">rule</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span>
+                <span class="n">all_rules</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span>
+                <span class="n">end_doy</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">doy</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">end_date</span><span class="o">.</span><span class="n">doy</span> <span class="o">!=</span> <span class="mi">365</span> <span class="k">else</span> <span class="mi">365</span>
+                <span class="n">next_day</span> <span class="o">=</span> <span class="n">Date</span><span class="o">.</span><span class="n">from_doy</span><span class="p">(</span><span class="n">end_doy</span><span class="p">)</span>
+                <span class="n">prev_month</span><span class="p">,</span> <span class="n">prev_day</span> <span class="o">=</span> <span class="n">next_day</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">next_day</span><span class="o">.</span><span class="n">day</span>
+
+    <span class="c1"># check to be sure the schedule days don&#39;t already have a parent</span>
+    <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">all_rules</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">rule</span><span class="o">.</span><span class="n">schedule_day</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rule</span><span class="o">.</span><span class="n">schedule_day</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">schedule_day</span><span class="o">.</span><span class="n">duplicate</span><span class="p">()</span>
+    <span class="n">default_day_schedule</span> <span class="o">=</span> <span class="n">all_rules</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">schedule_day</span>
+    <span class="n">holiday_sch</span><span class="p">,</span> <span class="n">summer_dd_sch</span><span class="p">,</span> <span class="n">winter_dd_sch</span> <span class="o">=</span> <span class="n">week_dd_dict</span><span class="p">[</span><span class="n">week_id</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">holiday_sch</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">holiday_sch</span> <span class="o">=</span> <span class="n">holiday_sch</span><span class="o">.</span><span class="n">duplicate</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">summer_dd_sch</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">summer_dd_sch</span> <span class="o">=</span> <span class="n">summer_dd_sch</span><span class="o">.</span><span class="n">duplicate</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">winter_dd_sch</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">winter_dd_sch</span> <span class="o">=</span> <span class="n">summer_dd_sch</span><span class="o">.</span><span class="n">duplicate</span><span class="p">()</span>
+
+    <span class="c1"># create the ScheduleRuleset and apply the design days</span>
+    <span class="n">sched</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="p">(</span><span class="n">clean_ep_string</span><span class="p">(</span><span class="n">u_name</span><span class="p">),</span> <span class="n">default_day_schedule</span><span class="p">,</span>
+                            <span class="n">all_rules</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">schedule_type</span><span class="p">)</span>
+    <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">_apply_designdays_with_check</span><span class="p">(</span>
+        <span class="n">sched</span><span class="p">,</span> <span class="n">holiday_sch</span><span class="p">,</span> <span class="n">summer_dd_sch</span><span class="p">,</span> <span class="n">winter_dd_sch</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sched</span>
+
+
+<div class="viewcode-block" id="schedule_ruleset_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">schedule_ruleset_from_inp</span><span class="p">(</span><span class="n">year_inp_string</span><span class="p">,</span> <span class="n">week_inp_strings</span><span class="p">,</span> <span class="n">day_inp_strings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a ScheduleRuleset from a DOE-2 INP text strings.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        year_inp_string: An INP text string describing a DOE-2 SCHEDULE or SCHEDULE-PD.</span>
+<span class="sd">        week_inp_strings: A list of INP text strings for all of the WEEK-SCHEDULE-PD</span>
+<span class="sd">            objects used in the SCHEDULE.</span>
+<span class="sd">        day_inp_strings: A list of text strings for all of the DAY-SCHEDULE or</span>
+<span class="sd">            DAY-SCHEDULE-PD objects used in the week_inp_strings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># process the schedule components</span>
+    <span class="n">day_schedule_dict</span> <span class="o">=</span> <span class="n">_inp_day_schedule_dictionary</span><span class="p">(</span><span class="n">day_inp_strings</span><span class="p">)</span>
+    <span class="n">week_sch_dict</span><span class="p">,</span> <span class="n">week_dd_dict</span> <span class="o">=</span> <span class="n">_inp_week_schedule_dictionary</span><span class="p">(</span>
+        <span class="n">week_inp_strings</span><span class="p">,</span> <span class="n">day_schedule_dict</span><span class="p">)</span>
+
+    <span class="c1"># convert the year_inp_string into a ScheduleRuleset</span>
+    <span class="k">return</span> <span class="n">_convert_schedule_year</span><span class="p">(</span><span class="n">year_inp_string</span><span class="p">,</span> <span class="n">week_sch_dict</span><span class="p">,</span> <span class="n">week_dd_dict</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="extract_all_schedule_ruleset_from_inp_file">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_schedule_ruleset_from_inp_file">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_all_schedule_ruleset_from_inp_file</span><span class="p">(</span><span class="n">inp_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract all ScheduleRuleset objects from a DOE-2 INP file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inp_file: A path to an INP file containing objects for SCHEDULE</span>
+<span class="sd">            (or SCHEDULE-PD) and corresponding WEEK-SCHEDULE-PD and DAY-SCHEDULE</span>
+<span class="sd">            (or DAY-SCHEDULE-PD) objects. The SCHEDULE will be used to assemble</span>
+<span class="sd">            all of these into a ScheduleRuleset.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        schedules -- A list of all Schedule objects in the INP file as</span>
+<span class="sd">        honeybee_energy ScheduleRuleset objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># read the file and remove lines of comments</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">inp_file</span><span class="p">),</span> <span class="s1">&#39;Cannot find an INP file at: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inp_file</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inp_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">doe_file</span><span class="p">:</span>
+        <span class="n">inp_content</span> <span class="o">=</span> <span class="n">doe_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">file_contents</span> <span class="o">=</span> <span class="n">clean_inp_file_contents</span><span class="p">(</span><span class="n">inp_content</span><span class="p">)</span>
+    <span class="c1"># extract all of the DAY-SCHEDULE objects</span>
+    <span class="n">day_pattern1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?i)(&quot;.*=.*DAY-SCHEDULE\n[\s\S]*?\.\.)&#39;</span><span class="p">)</span>
+    <span class="n">day_pattern2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?i)(&quot;.*=.*DAY-SCHEDULE-PD\n[\s\S]*?\.\.)&#39;</span><span class="p">)</span>
+    <span class="n">day_sch_str</span> <span class="o">=</span> <span class="n">day_pattern1</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="n">day_pattern2</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+    <span class="n">day_schedule_dict</span> <span class="o">=</span> <span class="n">_inp_day_schedule_dictionary</span><span class="p">(</span><span class="n">day_sch_str</span><span class="p">)</span>
+    <span class="c1"># extract all of the WEEK-SCHEDULE-PD objects</span>
+    <span class="n">week_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?i)(&quot;.*=.*WEEK-SCHEDULE-PD\n[\s\S]*?\.\.)&#39;</span><span class="p">)</span>
+    <span class="n">week_sch_str</span> <span class="o">=</span> <span class="n">week_pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+    <span class="n">week_sch_dict</span><span class="p">,</span> <span class="n">week_dd_dict</span> <span class="o">=</span> <span class="n">_inp_week_schedule_dictionary</span><span class="p">(</span>
+        <span class="n">week_sch_str</span><span class="p">,</span> <span class="n">day_schedule_dict</span><span class="p">)</span>
+    <span class="c1"># extract all of the SCHEDULE objects and convert to ScheduleRuleset</span>
+    <span class="n">year_pattern1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?i)(&quot;.*=.*SCHEDULE\n[\s\S]*?\.\.)&#39;</span><span class="p">)</span>
+    <span class="n">year_pattern2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?i)(&quot;.*=.*SCHEDULE-PD\n[\s\S]*?\.\.)&#39;</span><span class="p">)</span>
+    <span class="n">year_sch_str</span> <span class="o">=</span> <span class="n">year_pattern1</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="n">year_pattern2</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+
+    <span class="c1"># translate each SCHEDULE and check to be sure ScheduleDay objects are unique</span>
+    <span class="n">schedules</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">year_sch</span> <span class="ow">in</span> <span class="n">year_sch_str</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">yr_sch</span> <span class="o">=</span> <span class="n">_convert_schedule_year</span><span class="p">(</span><span class="n">year_sch</span><span class="p">,</span> <span class="n">week_sch_dict</span><span class="p">,</span> <span class="n">week_dd_dict</span><span class="p">)</span>
+            <span class="n">schedules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yr_sch</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># schedule is not translate-able</span>
+    <span class="k">return</span> <span class="n">schedules</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;______EXTRA UTILITY FUNCTIONS RELATED TO SCHEDULES______&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="energy_trans_sch_to_transmittance">
+<a class="viewcode-back" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.energy_trans_sch_to_transmittance">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">energy_trans_sch_to_transmittance</span><span class="p">(</span><span class="n">shade_obj</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Try to extract the transmittance from the shade energy properties.&quot;&quot;&quot;</span>
+    <span class="n">trans</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">trans_sch</span> <span class="o">=</span> <span class="n">shade_obj</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">transmittance_schedule</span>
+    <span class="k">if</span> <span class="n">trans_sch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">trans_sch</span><span class="o">.</span><span class="n">is_constant</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>  <span class="c1"># assume ScheduleRuleset</span>
+                <span class="n">trans</span> <span class="o">=</span> <span class="n">trans_sch</span><span class="o">.</span><span class="n">default_day_schedule</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># ScheduleFixedInterval</span>
+                <span class="n">trans</span> <span class="o">=</span> <span class="n">trans_sch</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># not a constant schedule; use the average transmittance</span>
+            <span class="k">try</span><span class="p">:</span>  <span class="c1"># assume ScheduleRuleset</span>
+                <span class="n">sch_vals</span> <span class="o">=</span> <span class="n">trans_sch</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># ScheduleFixedInterval</span>
+                <span class="n">sch_vals</span> <span class="o">=</span> <span class="n">trans_sch</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">sch_vals</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">sch_vals</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">trans</span></div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
