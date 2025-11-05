@@ -1040,9 +1040,7 @@ def room_doe2_conditioning_type(room):
     Args:
         room: A Honeybee Room for which the conditioning type will be returned.
     """
-    if room.exclude_floor_area:
-        return 'PLENUM'
-    elif room.properties.energy.is_conditioned:
+    if room.properties.energy.is_conditioned:
         return 'CONDITIONED'
     else:
         return 'UNCONDITIONED'
