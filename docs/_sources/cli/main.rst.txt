@@ -1,0 +1,7 @@
+main
+====
+
+.. click:: honeybee_doe2.cli.__init__:doe2
+   :prog: honeybee-doe2
+   :show-nested:
+   :commands: 

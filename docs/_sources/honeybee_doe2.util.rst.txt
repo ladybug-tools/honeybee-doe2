@@ -1,0 +1,7 @@
+honeybee\_doe2.util module
+==========================
+
+.. automodule:: honeybee_doe2.util
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,19 @@
+honeybee\_doe2.properties package
+=================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.properties.model
+   honeybee_doe2.properties.room
+
+Module contents
+---------------
+
+.. automodule:: honeybee_doe2.properties
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>honeybee_doe2.writer module &#8212; honeybee-doe2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e6365d57" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="honeybee_doe2.util module" href="honeybee_doe2.util.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/honeybee.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          honeybee-doe2</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/translate.html">translate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/translate.html#honeybee-doe2-translate">honeybee-doe2 translate</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="cli/translate.html#honeybee-doe2-translate-model-to-inp">model-to-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cli/translate.html#honeybee-doe2-translate-schedules-from-inp">schedules-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="cli/translate.html#honeybee-doe2-translate-schedules-to-inp">schedules-to-inp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_doe2.html">honeybee_doe2 package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.cli.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.cli.translate.html">honeybee_doe2.cli.translate module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedule_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedule_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.properties.html">honeybee_doe2.properties package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.properties.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.model.html">honeybee_doe2.properties.model module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_all"><code class="docutils literal notranslate"><span class="pre">check_all()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_for_extension"><code class="docutils literal notranslate"><span class="pre">check_for_extension()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_generic"><code class="docutils literal notranslate"><span class="pre">check_generic()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_no_room_holes"><code class="docutils literal notranslate"><span class="pre">check_no_room_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ERROR_MAP"><code class="docutils literal notranslate"><span class="pre">ERROR_MAP</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.properties.room.html">honeybee_doe2.properties.room module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_user_data"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_user_data()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.check_no_holes"><code class="docutils literal notranslate"><span class="pre">check_no_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.move"><code class="docutils literal notranslate"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.reflect"><code class="docutils literal notranslate"><span class="pre">reflect()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate_xy"><code class="docutils literal notranslate"><span class="pre">rotate_xy()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.assigned_flow"><code class="docutils literal notranslate"><span class="pre">assigned_flow</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.flow_per_area"><code class="docutils literal notranslate"><span class="pre">flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.hmax_flow_ratio"><code class="docutils literal notranslate"><span class="pre">hmax_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_per_area"><code class="docutils literal notranslate"><span class="pre">min_flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_ratio"><code class="docutils literal notranslate"><span class="pre">min_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.space_polygon_geometry"><code class="docutils literal notranslate"><span class="pre">space_polygon_geometry</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.properties.html#module-honeybee_doe2.properties">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_doe2.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.config.html">honeybee_doe2.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.construction.html">honeybee_doe2.construction module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.construction.html#honeybee_doe2.construction.air_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">air_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.construction.html#honeybee_doe2.construction.door_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">door_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_material_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_material_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.construction.html#honeybee_doe2.construction.window_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">window_construction_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.grouping.html">honeybee_doe2.grouping module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_hvac"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_hvac()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_level"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.load.html">honeybee_doe2.load module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_to_inp"><code class="docutils literal notranslate"><span class="pre">electric_equipment_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.load.html#honeybee_doe2.load.hot_water_and_gas_to_inp"><code class="docutils literal notranslate"><span class="pre">hot_water_and_gas_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.load.html#honeybee_doe2.load.infiltration_to_inp"><code class="docutils literal notranslate"><span class="pre">infiltration_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.load.html#honeybee_doe2.load.lighting_to_inp"><code class="docutils literal notranslate"><span class="pre">lighting_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.load.html#honeybee_doe2.load.people_to_inp"><code class="docutils literal notranslate"><span class="pre">people_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.load.html#honeybee_doe2.load.setpoint_to_inp"><code class="docutils literal notranslate"><span class="pre">setpoint_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.load.html#honeybee_doe2.load.ventilation_to_inp"><code class="docutils literal notranslate"><span class="pre">ventilation_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.programtype.html">honeybee_doe2.programtype module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.programtype.html#honeybee_doe2.programtype.program_type_to_inp"><code class="docutils literal notranslate"><span class="pre">program_type_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_space_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_space_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_zone_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_zone_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.reader.html">honeybee_doe2.reader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.reader.html#honeybee_doe2.reader.command_dict_from_inp"><code class="docutils literal notranslate"><span class="pre">command_dict_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp"><code class="docutils literal notranslate"><span class="pre">model_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp_file"><code class="docutils literal notranslate"><span class="pre">model_from_inp_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.schedule.html">honeybee_doe2.schedule module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.energy_trans_sch_to_transmittance"><code class="docutils literal notranslate"><span class="pre">energy_trans_sch_to_transmittance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_rules_from_inp_schedule_week"><code class="docutils literal notranslate"><span class="pre">extract_all_rules_from_inp_schedule_week()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_schedule_ruleset_from_inp_file"><code class="docutils literal notranslate"><span class="pre">extract_all_schedule_ruleset_from_inp_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_fixed_interval_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_fixed_interval_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.simulation.html">honeybee_doe2.simulation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar"><code class="docutils literal notranslate"><span class="pre">SimulationPar</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.run_period"><code class="docutils literal notranslate"><span class="pre">run_period</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.site"><code class="docutils literal notranslate"><span class="pre">site</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.title"><code class="docutils literal notranslate"><span class="pre">title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData"><code class="docutils literal notranslate"><span class="pre">SiteData</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.altitude"><code class="docutils literal notranslate"><span class="pre">altitude</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.simulation.html#honeybee_doe2.simulation.run_period_to_inp"><code class="docutils literal notranslate"><span class="pre">run_period_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.util.html">honeybee_doe2.util module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.calculate_value_with_global_parameter"><code class="docutils literal notranslate"><span class="pre">calculate_value_with_global_parameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.clean_inp_file_contents"><code class="docutils literal notranslate"><span class="pre">clean_inp_file_contents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.doe2_object_blocks"><code class="docutils literal notranslate"><span class="pre">doe2_object_blocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string"><code class="docutils literal notranslate"><span class="pre">generate_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string_list_format"><code class="docutils literal notranslate"><span class="pre">generate_inp_string_list_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.header_comment_major"><code class="docutils literal notranslate"><span class="pre">header_comment_major()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.header_comment_minor"><code class="docutils literal notranslate"><span class="pre">header_comment_minor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.inp_path_from_folder"><code class="docutils literal notranslate"><span class="pre">inp_path_from_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.parse_inp_string"><code class="docutils literal notranslate"><span class="pre">parse_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="honeybee_doe2.util.html#honeybee_doe2.util.switch_statement_id"><code class="docutils literal notranslate"><span class="pre">switch_statement_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.aperture_to_inp"><code class="docutils literal notranslate"><span class="pre">aperture_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.door_to_inp"><code class="docutils literal notranslate"><span class="pre">door_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_3d_to_inp"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_3d_to_inp_rectangle"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp_rectangle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_to_inp"><code class="docutils literal notranslate"><span class="pre">face_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.room_doe2_conditioning_type"><code class="docutils literal notranslate"><span class="pre">room_doe2_conditioning_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.room_to_inp"><code class="docutils literal notranslate"><span class="pre">room_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.shade_mesh_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_mesh_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.shade_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_doe2.html">honeybee_doe2 package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_doe2.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.config.html">honeybee_doe2.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.construction.html">honeybee_doe2.construction module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.grouping.html">honeybee_doe2.grouping module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.load.html">honeybee_doe2.load module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.programtype.html">honeybee_doe2.programtype module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.reader.html">honeybee_doe2.reader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.schedule.html">honeybee_doe2.schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.simulation.html">honeybee_doe2.simulation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.util.html">honeybee_doe2.util module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.aperture_to_inp"><code class="docutils literal notranslate"><span class="pre">aperture_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.door_to_inp"><code class="docutils literal notranslate"><span class="pre">door_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_3d_to_inp"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_3d_to_inp_rectangle"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp_rectangle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_to_inp"><code class="docutils literal notranslate"><span class="pre">face_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.room_doe2_conditioning_type"><code class="docutils literal notranslate"><span class="pre">room_doe2_conditioning_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.room_to_inp"><code class="docutils literal notranslate"><span class="pre">room_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.shade_mesh_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_mesh_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.shade_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="honeybee_doe2.util.html" title="Previous Chapter: honeybee_doe2.util module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; honeybee_doe2...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/honeybee_doe2.writer.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html">CLI Docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_doe2.html">honeybee_doe2 package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_doe2.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.config.html">honeybee_doe2.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.construction.html">honeybee_doe2.construction module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.grouping.html">honeybee_doe2.grouping module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.load.html">honeybee_doe2.load module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.programtype.html">honeybee_doe2.programtype module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.reader.html">honeybee_doe2.reader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.schedule.html">honeybee_doe2.schedule module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.simulation.html">honeybee_doe2.simulation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_doe2.util.html">honeybee_doe2.util module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.aperture_to_inp"><code class="docutils literal notranslate"><span class="pre">aperture_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.door_to_inp"><code class="docutils literal notranslate"><span class="pre">door_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_3d_to_inp"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_3d_to_inp_rectangle"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp_rectangle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.face_to_inp"><code class="docutils literal notranslate"><span class="pre">face_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.room_doe2_conditioning_type"><code class="docutils literal notranslate"><span class="pre">room_doe2_conditioning_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.room_to_inp"><code class="docutils literal notranslate"><span class="pre">room_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.shade_mesh_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_mesh_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee_doe2.writer.shade_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="module-honeybee_doe2.writer">
+<span id="honeybee-doe2-writer-module"></span><h1>honeybee_doe2.writer module<a class="headerlink" href="#module-honeybee_doe2.writer" title="Link to this heading">¶</a></h1>
+<p>Methods to write Honeybee core objects to inp.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.aperture_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">aperture_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aperture</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#aperture_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.aperture_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an INP string representation of a Aperture.</p>
+<p>Apertures assigned to a parent Face will use the parent Face plane in order to
+determine their XY coordinates. Otherwise, the Aperture’s own plane will be used.</p>
+<p>Note that the resulting string does not include full construction definitions.
+Also note that shades assigned to the Aperture are not included in the resulting
+string. To write these objects into a final string, you must loop through the
+Aperture.shades, and call the to.inp method on each one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aperture</strong> – A honeybee Aperture for which an INP representation will be returned.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Text string for the INP definition of the Aperture.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.door_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">door_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">door</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#door_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.door_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an INP string representation of a Door.</p>
+<p>Doors assigned to a parent Face will use the parent Face plane in order to
+determine their XY coordinates. Otherwise, the Door’s own plane will be used.</p>
+<p>Note that the resulting string does not include full construction definitions.
+Also note that shades assigned to the Door are not included in the resulting
+string. To write these objects into a final string, you must loop through the
+Door.shades, and call the to.inp method on each one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>door</strong> – A honeybee Door for which an INP representation will be returned.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Text string for the INP definition of the Door.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.face_3d_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">face_3d_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">face_3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'HB</span> <span class="pre">object'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#face_3d_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.face_3d_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a Face3D into a DOE-2 POLYGON string and info to position it in space.</p>
+<p>In this operation, all holes in the Face3D are ignored since they are not
+supported by DOE-2. Collapsing the boundary and holes into a single list
+that winds inward to cut out the holes will cause eQuest to raise an error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>face_3d</strong> – A ladybug-geometry Face3D object for which a INP POLYGON
+string will be generated.</p></li>
+<li><p><strong>parent_name</strong> – The name of the parent object that will reference this
+POLYGON. This will be used to generate a name for the polygon.
+Note that this should ideally have 24 characters or less so that
+the result complies with the strict 32 character limit of DOE-2
+identifiers.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple with two elements.</p>
+<ul class="simple">
+<li><p>polygon_str: Text string for the INP polygon.</p></li>
+<li><p>position_info: A tuple of values used to locate the Polygon in 3D space.
+The order of properties in the tuple is as follows: (ORIGIN, TILT, AZIMUTH).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.face_3d_to_inp_rectangle">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">face_3d_to_inp_rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">face_3d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#face_3d_to_inp_rectangle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.face_3d_to_inp_rectangle" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a Face3D into parameters needed to represent it as a rectangle in INP.</p>
+<p>The output of this function will be None if the Face3D cannot be represented
+as an INP rectangle without alteration of the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>face_3d</strong> – A ladybug-geometry Face3D object which will be tested for whether
+it can be represented as a rectangle in INP.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Will be None if the Face3D cannot be translated to a WIDTH and HEIGHT
+without alteration of the geometry. If the geometry can be successfully
+translated, this will be a tuple with five elements.</p>
+<ul class="simple">
+<li><p>width: A number for the width of the rectangle.</p></li>
+<li><p>height: A number for the height of the rectangle.</p></li>
+<li><p>llc_origin: A Point3D for the lower-left corner of the Shade
+geometry origin.</p></li>
+<li><p>tilt: A number for the tilt of the rectangle in degrees.</p></li>
+<li><p>azimuth: A number for the azimuth of the rectangle in degrees.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.face_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">face_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">face</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Point3D(0.00,</span> <span class="pre">0.00,</span> <span class="pre">0.00)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#face_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.face_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an INP string representation of a Face.</p>
+<p>Note that the resulting string does not include full construction definitions.</p>
+<p>Also note that this does not include any of the shades assigned to the Face
+in the resulting string. Nor does it include the strings for the
+apertures or doors. To write these objects into a final string, you must
+loop through the Face.apertures, and Face.doors and call the to.inp method
+on each one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>face</strong> – A honeybee Face for which an INP representation will be returned.</p></li>
+<li><p><strong>space_origin</strong> – A ladybug-geometry Point3D for the origin of the space
+to which the Face is assigned. (Default: (0, 0, 0)).</p></li>
+<li><p><strong>location</strong> – An optional text string to note the DOE-2 LOCATION of the
+Face on the parent Room. When this is specified, the Face will be
+written without using a POLYGON. (Default: None).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple with two elements.</p>
+<ul class="simple">
+<li><p>face_polygon: Text string for the INP polygon for the Face.</p></li>
+<li><p>face_def: Text string for the INP definition of the Face.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.model_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">model_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation_par</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvac_mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Story'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_interior_walls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_interior_ceilings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equest_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#model_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.model_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an INP string representation of a Model.</p>
+<p>The resulting string will include all geometry (Rooms, Faces, Apertures,
+Doors, Shades), all fully-detailed constructions + materials, all fully-detailed
+schedules, and the room properties. It will also include the simulation
+parameters. Essentially, the string includes everything needed to simulate
+the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – A honeybee Model for which an INP representation will be returned.</p></li>
+<li><p><strong>simulation_par</strong> – A honeybee-doe2 SimulationPar object to specify how the
+DOE-2 simulation should be run. If None, default simulation
+parameters will be generated, which will run the simulation for the
+full year. (Default: None).</p></li>
+<li><p><strong>hvac_mapping</strong> – <p>Text to indicate how HVAC systems should be assigned to the
+exported model. Story will assign one HVAC system for each distinct
+level polygon, Model will use only one HVAC system for the whole model
+and AssignedHVAC will follow how the HVAC systems have been assigned
+to the Rooms.properties.energy.hvac. Choose from the options
+below. (Default: Story).</p>
+<ul>
+<li><p>Room</p></li>
+<li><p>Story</p></li>
+<li><p>Model</p></li>
+<li><p>AssignedHVAC</p></li>
+</ul>
+</p></li>
+<li><p><strong>exclude_interior_walls</strong> – Boolean to note whether interior wall Faces
+should be excluded from the resulting string. (Default: False).</p></li>
+<li><p><strong>exclude_interior_ceilings</strong> – Boolean to note whether interior ceiling
+Faces should be excluded from the resulting string. (Default: False).</p></li>
+<li><p><strong>equest_version</strong> – An optional text string to denote the version of eQuest
+for which the INP definition will be generated. If unspecified
+or unrecognized, the latest version of eQuest will be used.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.futil</span><span class="w"> </span><span class="kn">import</span> <span class="n">write_to_file</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.room</span><span class="w"> </span><span class="kn">import</span> <span class="n">Room</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">folders</span>
+
+<span class="c1"># Crate an input Model</span>
+<span class="n">room</span> <span class="o">=</span> <span class="n">Room</span><span class="o">.</span><span class="n">from_box</span><span class="p">(</span><span class="s1">&#39;Tiny House Zone&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">room</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">program_type</span> <span class="o">=</span> <span class="n">office_program</span>
+<span class="n">room</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">add_default_ideal_air</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="s1">&#39;Tiny House&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">room</span><span class="p">])</span>
+
+<span class="c1"># create the INP string for the model</span>
+<span class="n">inp_str</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="o">.</span><span class="n">inp</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># write the final string into an INP</span>
+<span class="n">inp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folders</span><span class="o">.</span><span class="n">default_simulation_folder</span><span class="p">,</span> <span class="s1">&#39;test_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in.inp&#39;</span><span class="p">)</span>
+<span class="n">write_to_file</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">inp_str</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.room_doe2_conditioning_type">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">room_doe2_conditioning_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">room</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#room_doe2_conditioning_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.room_doe2_conditioning_type" title="Link to this definition">¶</a></dt>
+<dd><p>Get the DOE-2 conditioning type to be assigned to both the Space and Zone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>room</strong> – A Honeybee Room for which the conditioning type will be returned.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.room_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">room_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">room</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">floor_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Point3D(0.00,</span> <span class="pre">0.00,</span> <span class="pre">0.00)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">floor_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_interior_walls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_interior_ceilings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#room_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.room_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an INP string representation of a Room.</p>
+<p>This will include the Room’s constituent Faces, Apertures and Doors with
+each of these elements being a separate item in the list of strings returned.
+However, any shades assigned to the Room or its constituent elements are
+excluded and should be written by looping through the shades on the parent model.</p>
+<p>The resulting string will also include all internal gain definitions for the
+Room (people, lights, equipment), infiltration definitions, ventilation
+requirements, and thermostat objects.</p>
+<p>However, complete schedule definitions assigned to these load objects are
+excluded as well as any construction or material definitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>floor_origin</strong> – A ladybug-geometry Point3D for the origin of the
+floor (aka. story) to which the Room is a part of. (Default: (0, 0, 0)).</p></li>
+<li><p><strong>floor_height</strong> – An optional number for the parent story SPACE-HEIGHT,
+which will be used to check the Room geometry to determine if
+it must be written using POLYGONs. If None, no check will be
+performed. (Default: None)</p></li>
+<li><p><strong>exclude_interior_walls</strong> – Boolean to note whether interior wall Faces
+should be excluded from the resulting string. (Default: False).</p></li>
+<li><p><strong>exclude_interior_ceilings</strong> – Boolean to note whether interior ceiling
+Faces should be excluded from the resulting string. (Default: False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple with two elements.</p>
+<ul class="simple">
+<li><p>room_polygons: A list of text strings for the INP polygons needed
+to represent the Room and all of its constituent Faces.</p></li>
+<li><p>room_defs: A list of text strings for the INP definitions needed
+to represent the Room and all of its constituent Faces, Apertures
+and Doors.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.shade_mesh_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">shade_mesh_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shade_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equest_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#shade_mesh_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.shade_mesh_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an INP string representation of a ShadeMesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shade_mesh</strong> – A honeybee ShadeMesh for which an INP representation
+will be returned.</p></li>
+<li><p><strong>equest_version</strong> – An optional text string to denote the version of eQuest
+for which the Shade INP definition will be generated. If unspecified
+or unrecognized, the latest version of eQuest will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple with two elements.</p>
+<ul class="simple">
+<li><p>shade_polygons: A list of text strings for the INP polygons needed
+to represent the ShadeMesh.</p></li>
+<li><p>shade_defs: A list of text strings for the INP definitions needed
+to represent the ShadeMesh.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="honeybee_doe2.writer.shade_to_inp">
+<span class="sig-prename descclassname"><span class="pre">honeybee_doe2.writer.</span></span><span class="sig-name descname"><span class="pre">shade_to_inp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shade</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equest_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_doe2/writer.html#shade_to_inp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_doe2.writer.shade_to_inp" title="Link to this definition">¶</a></dt>
+<dd><p>Generate an INP string representation of a Shade.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shade</strong> – A honeybee Shade for which an INP representation will be returned.</p></li>
+<li><p><strong>equest_version</strong> – An optional text string to denote the version of eQuest
+for which the Shade INP definition will be generated. If unspecified
+or unrecognized, the latest version of eQuest will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple with two elements.</p>
+<ul class="simple">
+<li><p>shade_polygon: Text string for the INP polygon for the Shade.</p></li>
+<li><p>shade_def: Text string for the INP definition of the Shade.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

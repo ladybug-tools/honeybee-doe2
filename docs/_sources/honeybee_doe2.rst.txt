@@ -1,0 +1,36 @@
+honeybee\_doe2 package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.cli
+   honeybee_doe2.properties
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_doe2.config
+   honeybee_doe2.construction
+   honeybee_doe2.grouping
+   honeybee_doe2.load
+   honeybee_doe2.programtype
+   honeybee_doe2.reader
+   honeybee_doe2.schedule
+   honeybee_doe2.simulation
+   honeybee_doe2.util
+   honeybee_doe2.writer
+
+Module contents
+---------------
+
+.. automodule:: honeybee_doe2
+   :members:
+   :undoc-members:
+   :show-inheritance:

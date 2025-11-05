@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>honeybee_doe2.simulation &#8212; honeybee-doe2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e6365d57" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/honeybee.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          honeybee-doe2</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cli/translate.html">translate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate">honeybee-doe2 translate</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-model-to-inp">model-to-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-from-inp">schedules-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-to-inp">schedules-to-inp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html">honeybee_doe2.cli.translate module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedule_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedule_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.properties.html">honeybee_doe2.properties package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.model.html">honeybee_doe2.properties.model module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_all"><code class="docutils literal notranslate"><span class="pre">check_all()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_for_extension"><code class="docutils literal notranslate"><span class="pre">check_for_extension()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_generic"><code class="docutils literal notranslate"><span class="pre">check_generic()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_no_room_holes"><code class="docutils literal notranslate"><span class="pre">check_no_room_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ERROR_MAP"><code class="docutils literal notranslate"><span class="pre">ERROR_MAP</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.room.html">honeybee_doe2.properties.room module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_user_data"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_user_data()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.check_no_holes"><code class="docutils literal notranslate"><span class="pre">check_no_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.move"><code class="docutils literal notranslate"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.reflect"><code class="docutils literal notranslate"><span class="pre">reflect()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate_xy"><code class="docutils literal notranslate"><span class="pre">rotate_xy()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.assigned_flow"><code class="docutils literal notranslate"><span class="pre">assigned_flow</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.flow_per_area"><code class="docutils literal notranslate"><span class="pre">flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.hmax_flow_ratio"><code class="docutils literal notranslate"><span class="pre">hmax_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_per_area"><code class="docutils literal notranslate"><span class="pre">min_flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_ratio"><code class="docutils literal notranslate"><span class="pre">min_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.space_polygon_geometry"><code class="docutils literal notranslate"><span class="pre">space_polygon_geometry</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#module-honeybee_doe2.properties">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.config.html">honeybee_doe2.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.construction.html">honeybee_doe2.construction module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.air_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">air_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.door_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">door_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_material_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_material_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.window_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">window_construction_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.grouping.html">honeybee_doe2.grouping module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_hvac"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_hvac()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_level"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.load.html">honeybee_doe2.load module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_to_inp"><code class="docutils literal notranslate"><span class="pre">electric_equipment_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.hot_water_and_gas_to_inp"><code class="docutils literal notranslate"><span class="pre">hot_water_and_gas_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_to_inp"><code class="docutils literal notranslate"><span class="pre">infiltration_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_to_inp"><code class="docutils literal notranslate"><span class="pre">lighting_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_to_inp"><code class="docutils literal notranslate"><span class="pre">people_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_to_inp"><code class="docutils literal notranslate"><span class="pre">setpoint_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_to_inp"><code class="docutils literal notranslate"><span class="pre">ventilation_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.programtype.html">honeybee_doe2.programtype module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.program_type_to_inp"><code class="docutils literal notranslate"><span class="pre">program_type_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_space_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_space_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_zone_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_zone_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.reader.html">honeybee_doe2.reader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.command_dict_from_inp"><code class="docutils literal notranslate"><span class="pre">command_dict_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp"><code class="docutils literal notranslate"><span class="pre">model_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp_file"><code class="docutils literal notranslate"><span class="pre">model_from_inp_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.schedule.html">honeybee_doe2.schedule module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.energy_trans_sch_to_transmittance"><code class="docutils literal notranslate"><span class="pre">energy_trans_sch_to_transmittance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_rules_from_inp_schedule_week"><code class="docutils literal notranslate"><span class="pre">extract_all_rules_from_inp_schedule_week()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_schedule_ruleset_from_inp_file"><code class="docutils literal notranslate"><span class="pre">extract_all_schedule_ruleset_from_inp_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_fixed_interval_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_fixed_interval_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.simulation.html">honeybee_doe2.simulation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar"><code class="docutils literal notranslate"><span class="pre">SimulationPar</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.run_period"><code class="docutils literal notranslate"><span class="pre">run_period</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.site"><code class="docutils literal notranslate"><span class="pre">site</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.title"><code class="docutils literal notranslate"><span class="pre">title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData"><code class="docutils literal notranslate"><span class="pre">SiteData</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.altitude"><code class="docutils literal notranslate"><span class="pre">altitude</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.run_period_to_inp"><code class="docutils literal notranslate"><span class="pre">run_period_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.util.html">honeybee_doe2.util module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.calculate_value_with_global_parameter"><code class="docutils literal notranslate"><span class="pre">calculate_value_with_global_parameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.clean_inp_file_contents"><code class="docutils literal notranslate"><span class="pre">clean_inp_file_contents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.doe2_object_blocks"><code class="docutils literal notranslate"><span class="pre">doe2_object_blocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string"><code class="docutils literal notranslate"><span class="pre">generate_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string_list_format"><code class="docutils literal notranslate"><span class="pre">generate_inp_string_list_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_major"><code class="docutils literal notranslate"><span class="pre">header_comment_major()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_minor"><code class="docutils literal notranslate"><span class="pre">header_comment_minor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.inp_path_from_folder"><code class="docutils literal notranslate"><span class="pre">inp_path_from_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.parse_inp_string"><code class="docutils literal notranslate"><span class="pre">parse_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.switch_statement_id"><code class="docutils literal notranslate"><span class="pre">switch_statement_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.writer.html">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.aperture_to_inp"><code class="docutils literal notranslate"><span class="pre">aperture_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.door_to_inp"><code class="docutils literal notranslate"><span class="pre">door_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp_rectangle"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp_rectangle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_to_inp"><code class="docutils literal notranslate"><span class="pre">face_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_doe2_conditioning_type"><code class="docutils literal notranslate"><span class="pre">room_doe2_conditioning_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_to_inp"><code class="docutils literal notranslate"><span class="pre">room_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_mesh_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_mesh_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <h1>Source code for honeybee_doe2.simulation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="sd">&quot;&quot;&quot;honeybee-doe2 simulation parameters.&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">division</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_doe2_string</span><span class="p">,</span> <span class="n">int_in_range</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.simulation.runperiod</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunPeriod</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">GEO_CHARS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_inp_string</span><span class="p">,</span> <span class="n">header_comment_minor</span>
+
+
+<div class="viewcode-block" id="SimulationPar">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationPar</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Complete set of DOE-2 Simulation Settings.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        title: Text for the title of the project. (Default: *Unnamed*).</span>
+<span class="sd">        run_period: A honeybee-energy RunPeriod object to describe the time period</span>
+<span class="sd">            over which to run the simulation. (Default: Run for the whole year).</span>
+<span class="sd">        site: A SiteData object describing the site where the simulation is</span>
+<span class="sd">            run. (Default: HArtford, CT).</span>
+
+<span class="sd">    Properties:</span>
+<span class="sd">        * title</span>
+<span class="sd">        * run_period</span>
+<span class="sd">        * site</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;_title&#39;</span><span class="p">,</span> <span class="s1">&#39;_run_period&#39;</span><span class="p">,</span> <span class="s1">&#39;_site&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Unnamed&#39;</span><span class="p">,</span> <span class="n">run_period</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize SimulationPar.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_period</span> <span class="o">=</span> <span class="n">run_period</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">site</span> <span class="o">=</span> <span class="n">site</span>
+
+<div class="viewcode-block" id="SimulationPar.from_dict">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a SimulationPar object from a dictionary.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: A SimulationPar dictionary in following the format below.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {</span>
+<span class="sd">            &quot;type&quot;: &quot;SimulationPar&quot;,</span>
+<span class="sd">            &quot;title&quot;: &#39;sample_project&#39;, # Text for the title</span>
+<span class="sd">            &quot;run_period&quot;: {}, # Honeybee RunPeriod dictionary</span>
+<span class="sd">            &quot;site&quot;: {}, # Honeybee SiteData dictionary</span>
+<span class="sd">            }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SimulationPar&#39;</span><span class="p">,</span> \
+            <span class="s1">&#39;Expected SimulationPar dictionary. Got </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">])</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;title&#39;</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">else</span> <span class="s1">&#39;Unnamed&#39;</span>
+        <span class="n">run_period</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;run_period&#39;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;run_period&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">run_period</span> <span class="o">=</span> <span class="n">RunPeriod</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;run_period&#39;</span><span class="p">])</span>
+        <span class="n">site</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;site&#39;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;site&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">site</span> <span class="o">=</span> <span class="n">SiteData</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;site&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">run_period</span><span class="p">,</span> <span class="n">site</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get or set text for the title of the project.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_title</span>
+
+    <span class="nd">@title</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">GEO_CHARS</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_title</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_period</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get or set a RunPeriod object for the time period to run the simulation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_period</span>
+
+    <span class="nd">@run_period</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_period</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">RunPeriod</span><span class="p">),</span> <span class="s1">&#39;Expected RunPeriod for &#39;</span> \
+                <span class="s1">&#39;SimulationPar run_period. Got </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_run_period</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_run_period</span> <span class="o">=</span> <span class="n">RunPeriod</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">site</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get or set a SiteData object for the project site of the simulation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site</span>
+
+    <span class="nd">@site</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">site</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">SiteData</span><span class="p">),</span> <span class="s1">&#39;Expected SiteData for &#39;</span> \
+                <span class="s1">&#39;SimulationPar site. Got </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site</span> <span class="o">=</span> <span class="n">SiteData</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SimulationPar.to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_inp">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_inp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an DOE-2 INP string representation of the SimulationPar.&quot;&quot;&quot;</span>
+        <span class="c1"># add the starting headers</span>
+        <span class="n">sp_str</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header_comment_minor</span><span class="p">(</span><span class="s1">&#39;Abort, Diagnostics&#39;</span><span class="p">))</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header_comment_minor</span><span class="p">(</span><span class="s1">&#39;Global Parameters&#39;</span><span class="p">))</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header_comment_minor</span><span class="p">(</span><span class="s1">&#39;Title, Run Periods, Design Days, Holidays&#39;</span><span class="p">))</span>
+        <span class="c1"># add the title and run period</span>
+        <span class="n">title_str</span> <span class="o">=</span> \
+            <span class="s1">&#39;TITLE</span><span class="se">\n</span><span class="s1">&#39;</span> \
+            <span class="s1">&#39;   LINE-1           = *</span><span class="si">{}</span><span class="s1">*</span><span class="se">\n</span><span class="s1">&#39;</span> \
+            <span class="s1">&#39;   ..</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title_str</span><span class="p">)</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_period</span><span class="o">.</span><span class="n">to_inp</span><span class="p">())</span>
+        <span class="c1"># add the site and building data</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header_comment_minor</span><span class="p">(</span><span class="s1">&#39;Compliance Data&#39;</span><span class="p">))</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header_comment_minor</span><span class="p">(</span><span class="s1">&#39;Site and Building Data&#39;</span><span class="p">))</span>
+        <span class="n">sp_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">to_inp</span><span class="p">())</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sp_str</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationPar.to_dict">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;SimulationPar dictionary representation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;SimulationPar&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="s1">&#39;run_period&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_period</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+            <span class="s1">&#39;site&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="SimulationPar.duplicate">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.duplicate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a copy of this object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__copy__</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SimulationPar.ToString">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.ToString">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ToString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overwrite .NET ToString.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">SimulationPar</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_period</span><span class="o">.</span><span class="n">duplicate</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">duplicate</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A tuple based on the object properties, useful for hashing.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_period</span><span class="p">),</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__key</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">SimulationPar</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__key</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">__key</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;DOE-2 SimulationPar: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="SiteData">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SiteData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Object to describe the project site of the simulation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        altitude: A number for the altitude of the location above sea level</span>
+<span class="sd">            in Feet. (Default: 150).</span>
+
+<span class="sd">    Properties:</span>
+<span class="sd">        * altitude</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;_altitude&#39;</span><span class="p">,)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="mi">150</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize SimulationPar.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">altitude</span> <span class="o">=</span> <span class="n">altitude</span>
+
+<div class="viewcode-block" id="SiteData.from_dict">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a SiteData object from a dictionary.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data: A SiteData dictionary in following the format below.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {</span>
+<span class="sd">            &quot;type&quot;: &quot;SiteData&quot;,</span>
+<span class="sd">            &quot;altitude&quot;: 100  # altitude above sea level (ft)</span>
+<span class="sd">            }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SiteData&#39;</span><span class="p">,</span> \
+            <span class="s1">&#39;Expected SiteData dictionary. Got </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">])</span>
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;altitude&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;altitude&#39;</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">else</span> <span class="mi">150</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">altitude</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">altitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A number for the altitude of the location above sea level in Feet.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_altitude</span>
+
+    <span class="nd">@altitude</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">altitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_altitude</span> <span class="o">=</span> <span class="n">int_in_range</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s1">&#39;site data altitude&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SiteData.to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_inp">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_inp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get an DOE-2 INP string representation of the SiteData.&quot;&quot;&quot;</span>
+        <span class="c1"># create the INP string for the site</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;ALTITUDE&#39;</span><span class="p">,</span> <span class="s1">&#39;C-STATE&#39;</span><span class="p">,</span> <span class="s1">&#39;C-WEATHER-FILE&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;C-COUNTRY&#39;</span><span class="p">,</span> <span class="s1">&#39;C-901-LOCATION&#39;</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">altitude</span><span class="p">,</span> <span class="s1">&#39;21&#39;</span><span class="p">,</span> <span class="s1">&#39;*TMY2</span><span class="se">\\</span><span class="s1">HARTFOCT.bin*&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;1092&#39;</span><span class="p">)</span>
+        <span class="n">site_str</span> <span class="o">=</span> <span class="n">generate_inp_string</span><span class="p">(</span><span class="s1">&#39;Site Data&#39;</span><span class="p">,</span> <span class="s1">&#39;SITE-PARAMETERS&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+        <span class="c1"># create the INP string for the building data</span>
+        <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;HOLIDAYS&#39;</span><span class="p">,),</span> <span class="p">(</span><span class="s1">&#39;&quot;Standard US Holidays&quot;&#39;</span><span class="p">,)</span>
+        <span class="n">bldg_str</span> <span class="o">=</span> <span class="n">generate_inp_string</span><span class="p">(</span>
+            <span class="s1">&#39;Building Data&#39;</span><span class="p">,</span> <span class="s1">&#39;BUILD-PARAMETERS&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">site_str</span> <span class="o">+</span> <span class="n">bldg_str</span></div>
+
+
+<div class="viewcode-block" id="SiteData.to_dict">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;SiteData dictionary representation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;SiteData&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;altitude&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">altitude</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="SiteData.duplicate">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.duplicate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">duplicate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a copy of this object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__copy__</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SiteData.ToString">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.ToString">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ToString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Overwrite .NET ToString.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">SiteData</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">altitude</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A tuple based on the object properties, useful for hashing.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">altitude</span><span class="p">,)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__key</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">SiteData</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__key</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">__key</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_inp</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="run_period_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.run_period_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_period_to_inp</span><span class="p">(</span><span class="n">run_period</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translate a honeybee-energy RunPeriod object to a DOE-2 INP string&quot;&quot;&quot;</span>
+    <span class="c1"># create the string for the run period</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="mi">2020</span> <span class="k">if</span> <span class="n">run_period</span><span class="o">.</span><span class="n">is_leap_year</span> <span class="k">else</span> <span class="mi">2021</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;BEGIN-MONTH&#39;</span><span class="p">,</span> <span class="s1">&#39;BEGIN-DAY&#39;</span><span class="p">,</span> <span class="s1">&#39;BEGIN-YEAR&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;END-MONTH&#39;</span><span class="p">,</span> <span class="s1">&#39;END-DAY&#39;</span><span class="p">,</span> <span class="s1">&#39;END-YEAR&#39;</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="n">run_period</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">run_period</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span>
+              <span class="n">run_period</span><span class="o">.</span><span class="n">end_date</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">run_period</span><span class="o">.</span><span class="n">end_date</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+    <span class="n">rp_str</span> <span class="o">=</span> <span class="n">generate_inp_string</span><span class="p">(</span><span class="s1">&#39;Default Run Period&#39;</span><span class="p">,</span> <span class="s1">&#39;RUN-PERIOD-PD&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    <span class="c1"># create the string for the holidays</span>
+    <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;LIBRARY-ENTRY&#39;</span><span class="p">,),</span> <span class="p">(</span><span class="s1">&#39;&quot;US&quot;&#39;</span><span class="p">,)</span>
+    <span class="n">hol_str</span> <span class="o">=</span> <span class="n">generate_inp_string</span><span class="p">(</span><span class="s1">&#39;Standard US Holidays&#39;</span><span class="p">,</span> <span class="s1">&#39;HOLIDAYS&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rp_str</span> <span class="o">+</span> <span class="n">hol_str</span></div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2025, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
