@@ -54,7 +54,7 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
         -   position_info: A tuple of values used to locate the Polygon in 3D space.
             The order of properties in the tuple is as follows: (ORIGIN, TILT, AZIMUTH).
     """
-    # TODO: Consider adding a workaround for the DOE-2 limit of 40 vertices
+    # TODO: Consider adding a workaround for the DOE-2 limit of 120 vertices
     # perhaps we can just say NO-SHAPE and specify AREA, VOLUME, and HEIGHT
     # get the main properties that place the geometry in 3D space
     pts_3d = face_3d.lower_left_counter_clockwise_boundary

@@ -114,6 +114,16 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
                 level_geometries.append(flr_geo)
                 level_names.append('{}_Section{}'.format(level_name, si))
 
+    # perform a final check to be sure no room groups are all degenerate
+    i_to_remove = []
+    for i, rg in enumerate(room_groups):
+        if len(rg) == 0:
+            i_to_remove.append(i)
+    for ri in reversed(i_to_remove):
+        room_groups.pop(ri)
+        level_geometries.pop(ri)
+        level_names.pop(ri)
+
     # return all of the outputs
     return room_groups, level_geometries, level_names
 
