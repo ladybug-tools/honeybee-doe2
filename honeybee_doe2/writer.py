@@ -80,6 +80,12 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
         if tilt > 180 - DOE2_ANGLE_TOL:
             vertices = [Point2D(v.x, -v.y) for v in vertices]
 
+    # Downsize the verts, testing for shade POLYGONS
+    if len(vertices) > 120:
+        step = len(vertices) / 120.0
+        indices = [int(i * step) for i in range(120)]
+        vertices = [vertices[i] for i in indices]
+
     # format the vertices into a POLYGON string
     verts_values = []
     for pt in vertices:
