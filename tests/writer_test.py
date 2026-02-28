@@ -1,5 +1,6 @@
 """Test the translators for geometry to INP."""
 import os
+import re
 
 from ladybug_geometry.geometry3d import Point3D, Vector3D, Mesh3D
 
@@ -16,6 +17,9 @@ from honeybee_energy.material.opaque import EnergyMaterial
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 import honeybee_energy.lib.scheduletypelimits as schedule_types
 from honeybee_energy.lib.programtypes import office_program, program_type_by_identifier
+
+from honeybee_doe2.reader import command_dict_from_inp
+
 
 if os.name == 'nt':
     START_TEXT = 'INPUT ..\n\n'
@@ -566,3 +570,23 @@ def test_model_writer_from_ceil_adj_hbjson():
     inp_str = hb_model.to.inp(hb_model, hvac_mapping='AssignedHVAC')
     assert inp_str.startswith(START_TEXT)
     assert inp_str.endswith(END_TEXT)
+
+
+def test_shade_polygon_vertex_limit():
+    """Test that shade polygons do not exceed the DOE-2 limit 
+    of 120 vertices."""
+    shade_test = './tests/assets/120_vert_shade.hbjson'
+    hb_model = Model.from_file(shade_test)
+
+    inp_str = hb_model.to.inp(hb_model)
+
+    # open command dict to
+    cmd_dict = command_dict_from_inp(inp_str)
+
+    polygons = cmd_dict.get('POLYGON', {})
+    assert len(polygons) > 0, 'No POLYGONS found in INP'
+    for poly_name, poly in polygons.items():
+        vertex_count = sum(1 for k in poly if re.match(r'^V\d+$', k))
+        assert vertex_count <= 120, \
+            'POLYGON "{}" with {} vertices exceeds max of 120'.format(
+                poly_name, vertex_count)

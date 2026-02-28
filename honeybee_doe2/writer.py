@@ -85,7 +85,7 @@ def face_3d_to_inp(face_3d, parent_name='HB object'):
         step = len(vertices) / 120.0
         indices = [int(i * step) for i in range(120)]
         vertices = [vertices[i] for i in indices]
-
+    
     # format the vertices into a POLYGON string
     verts_values = []
     for pt in vertices:
