@@ -8,7 +8,7 @@ from honeybee.typing import clean_string
 
 from .util import switch_statement_id, resolve_defaults, \
         child_objects_from_parent
-from .load import VENTILATION_KEYS, people_to_inp, lighting_to_inp, electric_equipment_to_inp, \
+from .load import people_to_inp, lighting_to_inp, electric_equipment_to_inp, \
     infiltration_to_inp, setpoint_to_inp, ventilation_to_inp, \
     people_from_inp, lighting_from_inp, electric_equipment_from_inp, \
     infiltration_from_inp, setpoint_from_inp, ventilation_from_inp, \
@@ -232,7 +232,13 @@ def program_type_from_inp(cmd_dict, lib_file_path=None):
         lighting = lighting_from_inp(resolved_space, lighting_sch)
         equipment = electric_equipment_from_inp(resolved_space, equip_sch)
         infiltration = infiltration_from_inp(resolved_space, inf_sch)
-        setpoint = setpoint_from_inp(resolved_zone, heat_sch, cool_sch)
+      
+        # Skip setpoint if schedules Always On
+        if (heat_sch.identifier != 'Always On' and
+                cool_sch.identifier != 'Always On'):
+            setpoint = setpoint_from_inp(resolved_zone, heat_sch, cool_sch)
+        else:
+            setpoint = None
         ventilation = ventilation_from_inp(resolved_zone, min_air_sch)
 
         prog_id = clean_string(activity)
