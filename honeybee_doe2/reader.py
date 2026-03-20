@@ -19,7 +19,9 @@ from honeybee.boundarycondition import Outdoors, Ground
 from honeybee.typing import clean_string
 
 from .config import DOE2_ANGLE_TOL, DOE2_TOLERANCE
-from .util import clean_inp_file_contents, doe2_object_blocks, parse_inp_string
+from .util import clean_inp_file_contents, doe2_object_blocks, \
+    parse_inp_string, child_objects_from_parent
+from .programtype import program_type_from_inp
 
 _CMD_TO_BC = {
     'EXTERIOR-WALL':   Outdoors,
@@ -29,11 +31,13 @@ _CMD_TO_BC = {
 }
 
 
-def model_from_inp_file(inp_file):
+def model_from_inp_file(inp_file, lib_file_path=None):
     """Convert an inp file to an HBJSON Model object
 
     Args:
         inp_file: A text string for the path to an INP file.
+        lib_file_path: Optional path to eQUEST library file (eQ_Lib.dat) for
+            resolving library schedules.
 
     Returns:
         A honeybee Model object.
@@ -41,14 +45,17 @@ def model_from_inp_file(inp_file):
     assert os.path.isfile(inp_file), 'No file was found at: {}'.format(inp_file)
     with open(inp_file, 'r') as doe_file:
         inp_content = doe_file.read()
-    return model_from_inp(inp_content)
+    return model_from_inp(inp_content, lib_file_path)
 
 
-def model_from_inp(inp_file_contents):
+def model_from_inp(inp_file_contents, lib_file_path=None):
     """Convert an inp file to an HBJSON Model object
 
     Args:
-        inp_file_contents: A text string of the complete contents of an INP file.
+        inp_file_contents: A text string of the complete contents of an INP
+                            file.
+        lib_file_path: Optional path to eQUEST library file (eQ_Lib.dat) for
+            resolving library schedules.
 
     Returns:
         A honeybee Model object.
@@ -61,6 +68,10 @@ def model_from_inp(inp_file_contents):
     if not floors:
         raise ValueError("No FLOOR objects found in INP - nothing to translate.")
 
+    # Build program types and lookup dict
+    program_types = program_type_from_inp(cmd_dict, lib_file_path)
+    activity_to_program = {p.display_name: p for p in program_types}
+
     rooms = []
 
     for flr_name, flr in floors.items():
@@ -70,7 +81,7 @@ def model_from_inp(inp_file_contents):
         floor_verts = _verts_to_tuples(polys.get(floor_poly, {}))
         flr_mult = (flr.get("MULTIPLIER") or 1.0)
 
-        spaces = _child_objects_from_parent(cmd_dict, flr_name, "FLOOR", "SPACE")
+        spaces = child_objects_from_parent(cmd_dict, flr_name, "FLOOR", "SPACE")
         for spc_name, spc in spaces.items():
             shape = (spc.get("SHAPE") or "").upper()
             if not shape or shape == "NO-SHAPE":
@@ -118,6 +129,13 @@ def model_from_inp(inp_file_contents):
             room.display_name = spc_name
             room.story = flr_name
             room.multiplier = flr_mult
+
+            # Assign program type based on C-ACTIVITY-DESC
+            activity = (str(spc.get('C-ACTIVITY-DESC', ''))
+                        .replace('*', '').strip())
+            if activity and activity in activity_to_program:
+                room.properties.energy.program_type = activity_to_program[activity]
+
             rooms.append(room)
 
     model_name = cmd_dict.get('TITLE', {}).get('LINE-1', 'Model From DOE2')
@@ -177,7 +195,10 @@ def command_dict_from_inp(inp_file_contents):
         attr_d['__line__'] = block_line_count
         attr_d['cmd'] = cmd
         block_line_count += 1
-        result[cmd][u_name] = attr_d
+        if cmd == 'DEFAULTS' and u_name in result[cmd]:
+            result[cmd][u_name].update(attr_d)
+        else:
+            result[cmd][u_name] = attr_d
 
     if global_parameters:
         result['PARAMETER'] = global_parameters
@@ -408,7 +429,8 @@ def _extruded_shell(spc_attrs, verts_glob, edge_info, floor_bc, ceiling_bc,
 
 
 def _wall_start_point(wall_attrs, spc_verts_local):
-    """Find the starting point and vertex index for a wall in global coordinates.
+    """Find the starting point and vertex index for a wall in global
+       coordinates.
 
     Args:
         wall_attrs: Dictionary of wall attributes.
@@ -455,7 +477,7 @@ def _apertures_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
         return apps
     ux, uy = dx / length, dy / length
 
-    wins = _child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'WINDOW')
+    wins = child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'WINDOW')
     n = 1
     for win in wins.values():
         w = float(win.get('WIDTH', 0) or 0)
@@ -495,7 +517,7 @@ def _doors_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
         return doors
     ux, uy = dx / length, dy / length
 
-    drs = _child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'DOOR')
+    drs = child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'DOOR')
     n = 1
     for d in drs.values():
         w = float(d.get('WIDTH', 3.0) or 3.0)
@@ -595,53 +617,7 @@ def _verts_to_tuples(verts_dict):
     return [(float(x), float(y)) for x, y in pairs]
 
 
-def _child_objects_from_parent(cmd_dict, parent_name, parent_command, child_command):
-    """Return all child_command objects between a parent's line and its next sibling line.
-
-    This requires the full dict of parsed INP blocks and one parent instance.
-
-    Args:
-        cmd_dict: Command dictionary containing all DOE2 objects.
-        parent_name: Name of the parent from the object dict.
-        parent_command: The command name of the parent.
-        child_command: The command of the child objects to return.
-
-    Returns:
-        A dictionary with u_name strings for keys and dictionaries for values.
-        This maps each child's u_name to its data dict whose __line__ is between
-        the two parent lines.
-    """
-    # Sort the parents by __line__ just in case
-    parents = cmd_dict.get(parent_command, {})
-    sorted_parents = sorted(
-        parents.items(),
-        key=lambda item: item[1].get('__line__', float('inf'))
-    )
-
-    # Get the start line and end line
-    start_line = None
-    end_line = float('inf')
-    for idx, (u_name, attrs) in enumerate(sorted_parents):
-        if u_name == parent_name:
-            start_line = attrs.get("__line__", -1)
-            # find the next parents line , this will be the stopping point
-            if idx + 1 < len(sorted_parents):
-                end_line = sorted_parents[idx + 1][1].get('__line__', float('inf'))
-            break
-
-    # If we cant find the start then return empty dict
-    if start_line is None:
-        return {}
-
-    # Find children in between the line
-    children = cmd_dict.get(child_command, {})
-    in_block = {
-        c_name: c_data
-        for c_name, c_data in children.items()
-        if start_line < c_data.get('__line__', -1) < end_line
-    }
-
-    return in_block
+# _child_objects_from_parent moved to util.py as child_objects_from_parent
 
 
 def _surfaces_from_space(cmd_dict, space_name):
@@ -658,7 +634,7 @@ def _surfaces_from_space(cmd_dict, space_name):
     surf_types = ['EXTERIOR-WALL', 'INTERIOR-WALL', 'UNDERGROUND-WALL', 'ROOF']
     surfs = {}
     for surf in surf_types:
-        children = _child_objects_from_parent(cmd_dict, space_name, 'SPACE', surf)
+        children = child_objects_from_parent(cmd_dict, space_name, 'SPACE', surf)
         surfs.update(children)
     return surfs
 

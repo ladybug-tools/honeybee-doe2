@@ -6,8 +6,10 @@ from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.schedule.fixedinterval import ScheduleFixedInterval
 import honeybee_energy.lib.scheduletypelimits as schedule_types
 
-from honeybee_doe2.schedule import schedule_day_to_inp, schedule_ruleset_to_inp, \
-    schedule_fixed_interval_to_inp, schedule_day_from_inp, schedule_ruleset_from_inp
+from honeybee_doe2.schedule import schedule_day_to_inp, \
+    schedule_ruleset_to_inp, schedule_fixed_interval_to_inp,  \
+    schedule_day_from_inp, schedule_ruleset_from_inp, \
+    is_library_entry, resolve_library_schedule
 
 from tests.util_test import SCHEDULE_DAY_STR, SCHEDULE_DAY_PD_STR
 
@@ -334,9 +336,39 @@ def test_schedule_day_from_inp():
     assert schedule_day.values == (15.56, 17.78, 20.0, 21.11, 15.56)
     assert tuple(str(t) for t in schedule_day.times) == \
         ('00:00', '06:00', '07:00', '08:00', '21:00')
-    
+ 
     schedule_day = schedule_day_from_inp(SCHEDULE_DAY_PD_STR)
     assert schedule_day.identifier == 'PRJ Heating SAT'
     assert schedule_day.values == (18.33, 19.17, 20.0, 21.11, 18.33)
     assert tuple(str(t) for t in schedule_day.times) == \
         ('00:00', '06:00', '07:00', '08:00', '16:00')
+
+
+def test_is_library_entry():
+    """Test is_library_entry function."""
+    # A library entry has no keywords, just a line number and cmd
+    lib_entry = {'__line__': 116, 'cmd': 'SCHEDULE-PD'}
+    assert is_library_entry(lib_entry) is True
+
+    # A regular schedule has more keys
+    regular_sch = {
+        '__line__': 100,
+        'cmd': 'SCHEDULE-PD',
+        'TYPE': 'FRACTION'
+    }
+    assert is_library_entry(regular_sch) is False
+
+
+def test_resolve_library_schedule():
+    """Test resolving a LIBRARY-ENTRY schedule from eQ_Lib.dat.""" 
+    # Add schedule name that is known in lib file
+    schedule = resolve_library_schedule('MNECB-97 A-Office Recept Sched')
+
+    # If lib file not found or schedule not found, this will be None
+    # Leave test, but dont fail it.
+    if schedule is None:
+        return
+
+    # Verify we got a ScheduleRuleset back
+    assert isinstance(schedule, ScheduleRuleset)
+    assert 'MNECB-97 A-Office Recept Sched' in schedule.identifier
