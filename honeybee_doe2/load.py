@@ -6,14 +6,23 @@ from ladybug.datatype.power import Power
 from ladybug.datatype.energyflux import EnergyFlux
 from ladybug.datatype.volumeflowrate import VolumeFlowRate
 from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
-from honeybee.typing import clean_doe2_string
+from honeybee.typing import clean_doe2_string, clean_string
+
+from honeybee_energy.load.people import People
+from honeybee_energy.load.lighting import Lighting
+from honeybee_energy.load.equipment import ElectricEquipment
+from honeybee_energy.load.infiltration import Infiltration
+from honeybee_energy.load.setpoint import Setpoint
+from honeybee_energy.load.ventilation import Ventilation
+from honeybee_energy.lib.scheduletypelimits import fractional, temperature
+from honeybee_energy.schedule.ruleset import ScheduleRuleset
 
 from .config import RES_CHARS
 
 # list of all keywords associated with different load types
 PEOPLE_KEYS = ('AREA/PERSON', 'PEOPLE-SCHEDULE')
 LIGHTING_KEYS = ('LIGHTING-W/AREA', 'LIGHTING-SCHEDULE', 'LIGHT-TO-RETURN',
-                 'LIGHT-RAD-FRAC')
+                 'LIGHT-RAD-FRAC', 'LIGHTING-SCHEDUL')
 EQUIP_KEYS = ('EQUIPMENT-W/AREA', 'EQUIP-SCHEDULE',
               'EQUIP-SENSIBLE', 'EQUIP-LATENT', 'EQUIP-RAD-FRAC')
 SOURCE_KEYS = ('SOURCE-TYPE', 'SOURCE-POWER', 'SOURCE-SCHEDULE',
@@ -32,6 +41,16 @@ SCHEDULE_KEYS = (
 
 # TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS
 # TODO: Add methods to translate daylight sensors
+
+
+def _clean_schedule_id(raw_value):
+    """Strip quotes and parentheses from a schedule identifier string."""
+    if raw_value is None:
+        return 'Always On'
+    s = str(raw_value).strip()
+    for ch in ('"', "'", '(', ')'):
+        s = s.replace(ch, '')
+    return s.strip() or 'Always On'
 
 
 def people_to_inp(people):
@@ -53,9 +72,35 @@ def people_to_inp(people):
         return (), ()
     ppl_den = Area().to_unit([people.area_per_person], 'ft2', 'm2')[0]
     ppl_den = round(ppl_den, 3)
-    ppl_sch = clean_doe2_string(people.occupancy_schedule.identifier, RES_CHARS)
+    ppl_sch = clean_doe2_string(people.occupancy_schedule.identifier,
+                                RES_CHARS)
     ppl_sch = '"{}"'.format(ppl_sch)
     return PEOPLE_KEYS, (ppl_den, ppl_sch)
+
+
+def people_from_inp(resolved, occupancy_schedule=None):
+    """Create a People object from resolved INP attributes.
+
+    Args:
+        resolved: A dict of resolved INP key-value pairs
+           Expected keys: AREA/PERSON, PEOPLE-SCHEDULE
+        occupancy_schedule: Optional ScheduleRuleset for occupancy.
+            If None, a constant placeholder schedule is created.
+
+    Returns:
+        A honeybee-energy People object, or None if the data is insufficient.
+    """
+    area_per_person = resolved.get('AREA/PERSON')
+    if area_per_person is None:
+        return None
+    # Convert ft2/person to m2/person
+    area_si = Area().to_unit([float(area_per_person)], 'm2', 'ft2')[0]
+    people_per_area = 1.0 / area_si if area_si > 0 else 0
+    sch_id = _clean_schedule_id(resolved.get('PEOPLE-SCHEDULE', 'Always On'))
+    if occupancy_schedule is None:
+        occupancy_schedule = ScheduleRuleset.from_constant_value(
+            sch_id, 1, fractional)
+    return People(sch_id, people_per_area, occupancy_schedule)
 
 
 def lighting_to_inp(lighting):
@@ -279,3 +324,160 @@ def ventilation_to_inp(ventilation):
         vent_sch = clean_doe2_string(vent_sch.identifier, RES_CHARS)
         values.append('"{}"'.format(vent_sch))
     return keywords, values
+
+
+def lighting_from_inp(resolved, schedule=None):
+    """Create a Lighting object from resolved INP attributes.
+
+    Args:
+        resolved: A dict of resolved INP key-value pairs. Expected keys:
+            LIGHTING-W/AREA, LIGHTING-SCHEDUL or LIGHTING-SCHEDULE,
+            LIGHT-TO-RETURN, LIGHT-RAD-FRAC.
+        schedule: Optional ScheduleRuleset for lighting.
+            If None, a constant placeholder schedule is created.
+
+    Returns:
+        A honeybee-energy Lighting object, or None if data is insufficient.
+    """
+    lpd = resolved.get('LIGHTING-W/AREA')
+    if lpd is None:
+        return None
+    # Convert W/ft2 to W/m2
+    lpd_si = EnergyFlux().to_unit([float(lpd)], 'W/m2', 'W/ft2')[0]
+    sch_id = _clean_schedule_id(
+        resolved.get('LIGHTING-SCHEDUL') or resolved.get('LIGHTING-SCHEDULE'))
+    if schedule is None:
+        schedule = ScheduleRuleset.from_constant_value(sch_id, 1, fractional)
+    ret_fract = float(resolved.get('LIGHT-TO-RETURN', 0))
+    rad_fract = float(resolved.get('LIGHT-RAD-FRAC', 0.32))
+    return Lighting(sch_id, lpd_si, schedule, ret_fract, rad_fract)
+
+
+def electric_equipment_from_inp(resolved, schedule=None):
+    """Create an ElectricEquipment object from resolved INP attributes.
+
+    Args:
+        resolved: A dict of resolved INP key-value pairs. Expected keys:
+            EQUIPMENT-W/AREA, EQUIP-SCHEDULE, EQUIP-SENSIBLE,
+            EQUIP-LATENT, EQUIP-RAD-FRAC.
+        schedule: Optional ScheduleRuleset for equipment.
+            If None, a constant placeholder schedule is created.
+
+    Returns:
+        A honeybee-energy ElectricEquipment object, or None if data is
+        insufficient.
+    """
+    epd = resolved.get('EQUIPMENT-W/AREA')
+    if epd is None:
+        return None
+    epd_val = float(epd)
+    if epd_val == 0:
+        return None
+    # Convert W/ft2 to W/m2
+    epd_si = EnergyFlux().to_unit([epd_val], 'W/m2', 'W/ft2')[0]
+    sch_id = _clean_schedule_id(resolved.get('EQUIP-SCHEDULE'))
+    if schedule is None:
+        schedule = ScheduleRuleset.from_constant_value(sch_id, 1, fractional)
+    rad_fract = float(resolved.get('EQUIP-RAD-FRAC', 0))
+    lat_fract = float(resolved.get('EQUIP-LATENT', 0))
+    sens_fract = float(resolved.get('EQUIP-SENSIBLE', 1))
+    lost_fract = max(0, 1 - sens_fract - lat_fract)
+    return ElectricEquipment(sch_id, epd_si, schedule, rad_fract,
+                             lat_fract, lost_fract)
+
+
+def infiltration_from_inp(resolved, schedule=None):
+    """Create an Infiltration object from resolved INP attributes.
+
+    Args:
+        resolved: A dict of resolved INP key-value pairs. Expected keys:
+            INF-METHOD, INF-FLOW/AREA, INF-SCHEDULE.
+        schedule: Optional ScheduleRuleset for infiltration.
+            If None, a constant placeholder schedule is created.
+
+    Returns:
+        A honeybee-energy Infiltration object, or None if data is
+        insufficient.
+    """
+    inf_den = resolved.get('INF-FLOW/AREA')
+    if inf_den is None:
+        return None
+    # Convert cfm/ft2 to m3/s-m2
+    inf_si = VolumeFlowRateIntensity().to_unit(
+        [float(inf_den)], 'm3/s-m2', 'cfm/ft2')[0]
+    sch_id = _clean_schedule_id(resolved.get('INF-SCHEDULE'))
+    if schedule is None:
+        schedule = ScheduleRuleset.from_constant_value(sch_id, 1, fractional)
+    return Infiltration(sch_id, inf_si, schedule)
+
+
+def setpoint_from_inp(resolved, heating_schedule=None, cooling_schedule=None):
+    """Create a Setpoint object from resolved INP attributes.
+
+    Args:
+        resolved: A dict of resolved INP key-value pairs. Expected keys:
+            DESIGN-HEAT-T, DESIGN-COOL-T, HEAT-TEMP-SCH, COOL-TEMP-SCH.
+        heating_schedule: Optional ScheduleRuleset for heating setpoint.
+            If None, a constant schedule at design temp is created.
+        cooling_schedule: Optional ScheduleRuleset for cooling setpoint.
+            If None, a constant schedule at design temp is created.
+
+    Returns:
+        A honeybee-energy Setpoint object, or None if data is insufficient.
+    """
+    heat_sch_id = _clean_schedule_id(resolved.get('HEAT-TEMP-SCH'))
+    cool_sch_id = _clean_schedule_id(resolved.get('COOL-TEMP-SCH'))
+    heat_t = resolved.get('DESIGN-HEAT-T')
+    cool_t = resolved.get('DESIGN-COOL-T')
+    has_sch = resolved.get('HEAT-TEMP-SCH') or resolved.get('COOL-TEMP-SCH')
+    if heat_t is None and cool_t is None and not has_sch:
+        return None
+    # Convert F to C for setpoints
+    heat_c = (float(heat_t) - 32) * 5 / 9 if heat_t is not None else 21
+    cool_c = (float(cool_t) - 32) * 5 / 9 if cool_t is not None else 24
+    if heating_schedule is None:
+        heating_schedule = ScheduleRuleset.from_constant_value(
+            heat_sch_id, heat_c, temperature)
+    if cooling_schedule is None:
+        cooling_schedule = ScheduleRuleset.from_constant_value(
+            cool_sch_id, cool_c, temperature)
+    return Setpoint(heat_sch_id, heating_schedule, cooling_schedule)
+
+
+def ventilation_from_inp(resolved, schedule=None):
+    """Create a Ventilation object from resolved INP attributes.
+
+    Args:
+        resolved: A dict of resolved INP key-value pairs. Expected keys:
+            OA-FLOW/PER, OA-FLOW/AREA, OA-CHANGES, OUTSIDE-AIR-FLOW,
+            MIN-FLOW-SCH.
+        schedule: Optional ScheduleRuleset for min outdoor air.
+            If None, a constant placeholder schedule is created.
+
+    Returns:
+        A honeybee-energy Ventilation object, or None if data is
+        insufficient.
+    """
+    flow_per = resolved.get('OA-FLOW/PER')
+    flow_area = resolved.get('OA-FLOW/AREA')
+    ach = resolved.get('OA-CHANGES')
+    total_flow = resolved.get('OUTSIDE-AIR-FLOW')
+    if all(v is None for v in (flow_per, flow_area, ach, total_flow)):
+        return None
+    # Convert cfm to m3/s for per-person flow
+    fp_si = VolumeFlowRate().to_unit(
+        [float(flow_per)], 'm3/s', 'cfm')[0] if flow_per else 0
+    # Convert cfm/ft2 to m3/s-m2 for per-area flow
+    fa_si = VolumeFlowRateIntensity().to_unit(
+        [float(flow_area)], 'm3/s-m2', 'cfm/ft2')[0] if flow_area else 0
+    ach_val = float(ach) if ach else 0
+    # Convert cfm to m3/s for per-zone flow
+    fz_si = VolumeFlowRate().to_unit(
+        [float(total_flow)], 'm3/s', 'cfm')[0] if total_flow else 0
+    sch_id = _clean_schedule_id(resolved.get('MIN-FLOW-SCH'))
+    # Use provided schedule or create a placeholder
+    vent_sch = schedule
+    if vent_sch is None and resolved.get('MIN-FLOW-SCH') is not None:
+        vent_sch = ScheduleRuleset.from_constant_value(
+            sch_id, 1, fractional)
+    return Ventilation(sch_id, fp_si, fa_si, fz_si, ach_val, vent_sch)

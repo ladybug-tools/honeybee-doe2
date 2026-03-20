@@ -99,13 +99,14 @@ def parse_inp_string(inp_string):
             tuple (command, command_type). For example, ZONE default u_name
             would be: ('ZONE', 'CONDITIONED')
 
-        -   command: Text for the type of instruction that the DOE-2 object executes.
+        -   command: Text for the type of instruction that the DOE-2 object
+                     executes.
 
-        -   keywords: A list of text with the same length as the values that denote
-            the attributes of the DOE-2 object.
+        -   keywords: A list of text with the same length as the values that
+                      denote the attributes of the DOE-2 object.
 
-        -   values: A list of values with the same length as the keywords that describe
-            the values of the attributes for the object.
+        -   values: A list of values with the same length as the keywords that
+                    describe the values of the attributes for the object.
     """
     inp_string = inp_string.strip()
 
@@ -141,6 +142,7 @@ def parse_inp_string(inp_string):
                 values.append(v)
         return None, "TITLE", keywords, values
 
+    # Handle default sections
     if inp_string.startswith("SET-DEFAULT FOR"):
         lines = inp_string.splitlines()
 
@@ -153,15 +155,40 @@ def parse_inp_string(inp_string):
 
         keywords = []
         values = []
-        for line in lines[1:]:
-            line = line.strip()
-            if not line:
-                continue
-            if '=' in line:
-                k, v = [s.strip().replace('"', '') for s in line.split('=', 1)]
-                keywords.append(k)
-                values.append(v)
+        current_key = None
+        value_lines = []
+        in_braces = False
 
+        for line in lines[1:]:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            # Track whether we are inside a logic block
+            # If/switch statements have to be inside {...} and contain 
+            # multiple "=" lines
+            if '{' in stripped:
+                in_braces = True
+            if '}' in stripped:
+                value_lines.append(stripped)
+                in_braces = False
+                continue
+            if '=' in stripped and not in_braces:
+                # Save the previous key/value if any
+                if current_key is not None:
+                    keywords.append(current_key)
+                    values.append('\n'.join(value_lines).strip())
+                k, v = [s.strip() for s in stripped.split('=', 1)]
+                current_key = k
+                value_lines = [v] if v else []
+            else:
+                # Continuation line (inside logic block or multi-line value)
+                value_lines.append(stripped)
+
+        # Save last key/value
+        if current_key is not None:
+            keywords.append(current_key)
+            values.append('\n'.join(value_lines).strip())
+ 
         command_type = ''  # Set to empty string for objects without TYPE attrs
         if "TYPE" in keywords:
             type_index = keywords.index("TYPE")
@@ -172,13 +199,14 @@ def parse_inp_string(inp_string):
     doe2_fields = [e_str.strip() for e_str in inp_string.split('=')]
     u_name = doe2_fields.pop(0).replace('"', '')
 
-    if not doe2_fields or not doe2_fields[0].strip():     # blank after '='
+    if not doe2_fields or not doe2_fields[0].strip():  # blank after '='
         return u_name, None, None, None
 
     split_field_1 = doe2_fields[0].split('\n')
     command = split_field_1[0].strip()
 
-    if len(split_field_1) == 1:  # Occurs when the object does not have any keywords
+    if len(split_field_1) == 1:  # No keywords in command body
+
         return u_name, command, None, None
 
     keywords = [split_field_1[1].strip()]
@@ -212,8 +240,10 @@ def calculate_value_with_global_parameter(global_parameters, input_expr):
     strictly an inline math expression.
 
     Args:
-        global_parameters: A dict with parameter names as keys and floats as values.
-        input_expr: A string of an expression to be evaluated. See an example below.
+        global_parameters: A dict with parameter names as keys and
+                           floats as values.
+        input_expr: A string of an expression to be evaluated.
+                    See an example below.
 
     Returns:
         Evaluated float result or None is not an inline math expression.
@@ -222,7 +252,7 @@ def calculate_value_with_global_parameter(global_parameters, input_expr):
 
         '{0.66 * #PA("...")}' or '{0.66 * #PA("...") + #PA("...")}
     """
-    # TODO: Add the ability to evaluate SWITCH and IF statements using GlobaL Parameters
+    # TODO: Add ability evaluate SWITCH and IF statements using Global Parms
     try:
         # Remove curly braces
         expr = input_expr.strip()
@@ -409,3 +439,357 @@ def inp_path_from_folder(folder_path=None, filename=None):
         assert os.path.isfile(inp_path), \
             'No INP file was found at: {}'.format(inp_path)
         return inp_path
+
+
+def resolve_switch_value(switch_text, case_key):
+    """Resolve a DOE-2 switch statement to the value for a given case key.
+
+    Args:
+        switch_text: The full switch block string
+        example:
+            {switch(#L("C-ACTIVITY-DESC"))
+            case "npln": 215.198
+            case "m5m2": 1075.99
+            default: no_default
+            endswitch}
+
+        case_key: The case label to match
+        example in above: 'npln'
+
+    Returns:
+        The resolved value as a string, or None if no matching case is found.
+        For ``#SI(...)`` or ``#SIT(...)``  schedule references, the schedule
+        name is extracted.
+    """
+    for line in switch_text.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith('case '):
+            continue
+
+        match = re.match(r'case\s+"([^"]+)":\s*(.*)', stripped)
+        if match and match.group(1) == case_key:
+            val = match.group(2).strip()
+            # Extract schedule name from #SI("Name", "CMD", "KEY")
+            si_match = re.match(r'#SI\(\s*\(?"([^"]+)"\)?,', val)
+            if si_match:
+                return '"{}"'.format(si_match.group(1))
+            # DOE2.3 uses #SIT("Name", "CMD", "KEY", #L("TYPE"))
+            sit_match = re.match(r'#SIT\(\s*\(?"([^"]+)"\)?,', val)
+            if sit_match:
+                return '"{}"'.format(sit_match.group(1))
+            return val
+    return None
+
+
+def resolve_defaults(obj_attrs, defaults, keys):
+    """Resolve attribute values for a DOE-2 command by merging its
+    own attributes with SET-DEFAULT fallback values.
+
+    The goal is for this to be generic and works for any command type
+    (SPACE, ZONE, SYSTEM, etc.).
+
+    Args:
+        obj_attrs: The parsed attribute dict for the specific object instance
+            (ie one SPACE or one ZONE from command_dict_from_inp)
+        defaults: The merged DEFAULTS dict for this command type. For switch-
+            based defaults, values will be resolved using the object's
+            `C-ACTIVITY-DESC` attribute. Pass an empty dict if no defaults
+            exist.
+        keys: An iterable of INP keyword strings to resolve (e.g.
+            `SPACE_KEYS` or `ZONE_KEYS`).
+
+    Returns:
+        A dict mapping each key to its resolved value (string or float).
+        Keys that cannot be resolved from either source are ignored
+    """
+    resolved = {}
+    # Strip '*' wrappers for SPACE and ZONE objects
+    activity = str(obj_attrs.get('C-ACTIVITY-DESC', '')).replace(
+        '*', '').strip()
+    case_key = switch_statement_id(activity) if activity else ''
+
+    for key in keys:
+        # Check if keyword in commands dict
+        val = obj_attrs.get(key)
+        if val is not None:
+            # Strip bracket wrappers
+            if isinstance(val, str):
+                val = val.strip()
+                if val.startswith('(') and val.endswith(')'):
+                    val = val[1:-1].strip()
+                try:
+                    val = float(val)
+                except ValueError:
+                    pass
+            resolved[key] = val
+            continue
+
+        # Fall back to DEFAULTS if not in commands keyword dict
+        default_val = defaults.get(key)
+        if default_val is None:
+            continue
+
+        # If the default is a switch block, resolve it
+        if isinstance(default_val, str) and 'switch' in default_val:
+            switch_val = resolve_switch_value(default_val, case_key)
+            if switch_val is not None:
+                try:
+                    switch_val = float(switch_val)
+                except ValueError:
+                    pass
+                resolved[key] = switch_val
+        else:
+            resolved[key] = default_val
+
+    return resolved
+
+
+def find_user_lib_file():
+    """Find the user's eQUEST library file (eQ_Lib.dat).
+
+    This searches common eQuest installation paths in the users
+    Documents folder, including OneDrive documents.
+
+    TODO: Consider this an optional input for Model Editor?
+    Returns:
+        Path to eQ_Lib.dat if found, None otherwise.
+    """
+    filename = "eQ_Lib.dat"
+    user_profile = os.environ.get('USERPROFILE', '')
+
+    if not user_profile or not os.path.isdir(user_profile):
+        return None
+
+    doc_roots = []
+
+    # Standard Documents folder
+    standard_docs = os.path.join(user_profile, "Documents")
+    if os.path.isdir(standard_docs):
+        doc_roots.append(standard_docs)
+
+    # OneDrive Documents folders (OneDrive - CompanyName pattern)
+    for item in os.listdir(user_profile):
+        item_path = os.path.join(user_profile, item)
+        if os.path.isdir(item_path) and item.startswith("OneDrive"):
+            onedrive_docs = os.path.join(item_path, "Documents")
+            if os.path.isdir(onedrive_docs):
+                doc_roots.append(onedrive_docs)
+
+    # eQuest version folders, newest to oldest
+    equest_folders = [
+        "eQUEST 3-65-7175 Data",
+        "eQUEST 3-65 Data",
+        "eQUEST 3-64 Data",
+        "eQUEST 3-63 Data",
+    ]
+
+    for root in doc_roots:
+        for eq_folder in equest_folders:
+            candidate = os.path.join(root, eq_folder, "DOE-2", filename)
+            if os.path.isfile(candidate):
+                return candidate
+
+    return None
+
+
+def _get_lib_content(lib_file_path, command_type):
+    """Get library file blocks of a specific command type as a dict.
+
+    Parses the library file into blocks keyed by entry name.
+
+    Args:
+        lib_file_path: Path to the library file.
+        command_type: The DOE-2 command type to filter by ( ie 'SCHEDULE-PD',
+            'WEEK-SCHEDULE-PD', 'DAY-SCHEDULE-PD').
+
+    Returns:
+        A dict mapping entry names to their raw block strings for the
+        specified command type.
+    """
+    with open(lib_file_path, 'r') as lib_file:
+        content = lib_file.read()
+
+    blocks = {}
+    # Split on $LIBRARY-ENTRY but keep the delimiter
+    parts = re.split(r'(?=\$LIBRARY-ENTRY )', content)
+
+    for part in parts:
+        part = part.strip()
+        if not part.startswith('$LIBRARY-ENTRY '):
+            continue
+        # Check if this block is the requested command type
+        first_line = part.split('\n', 1)[0]
+        if command_type not in first_line:
+            continue
+
+        header = first_line[len('$LIBRARY-ENTRY '):].strip()
+
+        # Find position of command to extract name
+        cmd_pos = header.find(command_type)
+        if cmd_pos > 0:
+            name = header[:cmd_pos].strip()
+            blocks[name] = part
+
+    return blocks
+
+
+def parse_lib_string(lib_string, command_type):
+    """Parse a library entry string from eQ_Lib.dat into a tuple of values.
+
+    Library entries have a different format than standard INP strings:
+    - First line: $LIBRARY-ENTRY <u_name>  <COMMAND>  <category>
+    - Comment lines starting with $
+    - Keyword-value pairs with indentation
+    - Ends with ..
+
+    Args:
+        lib_string: A string for a single library entry block.
+        command_type: The DOE-2 command type (ie 'SCHEDULE-PD',
+            'WEEK-SCHEDULE-PD', 'DAY-SCHEDULE-PD').
+
+    Returns:
+        A tuple with three elements.
+
+        -   u_name: Unique name of the library entry.
+
+        -   keywords: A list of text with the same length as the values that
+            denote the attributes of the object.
+
+        -   values: A list of values with the same length as the keywords that
+            describe the values of the attributes for the object.
+    """
+    lib_string = lib_string.strip()
+
+    # Split off the terminator
+    lib_strings = lib_string.rsplit('..', 1)
+    assert len(lib_strings) >= 1, 'Input lib_string has no content.'
+
+    lib_string = lib_strings[0]
+
+    lines = lib_string.splitlines()
+    if not lines:
+        raise ValueError('Empty library string provided.')
+
+    # Parse first line: $LIBRARY-ENTRY <u_name>  <COMMAND>
+    first_line = lines[0]
+    if not first_line.startswith('$LIBRARY-ENTRY '):
+        raise ValueError(
+            'Library string must start with '
+            '$LIBRARY-ENTRY: {}'.format(first_line))
+
+    # Remove the $LIBRARY-ENTRY prefix
+    header = first_line[len('$LIBRARY-ENTRY '):].strip()
+
+    # Find command position to extract name
+    cmd_pos = header.find(command_type)
+    if cmd_pos <= 0:
+        raise ValueError(
+            'Could not find {} in header: {}'.format(command_type, first_line))
+    u_name = header[:cmd_pos].strip()
+
+    # Collect non-comment lines for keyword parsing
+    content_lines = []
+    for line in lines[1:]:
+        stripped = line.strip()
+        # Skip comment lines (start with $)
+        if stripped.startswith('$'):
+            continue
+        if stripped:
+            content_lines.append(line)
+
+    if not content_lines:
+        return u_name, [], []
+
+    # Join content and parse keyword-value pairs
+    content = '\n'.join(content_lines)
+
+    # Split by = to get keyword-value pairs
+    doe2_fields = [e_str.strip() for e_str in content.split('=')]
+
+    if not doe2_fields or not doe2_fields[0]:
+        return u_name, [], []
+
+    # First field is the first keyword
+    keywords = [doe2_fields[0].strip()]
+    values = []
+
+    for field in doe2_fields[1:]:
+        split_field = [f.strip() for f in field.split('\n')]
+        if len(split_field) == 1:
+            values.append(split_field[0])
+        elif len(split_field) == 2 and not split_field[0].endswith(','):
+            # Check if first line has unclosed parentheses
+            paren_balance = split_field[0].count('(') - split_field[0].count(')')
+            if paren_balance == 0:
+                values.append(split_field[0])
+                keywords.append(split_field[1])
+            else:
+                # Multi-line parenthesized value
+                values.append(' '.join(split_field))
+        else:
+            v_lines, end_val = [], False
+            paren_depth = 0
+            for row in split_field:
+                # Track parentheses depth to handle multi-line values
+                paren_depth += row.count('(') - row.count(')')
+                if row.endswith(',') or row.endswith('(') or paren_depth > 0:
+                    v_lines.append(row)
+                elif not end_val:
+                    v_lines.append(row)
+                    end_val = True
+                else:
+                    keywords.append(row)
+            values.append(' '.join(v_lines))
+
+    return u_name, keywords, values
+
+
+def child_objects_from_parent(cmd_dict, parent_name, parent_command,
+                              child_command):
+    """Return all child_command objects between a parent's line and its next
+    sibling.
+
+    This requires the full dict of parsed INP blocks and one parent instance.
+
+    Args:
+        cmd_dict: Command dictionary containing all DOE2 objects.
+        parent_name: Name of the parent from the object dict.
+        parent_command: The command name of the parent.
+        child_command: The command of the child objects to return.
+
+    Returns:
+        A dictionary with u_name strings for keys and dictionaries for values.
+        This maps each child's u_name to its data dict whose __line__ is
+        between the two parent lines.
+    """
+    # Sort the parents by __line__ just in case
+    parents = cmd_dict.get(parent_command, {})
+    sorted_parents = sorted(
+        parents.items(),
+        key=lambda item: item[1].get('__line__', float('inf'))
+    )
+
+    # Get the start line and end line
+    start_line = None
+    end_line = float('inf')
+    for idx, (u_name, attrs) in enumerate(sorted_parents):
+        if u_name == parent_name:
+            start_line = attrs.get("__line__", -1)
+            # find the next parents line, this will be the stopping point
+            if idx + 1 < len(sorted_parents):
+                end_line = sorted_parents[idx + 1][1].get('__line__', float('inf'))
+            break
+
+    # If we cant find the start then return empty dict
+    if start_line is None:
+        return {}
+
+    # Find children in between the line
+    children = cmd_dict.get(child_command, {})
+    in_block = {
+        c_name: c_data
+        for c_name, c_data in children.items()
+        if start_line < c_data.get('__line__', -1) < end_line
+    }
+
+    return in_block

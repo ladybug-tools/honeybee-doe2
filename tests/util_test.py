@@ -1,5 +1,9 @@
 """Test the utility functions."""
-from honeybee_doe2.util import parse_inp_string
+import os
+from honeybee_doe2.util import parse_inp_string, \
+    resolve_defaults, find_user_lib_file
+
+from honeybee_doe2.reader import command_dict_from_inp
 
 
 SCHEDULE_DAY_STR = """
@@ -137,3 +141,64 @@ def test_parse_schedule_year_pd():
     assert len(values) == 4
     assert keywords[0] == 'TYPE'
     assert values[0] == 'TEMPERATURE'
+
+
+def test_resolve_defaults_system_psz():
+    """Test the resolve_defaults function for PSZ SYSTEM objects from
+    int_loads_assigned.inp."""
+    # Get the path to the test asset file
+    this_dir = os.path.dirname(__file__)
+    inp_file = os.path.join(this_dir, 'assets', 'int_loads_assigned.inp')
+
+    # Read and parse the INP file
+    with open(inp_file, 'r') as f:
+        inp_content = f.read()
+    cmd_dict = command_dict_from_inp(inp_content)
+
+    # Get the SYSTEM defaults for PSZ type
+    system_defaults = cmd_dict.get('DEFAULTS', {}).get(('SYSTEM', 'PSZ'), {})
+    assert system_defaults is not None
+    assert len(system_defaults) > 0
+
+    # Get a specific SYSTEM object ("ac_")
+    system_objects = cmd_dict.get('SYSTEM', {})
+    assert 'ac_' in system_objects
+    ac_attrs = system_objects['ac_']
+
+    # Define some keys to resolve
+    system_keys = [
+        'TYPE', 'HEAT-SOURCE', 'RETURN-AIR-PATH', 'HEATING-SCHEDULE',
+        'SUPPLY-KW/FLOW', 'COOL-CAP-FT', 'COOLING-EIR', 'COOL-EIR-FT',
+        'COOL-EIR-FPLR', 'COOL-FT-MIN', 'MIN-AIR-SCH', 'FAN-SCHEDULE',
+        'CONTROL-ZONE'
+    ]
+
+    # Resolve defaults for this system
+    resolved = resolve_defaults(ac_attrs, system_defaults, system_keys)
+
+    # Verify that values from both defaults and instance are present
+    assert 'TYPE' in resolved
+    assert resolved['TYPE'] == 'PSZ'
+
+    # MIN-AIR-SCH and FAN-SCHEDULE should come from the SYSTEM keywords
+    assert 'MIN-AIR-SCH' in resolved
+    assert '"MNECB-97 A-Office Min OA Sch"' in str(resolved['MIN-AIR-SCH'])
+
+    # SUPPLY-KW/FLOW should come from defaults
+    assert 'SUPPLY-KW/FLOW' in resolved
+    assert resolved['SUPPLY-KW/FLOW'] == 0.00025
+
+
+def test_find_user_lib_file():
+    """Test the find_user_lib_file function."""
+    result = find_user_lib_file()
+
+    # Result should be either None or a valid path string
+    assert result is None or isinstance(result, str)
+
+    if result is not None:
+        # If a path is returned, verify it exists and has correct filename
+        assert os.path.isfile(result), \
+            'Returned path does not exist: {}'.format(result)
+        assert result.endswith('eQ_Lib.dat'), \
+            'Returned path does not end with eQ_Lib.dat: {}'.format(result)
