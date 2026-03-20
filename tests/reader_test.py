@@ -5,6 +5,7 @@ from honeybee.model import Model
 from honeybee_energy.programtype import ProgramType
 from honeybee_doe2.reader import command_dict_from_inp, model_from_inp_file
 from honeybee_doe2.programtype import program_type_from_inp
+from honeybee_doe2.util import find_user_lib_file
 
 
 def test_parse_inp_file():
@@ -132,20 +133,26 @@ def test_set_defaults_case_switch_loads():
 
 
 def test_program_type_from_inp_assigned():
-    """Test building ProgramTypes from an INP with assigned loads 
+    """Test building ProgramTypes from an INP with assigned loads
     per SPACE command"""
     inp_path = os.path.join(os.path.dirname(__file__), 'assets',
                             'int_loads_assigned.inp')
     with open(inp_path, 'r') as f:
         inp_content = f.read()
+    
     cmd_dict = command_dict_from_inp(inp_content)
-    prog_types = program_type_from_inp(cmd_dict)
+
+    lib_path = find_user_lib_file()
+    if lib_path is None:
+        return  # skip test if no library file found
+    prog_types = program_type_from_inp(cmd_dict, lib_path)
 
     assert len(prog_types) > 0
     assert all(isinstance(pt, ProgramType) for pt in prog_types)
 
     # find the Office program type
-    office = next((pt for pt in prog_types if 'Office' in pt.display_name), None)
+    office = next((pt for pt in prog_types if 'Office' in pt.display_name),
+                  None)
     assert office is not None
     assert office.people is not None
     assert office.people.area_per_person > 0
