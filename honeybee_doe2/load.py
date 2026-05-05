@@ -107,7 +107,7 @@ def electric_equipment_to_inp(electric_equip):
     eqp_sch = '("{}")'.format(eqp_sch)
     sens_fract = 1 - electric_equip.latent_fraction - electric_equip.lost_fraction
     values = (epd, eqp_sch, sens_fract, electric_equip.latent_fraction,
-                electric_equip.radiant_fraction)
+              electric_equip.radiant_fraction)
     return EQUIP_KEYS, values
 
 
@@ -143,7 +143,7 @@ def hot_water_and_gas_to_inp(hot_water, gas_equip, room_floor_area):
         flr_area = Area().to_unit([room_floor_area], 'm2', 'ft2')[0]  # m2
         total_flow = flow_den * flr_area  # L/h
         delta_t = 50  # assume the water heater must heat water from 10C to 60C
-        c_water = 4.186 # J/g-C, the specific heat of water
+        c_water = 4.186  # J/g-C, the specific heat of water
         shw_heat = total_flow * c_water * delta_t  # J/h using Q = m * c * deltaT
         shw_heat = shw_heat / 3600.  # Watts
         shw_power = round(Power().to_unit([shw_heat], 'Btu/h', 'W')[0], 3)
@@ -207,7 +207,7 @@ def infiltration_to_inp(infiltration):
 
 def setpoint_to_inp(setpoint):
     """Translate a Setpoint definition into INP (Keywords, Values).
-    
+
     Args:
         setpoint: A honeybee-energy Setpoint definition. None is allowed.
 

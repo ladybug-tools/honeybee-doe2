@@ -45,6 +45,23 @@ def group_rooms_by_doe2_level(rooms, model_tolerance):
 
     # first group the rooms by floor height
     grouped_rooms, _ = Room.group_by_floor_height(rooms, FLOOR_LEVEL_TOL)
+    # separate any rooms that have different stories assigned to them
+    grouped_room_stories = []
+    for room_group in grouped_rooms:
+        if len(room_group) == 1 or all(r.story == room_group[0].story for r in room_group):
+            grouped_room_stories.append(room_group)
+        else:
+            story_dict = {}
+            for room in room_group:
+                try:
+                    story_dict[room.story].append(room)
+                except KeyError:
+                    story_dict[room.story] = [room]
+            for rg in story_dict.values():
+                grouped_room_stories.append(rg)
+    grouped_rooms = grouped_room_stories
+
+    # determine an appropriate name for the level
     for fi, room_group in enumerate(grouped_rooms):
         # determine a base name for the level using the story assigned to the rooms
         level_name = clean_doe2_string(room_group[0].story, RES_CHARS - 8) \
