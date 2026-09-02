@@ -51,7 +51,7 @@ def test_schedule_day_to_inp():
     rebuilt_sch = schedule_day_from_inp(inp_str)
     assert schedule_day_to_inp(rebuilt_sch) == inp_str
 
-    equest_sample = [0, 0, 0, 0, 0, 0, 0, 0, 0.3,0.6,0.8,
+    equest_sample = [0, 0, 0, 0, 0, 0, 0, 0, 0.3, 0.6, 0.8,
                      1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
     equest_sample_sch = ScheduleDay.from_values_at_timestep(
         'eQuest Sample Sch Day', equest_sample)
@@ -135,7 +135,7 @@ def test_schedule_day_to_inp_start_end_change():
         '   ..\n'
     rebuilt_sch = schedule_day_from_inp(inp_str)
     assert schedule_day_to_inp(rebuilt_sch) == inp_str
-    
+
     hourly_vals_from_ep[0] = 1.0
     hourly_vals_from_ep[1] = 0.0
     complex_office = ScheduleDay.from_values_at_timestep(
@@ -200,7 +200,7 @@ def test_schedule_ruleset_to_inp():
         '      "Summer Office Occupancy", $ Summer Design Day,\n' \
         '   )\n' \
         '   ..\n'
-    
+
     day_sch_strs = [schedule_day_to_inp(day_sch)
                     for day_sch in schedule.day_schedules]
     rebuilt_sch = schedule_ruleset_from_inp(inp_yr_str, inp_week_strs, day_sch_strs)
@@ -334,7 +334,7 @@ def test_schedule_day_from_inp():
     assert schedule_day.values == (15.56, 17.78, 20.0, 21.11, 15.56)
     assert tuple(str(t) for t in schedule_day.times) == \
         ('00:00', '06:00', '07:00', '08:00', '21:00')
-    
+
     schedule_day = schedule_day_from_inp(SCHEDULE_DAY_PD_STR)
     assert schedule_day.identifier == 'PRJ Heating SAT'
     assert schedule_day.values == (18.33, 19.17, 20.0, 21.11, 18.33)

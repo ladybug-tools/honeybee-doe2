@@ -1,3 +1,5 @@
+# coding=utf-8
+"""Test all of the material and construction translators."""
 from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
 from honeybee_energy.material.glazing import EnergyWindowMaterialGlazing
 from honeybee_energy.material.shade import EnergyWindowMaterialShade
@@ -7,6 +9,8 @@ from honeybee_energy.construction.window import WindowConstruction
 from honeybee_energy.construction.windowshade import WindowConstructionShade
 from honeybee_energy.construction.air import AirBoundaryConstruction
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
+
+from honeybee_doe2.construction import extract_all_constructions_from_inp_file
 
 
 def test_material_to_inp():
@@ -107,7 +111,7 @@ def test_window_construction_to_inp():
         '   SHADING-COEF             = 0.791\n' \
         '   GLASS-CONDUCT            = 0.479229\n' \
         '   ..\n'
-    
+
     inp_str = triple_clear.to_inp()
     assert inp_str == \
         '"Triple Clear Window" = GLASS-TYPE\n' \
@@ -157,11 +161,20 @@ def test_air_construction_to_inp():
         '   TYPE                     = U-VALUE\n' \
         '   U-VALUE                  = 1.0\n' \
         '   ..\n'
-    
+
     inp_str = night_flush_constr.to_inp()
     assert inp_str == \
         '"Night Flush Boundary" = CONSTRUCTION\n' \
         '   TYPE                     = U-VALUE\n' \
         '   U-VALUE                  = 1.0\n' \
         '   ..\n'
-    
+
+
+def test_extract_all_constructions_from_inp_file():
+    input_inp = './tests/assets/small_revit_sample.inp'
+    window_constructions, opaque_constructions, materials = \
+        extract_all_constructions_from_inp_file(input_inp)
+
+    assert len(window_constructions) == 2
+    assert len(opaque_constructions) == 19
+    assert len(materials) == 24

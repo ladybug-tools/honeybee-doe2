@@ -109,7 +109,7 @@ def parse_inp_string(inp_string):
     """
     inp_string = inp_string.strip()
 
-    inp_strings = inp_string.rsplit('..', 1)  # r split incase '..' in u_name
+    inp_strings = inp_string.rsplit('..', 1)  # r split in case '..' in u_name
 
     assert len(inp_strings) > 1, 'Input inp_string is not an INP object.'
     assert len(inp_strings) == 2, 'Received more than one object in inp_string.'
