@@ -1,14 +1,20 @@
 """honeybee-inp construction translators."""
 from __future__ import division
+import os
+import re
 
 from ladybug.datatype.uvalue import UValue
 from ladybug.datatype.rvalue import RValue
 from ladybug.datatype.distance import Distance
 from honeybee.typing import clean_doe2_string
-from honeybee_energy.material.opaque import EnergyMaterialNoMass
+from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
+from honeybee_energy.material.glazing import EnergyWindowMaterialSimpleGlazSys
+from honeybee_energy.construction.opaque import OpaqueConstruction
+from honeybee_energy.construction.window import WindowConstruction
 
 from .config import RES_CHARS, MIN_LAYER_THICKNESS
-from .util import generate_inp_string, generate_inp_string_list_format
+from .util import generate_inp_string, generate_inp_string_list_format, \
+    parse_inp_string, clean_inp_file_contents
 
 # dictionary to map between E+ and DOE-2 roughness types
 ROUGHNESS_MAP = {
@@ -103,3 +109,177 @@ def air_construction_to_inp(construction):
     keywords = ('TYPE', 'U-VALUE')
     values = ('U-VALUE', constr_cond)
     return generate_inp_string(doe2_id, 'CONSTRUCTION', keywords, values)
+
+
+def opaque_material_from_inp(inp_string):
+    """Create an EnergyMaterial or EnergyMaterialNoMass from a MATERIAL INP string."""
+    # parse the string into properties
+    u_name, command, keywords, values = parse_inp_string(inp_string)
+    attr_dict = {key: val for key, val in zip(keywords, values)}
+    # create the material object
+    if attr_dict['TYPE'] == 'RESISTANCE':
+        r_val = RValue().to_unit([float(attr_dict['RESISTANCE'])], 'm2-K/W', 'h-ft2-F/Btu')[0]
+        return EnergyMaterialNoMass(u_name, round(r_val, 6))
+    elif attr_dict['TYPE'] == 'PROPERTIES':
+        thickness = Distance().to_unit([float(attr_dict['THICKNESS'])], 'm', 'ft')[0]
+        conduct = float(attr_dict['CONDUCTIVITY']) / 0.578176  # convert from BTU/h-ft-F
+        density = float(attr_dict['DENSITY']) * 16.018  # convert from lb/ft3
+        spec_en = float(attr_dict['SPECIFIC-HEAT']) / 0.0002388459  # convert from BTU/lb-F
+        return EnergyMaterial(
+            u_name, round(thickness, 6), round(conduct, 3),
+            round(density, 3), round(spec_en)
+        )
+
+
+def opaque_construction_from_inp(inp_string, layers, materials):
+    """Create an OpaqueConstruction from INP text strings.
+
+    Args:
+        inp_string: A text string fully describing an EnergyPlus construction.
+        layers: A dictionary with U-names of layers as keys and INP strings
+            of LAYERS objects as values.
+        materials: A dictionary with identifiers of materials as keys and Python
+            material objects as values.
+    """
+    # parse the string into properties
+    u_name, command, keywords, values = parse_inp_string(inp_string)
+    attr_dict = {key: val for key, val in zip(keywords, values)}
+    if 'TYPE' in attr_dict and attr_dict['TYPE'] == 'U-VALUE':
+        # simple construction with one layer
+        u_val = UValue().to_unit([float(attr_dict['U-VALUE'])], 'W/m2-K', 'Btu/h-ft2-F')[0]
+        mat = EnergyMaterialNoMass('{}_Mat'.format(u_name), round(1 / u_val, 6))
+        return OpaqueConstruction(u_name, [mat])
+
+    # assemble the layers
+    layers_id = attr_dict['LAYERS'].replace('"', '')
+    try:
+        layers_string = layers[layers_id]
+        _, _, _, l_values = parse_inp_string(layers_string)
+        try:
+            l_values = eval(l_values[0], {})
+            mats = [materials[m_id.replace('"', '')] for m_id in l_values]
+        except KeyError as e:
+            raise ValueError('Failed to find {} in the input materials dictionary.'.format(e))
+    except KeyError as e:
+        raise ValueError('Failed to find {} in the input layers dictionary.'.format(e))
+    construction = OpaqueConstruction(u_name, mats)
+
+    # apply any absorptance and roughness values and return the construction
+    construction.materials[0].unlock()
+    try:
+        construction.materials[0].solar_absorptance = attr_dict['ABSORPTANCE']
+    except Exception:  # no absorptance specified or material is locked
+        pass
+    try:
+        inp_rough = int(attr_dict['ROUGHNESS'])
+        for rk, rv in ROUGHNESS_MAP.items():
+            if inp_rough == rv:
+                construction.materials[0].roughness = rk
+                break
+    except Exception:  # no roughness specified or material is locked
+        pass
+    construction.materials[0].lock()
+    return construction
+
+
+def window_construction_from_inp(inp_string):
+    """Create a WindowConstruction from a GLASS-TYPE INP string.
+
+    Will be None if the GLASS-TYPE uses one of DOE-2's internal glass type codes.
+    """
+    # parse the string into properties
+    u_name, command, keywords, values = parse_inp_string(inp_string)
+    attr_dict = {key: val for key, val in zip(keywords, values)}
+    if attr_dict['TYPE'] != 'SHADING-COEF':
+        return None
+    # create the material and construction objects
+    shgc = round(float(attr_dict['SHADING-COEF']) * 0.87, 3)
+    try:
+        u_factor = float(attr_dict['GLASS-CONDUCT'])
+    except KeyError:  # possibly using a newer format for specifying U-Value
+        try:
+            u_factor = float(attr_dict['GLASS-CONDUCTANCE'])
+        except KeyError:
+            return None
+    u_factor = round(UValue().to_unit([u_factor], 'W/m2-K', 'Btu/h-ft2-F')[0], 6)
+    keywords = ('TYPE', 'SHADING-COEF', 'GLASS-CONDUCT')
+    mat = EnergyWindowMaterialSimpleGlazSys('{}_Mat'.format(u_name), u_factor, shgc)
+    return WindowConstruction(u_name, [mat])
+
+
+def extract_all_constructions_from_inp_file(inp_file):
+    """Extract all ScheduleRuleset objects from a DOE-2 INP file.
+
+    Args:
+        inp_file: A path to an INP file containing objects for CONSTRUCTION,
+            LAYERS, MATERIAL, and/or GLASS-TYPE.
+
+    Returns:
+        A tuple with three elements
+
+            -   window_constructions: A list of all WindowConstruction objects in the INP
+                file as honeybee_energy WindowConstruction objects.
+
+            -   opaque_constructions: A list of all OpaqueConstruction objects in the IDF
+                file as honeybee_energy OpaqueConstruction objects.
+
+            -   materials: A list of all opaque materials in the IDF file as
+                honeybee_energy EnergyMaterial or EnergyMaterialNoMass objects.
+    """
+    # read the file and remove lines of comments
+    assert os.path.isfile(inp_file), 'Cannot find an INP file at: {}'.format(inp_file)
+    with open(inp_file, 'r') as doe_file:
+        inp_content = doe_file.read()
+    file_contents = clean_inp_file_contents(inp_content)
+
+    # extract all of the MATERIAL objects
+    mat_pattern = re.compile(r'(?i)(".*=.*MATERIAL\n[\s\S]*?\.\.)')
+    mat_strings = mat_pattern.findall(file_contents)
+    mat_dict = {}
+    for mat_str in mat_strings:
+        mat_str = mat_str.strip()
+        try:
+            mat_obj = opaque_material_from_inp(mat_str)
+            mat_dict[mat_obj.identifier] = mat_obj
+        except Exception:
+            pass  # not a material that can be converted
+    materials = list(mat_dict.values())
+
+    # extract all LAYERS objects
+    layer_pattern = re.compile(r'(?i)(".*=.*LAYERS\n[\s\S]*?\.\.)')
+    layer_strings = layer_pattern.findall(file_contents)
+    layer_dict = {}
+    for layer_str in layer_strings:
+        layer_str = layer_str.strip()
+        try:
+            layer_id, _, _, _ = parse_inp_string(layer_str)
+            layer_dict[layer_id] = layer_str
+        except Exception:
+            pass  # not a Layers object that can be converted
+
+    # extract all CONSTRUCTION objects
+    con_pattern = re.compile(r'(?i)(".*=.*CONSTRUCTION\n[\s\S]*?\.\.)')
+    con_strings = con_pattern.findall(file_contents)
+    opaque_constructions = []
+    for con_str in con_strings:
+        con_str = con_str.strip()
+        try:
+            con_obj = opaque_construction_from_inp(con_str, layer_dict, mat_dict)
+            opaque_constructions.append(con_obj)
+        except Exception:
+            pass  # not a construction that can be converted
+
+    # extract all GLASS-TYPE objects
+    glass_pattern = re.compile(r'(?i)(".*=.*GLASS-TYPE\n[\s\S]*?\.\.)')
+    glass_strings = glass_pattern.findall(file_contents)
+    window_constructions = []
+    for g_str in glass_strings:
+        g_str = g_str.strip()
+        try:
+            con_obj = window_construction_from_inp(g_str)
+            if con_obj is not None:
+                window_constructions.append(con_obj)
+        except Exception:
+            pass  # not a construction that can be converted
+
+    return window_constructions, opaque_constructions, materials

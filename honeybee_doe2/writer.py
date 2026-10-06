@@ -470,8 +470,10 @@ def face_to_inp(face, space_origin=Point3D(0, 0, 0), location=None):
     return face_polygon, face_def
 
 
-def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
-                exclude_interior_walls=False, exclude_interior_ceilings=False):
+def room_to_inp(
+    room, floor_origin=Point3D(0, 0, 0), floor_height=None,
+    exclude_interior_walls=False, exclude_interior_ceilings=False, adj_set=None
+):
     """Generate an INP string representation of a Room.
 
     This will include the Room's constituent Faces, Apertures and Doors with
@@ -497,6 +499,11 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
             should be excluded from the resulting string. (Default: False).
         exclude_interior_ceilings: Boolean to note whether interior ceiling
             Faces should be excluded from the resulting string. (Default: False).
+        adj_set: An optional Python set that contains identifiers of interior
+            Faces that have already been added to the model. This can be used
+            to ensure that interior Faces do not get added to the INP twice,
+            thereby doubling the heat flow. If None, all interior Faces of
+            the room will be written as long as they were not excluded. (Default: None).
 
     Returns:
         A tuple with two elements.
@@ -692,6 +699,10 @@ def room_to_inp(room, floor_origin=Point3D(0, 0, 0), floor_height=None,
             elif exclude_interior_ceilings and \
                     isinstance(face.type, (Floor, RoofCeiling)):
                 continue
+            if adj_set is not None and face.identifier in adj_set:
+                continue
+            else:
+                adj_set.add(face.boundary_condition.boundary_condition_object)
         # add the face definition along with all apertures and doors
         face_polygon, face_def = face_to_inp(face, space_origin, f_loc)
         if face_polygon != '':
@@ -890,6 +901,7 @@ def model_to_inp(
         program_type_to_inp(program, switch_dict)
 
     # loop through rooms grouped by floor level and boundary to get polygons
+    adj_set = set()
     level_room_groups, level_geos, level_names = \
         group_rooms_by_doe2_level(model.rooms, model.tolerance)
     bldg_polygons, bldg_geo_defs = [], []
@@ -932,7 +944,8 @@ def model_to_inp(
         for room in flr_rooms:
             room_polygons, room_defs = room_to_inp(
                 room, flr_origin, median_room_f2c,
-                exclude_interior_walls, exclude_interior_ceilings)
+                exclude_interior_walls, exclude_interior_ceilings, adj_set
+            )
             bldg_polygons.extend(room_polygons)
             bldg_geo_defs.extend(room_defs)
 
