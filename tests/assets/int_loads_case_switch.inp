@@ -1,0 +1,1782 @@
+INPUT ..
+
+
+$ ---------------------------------------------------------
+$              Abort, Diagnostics
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Global Parameters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Title, Run Periods, Design Days, Holidays
+$ ---------------------------------------------------------
+
+
+TITLE
+   LINE-1           = *Unnamed*
+   ..
+
+"Default Run Period" = RUN-PERIOD-PD
+   BEGIN-MONTH              = 1
+   BEGIN-DAY                = 1
+   BEGIN-YEAR               = 2021
+   END-MONTH                = 12
+   END-DAY                  = 31
+   END-YEAR                 = 2021
+   ..
+"Standard US Holidays" = HOLIDAYS
+   LIBRARY-ENTRY            = "US"
+   ..
+
+$ ---------------------------------------------------------
+$              Compliance Data
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Site and Building Data
+$ ---------------------------------------------------------
+
+
+"Site Data" = SITE-PARAMETERS
+   ALTITUDE                 = 150
+   C-STATE                  = 21
+   C-WEATHER-FILE           = *TMY2\HARTFOCT.bin*
+   C-COUNTRY                = 1
+   C-901-LOCATION           = 1092
+   ..
+"Building Data" = BUILD-PARAMETERS
+   HOLIDAYS                 = "Standard US Holidays"
+   ..
+
+$ ---------------------------------------------------------
+$              Day Schedules
+$ ---------------------------------------------------------
+
+
+"NECBASrvc Wtr Htng Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.05)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.1, 0.5)
+   HOURS                    = (10, 10)
+   VALUES                   = (0.5)
+   HOURS                    = (11, 16)
+   VALUES                   = (0.9)
+   HOURS                    = (17, 19)
+   VALUES                   = (0.7, 0.5, 0.3)
+   HOURS                    = (20, 22)
+   VALUES                   = (0.2)
+   HOURS                    = (23, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECBASrvc Wtr Htng Hl" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECBASrvc Wtr Htng Wkd" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.05)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.1, 0.5)
+   HOURS                    = (10, 10)
+   VALUES                   = (0.5)
+   HOURS                    = (11, 16)
+   VALUES                   = (0.9)
+   HOURS                    = (17, 19)
+   VALUES                   = (0.7, 0.5, 0.3)
+   HOURS                    = (20, 22)
+   VALUES                   = (0.2)
+   HOURS                    = (23, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECBASrvc Wtr Htng St" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECBASrvc Wtr Htng Sn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECBAThrmstt StpntClng Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 6)
+   VALUES                   = (35.0)
+   HOURS                    = (7, 21)
+   VALUES                   = (24.0)
+   HOURS                    = (22, 24)
+   VALUES                   = (35.0)
+   ..
+
+"NECBAThrmstt StpntClng Hl" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (35.0)
+   ..
+
+"NECBAThrmstt StpntClng Wkd" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 6)
+   VALUES                   = (35.0)
+   HOURS                    = (7, 21)
+   VALUES                   = (24.0)
+   HOURS                    = (22, 24)
+   VALUES                   = (35.0)
+   ..
+
+"NECBAThrmstt StpntClng St" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (35.0)
+   ..
+
+"NECBAThrmstt StpntClng Sn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (35.0)
+   ..
+
+"NECBKSrvc Wtr Htng Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECBKSrvc Wtr Htng Hl" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECBKSrvc Wtr Htng Wkd" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECBKSrvc Wtr Htng St" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECBKSrvc Wtr Htng Sn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-A-Occupancy Default" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.0)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.1, 0.7)
+   HOURS                    = (10, 12)
+   VALUES                   = (0.9)
+   HOURS                    = (13, 14)
+   VALUES                   = (0.5)
+   HOURS                    = (15, 17)
+   VALUES                   = (0.9)
+   HOURS                    = (18, 19)
+   VALUES                   = (0.7, 0.3)
+   HOURS                    = (20, 23)
+   VALUES                   = (0.1)
+   HOURS                    = (24, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-A-Occupancy Hol" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-A-Occupancy Wkdy" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.0)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.1, 0.7)
+   HOURS                    = (10, 12)
+   VALUES                   = (0.9)
+   HOURS                    = (13, 14)
+   VALUES                   = (0.5)
+   HOURS                    = (15, 17)
+   VALUES                   = (0.9)
+   HOURS                    = (18, 19)
+   VALUES                   = (0.7, 0.3)
+   HOURS                    = (20, 23)
+   VALUES                   = (0.1)
+   HOURS                    = (24, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-A-Occupancy Sat" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-A-Occupancy Sun" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECBKElctrcEqpmnt Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-K-Electric-Equipment Hol" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-K-Electric-Equipment Wkdy" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-K-Electric-Equipment Sat" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-K-Electric-Equipment Sun" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.0)
+   ..
+
+"NECB-A-Lighting Default" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.05)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.3, 0.8)
+   HOURS                    = (10, 17)
+   VALUES                   = (0.9)
+   HOURS                    = (18, 19)
+   VALUES                   = (0.8, 0.5)
+   HOURS                    = (20, 21)
+   VALUES                   = (0.3)
+   HOURS                    = (22, 23)
+   VALUES                   = (0.1)
+   HOURS                    = (24, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECB-A-Lighting Hol" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECB-A-Lighting Wkdy" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.05)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.3, 0.8)
+   HOURS                    = (10, 17)
+   VALUES                   = (0.9)
+   HOURS                    = (18, 19)
+   VALUES                   = (0.8, 0.5)
+   HOURS                    = (20, 21)
+   VALUES                   = (0.3)
+   HOURS                    = (22, 23)
+   VALUES                   = (0.1)
+   HOURS                    = (24, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECB-A-Lighting Sat" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECB-A-Lighting Sun" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.05)
+   ..
+
+"NECBKThrmstt StpntClng Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (24.0)
+   ..
+
+"NECBKThrmstt StpntClng Hl" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (24.0)
+   ..
+
+"NECBKThrmstt StpntClng Wkd" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (24.0)
+   ..
+
+"NECBKThrmstt StpntClng St" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (24.0)
+   ..
+
+"NECBKThrmstt StpntClng Sn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (24.0)
+   ..
+
+"NECBAThrmstt StpntHtng Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 6)
+   VALUES                   = (18.0)
+   HOURS                    = (7, 8)
+   VALUES                   = (20.0, 22.0)
+   HOURS                    = (9, 21)
+   VALUES                   = (22.0)
+   HOURS                    = (22, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBAThrmstt StpntHtng Hl" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBAThrmstt StpntHtng Wkd" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 6)
+   VALUES                   = (18.0)
+   HOURS                    = (7, 8)
+   VALUES                   = (20.0, 22.0)
+   HOURS                    = (9, 21)
+   VALUES                   = (22.0)
+   HOURS                    = (22, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBAThrmstt StpntHtng St" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBAThrmstt StpntHtng Sn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECB-Activity Default" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (130.0)
+   ..
+
+"NECB-Activity SmrDsn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (130.0)
+   ..
+
+"NECB-Activity WntrDsn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (130.0)
+   ..
+
+"NECB-K-Occupancy Default" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Occupancy Hol" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Occupancy Wkdy" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Occupancy Sat" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Occupancy Sun" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"Always On Day Schedule" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (1.0)
+   ..
+
+"NECBKThrmstt StpntHtng Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBKThrmstt StpntHtng Hl" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBKThrmstt StpntHtng Wkd" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBKThrmstt StpntHtng St" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECBKThrmstt StpntHtng Sn" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (18.0)
+   ..
+
+"NECB-K-Lighting Default" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Lighting Hol" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Lighting Wkdy" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Lighting Sat" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECB-K-Lighting Sun" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.9)
+   ..
+
+"NECBAElctrcEqpmnt Dflt" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.2)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.3, 0.8)
+   HOURS                    = (10, 18)
+   VALUES                   = (0.9)
+   HOURS                    = (19, 20)
+   VALUES                   = (0.5, 0.3)
+   HOURS                    = (21, 21)
+   VALUES                   = (0.3)
+   HOURS                    = (22, 24)
+   VALUES                   = (0.2)
+   ..
+
+"NECB-A-Electric-Equipment Hol" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.2)
+   ..
+
+"NECB-A-Electric-Equipment Wkdy" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 7)
+   VALUES                   = (0.2)
+   HOURS                    = (8, 9)
+   VALUES                   = (0.3, 0.8)
+   HOURS                    = (10, 18)
+   VALUES                   = (0.9)
+   HOURS                    = (19, 20)
+   VALUES                   = (0.5, 0.3)
+   HOURS                    = (21, 21)
+   VALUES                   = (0.3)
+   HOURS                    = (22, 24)
+   VALUES                   = (0.2)
+   ..
+
+"NECB-A-Electric-Equipment Sat" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.2)
+   ..
+
+"NECB-A-Electric-Equipment Sun" = DAY-SCHEDULE
+   TYPE                     = FRACTION
+   HOURS                    = (1, 24)
+   VALUES                   = (0.2)
+   ..
+
+$ ---------------------------------------------------------
+$              Week Schedules
+$ ---------------------------------------------------------
+
+
+"NECBASrvc Wtr Htng Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECBASrvc Wtr Htng Wkd", $ Monday,
+      "NECBASrvc Wtr Htng Wkd", $ Tuesday,
+      "NECBASrvc Wtr Htng Wkd", $ Wednesday,
+      "NECBASrvc Wtr Htng Wkd", $ Thursday,
+      "NECBASrvc Wtr Htng Wkd", $ Friday,
+      "NECBASrvc Wtr Htng St", $ Saturday,
+      "NECBASrvc Wtr Htng Sn", $ Sunday,
+      "NECBASrvc Wtr Htng Hl", $ Holiday,
+      "NECBASrvc Wtr Htng Dflt", $ Winter Design Day,
+      "NECBASrvc Wtr Htng Dflt", $ Summer Design Day,
+   )
+   ..
+
+"NECBAThrmstt StpntClng Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECBAThrmstt StpntClng Wkd", $ Monday,
+      "NECBAThrmstt StpntClng Wkd", $ Tuesday,
+      "NECBAThrmstt StpntClng Wkd", $ Wednesday,
+      "NECBAThrmstt StpntClng Wkd", $ Thursday,
+      "NECBAThrmstt StpntClng Wkd", $ Friday,
+      "NECBAThrmstt StpntClng St", $ Saturday,
+      "NECBAThrmstt StpntClng Sn", $ Sunday,
+      "NECBAThrmstt StpntClng Hl", $ Holiday,
+      "NECBAThrmstt StpntClng Dflt", $ Winter Design Day,
+      "NECBAThrmstt StpntClng Dflt", $ Summer Design Day,
+   )
+   ..
+
+"NECBKSrvc Wtr Htng Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECBKSrvc Wtr Htng Wkd", $ Monday,
+      "NECBKSrvc Wtr Htng Wkd", $ Tuesday,
+      "NECBKSrvc Wtr Htng Wkd", $ Wednesday,
+      "NECBKSrvc Wtr Htng Wkd", $ Thursday,
+      "NECBKSrvc Wtr Htng Wkd", $ Friday,
+      "NECBKSrvc Wtr Htng St", $ Saturday,
+      "NECBKSrvc Wtr Htng Sn", $ Sunday,
+      "NECBKSrvc Wtr Htng Hl", $ Holiday,
+      "NECBKSrvc Wtr Htng Dflt", $ Winter Design Day,
+      "NECBKSrvc Wtr Htng Dflt", $ Summer Design Day,
+   )
+   ..
+
+"NECB-A-Occupancy Week 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECB-A-Occupancy Wkdy", $ Monday,
+      "NECB-A-Occupancy Wkdy", $ Tuesday,
+      "NECB-A-Occupancy Wkdy", $ Wednesday,
+      "NECB-A-Occupancy Wkdy", $ Thursday,
+      "NECB-A-Occupancy Wkdy", $ Friday,
+      "NECB-A-Occupancy Sat", $ Saturday,
+      "NECB-A-Occupancy Sun", $ Sunday,
+      "NECB-A-Occupancy Hol", $ Holiday,
+      "NECB-A-Occupancy Default", $ Winter Design Day,
+      "NECB-A-Occupancy Default", $ Summer Design Day,
+   )
+   ..
+
+"NECBKElctrcEqpmnt Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECB-K-Electric-Equipment Wkdy", $ Monday,
+      "NECB-K-Electric-Equipment Wkdy", $ Tuesday,
+      "NECB-K-Electric-Equipment Wkdy", $ Wednesday,
+      "NECB-K-Electric-Equipment Wkdy", $ Thursday,
+      "NECB-K-Electric-Equipment Wkdy", $ Friday,
+      "NECB-K-Electric-Equipment Sat", $ Saturday,
+      "NECB-K-Electric-Equipment Sun", $ Sunday,
+      "NECB-K-Electric-Equipment Hol", $ Holiday,
+      "NECBKElctrcEqpmnt Dflt", $ Winter Design Day,
+      "NECBKElctrcEqpmnt Dflt", $ Summer Design Day,
+   )
+   ..
+
+"NECB-A-Lighting Week 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECB-A-Lighting Wkdy", $ Monday,
+      "NECB-A-Lighting Wkdy", $ Tuesday,
+      "NECB-A-Lighting Wkdy", $ Wednesday,
+      "NECB-A-Lighting Wkdy", $ Thursday,
+      "NECB-A-Lighting Wkdy", $ Friday,
+      "NECB-A-Lighting Sat", $ Saturday,
+      "NECB-A-Lighting Sun", $ Sunday,
+      "NECB-A-Lighting Hol", $ Holiday,
+      "NECB-A-Lighting Default", $ Winter Design Day,
+      "NECB-A-Lighting Default", $ Summer Design Day,
+   )
+   ..
+
+"NECBKThrmstt StpntClng Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECBKThrmstt StpntClng Wkd", $ Monday,
+      "NECBKThrmstt StpntClng Wkd", $ Tuesday,
+      "NECBKThrmstt StpntClng Wkd", $ Wednesday,
+      "NECBKThrmstt StpntClng Wkd", $ Thursday,
+      "NECBKThrmstt StpntClng Wkd", $ Friday,
+      "NECBKThrmstt StpntClng St", $ Saturday,
+      "NECBKThrmstt StpntClng Sn", $ Sunday,
+      "NECBKThrmstt StpntClng Hl", $ Holiday,
+      "NECBKThrmstt StpntClng Dflt", $ Winter Design Day,
+      "NECBKThrmstt StpntClng Dflt", $ Summer Design Day,
+   )
+   ..
+
+"NECBAThrmstt StpntHtng Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECBAThrmstt StpntHtng Wkd", $ Monday,
+      "NECBAThrmstt StpntHtng Wkd", $ Tuesday,
+      "NECBAThrmstt StpntHtng Wkd", $ Wednesday,
+      "NECBAThrmstt StpntHtng Wkd", $ Thursday,
+      "NECBAThrmstt StpntHtng Wkd", $ Friday,
+      "NECBAThrmstt StpntHtng St", $ Saturday,
+      "NECBAThrmstt StpntHtng Sn", $ Sunday,
+      "NECBAThrmstt StpntHtng Hl", $ Holiday,
+      "NECBAThrmstt StpntHtng Dflt", $ Winter Design Day,
+      "NECBAThrmstt StpntHtng Dflt", $ Summer Design Day,
+   )
+   ..
+
+"NECB-Activity Week 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECB-Activity Default", $ Monday,
+      "NECB-Activity Default", $ Tuesday,
+      "NECB-Activity Default", $ Wednesday,
+      "NECB-Activity Default", $ Thursday,
+      "NECB-Activity Default", $ Friday,
+      "NECB-Activity Default", $ Saturday,
+      "NECB-Activity Default", $ Sunday,
+      "NECB-Activity Default", $ Holiday,
+      "NECB-Activity WntrDsn", $ Winter Design Day,
+      "NECB-Activity SmrDsn", $ Summer Design Day,
+   )
+   ..
+
+"NECB-K-Occupancy Week 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECB-K-Occupancy Wkdy", $ Monday,
+      "NECB-K-Occupancy Wkdy", $ Tuesday,
+      "NECB-K-Occupancy Wkdy", $ Wednesday,
+      "NECB-K-Occupancy Wkdy", $ Thursday,
+      "NECB-K-Occupancy Wkdy", $ Friday,
+      "NECB-K-Occupancy Sat", $ Saturday,
+      "NECB-K-Occupancy Sun", $ Sunday,
+      "NECB-K-Occupancy Hol", $ Holiday,
+      "NECB-K-Occupancy Default", $ Winter Design Day,
+      "NECB-K-Occupancy Default", $ Summer Design Day,
+   )
+   ..
+
+"Always On Week 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "Always On Day Schedule", $ Monday,
+      "Always On Day Schedule", $ Tuesday,
+      "Always On Day Schedule", $ Wednesday,
+      "Always On Day Schedule", $ Thursday,
+      "Always On Day Schedule", $ Friday,
+      "Always On Day Schedule", $ Saturday,
+      "Always On Day Schedule", $ Sunday,
+      "Always On Day Schedule", $ Holiday,
+      "Always On Day Schedule", $ Winter Design Day,
+      "Always On Day Schedule", $ Summer Design Day,
+   )
+   ..
+
+"NECBKThrmstt StpntHtng Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECBKThrmstt StpntHtng Wkd", $ Monday,
+      "NECBKThrmstt StpntHtng Wkd", $ Tuesday,
+      "NECBKThrmstt StpntHtng Wkd", $ Wednesday,
+      "NECBKThrmstt StpntHtng Wkd", $ Thursday,
+      "NECBKThrmstt StpntHtng Wkd", $ Friday,
+      "NECBKThrmstt StpntHtng St", $ Saturday,
+      "NECBKThrmstt StpntHtng Sn", $ Sunday,
+      "NECBKThrmstt StpntHtng Hl", $ Holiday,
+      "NECBKThrmstt StpntHtng Dflt", $ Winter Design Day,
+      "NECBKThrmstt StpntHtng Dflt", $ Summer Design Day,
+   )
+   ..
+
+"NECB-K-Lighting Week 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECB-K-Lighting Wkdy", $ Monday,
+      "NECB-K-Lighting Wkdy", $ Tuesday,
+      "NECB-K-Lighting Wkdy", $ Wednesday,
+      "NECB-K-Lighting Wkdy", $ Thursday,
+      "NECB-K-Lighting Wkdy", $ Friday,
+      "NECB-K-Lighting Sat", $ Saturday,
+      "NECB-K-Lighting Sun", $ Sunday,
+      "NECB-K-Lighting Hol", $ Holiday,
+      "NECB-K-Lighting Default", $ Winter Design Day,
+      "NECB-K-Lighting Default", $ Summer Design Day,
+   )
+   ..
+
+"NECBAElctrcEqpmnt Wk 1" = WEEK-SCHEDULE-PD
+   TYPE                     = FRACTION
+   DAY-SCHEDULES            = (
+      "NECB-A-Electric-Equipment Wkdy", $ Monday,
+      "NECB-A-Electric-Equipment Wkdy", $ Tuesday,
+      "NECB-A-Electric-Equipment Wkdy", $ Wednesday,
+      "NECB-A-Electric-Equipment Wkdy", $ Thursday,
+      "NECB-A-Electric-Equipment Wkdy", $ Friday,
+      "NECB-A-Electric-Equipment Sat", $ Saturday,
+      "NECB-A-Electric-Equipment Sun", $ Sunday,
+      "NECB-A-Electric-Equipment Hol", $ Holiday,
+      "NECBAElctrcEqpmnt Dflt", $ Winter Design Day,
+      "NECBAElctrcEqpmnt Dflt", $ Summer Design Day,
+   )
+   ..
+
+$ ---------------------------------------------------------
+$              Annual Schedules
+$ ---------------------------------------------------------
+
+
+"NECB-A-Service Water Heating" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBASrvc Wtr Htng Wk 1"
+   ..
+
+"NECBAThrmstt StpntClng" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBAThrmstt StpntClng Wk 1"
+   ..
+
+"NECB-K-Service Water Heating" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBKSrvc Wtr Htng Wk 1"
+   ..
+
+"NECB-A-Occupancy" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECB-A-Occupancy Week 1"
+   ..
+
+"NECB-K-Electric-Equipment" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBKElctrcEqpmnt Wk 1"
+   ..
+
+"NECB-A-Lighting" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECB-A-Lighting Week 1"
+   ..
+
+"NECBKThrmstt StpntClng" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBKThrmstt StpntClng Wk 1"
+   ..
+
+"NECBAThrmstt StpntHtng" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBAThrmstt StpntHtng Wk 1"
+   ..
+
+"NECB-Activity" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECB-Activity Week 1"
+   ..
+
+"NECB-K-Occupancy" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECB-K-Occupancy Week 1"
+   ..
+
+"Always On" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "Always On Week 1"
+   ..
+
+"NECBKThrmstt StpntHtng" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBKThrmstt StpntHtng Wk 1"
+   ..
+
+"NECB-K-Lighting" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECB-K-Lighting Week 1"
+   ..
+
+"NECB-A-Electric-Equipment" = SCHEDULE
+   TYPE                     = FRACTION
+   THRU DEC 31              = "NECBAElctrcEqpmnt Wk 1"
+   ..
+
+$ ---------------------------------------------------------
+$              Materials / Layers / Constructions
+$ ---------------------------------------------------------
+
+
+"Generic Brick" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.52
+   DENSITY                  = 119.865
+   SPECIFIC-HEAT            = 0.189
+   ..
+
+"Generic LW Concrete" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.306
+   DENSITY                  = 79.91
+   SPECIFIC-HEAT            = 0.201
+   ..
+
+"Generic Ceiling Air Gap" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.321
+   DENSITY                  = 0.08
+   SPECIFIC-HEAT            = 0.239
+   ..
+
+"Generic Gypsum Board" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.042
+   CONDUCTIVITY             = 0.093
+   DENSITY                  = 49.944
+   SPECIFIC-HEAT            = 0.26
+   ..
+
+"Generic 50mm Insulation" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.164
+   CONDUCTIVITY             = 0.017
+   DENSITY                  = 2.684
+   SPECIFIC-HEAT            = 0.289
+   ..
+
+"Generic HW Concrete" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.656
+   CONDUCTIVITY             = 1.127
+   DENSITY                  = 139.843
+   SPECIFIC-HEAT            = 0.215
+   ..
+
+"Generic Acoustic Tile" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.066
+   CONDUCTIVITY             = 0.035
+   DENSITY                  = 22.974
+   SPECIFIC-HEAT            = 0.141
+   ..
+
+"Generic 25mm Wood" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.083
+   CONDUCTIVITY             = 0.087
+   DENSITY                  = 37.957
+   SPECIFIC-HEAT            = 0.389
+   ..
+
+"Generic Painted Metal" = MATERIAL
+   TYPE                     = RESISTANCE
+   RESISTANCE               = 0.000189
+   ..
+
+"Generic 25mm Insulation" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.082
+   CONDUCTIVITY             = 0.017
+   DENSITY                  = 2.684
+   SPECIFIC-HEAT            = 0.289
+   ..
+
+"Generic Wall Air Gap" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.328
+   CONDUCTIVITY             = 0.386
+   DENSITY                  = 0.08
+   SPECIFIC-HEAT            = 0.239
+   ..
+
+"Generic Roof Membrane" = MATERIAL
+   TYPE                     = PROPERTIES
+   THICKNESS                = 0.033
+   CONDUCTIVITY             = 0.093
+   DENSITY                  = 69.921
+   SPECIFIC-HEAT            = 0.349
+   ..
+
+"Generic Ground Slab_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+   )
+   ..
+"Generic Ground Slab" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.7
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Ground Slab_l"
+   ..
+
+"Generic Air Boundary" = CONSTRUCTION
+   TYPE                     = U-VALUE
+   U-VALUE                  = 1.0
+   ..
+
+"Generic Exposed Floor_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Painted Metal",
+      "Generic Ceiling Air Gap",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete",
+   )
+   ..
+"Generic Exposed Floor" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.5
+   ROUGHNESS                = 5
+   LAYERS                   = "Generic Exposed Floor_l"
+   ..
+
+"Generic Exterior Wall_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Brick",
+      "Generic LW Concrete",
+      "Generic 50mm Insulation",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board",
+   )
+   ..
+"Generic Exterior Wall" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.65
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Exterior Wall_l"
+   ..
+
+"Generic Interior Wall_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Gypsum Board",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board",
+   )
+   ..
+"Generic Interior Wall" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.5
+   ROUGHNESS                = 4
+   LAYERS                   = "Generic Interior Wall_l"
+   ..
+
+"Generic Underground Wall_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Wall Air Gap",
+      "Generic Gypsum Board",
+   )
+   ..
+"Generic Underground Wall" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.7
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Underground Wall_l"
+   ..
+
+"Generic Roof_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Roof Membrane",
+      "Generic 50mm Insulation",
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile",
+   )
+   ..
+"Generic Roof" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.65
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Roof_l"
+   ..
+
+"Generic Underground Roof_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 50mm Insulation",
+      "Generic HW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile",
+   )
+   ..
+"Generic Underground Roof" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.7
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Underground Roof_l"
+   ..
+
+"Generic Exterior Door_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Painted Metal",
+      "Generic 25mm Insulation",
+      "Generic Painted Metal",
+   )
+   ..
+"Generic Exterior Door" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.5
+   ROUGHNESS                = 5
+   LAYERS                   = "Generic Exterior Door_l"
+   ..
+
+"Generic Interior Ceiling_l" = LAYERS
+   MATERIAL                 = (
+      "Generic LW Concrete",
+      "Generic Ceiling Air Gap",
+      "Generic Acoustic Tile",
+   )
+   ..
+"Generic Interior Ceiling" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.8
+   ROUGHNESS                = 3
+   LAYERS                   = "Generic Interior Ceiling_l"
+   ..
+
+"Generic Interior Floor_l" = LAYERS
+   MATERIAL                 = (
+      "Generic Acoustic Tile",
+      "Generic Ceiling Air Gap",
+      "Generic LW Concrete",
+   )
+   ..
+"Generic Interior Floor" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.2
+   ROUGHNESS                = 4
+   LAYERS                   = "Generic Interior Floor_l"
+   ..
+
+"Generic Interior Door_l" = LAYERS
+   MATERIAL                 = (
+      "Generic 25mm Wood",
+   )
+   ..
+"Generic Interior Door" = CONSTRUCTION
+   TYPE                     = LAYERS
+   ABSORPTANCE              = 0.5
+   ROUGHNESS                = 4
+   LAYERS                   = "Generic Interior Door_l"
+   ..
+
+$ ---------------------------------------------------------
+$              Glass Types
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Door Construction
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Polygons
+$ ---------------------------------------------------------
+
+
+"0 Plg" = POLYGON
+   V1                       = (0.0, 0.0)
+   V2                       = (51.8626, 0.0)
+   V3                       = (51.8626, 52.8795)
+   V4                       = (0.0, 52.8795)
+   ..
+
+"Washroom Plg" = POLYGON
+   V1                       = (0.0, 0.0)
+   V2                       = (26.1284, 0.0)
+   V3                       = (26.1284, 26.497)
+   V4                       = (0.0, 26.497)
+   ..
+
+"Office Plg" = POLYGON
+   V1                       = (0.0, 0.0)
+   V2                       = (25.7342, 0.0)
+   V3                       = (51.8626, 0.0)
+   V4                       = (51.8626, 26.3825)
+   V5                       = (0.0, 26.3825)
+   ..
+
+"Storage Plg" = POLYGON
+   V1                       = (0.0, 0.0)
+   V2                       = (25.7342, 0.0)
+   V3                       = (25.7342, 26.497)
+   V4                       = (0.0, 26.497)
+   ..
+
+$ ---------------------------------------------------------
+$              Wall Parameters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Fixed and Building Shades
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Misc Cost Related Objects
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Performance Curves
+$ **                                                     **
+$ *********************************************************
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Floors / Spaces / Walls / Windows / Doors
+$ **                                                     **
+$ *********************************************************
+
+
+SET-DEFAULT FOR SPACE
+   AREA/PERSON =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 215.198
+case "m5m2": 1075.99
+case "mthr": 322.797
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   PEOPLE-SCHEDULE =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": #SI("NECB-A-Occupancy", "SPACE", "PEOPLE-SCHEDULE")
+case "m5m2": #SI("NECB-K-Occupancy", "SPACE", "PEOPLE-SCHEDULE")
+case "mthr": #SI("NECB-A-Occupancy", "SPACE", "PEOPLE-SCHEDULE")
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   LIGHTING-W/AREA =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 0.808
+case "m5m2": 0.966
+case "mthr": 0.845
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   LIGHTING-SCHEDUL =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": #SI("NECB-A-Lighting", "SPACE", "LIGHTING-SCHEDUL")
+case "m5m2": #SI("NECB-K-Lighting", "SPACE", "LIGHTING-SCHEDUL")
+case "mthr": #SI("NECB-A-Lighting", "SPACE", "LIGHTING-SCHEDUL")
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   LIGHT-TO-RETURN =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 0.0
+case "m5m2": 0.0
+case "mthr": 0.0
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   LIGHT-RAD-FRAC =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 0.5
+case "m5m2": 0.5
+case "mthr": 0.5
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   EQUIPMENT-W/AREA =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 0.697
+case "m5m2": 0.093
+case "mthr": 0.093
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   EQUIP-SCHEDULE =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": #SI(("NECB-A-Electric-Equipment"), "SPACE", "EQUIP-SCHEDULE")
+case "m5m2": #SI(("NECB-K-Electric-Equipment"), "SPACE", "EQUIP-SCHEDULE")
+case "mthr": #SI(("NECB-A-Electric-Equipment"), "SPACE", "EQUIP-SCHEDULE")
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   EQUIP-SENSIBLE =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 1.0
+case "m5m2": 1.0
+case "mthr": 1.0
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   EQUIP-LATENT =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 0.0
+case "m5m2": 0.0
+case "mthr": 0.0
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   EQUIP-RAD-FRAC =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 0.5
+case "m5m2": 0.5
+case "mthr": 0.5
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   INF-FLOW/AREA =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": 0.049
+case "m5m2": 0.049
+case "mthr": 0.049
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   INF-SCHEDULE =
+{switch(#L("C-ACTIVITY-DESC"))
+case "npln": #SI("Always On", "SPACE", "INF-SCHEDULE")
+case "m5m2": #SI("Always On", "SPACE", "INF-SCHEDULE")
+case "mthr": #SI("Always On", "SPACE", "INF-SCHEDULE")
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR SPACE
+   INF-METHOD = AIR-CHANGE
+..
+
+"0" = FLOOR
+   SHAPE                    = POLYGON
+   POLYGON                  = "0 Plg"
+   AZIMUTH                  = 0
+   X                        = -21.6745
+   Y                        = -14.5418
+   Z                        = 0.0
+   SPACE-HEIGHT             = 10.0
+   FLOOR-HEIGHT             = 10.0
+   ..
+
+"Washroom" = SPACE
+   SHAPE                    = POLYGON
+   POLYGON                  = "Washroom Plg"
+   AZIMUTH                  = 0
+   X                        = 25.7342
+   Y                        = 0.0
+   Z                        = 0.0
+   VOLUME                   = 6923.2414
+   ZONE-TYPE                = UNCONDITIONED
+   C-ACTIVITY-DESC          = *mthr*
+   SOURCE-TYPE              = HOT-WATER
+   SOURCE-POWER             = 0.0
+   SOURCE-SCHEDULE          = "NECB-A-Service Water Heating"
+   SOURCE-SENSIBLE          = 0.2
+   SOURCE-RAD-FRAC          = 0.0
+   SOURCE-LATENT            = 0.05
+   ..
+
+"Face 2 3" = ROOF
+   CONSTRUCTION             = "Generic Roof"
+   LOCATION                 = TOP
+   ..
+
+"Face 3 3" = UNDERGROUND-WALL
+   CONSTRUCTION             = "Generic Ground Slab"
+   LOCATION                 = BOTTOM
+   ..
+
+"Face 4 2" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V1
+   ..
+
+"Face 5 2" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V2
+   ..
+
+"Face 06cb1 2" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V3
+   NEXT-TO                  = "Office"
+   ..
+
+"Face 075c6" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V4
+   NEXT-TO                  = "Storage"
+   ..
+
+"Office" = SPACE
+   SHAPE                    = POLYGON
+   POLYGON                  = "Office Plg"
+   AZIMUTH                  = 0
+   X                        = 0.0
+   Y                        = 26.497
+   Z                        = 0.0
+   VOLUME                   = 13682.6332
+   ZONE-TYPE                = UNCONDITIONED
+   C-ACTIVITY-DESC          = *npln*
+   SOURCE-TYPE              = HOT-WATER
+   SOURCE-POWER             = 2.17
+   SOURCE-SCHEDULE          = "NECB-A-Service Water Heating"
+   SOURCE-SENSIBLE          = 0.2
+   SOURCE-RAD-FRAC          = 0.0
+   SOURCE-LATENT            = 0.05
+   ..
+
+"Face 6" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V4
+   ..
+
+"Face 1" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V5
+   ..
+
+"Face 2" = ROOF
+   CONSTRUCTION             = "Generic Roof"
+   LOCATION                 = TOP
+   ..
+
+"Face 3" = UNDERGROUND-WALL
+   CONSTRUCTION             = "Generic Ground Slab"
+   LOCATION                 = BOTTOM
+   ..
+
+"Face 5" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V3
+   ..
+
+"Face 20df5" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V2
+   NEXT-TO                  = "Washroom"
+   ..
+
+"Face 20df5 2" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V1
+   NEXT-TO                  = "Storage"
+   ..
+
+"Storage" = SPACE
+   SHAPE                    = POLYGON
+   POLYGON                  = "Storage Plg"
+   AZIMUTH                  = 0
+   X                        = 0.0
+   Y                        = 0.0
+   Z                        = 0.0
+   VOLUME                   = 6818.7767
+   ZONE-TYPE                = UNCONDITIONED
+   C-ACTIVITY-DESC          = *m5m2*
+   SOURCE-TYPE              = HOT-WATER
+   SOURCE-POWER             = 0.0
+   SOURCE-SCHEDULE          = "NECB-K-Service Water Heating"
+   SOURCE-SENSIBLE          = 0.2
+   SOURCE-RAD-FRAC          = 0.0
+   SOURCE-LATENT            = 0.05
+   ..
+
+"Face 1 2" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V4
+   ..
+
+"Face 2 2" = ROOF
+   CONSTRUCTION             = "Generic Roof"
+   LOCATION                 = TOP
+   ..
+
+"Face 3 2" = UNDERGROUND-WALL
+   CONSTRUCTION             = "Generic Ground Slab"
+   LOCATION                 = BOTTOM
+   ..
+
+"Face 4" = EXTERIOR-WALL
+   CONSTRUCTION             = "Generic Exterior Wall"
+   LOCATION                 = SPACE-V1
+   ..
+
+"Face 06cb1" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V3
+   NEXT-TO                  = "Office"
+   ..
+
+"Face b1d69" = INTERIOR-WALL
+   CONSTRUCTION             = "Generic Interior Wall"
+   LOCATION                 = SPACE-V2
+   NEXT-TO                  = "Washroom"
+   ..
+
+$ *********************************************************
+$ **                                                     **
+$                   Electric & Fuel Meters
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Electric Meters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Fuel Meters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Master Meters
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   HVAC Circulation Loops / Plant Equipment
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Pumps
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Heat Exchangers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Circulation Loops
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Chillers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Boilers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Domestic Water Heaters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Heat Rejection
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Tower Free Cooling
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Photovoltaic Modules
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Electric Generators
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Thermal Storage
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Ground Loop Heat Exchangers
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Compliance DHW (residential dwelling units)
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Steam & Chilled Water Meters
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Steam Meters
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Chilled Water Meters
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   HVAC Systems / Zones
+$ **                                                     **
+$ *********************************************************
+
+
+SET-DEFAULT FOR ZONE
+   TYPE = CONDITIONED
+   DESIGN-HEAT-T =
+{switch(#LR("SPACE", "C-ACTIVITY-DESC"))
+case "npln": 71.6
+case "m5m2": 64.4
+case "mthr": 71.6
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR ZONE
+   TYPE = CONDITIONED
+   DESIGN-COOL-T =
+{switch(#LR("SPACE", "C-ACTIVITY-DESC"))
+case "npln": 75.2
+case "m5m2": 75.2
+case "mthr": 75.2
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR ZONE
+   TYPE = CONDITIONED
+   HEAT-TEMP-SCH =
+{switch(#LR("SPACE", "C-ACTIVITY-DESC"))
+case "npln": #SI("NECBAThrmstt StpntHtng", "ZONE", "HEAT-TEMP-SCH")
+case "m5m2": #SI("NECBKThrmstt StpntHtng", "ZONE", "HEAT-TEMP-SCH")
+case "mthr": #SI("NECBAThrmstt StpntHtng", "ZONE", "HEAT-TEMP-SCH")
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR ZONE
+   TYPE = CONDITIONED
+   COOL-TEMP-SCH =
+{switch(#LR("SPACE", "C-ACTIVITY-DESC"))
+case "npln": #SI("NECBAThrmstt StpntClng", "ZONE", "COOL-TEMP-SCH")
+case "m5m2": #SI("NECBKThrmstt StpntClng", "ZONE", "COOL-TEMP-SCH")
+case "mthr": #SI("NECBAThrmstt StpntClng", "ZONE", "COOL-TEMP-SCH")
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR ZONE
+   TYPE = CONDITIONED
+   OA-FLOW/PER =
+{switch(#LR("SPACE", "C-ACTIVITY-DESC"))
+case "npln": 20.0
+case "mthr": 50.0
+default: no_default
+endswitch}
+..
+
+SET-DEFAULT FOR ZONE
+   TYPE = CONDITIONED
+   OA-FLOW/AREA =
+{switch(#LR("SPACE", "C-ACTIVITY-DESC"))
+case "m5m2": 0.15
+default: no_default
+endswitch}
+..
+
+"0_Sys" = SYSTEM
+   TYPE                     = SUM
+   HEAT-SOURCE              = NONE
+   SYSTEM-REPORTS           = NO
+   ..
+
+"Washroom_Zn" = ZONE
+   TYPE                     = UNCONDITIONED
+   SIZING-OPTION            = ADJUST-LOADS
+   SPACE                    = "Washroom"
+   ..
+
+"Office_Zn" = ZONE
+   TYPE                     = UNCONDITIONED
+   SIZING-OPTION            = ADJUST-LOADS
+   SPACE                    = "Office"
+   ..
+
+"Storage_Zn" = ZONE
+   TYPE                     = UNCONDITIONED
+   SIZING-OPTION            = ADJUST-LOADS
+   SPACE                    = "Storage"
+   ..
+
+$ *********************************************************
+$ **                                                     **
+$                   Metering & Misc HVAC
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Equipment Controls
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Load Management
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Utility Rates
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Ratchets
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Block Charges
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Utility Rates
+$ ---------------------------------------------------------
+
+
+$ *********************************************************
+$ **                                                     **
+$                   Output Reporting
+$ **                                                     **
+$ *********************************************************
+
+
+$ ---------------------------------------------------------
+$              Loads Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Systems Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Plant Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Economics Non-Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              Hourly Reporting
+$ ---------------------------------------------------------
+
+
+$ ---------------------------------------------------------
+$              THE END
+$ ---------------------------------------------------------
+
+
+END ..
+COMPUTE ..
+STOP ..

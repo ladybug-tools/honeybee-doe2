@@ -14,7 +14,10 @@ from honeybee_energy.lib.scheduletypelimits import fractional, on_off, temperatu
 
 from .config import RES_CHARS
 from .util import generate_inp_string, generate_inp_string_list_format, \
-    clean_inp_file_contents, parse_inp_string
+    clean_inp_file_contents, parse_inp_string, _get_lib_content, \
+    parse_lib_string
+
+
 
 
 """____________TRANSLATORS FROM HONEYBEE TO INP____________"""
@@ -367,7 +370,12 @@ def schedule_day_from_inp(inp_string):
     if command.upper() == 'DAY-SCHEDULE-PD':
         field_dict = {k: v for k, v in zip(keywords, values)}
         sch_type = field_dict['TYPE'].upper()
-        hour_vals_init = eval(field_dict['VALUES'].replace('&D', '"&D"'), {})
+        values_str = field_dict['VALUES'].replace('&D', '"&D"')
+        
+        # Add commas between numbers that are seperated by a space
+        # In DOE it is still valid to have just a space no comma
+        values_str = re.sub(r'(\d)\s+(\d)', r'\1, \2', values_str)
+        hour_vals_init = eval(values_str, {})
         if isinstance(hour_vals_init, tuple):
             for val in hour_vals_init:
                 if val == '&D':
@@ -661,3 +669,255 @@ def energy_trans_sch_to_transmittance(shade_obj):
                 sch_vals = trans_sch.values
             trans = round(sum(sch_vals) / len(sch_vals), 3)
     return trans
+
+
+"""______LIBRARY FILE SCHEDULE RESOLUTION______"""
+
+
+def is_library_entry(schedule_dict):
+    """Check if a schedule dict represents a LIBRARY-ENTRY reference.
+
+    A LIBRARY-ENTRY schedule will only have '__line__' and 'cmd' keys,
+    with no other keywords or values in the cmd dict.
+
+    Args:
+        schedule_dict: A dictionary for a schedule from command_dict_from_inp.
+
+    Returns:
+        True if this is a library entry, False otherwise.
+    """
+    return len(schedule_dict) == 2 and 'cmd' in schedule_dict \
+        and '__line__' in schedule_dict
+
+
+def _cmd_dict_to_inp_string(name, attrs, command):
+    """Convert a cmd_dict entry to an INP string.
+
+    Args:
+        name: The U-name of the object.
+        attrs: The attributes dict from cmd_dict.
+        command: The command type (ie 'SPACE' 'SCHEDULE-PD').
+
+    Returns:
+        An INP format string.
+    """
+    keywords = []
+    values = []
+    for k, v in attrs.items():
+        if k in ('__line__', 'cmd'):
+            continue
+        keywords.append(k)
+        values.append(str(v) if not isinstance(v, str) else v)
+    return generate_inp_string(name, command, keywords, values)
+
+
+def build_schedule_dict(day_schs, wk_schs, annual_schs):
+    """Build a dict of ScheduleRuleset objects from cmd_dict schedule entries.
+
+    Args:
+        day_schs: The DAY-SCHEDULE-PD dict from cmd_dict.
+        wk_schs: The WEEK-SCHEDULE-PD dict from cmd_dict.
+        annual_schs: The SCHEDULE-PD dict from cmd_dict.
+
+    Returns:
+        A dict mapping schedule names to ScheduleRuleset objects.
+    """
+    schedule_dict = {}
+
+    # Convert day schedules to INP strings
+    day_inp_strings = []
+    for name, attrs in day_schs.items():
+        if is_library_entry(attrs):
+            continue  # Skip library entries
+        inp_str = _cmd_dict_to_inp_string(name, attrs, 'DAY-SCHEDULE-PD')
+        day_inp_strings.append(inp_str)
+
+    # Build day schedule dictionary
+    day_schedule_dict = _inp_day_schedule_dictionary(day_inp_strings)
+
+    # Convert week schedules to INP strings
+    week_inp_strings = []
+    for name, attrs in wk_schs.items():
+        if is_library_entry(attrs):
+            continue
+        inp_str = _cmd_dict_to_inp_string(name, attrs, 'WEEK-SCHEDULE-PD')
+        week_inp_strings.append(inp_str)
+
+    # Build week schedule dictionaries
+    week_sch_dict, week_dd_dict = _inp_week_schedule_dictionary(
+        week_inp_strings, day_schedule_dict)
+
+    # Convert annual schedules to ScheduleRuleset objects
+    for name, attrs in annual_schs.items():
+        if is_library_entry(attrs):
+            continue
+        try:
+            inp_str = _cmd_dict_to_inp_string(name, attrs, 'SCHEDULE-PD')
+            sched = _convert_schedule_year(inp_str, week_sch_dict,
+                                           week_dd_dict)
+            schedule_dict[name] = sched
+        except Exception:
+            pass  # Schedule not translated
+
+    return schedule_dict
+
+
+def resolve_schedule(schedule_name, schedule_dict=None, lib_file_path=None):
+    """Resolve a schedule name to a ScheduleRuleset.
+
+    Tries the provided schedule_dict first, then falls back to library lookup.
+    Returns an "Always On" constant schedule if all else fails.
+
+    Args:
+        schedule_name: The name of the schedule to resolve.
+        schedule_dict: Optional dict of pre-built schedules
+                       (from build_schedule_dict).
+        lib_file_path: Optional path to eQ_Lib.dat for library lookups.
+
+    Returns:
+        A ScheduleRuleset object. Returns "Always On" if not found.
+    """
+    always_on = ScheduleRuleset.from_constant_value('Always On', 1, fractional)
+
+    if not schedule_name:
+        return always_on
+
+    # Clean the schedule name
+    clean_name = schedule_name.strip()
+    for ch in ('"', "'", '(', ')'):
+        clean_name = clean_name.replace(ch, '')
+    clean_name = clean_name.strip()
+
+    if not clean_name or clean_name.lower() == 'always on':
+        return always_on
+
+    # Try the provided schedule dict first
+    if schedule_dict and clean_name in schedule_dict:
+        return schedule_dict[clean_name]
+
+    # Fall back to the library lookup
+    lib_sch = resolve_library_schedule(clean_name, lib_file_path)
+    return lib_sch if lib_sch is not None else always_on
+
+
+def _lib_block_to_inp(lib_block, command_type):
+    """Convert a library block string to INP format string.
+
+    Args:
+        lib_block: Raw library block string starting with $LIBRARY-ENTRY.
+        command_type: The DOE-2 command type (ie 'SCHEDULE-PD').
+
+    Returns:
+        An INP format string, or None if parsing fails.
+    """
+    try:
+        u_name, keywords, values = parse_lib_string(lib_block, command_type)
+        if not keywords:
+            return None
+        return generate_inp_string(u_name, command_type, keywords, values)
+    except Exception:
+        return None
+
+
+def resolve_library_schedule(schedule_name, lib_file_path=None):
+    """Resolve a LIBRARY-ENTRY schedule to a ScheduleRuleset.
+
+    This searches the library file for just the requested schedule
+    and its corresponding week and day schedules.
+
+    Args:
+        schedule_name: The name of the schedule to resolve.
+        lib_file_path: Path to the eQ_Lib.dat file. If None, will
+            attempt to find it using find_user_lib_file().
+
+    Returns:
+        A ScheduleRuleset object if resolved, None otherwise.
+    """
+    # Find the library file
+    if lib_file_path is None:
+        from .util import find_user_lib_file
+        lib_file_path = find_user_lib_file()
+
+    if lib_file_path is None or not os.path.isfile(lib_file_path):
+        return None
+
+    # Get SCHEDULE-PD blocks
+    year_blocks = _get_lib_content(lib_file_path, 'SCHEDULE-PD')
+
+    # Find the SCHEDULE-PD by name
+    if schedule_name not in year_blocks:
+        return None
+
+    year_inp_string = _lib_block_to_inp(year_blocks[schedule_name],
+                                        'SCHEDULE-PD')
+    if year_inp_string is None:
+        return None
+
+    # Parse to find referenced week schedules
+    _, _, keywords, values = parse_inp_string(year_inp_string)
+    if keywords is None:
+        return None
+
+    field_dict = {k: v for k, v in zip(keywords, values)}
+
+    # Collect week schedule names
+    week_names = set()
+    if 'WEEK-SCHEDULES' in field_dict:
+        week_vals = eval(field_dict['WEEK-SCHEDULES'], {})
+        if isinstance(week_vals, tuple):
+            for w in week_vals:
+                week_names.add(w.replace('"', ''))
+        else:
+            week_names.add(week_vals.replace('"', ''))
+    else:
+        # SCHEDULE format with THRU keywords
+        for key, val in zip(keywords, values):
+            if key.startswith('THRU'):
+                week_names.add(val.replace('"', ''))
+
+    # Get WEEK-SCHEDULE-PD blocks
+    week_blocks = _get_lib_content(lib_file_path, 'WEEK-SCHEDULE-PD')
+
+    # Find each WEEK-SCHEDULE-PD and collect day schedule names
+    day_names = set()
+    week_inp_strings = []
+    for wk_name in week_names:
+        if wk_name not in week_blocks:
+            continue
+        wk_inp = _lib_block_to_inp(week_blocks[wk_name], 'WEEK-SCHEDULE-PD')
+        if wk_inp is None:
+            continue
+        week_inp_strings.append(wk_inp)
+
+        # Parse to find day schedule references
+        _, _, wk_keywords, wk_values = parse_inp_string(wk_inp)
+        if wk_keywords:
+            wk_field_dict = {k: v for k, v in zip(wk_keywords, wk_values)}
+            if 'DAY-SCHEDULES' in wk_field_dict:
+                day_str = wk_field_dict['DAY-SCHEDULES']
+                day_vals = eval(day_str.replace('&D', '"&D"'), {})
+                if isinstance(day_vals, tuple):
+                    for d in day_vals:
+                        if d != '&D':
+                            day_names.add(d.replace('"', ''))
+                else:
+                    day_names.add(day_vals.replace('"', ''))
+
+    # Get DAY-SCHEDULE-PD blocks
+    day_blocks = _get_lib_content(lib_file_path, 'DAY-SCHEDULE-PD')
+
+    # Find each DAY-SCHEDULE-PD
+    day_inp_strings = []
+    for day_name in day_names:
+        if day_name not in day_blocks:
+            continue
+        day_inp = _lib_block_to_inp(day_blocks[day_name], 'DAY-SCHEDULE-PD')
+        if day_inp:
+            day_inp_strings.append(day_inp)
+
+    # Create the ScheduleRuleset
+    try:
+        return schedule_ruleset_from_inp(
+            year_inp_string, week_inp_strings, day_inp_strings)
+    except Exception:
+        return None

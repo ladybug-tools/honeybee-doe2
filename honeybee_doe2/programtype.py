@@ -1,10 +1,19 @@
 """honeybee-doe2 program type translators."""
 from __future__ import division
 
-from .util import switch_statement_id
+from collections import defaultdict
+
+from honeybee_energy.programtype import ProgramType
+from honeybee.typing import clean_string
+
+from .util import switch_statement_id, resolve_defaults, \
+        child_objects_from_parent
 from .load import people_to_inp, lighting_to_inp, electric_equipment_to_inp, \
     infiltration_to_inp, setpoint_to_inp, ventilation_to_inp, \
+    people_from_inp, lighting_from_inp, electric_equipment_from_inp, \
+    infiltration_from_inp, setpoint_from_inp, ventilation_from_inp, \
     SPACE_KEYS, ZONE_KEYS, SCHEDULE_KEYS, MECH_AIRFLOW_KEYS
+from .schedule import build_schedule_dict, resolve_schedule
 SCH_KEY_SET = set(SCHEDULE_KEYS)
 
 
@@ -48,7 +57,6 @@ def program_type_to_inp(program_type, switch_dict=None):
             _add_to_switch_dict(key, _format_schedule(key, val, 'SPACE'))
         else:
             _add_to_switch_dict(key, '{}{}'.format(base_switch, val))
-
 
     # write the lighting into the dictionary
     lgt_kwd, lgt_val = lighting_to_inp(program_type.lighting)
@@ -101,6 +109,156 @@ def program_type_to_inp(program_type, switch_dict=None):
                 _add_to_switch_dict(air_key, '{}{}'.format(base_switch, val))
 
     return switch_dict
+
+
+def program_type_from_inp(cmd_dict, lib_file_path=None):
+    """Create ProgramType objects from a parsed INP command dictionary.
+
+    Spaces are grouped by their C-ACTIVITY-DESC attribute. For each unique
+    activity description, a representative space and its linked zone are used
+    to resolve SET-DEFAULT fallback values and build a ProgramType containing
+    People, Lighting, ElectricEquipment, Infiltration, Setpoint, and
+    Ventilation objects.
+
+    Args:
+        cmd_dict: The command dictionary returned by ``command_dict_from_inp``.
+        lib_file_path: Optional path to eQUEST library file (eQ_Lib.dat) for
+            resolving library schedules. If None, library schedules won't
+            be resolved.
+
+    Returns:
+        A list of honeybee-energy ProgramType objects, one per unique
+        C-ACTIVITY-DESC found in the model's spaces.
+    """
+    spaces = cmd_dict.get('SPACE', {})
+    zones = cmd_dict.get('ZONE', {})
+    systems = cmd_dict.get('SYSTEM', {})
+    defaults = cmd_dict.get('DEFAULTS', {})
+    day_schs = cmd_dict.get('DAY-SCHEDULE-PD', {})
+    wk_schs = cmd_dict.get('WEEK-SCHEDULE-PD', {})
+    annual_schs = cmd_dict.get('SCHEDULE-PD', {})
+
+    # Get the DEFAULTS dicts for SPACE and ZONE
+    space_defaults = defaults.get(('SPACE', ''), {})
+    zone_defaults = defaults.get(('ZONE', 'CONDITIONED'), {})
+
+    # Map zone name to parent system attrs for MIN-AIR-SCH lookup
+    zone_to_system = {}
+    for sys_name, sys_attrs in systems.items():
+        sys_zones = child_objects_from_parent(
+            cmd_dict, sys_name, 'SYSTEM', 'ZONE')
+        sys_type = sys_attrs.get('TYPE', '').strip('"')
+        sys_defaults = defaults.get(('SYSTEM', sys_type), {})
+        for z_name in sys_zones:
+            # Grabbing just MIN-AIR-SCH
+            zone_to_system[z_name] = resolve_defaults(
+                sys_attrs, sys_defaults, ('MIN-AIR-SCH',))
+    
+    # Map space to linked zone
+    space_to_zone = {}
+    space_to_zone_name = {}
+    for z_name, z_attrs in zones.items():
+        spc_ref = str(z_attrs.get('SPACE', '')).strip('"')
+        if spc_ref:
+            space_to_zone[spc_ref] = resolve_defaults(
+                z_attrs, zone_defaults, ZONE_KEYS)
+            space_to_zone_name[spc_ref] = z_name
+
+    # Group spaces by C-ACTIVITY-DESC
+    activity_groups = defaultdict(list)
+    for spc_name, spc_attrs in spaces.items():
+        activity = (str(spc_attrs.get('C-ACTIVITY-DESC', ''))
+                    .replace('*', '')
+                    .strip())
+        if activity:
+            activity_groups[activity].append((spc_name, spc_attrs))
+
+    program_types = []
+    for activity, spc_list in activity_groups.items():
+        # use the first space as the program type attrs
+        spc_name, spc_attrs = spc_list[0]
+
+        # resolve defaults if any
+        resolved_space = resolve_defaults(spc_attrs, space_defaults,
+                                          SPACE_KEYS)
+
+        # find the linked zone attrs
+        resolved_zone = space_to_zone.get(spc_name)
+        if resolved_zone is None:
+            # No linked zone - apply defaults to empty dict
+            resolved_zone = resolve_defaults({}, zone_defaults, ZONE_KEYS)
+
+        # Get MIN-AIR-SCH from parent SYSTEM if available
+        zone_name = space_to_zone_name.get(spc_name)
+        parent_system = zone_to_system.get(zone_name, {}) if zone_name else {}
+
+        # Add C-ACTIVITY-DESC from the space so switch solving works
+        if 'C-ACTIVITY-DESC' not in resolved_zone:
+            resolved_zone = dict(resolved_zone)
+            resolved_zone['C-ACTIVITY-DESC'] = spc_attrs.get('C-ACTIVITY-DESC',
+                                                             '')
+
+        # Build schedule dict for any schedules referenced in the space/zone
+        schedule_dict = build_schedule_dict(day_schs, wk_schs, annual_schs)
+
+        # Resolve schedules for space loads
+        people_sch = resolve_schedule(
+            resolved_space.get('PEOPLE-SCHEDULE'), schedule_dict,
+            lib_file_path)
+        lighting_sch = resolve_schedule(
+            resolved_space.get('LIGHTING-SCHEDULE') or
+            resolved_space.get('LIGHTING-SCHEDUL'), schedule_dict,
+            lib_file_path)
+        equip_sch = resolve_schedule(
+            resolved_space.get('EQUIP-SCHEDULE'), schedule_dict, lib_file_path)
+        inf_sch = resolve_schedule(
+            resolved_space.get('INF-SCHEDULE'), schedule_dict, lib_file_path)
+
+        # Resolve zone level schedules
+        heat_sch = resolve_schedule(
+            resolved_zone.get('HEAT-TEMP-SCH'), schedule_dict, lib_file_path)
+        cool_sch = resolve_schedule(
+            resolved_zone.get('COOL-TEMP-SCH'), schedule_dict, lib_file_path)
+
+        # Resolve MIN-AIR-SCH from parent SYSTEM
+        min_air_sch_name = (
+            parent_system.get('MIN-AIR-SCH') or
+            resolved_zone.get('MIN-FLOW-SCH'))
+        min_air_sch = resolve_schedule(
+            min_air_sch_name, schedule_dict, lib_file_path)
+
+        # Build Program Type loads with resolved schedules
+        people = people_from_inp(resolved_space, people_sch)
+        lighting = lighting_from_inp(resolved_space, lighting_sch)
+        equipment = electric_equipment_from_inp(resolved_space, equip_sch)
+        infiltration = infiltration_from_inp(resolved_space, inf_sch)
+      
+        # Skip setpoint if schedules Always On
+        if (heat_sch.identifier != 'Always On' and
+                cool_sch.identifier != 'Always On'):
+            setpoint = setpoint_from_inp(resolved_zone, heat_sch, cool_sch)
+        else:
+            setpoint = None
+        ventilation = ventilation_from_inp(resolved_zone, min_air_sch)
+
+        prog_id = clean_string(activity)
+        prog = ProgramType(prog_id)
+        prog.display_name = activity
+        if people is not None:
+            prog.people = people
+        if lighting is not None:
+            prog.lighting = lighting
+        if equipment is not None:
+            prog.electric_equipment = equipment
+        if infiltration is not None:
+            prog.infiltration = infiltration
+        if setpoint is not None:
+            prog.setpoint = setpoint
+        if ventilation is not None:
+            prog.ventilation = ventilation
+        program_types.append(prog)
+
+    return program_types
 
 
 def switch_dict_to_space_inp(switch_dict):
