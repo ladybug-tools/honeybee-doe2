@@ -834,6 +834,11 @@ def model_to_inp(
     all_day_scheds, all_week_scheds, all_year_scheds = [], [], []
     used_day_sched_ids, used_day_count = {}, 1
     all_scheds = model.properties.energy.schedules
+    for sch in all_scheds:
+        if sch.identifier == 'Always On':
+            break
+    else:
+        all_scheds.append(model.properties.energy._always_on_schedule())
     for sched in all_scheds:
         if isinstance(sched, ScheduleRuleset):
             year_schedule, week_schedules = sched.to_inp()
