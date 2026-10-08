@@ -6,7 +6,7 @@ from ladybug.datatype.power import Power
 from ladybug.datatype.energyflux import EnergyFlux
 from ladybug.datatype.volumeflowrate import VolumeFlowRate
 from ladybug.datatype.volumeflowrateintensity import VolumeFlowRateIntensity
-from honeybee.typing import clean_doe2_string, clean_string
+from honeybee.typing import clean_doe2_string
 
 from honeybee_energy.load.people import People
 from honeybee_energy.load.lighting import Lighting
@@ -351,7 +351,10 @@ def lighting_from_inp(resolved, schedule=None):
         schedule = ScheduleRuleset.from_constant_value(sch_id, 1, fractional)
     ret_fract = float(resolved.get('LIGHT-TO-RETURN', 0))
     rad_fract = float(resolved.get('LIGHT-RAD-FRAC', 0.32))
-    return Lighting(sch_id, lpd_si, schedule, ret_fract, rad_fract)
+    vis_fract = 0.25
+    if ret_fract + rad_fract + vis_fract > 1:
+        vis_fract = 1 - ret_fract - rad_fract
+    return Lighting(sch_id, lpd_si, schedule, ret_fract, rad_fract, vis_fract)
 
 
 def electric_equipment_from_inp(resolved, schedule=None):

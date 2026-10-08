@@ -42,7 +42,7 @@ def program_type_to_inp(program_type, switch_dict=None):
     def _format_schedule(sch_key, sch_uid, obj_type='SPACE'):
         """Format schedules in the way they are written into switch statements."""
         return '{}#SI({}, "{}", "{}")'.format(base_switch, sch_uid, obj_type, sch_key)
-    
+
     def _add_to_switch_dict(keyword, value):
         """Add a key: value pair to the switch dictionary with a check."""
         try:
@@ -153,7 +153,7 @@ def program_type_from_inp(cmd_dict, lib_file_path=None):
             # Grabbing just MIN-AIR-SCH
             zone_to_system[z_name] = resolve_defaults(
                 sys_attrs, sys_defaults, ('MIN-AIR-SCH',))
-    
+
     # Map space to linked zone
     space_to_zone = {}
     space_to_zone_name = {}
@@ -232,7 +232,7 @@ def program_type_from_inp(cmd_dict, lib_file_path=None):
         lighting = lighting_from_inp(resolved_space, lighting_sch)
         equipment = electric_equipment_from_inp(resolved_space, equip_sch)
         infiltration = infiltration_from_inp(resolved_space, inf_sch)
-      
+
         # Skip setpoint if schedules Always On
         if (heat_sch.identifier != 'Always On' and
                 cool_sch.identifier != 'Always On'):
