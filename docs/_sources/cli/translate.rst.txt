@@ -1,0 +1,6 @@
+translate
+=========
+
+.. click:: honeybee_doe2.cli.translate:translate
+   :prog: honeybee-doe2 translate
+   :show-nested:

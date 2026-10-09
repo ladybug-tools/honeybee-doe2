@@ -1,0 +1,7 @@
+honeybee\_doe2.construction module
+==================================
+
+.. automodule:: honeybee_doe2.construction
+   :members:
+   :undoc-members:
+   :show-inheritance:

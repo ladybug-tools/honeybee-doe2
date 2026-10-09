@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>honeybee_doe2.reader &#8212; honeybee-doe2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e6365d57" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/honeybee.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          honeybee-doe2</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cli/translate.html">translate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate">honeybee-doe2 translate</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-constructions-from-inp">constructions-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-constructions-to-inp">constructions-to-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-materials-from-inp">materials-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-model-from-inp">model-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-model-to-inp">model-to-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-from-inp">schedules-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-to-inp">schedules-to-inp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html">honeybee_doe2.cli.translate module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.constructions_from_inp"><code class="docutils literal notranslate"><span class="pre">constructions_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.constructions_to_inp"><code class="docutils literal notranslate"><span class="pre">constructions_to_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.materials_from_inp"><code class="docutils literal notranslate"><span class="pre">materials_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.model_from_inp"><code class="docutils literal notranslate"><span class="pre">model_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedules_from_inp"><code class="docutils literal notranslate"><span class="pre">schedules_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedules_to_inp"><code class="docutils literal notranslate"><span class="pre">schedules_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.properties.html">honeybee_doe2.properties package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.model.html">honeybee_doe2.properties.model module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_all"><code class="docutils literal notranslate"><span class="pre">check_all()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_for_extension"><code class="docutils literal notranslate"><span class="pre">check_for_extension()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_generic"><code class="docutils literal notranslate"><span class="pre">check_generic()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_no_room_holes"><code class="docutils literal notranslate"><span class="pre">check_no_room_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ERROR_MAP"><code class="docutils literal notranslate"><span class="pre">ERROR_MAP</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.room.html">honeybee_doe2.properties.room module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_user_data"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_user_data()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.check_no_holes"><code class="docutils literal notranslate"><span class="pre">check_no_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.move"><code class="docutils literal notranslate"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.reflect"><code class="docutils literal notranslate"><span class="pre">reflect()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate_xy"><code class="docutils literal notranslate"><span class="pre">rotate_xy()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.assigned_flow"><code class="docutils literal notranslate"><span class="pre">assigned_flow</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.flow_per_area"><code class="docutils literal notranslate"><span class="pre">flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.hmax_flow_ratio"><code class="docutils literal notranslate"><span class="pre">hmax_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_per_area"><code class="docutils literal notranslate"><span class="pre">min_flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_ratio"><code class="docutils literal notranslate"><span class="pre">min_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.space_polygon_geometry"><code class="docutils literal notranslate"><span class="pre">space_polygon_geometry</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#module-honeybee_doe2.properties">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.config.html">honeybee_doe2.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.construction.html">honeybee_doe2.construction module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.air_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">air_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.door_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">door_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.extract_all_constructions_from_inp_file"><code class="docutils literal notranslate"><span class="pre">extract_all_constructions_from_inp_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_construction_from_inp"><code class="docutils literal notranslate"><span class="pre">opaque_construction_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_material_from_inp"><code class="docutils literal notranslate"><span class="pre">opaque_material_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_material_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_material_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.window_construction_from_inp"><code class="docutils literal notranslate"><span class="pre">window_construction_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.window_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">window_construction_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.grouping.html">honeybee_doe2.grouping module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_hvac"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_hvac()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_level"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.load.html">honeybee_doe2.load module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_from_inp"><code class="docutils literal notranslate"><span class="pre">electric_equipment_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_to_inp"><code class="docutils literal notranslate"><span class="pre">electric_equipment_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.hot_water_and_gas_to_inp"><code class="docutils literal notranslate"><span class="pre">hot_water_and_gas_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_from_inp"><code class="docutils literal notranslate"><span class="pre">infiltration_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_to_inp"><code class="docutils literal notranslate"><span class="pre">infiltration_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_from_inp"><code class="docutils literal notranslate"><span class="pre">lighting_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_to_inp"><code class="docutils literal notranslate"><span class="pre">lighting_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_from_inp"><code class="docutils literal notranslate"><span class="pre">people_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_to_inp"><code class="docutils literal notranslate"><span class="pre">people_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_from_inp"><code class="docutils literal notranslate"><span class="pre">setpoint_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_to_inp"><code class="docutils literal notranslate"><span class="pre">setpoint_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_from_inp"><code class="docutils literal notranslate"><span class="pre">ventilation_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_to_inp"><code class="docutils literal notranslate"><span class="pre">ventilation_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.programtype.html">honeybee_doe2.programtype module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.program_type_from_inp"><code class="docutils literal notranslate"><span class="pre">program_type_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.program_type_to_inp"><code class="docutils literal notranslate"><span class="pre">program_type_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_space_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_space_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_zone_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_zone_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.reader.html">honeybee_doe2.reader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.command_dict_from_inp"><code class="docutils literal notranslate"><span class="pre">command_dict_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp"><code class="docutils literal notranslate"><span class="pre">model_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp_file"><code class="docutils literal notranslate"><span class="pre">model_from_inp_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.schedule.html">honeybee_doe2.schedule module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.build_schedule_dict"><code class="docutils literal notranslate"><span class="pre">build_schedule_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.energy_trans_sch_to_transmittance"><code class="docutils literal notranslate"><span class="pre">energy_trans_sch_to_transmittance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_rules_from_inp_schedule_week"><code class="docutils literal notranslate"><span class="pre">extract_all_rules_from_inp_schedule_week()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_schedule_ruleset_from_inp_file"><code class="docutils literal notranslate"><span class="pre">extract_all_schedule_ruleset_from_inp_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.is_library_entry"><code class="docutils literal notranslate"><span class="pre">is_library_entry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.resolve_library_schedule"><code class="docutils literal notranslate"><span class="pre">resolve_library_schedule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.resolve_schedule"><code class="docutils literal notranslate"><span class="pre">resolve_schedule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_fixed_interval_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_fixed_interval_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.simulation.html">honeybee_doe2.simulation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar"><code class="docutils literal notranslate"><span class="pre">SimulationPar</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.run_period"><code class="docutils literal notranslate"><span class="pre">run_period</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.site"><code class="docutils literal notranslate"><span class="pre">site</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.title"><code class="docutils literal notranslate"><span class="pre">title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData"><code class="docutils literal notranslate"><span class="pre">SiteData</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.altitude"><code class="docutils literal notranslate"><span class="pre">altitude</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.run_period_to_inp"><code class="docutils literal notranslate"><span class="pre">run_period_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.util.html">honeybee_doe2.util module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.calculate_value_with_global_parameter"><code class="docutils literal notranslate"><span class="pre">calculate_value_with_global_parameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.child_objects_from_parent"><code class="docutils literal notranslate"><span class="pre">child_objects_from_parent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.clean_inp_file_contents"><code class="docutils literal notranslate"><span class="pre">clean_inp_file_contents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.doe2_object_blocks"><code class="docutils literal notranslate"><span class="pre">doe2_object_blocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.find_user_lib_file"><code class="docutils literal notranslate"><span class="pre">find_user_lib_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string"><code class="docutils literal notranslate"><span class="pre">generate_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string_list_format"><code class="docutils literal notranslate"><span class="pre">generate_inp_string_list_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_major"><code class="docutils literal notranslate"><span class="pre">header_comment_major()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_minor"><code class="docutils literal notranslate"><span class="pre">header_comment_minor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.inp_path_from_folder"><code class="docutils literal notranslate"><span class="pre">inp_path_from_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.parse_inp_string"><code class="docutils literal notranslate"><span class="pre">parse_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.parse_lib_string"><code class="docutils literal notranslate"><span class="pre">parse_lib_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.resolve_defaults"><code class="docutils literal notranslate"><span class="pre">resolve_defaults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.resolve_switch_value"><code class="docutils literal notranslate"><span class="pre">resolve_switch_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.switch_statement_id"><code class="docutils literal notranslate"><span class="pre">switch_statement_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.writer.html">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.aperture_to_inp"><code class="docutils literal notranslate"><span class="pre">aperture_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.door_to_inp"><code class="docutils literal notranslate"><span class="pre">door_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp_rectangle"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp_rectangle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_to_inp"><code class="docutils literal notranslate"><span class="pre">face_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_doe2_conditioning_type"><code class="docutils literal notranslate"><span class="pre">room_doe2_conditioning_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_to_inp"><code class="docutils literal notranslate"><span class="pre">room_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_mesh_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_mesh_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <h1>Source code for honeybee_doe2.reader</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding=utf-8</span>
+<span class="sd">"""Methods to read inp files to Honeybee."""</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">division</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug_geometry.geometry3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point3D</span><span class="p">,</span> <span class="n">Vector3D</span><span class="p">,</span> <span class="n">Face3D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.facetype</span><span class="w"> </span><span class="kn">import</span> <span class="n">Wall</span><span class="p">,</span> <span class="n">RoofCeiling</span><span class="p">,</span> <span class="n">Floor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.room</span><span class="w"> </span><span class="kn">import</span> <span class="n">Room</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.face</span><span class="w"> </span><span class="kn">import</span> <span class="n">Face</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.aperture</span><span class="w"> </span><span class="kn">import</span> <span class="n">Aperture</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.door</span><span class="w"> </span><span class="kn">import</span> <span class="n">Door</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.boundarycondition</span><span class="w"> </span><span class="kn">import</span> <span class="n">Adiabatic</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.boundarycondition</span><span class="w"> </span><span class="kn">import</span> <span class="n">Outdoors</span><span class="p">,</span> <span class="n">Ground</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_string</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DOE2_ANGLE_TOL</span><span class="p">,</span> <span class="n">DOE2_TOLERANCE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_inp_file_contents</span><span class="p">,</span> <span class="n">doe2_object_blocks</span><span class="p">,</span> \
+    <span class="n">parse_inp_string</span><span class="p">,</span> <span class="n">child_objects_from_parent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.programtype</span><span class="w"> </span><span class="kn">import</span> <span class="n">program_type_from_inp</span>
+
+<span class="n">_CMD_TO_BC</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'EXTERIOR-WALL'</span><span class="p">:</span>   <span class="n">Outdoors</span><span class="p">,</span>
+    <span class="s1">'INTERIOR-WALL'</span><span class="p">:</span>   <span class="n">Adiabatic</span><span class="p">,</span>
+    <span class="s1">'UNDERGROUND-WALL'</span><span class="p">:</span> <span class="n">Ground</span><span class="p">,</span>
+    <span class="s1">'ROOF'</span><span class="p">:</span>            <span class="n">Outdoors</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="model_from_inp_file">
+<a class="viewcode-back" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp_file">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">model_from_inp_file</span><span class="p">(</span><span class="n">inp_file</span><span class="p">,</span> <span class="n">lib_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert an inp file to an HBJSON Model object</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inp_file: A text string for the path to an INP file.</span>
+<span class="sd">        lib_file_path: Optional path to eQUEST library file (eQ_Lib.dat) for</span>
+<span class="sd">            resolving library schedules.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee Model object.</span>
+<span class="sd">    """</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">inp_file</span><span class="p">),</span> <span class="s1">'No file was found at: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inp_file</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inp_file</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">doe_file</span><span class="p">:</span>
+        <span class="n">inp_content</span> <span class="o">=</span> <span class="n">doe_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">model_from_inp</span><span class="p">(</span><span class="n">inp_content</span><span class="p">,</span> <span class="n">lib_file_path</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="model_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">model_from_inp</span><span class="p">(</span><span class="n">inp_file_contents</span><span class="p">,</span> <span class="n">lib_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert an inp file to an HBJSON Model object</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inp_file_contents: A text string of the complete contents of an INP</span>
+<span class="sd">                            file.</span>
+<span class="sd">        lib_file_path: Optional path to eQUEST library file (eQ_Lib.dat) for</span>
+<span class="sd">            resolving library schedules.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee Model object.</span>
+<span class="sd">    """</span>
+    <span class="n">cmd_dict</span> <span class="o">=</span> <span class="n">command_dict_from_inp</span><span class="p">(</span><span class="n">inp_file_contents</span><span class="p">)</span>
+    <span class="n">floors</span> <span class="o">=</span> <span class="n">cmd_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"FLOOR"</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">polys</span> <span class="o">=</span> <span class="n">cmd_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POLYGON"</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">glob_az</span> <span class="o">=</span> <span class="o">-</span><span class="nb">float</span><span class="p">(</span><span class="n">cmd_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"BUILD-PARAMETERS"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"AZIMUTH"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">floors</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No FLOOR objects found in INP - nothing to translate."</span><span class="p">)</span>
+
+    <span class="c1"># Build program types and lookup dict</span>
+    <span class="n">program_types</span> <span class="o">=</span> <span class="n">program_type_from_inp</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">lib_file_path</span><span class="p">)</span>
+    <span class="n">activity_to_program</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">display_name</span><span class="p">:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">program_types</span><span class="p">}</span>
+
+    <span class="n">rooms</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">flr_name</span><span class="p">,</span> <span class="n">flr</span> <span class="ow">in</span> <span class="n">floors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">flr_az</span> <span class="o">=</span> <span class="n">_origin_and_azimuth</span><span class="p">(</span><span class="n">flr</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">flr_origin</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span><span class="p">)</span>
+        <span class="n">floor_poly</span> <span class="o">=</span> <span class="p">(</span><span class="n">flr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POLYGON"</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">'"'</span><span class="p">)</span>
+        <span class="n">floor_verts</span> <span class="o">=</span> <span class="n">_verts_to_tuples</span><span class="p">(</span><span class="n">polys</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">floor_poly</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="n">flr_mult</span> <span class="o">=</span> <span class="p">(</span><span class="n">flr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"MULTIPLIER"</span><span class="p">)</span> <span class="ow">or</span> <span class="mf">1.0</span><span class="p">)</span>
+
+        <span class="n">spaces</span> <span class="o">=</span> <span class="n">child_objects_from_parent</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">flr_name</span><span class="p">,</span> <span class="s2">"FLOOR"</span><span class="p">,</span> <span class="s2">"SPACE"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">spc_name</span><span class="p">,</span> <span class="n">spc</span> <span class="ow">in</span> <span class="n">spaces</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">spc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"SHAPE"</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span> <span class="ow">or</span> <span class="n">shape</span> <span class="o">==</span> <span class="s2">"NO-SHAPE"</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">shape</span> <span class="o">==</span> <span class="s2">"BOX"</span><span class="p">:</span>
+                <span class="c1"># TODO: Support translation of BOX SHAPE SPACE objects.</span>
+                <span class="c1"># Need to find or create INP example file for this</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{}</span><span class="s1"> is defined by a BOX - convert to POLYGON.'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spc_name</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="c1"># Local footprint</span>
+            <span class="n">plg</span> <span class="o">=</span> <span class="n">spc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POLYGON"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">'"'</span><span class="p">)</span>
+            <span class="n">spc_verts_local</span> <span class="o">=</span> <span class="n">_verts_to_tuples</span><span class="p">(</span><span class="n">polys</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">plg</span><span class="p">,</span> <span class="p">{}))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">spc_verts_local</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">spc_pts_local</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point3D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">spc_verts_local</span><span class="p">]</span>
+
+            <span class="c1"># Space transform</span>
+            <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">spc_az</span> <span class="o">=</span> <span class="n">_origin_and_azimuth</span><span class="p">(</span><span class="n">spc</span><span class="p">,</span> <span class="n">floor_verts</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">spc_pts_global</span> <span class="o">=</span> <span class="n">_transform_space_points</span><span class="p">(</span>
+                <span class="n">spc_pts_local</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">),</span> <span class="n">spc_az</span><span class="p">,</span>
+                <span class="n">flr_origin</span><span class="p">,</span> <span class="n">flr_az</span><span class="p">,</span>
+                <span class="n">glob_az</span>
+            <span class="p">)</span>
+
+            <span class="n">walls</span> <span class="o">=</span> <span class="n">_surfaces_from_space</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">spc_name</span><span class="p">)</span>
+            <span class="n">detailed</span> <span class="o">=</span> <span class="n">walls</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POLYGON"</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">walls</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="c1"># for now, we only use detailed translator if all walls are POLYGON shape</span>
+            <span class="c1"># TODO: support preservation of all face geometry when only some are POLYGON</span>
+            <span class="k">if</span> <span class="n">detailed</span><span class="p">:</span>
+                <span class="n">faces</span> <span class="o">=</span> <span class="n">_volume_from_polygons</span><span class="p">(</span>
+                    <span class="n">cmd_dict</span><span class="p">,</span>
+                    <span class="n">walls</span><span class="p">,</span>
+                    <span class="n">polys</span><span class="p">,</span>
+                    <span class="n">spc_pts_global</span><span class="p">,</span> <span class="n">spc_pts_local</span><span class="p">,</span> <span class="n">spc_name</span><span class="p">,</span>
+                    <span class="n">flr_origin</span><span class="p">,</span> <span class="n">flr_az</span><span class="p">,</span> <span class="n">glob_az</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">edge_info</span><span class="p">,</span> <span class="n">floor_bc</span><span class="p">,</span> <span class="n">ceiling_bc</span> <span class="o">=</span> \
+                    <span class="n">_edge_info_map</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">walls</span><span class="p">,</span> <span class="n">spc_pts_global</span><span class="p">,</span> <span class="n">spc_pts_local</span><span class="p">)</span>
+                <span class="n">faces</span> <span class="o">=</span> <span class="n">_extruded_shell</span><span class="p">(</span><span class="n">spc</span><span class="p">,</span> <span class="n">spc_pts_global</span><span class="p">,</span> <span class="n">edge_info</span><span class="p">,</span>
+                                        <span class="n">floor_bc</span><span class="p">,</span> <span class="n">ceiling_bc</span><span class="p">,</span> <span class="n">spc_name</span><span class="p">,</span> <span class="n">flr</span><span class="p">)</span>
+
+            <span class="n">room</span> <span class="o">=</span> <span class="n">Room</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="n">clean_string</span><span class="p">(</span><span class="n">spc_name</span><span class="p">),</span> <span class="n">faces</span><span class="o">=</span><span class="n">faces</span><span class="p">)</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">display_name</span> <span class="o">=</span> <span class="n">spc_name</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">story</span> <span class="o">=</span> <span class="n">flr_name</span>
+            <span class="n">room</span><span class="o">.</span><span class="n">multiplier</span> <span class="o">=</span> <span class="n">flr_mult</span>
+
+            <span class="c1"># Assign program type based on C-ACTIVITY-DESC</span>
+            <span class="n">activity</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">spc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'C-ACTIVITY-DESC'</span><span class="p">,</span> <span class="s1">''</span><span class="p">))</span>
+                        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'*'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">activity</span> <span class="ow">and</span> <span class="n">activity</span> <span class="ow">in</span> <span class="n">activity_to_program</span><span class="p">:</span>
+                <span class="n">room</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">program_type</span> <span class="o">=</span> <span class="n">activity_to_program</span><span class="p">[</span><span class="n">activity</span><span class="p">]</span>
+
+            <span class="n">rooms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">room</span><span class="p">)</span>
+
+    <span class="n">model_name</span> <span class="o">=</span> <span class="n">cmd_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'TITLE'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LINE-1'</span><span class="p">,</span> <span class="s1">'Model From DOE2'</span><span class="p">)</span>
+    <span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'*'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Model</span><span class="p">(</span><span class="n">clean_string</span><span class="p">(</span><span class="n">model_name</span><span class="p">),</span> <span class="n">rooms</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">'Feet'</span><span class="p">,</span>
+                 <span class="n">tolerance</span><span class="o">=</span><span class="n">DOE2_TOLERANCE</span><span class="p">,</span> <span class="n">angle_tolerance</span><span class="o">=</span><span class="n">DOE2_ANGLE_TOL</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="command_dict_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.command_dict_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">command_dict_from_inp</span><span class="p">(</span><span class="n">inp_file_contents</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Get a dictionary of INP commands and U-names from a INP file content string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inp_file_contents: A text string of the complete contents of an INP file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary with all the DOE-2 attributes for each object</span>
+<span class="sd">        converting keyword values to float when possible plus a "__line__"</span>
+<span class="sd">        indicating its sequence in the file to be used to solve child/parent</span>
+<span class="sd">        relationships {command: {u_name: {key: value, "__line__": line_number}}}</span>
+<span class="sd">    """</span>
+    <span class="c1"># clean the contents of the file and break it into blocks</span>
+    <span class="n">inp_file_contents</span> <span class="o">=</span> <span class="n">clean_inp_file_contents</span><span class="p">(</span><span class="n">inp_file_contents</span><span class="p">)</span>
+    <span class="n">blocks</span> <span class="o">=</span> <span class="n">doe2_object_blocks</span><span class="p">(</span><span class="n">inp_file_contents</span><span class="p">)</span>
+    <span class="n">global_parameters</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">cmd_blocks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">block_line_count</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Get globals and TITLE first since they are formatted slightly differently</span>
+    <span class="k">for</span> <span class="n">blk</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+        <span class="n">u_name</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">vals</span> <span class="o">=</span> <span class="n">parse_inp_string</span><span class="p">(</span><span class="n">blk</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">'PARAMETER'</span><span class="p">:</span>
+            <span class="n">key</span><span class="p">,</span> <span class="n">val_raw</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">global_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">val_raw</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">global_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val_raw</span>
+        <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">'TITLE'</span><span class="p">:</span>
+            <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">'TITLE'</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmd_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blk</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">blk</span> <span class="ow">in</span> <span class="n">cmd_blocks</span><span class="p">:</span>
+        <span class="n">u_name</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">vals</span> <span class="o">=</span> <span class="n">parse_inp_string</span><span class="p">(</span><span class="n">blk</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">keys</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">vals</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>  <span class="c1"># ignore the block if it does not have any keywords</span>
+
+        <span class="n">attr_d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">attr_d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">attr_d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">attr_d</span><span class="p">[</span><span class="s1">'__line__'</span><span class="p">]</span> <span class="o">=</span> <span class="n">block_line_count</span>
+        <span class="n">attr_d</span><span class="p">[</span><span class="s1">'cmd'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span>
+        <span class="n">block_line_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">'DEFAULTS'</span> <span class="ow">and</span> <span class="n">u_name</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="n">cmd</span><span class="p">]:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">cmd</span><span class="p">][</span><span class="n">u_name</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">attr_d</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">cmd</span><span class="p">][</span><span class="n">u_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr_d</span>
+
+    <span class="k">if</span> <span class="n">global_parameters</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s1">'PARAMETER'</span><span class="p">]</span> <span class="o">=</span> <span class="n">global_parameters</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_volume_from_polygons</span><span class="p">(</span>
+    <span class="n">cmd_dict</span><span class="p">,</span> <span class="n">walls</span><span class="p">,</span> <span class="n">polys</span><span class="p">,</span> <span class="n">spc_pts_global</span><span class="p">,</span> <span class="n">spc_pts_local</span><span class="p">,</span> <span class="n">spc_name</span><span class="p">,</span>
+    <span class="n">flr_origin</span><span class="p">,</span> <span class="n">flr_az</span><span class="p">,</span> <span class="n">glob_az</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Build detailed faces when each wall has its own POLYGON.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cmd_dict: Command dictionary containing all DOE2 objects.</span>
+<span class="sd">        walls: Dictionary of wall objects and their attributes.</span>
+<span class="sd">        polys: Dictionary of polygon objects and their attributes.</span>
+<span class="sd">        spc_pts_global: List of space points in global coordinates.</span>
+<span class="sd">        spc_pts_local: List of space points in local coordinates.</span>
+<span class="sd">        spc_name: Name of the space.</span>
+<span class="sd">        flr_origin: Point3D object representing the floor origin.</span>
+<span class="sd">        flr_az: Floor azimuth angle in degrees.</span>
+<span class="sd">        glob_az: Global azimuth angle in degrees.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[Face]: A list of honeybee Face objects representing the space geometry,</span>
+<span class="sd">        including walls, floor, and ceiling with their respective apertures and doors.</span>
+<span class="sd">    """</span>
+    <span class="n">faces</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">base_z</span> <span class="o">=</span> <span class="n">spc_pts_global</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">z</span> <span class="k">if</span> <span class="n">spc_pts_global</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">w_attrs</span> <span class="ow">in</span> <span class="n">walls</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">plg</span> <span class="o">=</span> <span class="p">(</span><span class="n">w_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'POLYGON'</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">'"'</span><span class="p">)</span>
+        <span class="n">verts_local</span> <span class="o">=</span> <span class="n">_verts_to_tuples</span><span class="p">(</span><span class="n">polys</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">plg</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">verts_local</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">,</span> <span class="n">wz</span><span class="p">,</span> <span class="n">wall_az</span> <span class="o">=</span> <span class="n">_origin_and_azimuth</span><span class="p">(</span><span class="n">w_attrs</span><span class="p">,</span> <span class="n">spc_pts_local</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">tilt</span> <span class="o">=</span> <span class="n">_get_wall_tilt</span><span class="p">(</span><span class="n">w_attrs</span><span class="p">)</span>
+
+        <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point3D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">verts_local</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tilt</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">DOE2_ANGLE_TOL</span><span class="p">:</span>
+            <span class="n">ang</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">tilt</span><span class="p">)</span>
+            <span class="n">axis</span> <span class="o">=</span> <span class="n">Vector3D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">ang</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">]</span>
+
+        <span class="n">pts_space</span> <span class="o">=</span> <span class="n">_transform_points</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="mf">180.0</span> <span class="o">-</span> <span class="n">wall_az</span><span class="p">,</span> <span class="p">(</span><span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">,</span> <span class="n">wz</span><span class="p">))</span>
+        <span class="n">pts_global</span> <span class="o">=</span> <span class="n">_transform_space_points</span><span class="p">(</span>
+            <span class="n">pts_space</span><span class="p">,</span>
+            <span class="n">Point3D</span><span class="p">(</span><span class="n">spc_pts_global</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">spc_pts_global</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">spc_pts_global</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">),</span>
+            <span class="mi">0</span><span class="p">,</span>
+            <span class="n">flr_origin</span><span class="p">,</span>
+            <span class="n">flr_az</span><span class="p">,</span>
+            <span class="n">glob_az</span>
+        <span class="p">)</span>
+
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">w_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'cmd'</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">bc</span> <span class="o">=</span> <span class="n">_CMD_TO_BC</span><span class="p">[</span><span class="n">cmd</span><span class="p">]()</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unknown DOE2 surface command: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tilt</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">180</span> <span class="o">-</span> <span class="n">DOE2_ANGLE_TOL</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">-</span> <span class="n">t</span>
+        <span class="k">if</span> <span class="mi">45</span> <span class="o">-</span> <span class="n">DOE2_ANGLE_TOL</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="mi">135</span> <span class="o">+</span> <span class="n">DOE2_ANGLE_TOL</span><span class="p">:</span>
+            <span class="n">ftype</span> <span class="o">=</span> <span class="n">Wall</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">((</span><span class="n">tilt</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span> <span class="o">-</span> <span class="mi">180</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">DOE2_ANGLE_TOL</span><span class="p">:</span>
+                <span class="n">ftype</span> <span class="o">=</span> <span class="n">Floor</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ftype</span> <span class="o">=</span> <span class="n">RoofCeiling</span><span class="p">()</span>
+
+        <span class="n">face</span> <span class="o">=</span> <span class="n">Face</span><span class="p">(</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="s1">'</span><span class="si">{}</span><span class="s1">_Face_</span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_string</span><span class="p">(</span><span class="n">spc_name</span><span class="p">),</span> <span class="n">idx</span><span class="p">),</span>
+            <span class="n">geometry</span><span class="o">=</span><span class="n">Face3D</span><span class="p">([</span><span class="n">Point3D</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts_global</span><span class="p">]),</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">ftype</span><span class="p">,</span>
+            <span class="n">boundary_condition</span><span class="o">=</span><span class="n">bc</span>
+        <span class="p">)</span>
+        <span class="c1"># if an exterior wall check for doors and apertures</span>
+        <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">'EXTERIOR-WALL'</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts_global</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">gp1</span><span class="p">,</span> <span class="n">gp2</span> <span class="o">=</span> <span class="n">pts_global</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts_global</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">apps</span> <span class="o">=</span> <span class="n">_apertures_from_wall</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">gp1</span><span class="p">,</span> <span class="n">gp2</span><span class="p">,</span> <span class="n">base_z</span><span class="p">)</span>
+            <span class="n">drs</span> <span class="o">=</span> <span class="n">_doors_from_wall</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">gp1</span><span class="p">,</span> <span class="n">gp2</span><span class="p">,</span> <span class="n">base_z</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">apps</span><span class="p">:</span>
+                <span class="n">face</span><span class="o">.</span><span class="n">add_apertures</span><span class="p">(</span><span class="n">apps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">drs</span><span class="p">:</span>
+                <span class="n">face</span><span class="o">.</span><span class="n">add_doors</span><span class="p">(</span><span class="n">drs</span><span class="p">)</span>
+
+        <span class="n">faces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">face</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">faces</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_EdgeInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Class for storing information about wall edges."""</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'bc'</span><span class="p">,</span> <span class="s1">'apertures'</span><span class="p">,</span> <span class="s1">'doors'</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bc</span> <span class="o">=</span> <span class="n">Outdoors</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apertures</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doors</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_edge_info_map</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">walls_dict</span><span class="p">,</span> <span class="n">spc_verts_global</span><span class="p">,</span> <span class="n">spc_verts_local</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create a dict mapping each vertex index to its corresponding EdgeInfo object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cmd_dict: Command dictionary containing all DOE2 objects.</span>
+<span class="sd">        walls_dict: Dictionary of walls with their attributes, keyed by wall u_name.</span>
+<span class="sd">        spc_verts_global: List of global space vertices that define the space footprint.</span>
+<span class="sd">        spc_verts_local: List of local space vertices that define the space footprint.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[dict[int, _EdgeInfo], BoundaryCondition, BoundaryCondition]:</span>
+<span class="sd">            - edge_info: map from vertex index to _EdgeInfo (with bc, apertures, doors)</span>
+<span class="sd">            - floor_bc: The floor BoundaryCondition</span>
+<span class="sd">            - ceiling_bc: The ceiling/roof BoundaryCondition</span>
+
+<span class="sd">    """</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">_EdgeInfo</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spc_verts_global</span><span class="p">))}</span>
+    <span class="n">floor_bc</span> <span class="o">=</span> <span class="n">Outdoors</span><span class="p">()</span>
+    <span class="n">ceiling_bc</span> <span class="o">=</span> <span class="n">Outdoors</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">w_attrs</span> <span class="ow">in</span> <span class="n">walls_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">tilt</span> <span class="o">=</span> <span class="n">_get_wall_tilt</span><span class="p">(</span><span class="n">w_attrs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">tilt</span> <span class="o">==</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">_wall_start_point</span><span class="p">(</span><span class="n">w_attrs</span><span class="p">,</span> <span class="n">spc_verts_local</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">w_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'cmd'</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">info</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">bc</span> <span class="o">=</span> <span class="n">_CMD_TO_BC</span><span class="p">[</span><span class="n">cmd</span><span class="p">]()</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Unknown DOE2 surface command: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
+
+            <span class="n">p1</span> <span class="o">=</span> <span class="n">spc_verts_global</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="n">spc_verts_global</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">spc_verts_global</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> \
+                <span class="n">spc_verts_global</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">base_z</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">z</span>
+
+            <span class="n">info</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">apertures</span> <span class="o">=</span> \
+                <span class="n">_apertures_from_wall</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">base_z</span><span class="p">)</span>
+            <span class="n">info</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">doors</span> <span class="o">=</span> \
+                <span class="n">_doors_from_wall</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">base_z</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">loc</span> <span class="o">=</span> <span class="n">w_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOCATION'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">w_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'cmd'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">loc</span> <span class="o">==</span> <span class="s1">'TOP'</span><span class="p">:</span>
+                <span class="n">ceiling_bc</span> <span class="o">=</span> <span class="n">_CMD_TO_BC</span><span class="p">[</span><span class="n">cmd</span><span class="p">]()</span>
+            <span class="k">elif</span> <span class="n">loc</span> <span class="o">==</span> <span class="s1">'BOTTOM'</span><span class="p">:</span>
+                <span class="n">floor_bc</span> <span class="o">=</span> <span class="n">_CMD_TO_BC</span><span class="p">[</span><span class="n">cmd</span><span class="p">]()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">info</span><span class="p">,</span> <span class="n">floor_bc</span><span class="p">,</span> <span class="n">ceiling_bc</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extruded_shell</span><span class="p">(</span><span class="n">spc_attrs</span><span class="p">,</span> <span class="n">verts_glob</span><span class="p">,</span> <span class="n">edge_info</span><span class="p">,</span> <span class="n">floor_bc</span><span class="p">,</span> <span class="n">ceiling_bc</span><span class="p">,</span>
+                    <span class="n">spc_name</span><span class="p">,</span> <span class="n">flr_attrs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Creates a list of honeybee Face objects representing the space shell geometry.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        spc_attrs: Dictionary of space attributes.</span>
+<span class="sd">        verts_glob: List of transformed vertices defining the space footprint.</span>
+<span class="sd">        edge_info: Dictionary mapping vertex indices to corresponding EdgeInfo instances.</span>
+<span class="sd">        floor_bc: The floor BoundaryCondition.</span>
+<span class="sd">        ceiling_bc: The ceiling/roof BoundaryCondition.</span>
+<span class="sd">        spc_name: Name of the current space.</span>
+<span class="sd">        flr_attrs: Dictionary of floor attributes.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[Face]: A list of Face instances representing the complete space shell</span>
+<span class="sd">    """</span>
+    <span class="n">faces</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">vcount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">verts_glob</span><span class="p">)</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">_space_height</span><span class="p">(</span><span class="n">spc_attrs</span><span class="p">,</span> <span class="n">flr_attrs</span><span class="p">)</span>
+
+    <span class="c1"># Floor</span>
+    <span class="n">floor_pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point3D</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">verts_glob</span><span class="p">]</span>
+    <span class="n">faces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">Face</span><span class="p">(</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="s1">'</span><span class="si">{}</span><span class="s1">_Floor'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_string</span><span class="p">(</span><span class="n">spc_name</span><span class="p">)),</span>
+            <span class="n">geometry</span><span class="o">=</span><span class="n">Face3D</span><span class="p">(</span><span class="n">floor_pts</span><span class="p">),</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">Floor</span><span class="p">(),</span>
+            <span class="n">boundary_condition</span><span class="o">=</span><span class="n">floor_bc</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Ceiling</span>
+    <span class="n">ceil_pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point3D</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="n">height</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">verts_glob</span><span class="p">]</span>
+    <span class="n">faces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">Face</span><span class="p">(</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="s1">'</span><span class="si">{}</span><span class="s1">_Ceiling'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_string</span><span class="p">(</span><span class="n">spc_name</span><span class="p">)),</span>
+            <span class="n">geometry</span><span class="o">=</span><span class="n">Face3D</span><span class="p">(</span><span class="n">ceil_pts</span><span class="p">),</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">RoofCeiling</span><span class="p">(),</span>
+            <span class="n">boundary_condition</span><span class="o">=</span><span class="n">ceiling_bc</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Walls</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vcount</span><span class="p">):</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">verts_glob</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">verts_glob</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">vcount</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">verts_glob</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">wall_pts</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Point3D</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">p1</span><span class="o">.</span><span class="n">z</span><span class="p">),</span>
+            <span class="n">Point3D</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">p2</span><span class="o">.</span><span class="n">z</span><span class="p">),</span>
+            <span class="n">Point3D</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">p2</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="n">height</span><span class="p">),</span>
+            <span class="n">Point3D</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">p1</span><span class="o">.</span><span class="n">z</span> <span class="o">+</span> <span class="n">height</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="n">face</span> <span class="o">=</span> <span class="n">Face</span><span class="p">(</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="s1">'</span><span class="si">{}</span><span class="s1">_Wall_</span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_string</span><span class="p">(</span><span class="n">spc_name</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">geometry</span><span class="o">=</span><span class="n">Face3D</span><span class="p">(</span><span class="n">wall_pts</span><span class="p">),</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">Wall</span><span class="p">(),</span>
+            <span class="n">boundary_condition</span><span class="o">=</span><span class="n">edge_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">bc</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">edge_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">apertures</span><span class="p">:</span>
+            <span class="n">face</span><span class="o">.</span><span class="n">add_apertures</span><span class="p">(</span><span class="n">edge_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">apertures</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">edge_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">doors</span><span class="p">:</span>
+            <span class="n">face</span><span class="o">.</span><span class="n">add_doors</span><span class="p">(</span><span class="n">edge_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">doors</span><span class="p">)</span>
+        <span class="n">faces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">face</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">faces</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_wall_start_point</span><span class="p">(</span><span class="n">wall_attrs</span><span class="p">,</span> <span class="n">spc_verts_local</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Find the starting point and vertex index for a wall in global</span>
+<span class="sd">       coordinates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        wall_attrs: Dictionary of wall attributes.</span>
+<span class="sd">        spc_verts_local: List of local space vertices.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[float, float], int: A tuple containing:</span>
+<span class="sd">            - The (x, y) coordinates of the wall's starting point</span>
+<span class="sd">            - The index of the matching vertex in the spaces local coordinates</span>
+<span class="sd">    """</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="n">wall_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOCATION'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spc_verts_local</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">loc</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'SPACE-V'</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">loc</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'SPACE-V'</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">count</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">spc_verts_local</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_get_origin</span><span class="p">(</span><span class="n">wall_attrs</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">spc_verts_local</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">ox</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">DOE2_TOLERANCE</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">oy</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">DOE2_TOLERANCE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_apertures_from_wall</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">gp1</span><span class="p">,</span> <span class="n">gp2</span><span class="p">,</span> <span class="n">z0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create aperture objects for windows in a wall.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cmd_dict: Command dictionary containing all DOE2 objects.</span>
+<span class="sd">        w_name: Name of the parent wall.</span>
+<span class="sd">        idx: Index of the wall's starting vertex.</span>
+<span class="sd">        gp1: Point3D representing wall's start point.</span>
+<span class="sd">        gp2: Point3D representing wall's end point.</span>
+<span class="sd">        z0: Base height of the wall.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[Aperture]: List of Aperture objects for the wall</span>
+<span class="sd">    """</span>
+    <span class="n">apps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">gp2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">gp1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">gp2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">gp1</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="n">DOE2_TOLERANCE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">apps</span>
+    <span class="n">ux</span><span class="p">,</span> <span class="n">uy</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">length</span><span class="p">,</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">length</span>
+
+    <span class="n">wins</span> <span class="o">=</span> <span class="n">child_objects_from_parent</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="s1">'EXTERIOR-WALL'</span><span class="p">,</span> <span class="s1">'WINDOW'</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">win</span> <span class="ow">in</span> <span class="n">wins</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">win</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'WIDTH'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">win</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEIGHT'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">xo</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">win</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">yo</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">win</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">_build_subface_corners</span><span class="p">((</span><span class="n">gp1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">gp1</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">ux</span><span class="p">,</span> <span class="n">uy</span><span class="p">,</span> <span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">z0</span><span class="p">)</span>
+        <span class="n">apps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Aperture</span><span class="p">(</span>
+                <span class="s1">'</span><span class="si">{}</span><span class="s1">_Win</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_string</span><span class="p">(</span><span class="n">w_name</span><span class="p">),</span> <span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+                <span class="n">Face3D</span><span class="p">(</span><span class="n">pts</span><span class="p">),</span>
+                <span class="n">boundary_condition</span><span class="o">=</span><span class="n">Outdoors</span><span class="p">(),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">apps</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_doors_from_wall</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">gp1</span><span class="p">,</span> <span class="n">gp2</span><span class="p">,</span> <span class="n">z0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create door objects for a wall.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cmd_dict: Command dictionary containing all DOE2 objects.</span>
+<span class="sd">        w_name: Name of the parent wall.</span>
+<span class="sd">        idx: Index of the wall's starting vertex.</span>
+<span class="sd">        gp1: Point3D representing wall's start point.</span>
+<span class="sd">        gp2: Point3D representing wall's end point.</span>
+<span class="sd">        z0: Base height of the wall.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[Door]: List of Door objects for the wall.</span>
+<span class="sd">    """</span>
+    <span class="n">doors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">gp2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">gp1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">gp2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">gp1</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="n">DOE2_TOLERANCE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">doors</span>
+    <span class="n">ux</span><span class="p">,</span> <span class="n">uy</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">length</span><span class="p">,</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">length</span>
+
+    <span class="n">drs</span> <span class="o">=</span> <span class="n">child_objects_from_parent</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">w_name</span><span class="p">,</span> <span class="s1">'EXTERIOR-WALL'</span><span class="p">,</span> <span class="s1">'DOOR'</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">drs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'WIDTH'</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span> <span class="ow">or</span> <span class="mf">3.0</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEIGHT'</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">)</span> <span class="ow">or</span> <span class="mf">7.0</span><span class="p">)</span>
+        <span class="n">xo</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"X"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">yo</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Y"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">_build_subface_corners</span><span class="p">((</span><span class="n">gp1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">gp1</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">ux</span><span class="p">,</span> <span class="n">uy</span><span class="p">,</span> <span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">z0</span><span class="p">)</span>
+        <span class="n">doors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Door</span><span class="p">(</span>
+                <span class="s1">'</span><span class="si">{}</span><span class="s1">_Door</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clean_string</span><span class="p">(</span><span class="n">w_name</span><span class="p">),</span> <span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+                <span class="n">Face3D</span><span class="p">(</span><span class="n">pts</span><span class="p">),</span>
+                <span class="n">boundary_condition</span><span class="o">=</span><span class="n">Outdoors</span><span class="p">(),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">doors</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_origin</span><span class="p">(</span><span class="n">attrs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return (x, y, z) coordinates from a DOE-2 object dict.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        attrs: Dictionary containing DOE2 object attributes.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[float, float, float]: The (x, y, z) coordinates, defaulting to 0</span>
+<span class="sd">        for any missing values.</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'Z'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_points</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">az_deg</span><span class="p">,</span> <span class="n">origin_vec</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Rotate points about Z axis and then translate them.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pts (List[Point3D]): Points to transform.</span>
+<span class="sd">        az_deg (float): Clock-wise rotation angle in degrees</span>
+<span class="sd">        origin_vec (tuple[float, float, float]): Origin vector to translate the points</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[Point3D]: The rotated + translated points</span>
+<span class="sd">    """</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">az_deg</span><span class="p">)</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span> <span class="o">=</span> <span class="n">origin_vec</span>
+    <span class="n">move_vec</span> <span class="o">=</span> <span class="n">Vector3D</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">:</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">rotate_xy</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">move_vec</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_subface_corners</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">ux</span><span class="p">,</span> <span class="n">uy</span><span class="p">,</span> <span class="n">offx</span><span class="p">,</span> <span class="n">offy</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">z0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Generate the four corner Point3D objects of a rectangular sub-surface.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        origin (tuple[float, float, float]): Base point of the parent wall.</span>
+<span class="sd">        ux (float): X-component of the wall</span>
+<span class="sd">        uy (float): Y-component of the wall</span>
+<span class="sd">        offx (float): Horizontal offset along the wall x-axis</span>
+<span class="sd">        offy (float): Vertical offset above the wall base</span>
+<span class="sd">        width (float): Horizontal extent of the rectangle.</span>
+<span class="sd">        height (float): Vertical extent of the rectangle.</span>
+<span class="sd">        z0 (float): Base elevation of the parent wall.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[Point3D]: Corner points as Point3D objects.</span>
+<span class="sd">    """</span>
+    <span class="n">bl</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ux</span> <span class="o">*</span> <span class="n">offx</span><span class="p">,</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">uy</span> <span class="o">*</span> <span class="n">offx</span><span class="p">,</span> <span class="n">z0</span> <span class="o">+</span> <span class="n">offy</span><span class="p">)</span>
+    <span class="n">br</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span>
+        <span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ux</span> <span class="o">*</span> <span class="p">(</span><span class="n">offx</span> <span class="o">+</span> <span class="n">width</span><span class="p">),</span>
+        <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">uy</span> <span class="o">*</span> <span class="p">(</span><span class="n">offx</span> <span class="o">+</span> <span class="n">width</span><span class="p">),</span>
+        <span class="n">z0</span> <span class="o">+</span> <span class="n">offy</span>
+    <span class="p">)</span>
+    <span class="n">tr</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">br</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">br</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">z0</span> <span class="o">+</span> <span class="n">offy</span> <span class="o">+</span> <span class="n">height</span><span class="p">)</span>
+    <span class="n">tl</span> <span class="o">=</span> <span class="n">Point3D</span><span class="p">(</span><span class="n">bl</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bl</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">tr</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">bl</span><span class="p">,</span> <span class="n">br</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">tl</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_verts_to_tuples</span><span class="p">(</span><span class="n">verts_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert a DOE-2 POLYGON vertex string into a list of (x, y) float tuples.</span>
+
+<span class="sd">    For example, a string like {'V1': '( 0, 0 )', 'V2': '( 10, 0 )', ...}</span>
+<span class="sd">    will be converted into a list of tuples like [(0.0, 0.0), (10.0, 0.0), ...]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        verts_dict: A dict of vertex labels and points.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of (x, y) tuples as floats.</span>
+<span class="sd">    """</span>
+    <span class="n">coord_pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)'</span><span class="p">)</span>
+    <span class="n">pairs</span> <span class="o">=</span> <span class="n">coord_pat</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">verts_dict</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">]</span>
+
+
+<span class="c1"># _child_objects_from_parent moved to util.py as child_objects_from_parent</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_surfaces_from_space</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">space_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return all surface‐type child objects (e.g., walls, roofs) for a given SPACE.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cmd_dict: Command dictionary containing all DOE2 objects.</span>
+<span class="sd">        space_name (str):  Unique name of the SPACE object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary mapping each surface U-name to its attributes for all</span>
+<span class="sd">        surfaces under this space.</span>
+<span class="sd">    """</span>
+    <span class="n">surf_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'EXTERIOR-WALL'</span><span class="p">,</span> <span class="s1">'INTERIOR-WALL'</span><span class="p">,</span> <span class="s1">'UNDERGROUND-WALL'</span><span class="p">,</span> <span class="s1">'ROOF'</span><span class="p">]</span>
+    <span class="n">surfs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">surf</span> <span class="ow">in</span> <span class="n">surf_types</span><span class="p">:</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="n">child_objects_from_parent</span><span class="p">(</span><span class="n">cmd_dict</span><span class="p">,</span> <span class="n">space_name</span><span class="p">,</span> <span class="s1">'SPACE'</span><span class="p">,</span> <span class="n">surf</span><span class="p">)</span>
+        <span class="n">surfs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">surfs</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_calc_azimuth</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Calculate the azimuth from point v1 to v2 in degrees clockwise from north.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        v1 (tuple[float, float]): (x, y) coordinates of the first point.</span>
+<span class="sd">        v2 (tuple[float, float]): (x, y) coordinates of the second point.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Azimuth angle in degrees in the range [0, 360].</span>
+<span class="sd">    """</span>
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ang</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dx</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ang</span> <span class="o">+</span> <span class="mi">360</span> <span class="k">if</span> <span class="n">ang</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">ang</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_wall_tilt</span><span class="p">(</span><span class="n">w_attrs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the wall’s tilt angle in degrees, with overrides for special LOCATIONs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        w_attrs (dict): Attributes dictionary for the wall object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Tilt angle (0 = horizontal up, 90 = vertical, 180 = horizontal down).</span>
+<span class="sd">    """</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">w_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOCATION'</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tilt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">w_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"TILT"</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">90</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">tilt</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="k">if</span> <span class="n">loc</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'SPACE-V'</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">90</span>
+    <span class="k">if</span> <span class="n">loc</span> <span class="o">==</span> <span class="s1">'TOP'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">loc</span> <span class="o">==</span> <span class="s1">'BOTTOM'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">180</span>
+    <span class="k">return</span> <span class="n">tilt</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_origin_and_azimuth</span><span class="p">(</span><span class="n">obj_attrs</span><span class="p">,</span> <span class="n">parent_vertices</span><span class="p">,</span> <span class="n">is_wall</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Compute the local origin (x, y, z) and azimuth for a SPACE, WALL, or FLOOR.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        obj_attrs (dict): Attributes dictionary for the object (SPACE or WALL).</span>
+<span class="sd">        parent_vertices (list[tuple[float, float]]): Vertex list of the parent polygon</span>
+<span class="sd">            or None for FLOOR.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (x, y, z, azimuth)</span>
+<span class="sd">            x, y, z : float origin coordinates.</span>
+<span class="sd">            azimuth (float): Azimuth in degrees .</span>
+<span class="sd">    """</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">obj_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOCATION'</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">loc</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s1">'SPACE-V'</span><span class="p">,</span> <span class="s1">'FLOOR-V'</span><span class="p">)):</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">loc</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'-V'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="n">parent_vertices</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">nxt</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">parent_vertices</span><span class="p">)</span> <span class="k">else</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">v2</span> <span class="o">=</span> <span class="n">parent_vertices</span><span class="p">[</span><span class="n">nxt</span><span class="p">]</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">v1</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">obj_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"Z"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">az</span> <span class="o">=</span> <span class="n">_calc_azimuth</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">_get_origin</span><span class="p">(</span><span class="n">obj_attrs</span><span class="p">)</span>
+        <span class="n">az</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">obj_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'AZIMUTH'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_wall</span><span class="p">:</span>
+            <span class="n">az</span> <span class="o">=</span> <span class="o">-</span> <span class="n">az</span>  <span class="c1"># Reverse azimuth for SPACE and FLOOR</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">az</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_space_height</span><span class="p">(</span><span class="n">spc_attrs</span><span class="p">,</span> <span class="n">flr_attrs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the height of a SPACE in feet.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        spc_attrs (dict): Attributes dictionary for the SPACE.</span>
+<span class="sd">        flr_attrs (dict): Attributes dictionary for the parent FLOOR.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: Height of the space (ft).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If neither SPACE["HEIGHT"], FLOOR["SPACE-HEIGHT"], nor</span>
+<span class="sd">                    FLOOR["FLOOR-HEIGHT"] is provided.</span>
+<span class="sd">    """</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_to_float</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_to_float</span><span class="p">(</span><span class="n">spc_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEIGHT'</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">h</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_to_float</span><span class="p">(</span><span class="n">flr_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'SPACE-HEIGHT'</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">h</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">_to_float</span><span class="p">(</span><span class="n">flr_attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'FLOOR-HEIGHT'</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">h</span>
+
+    <span class="n">err_msg</span> <span class="o">=</span> <span class="s1">'Cannot determine height for Space: '</span> \
+        <span class="s1">'missing "HEIGHT", "SPACE-HEIGHT", or "FLOOR-HEIGHT".'</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_space_points</span><span class="p">(</span><span class="n">local_pts</span><span class="p">,</span> <span class="n">space_origin</span><span class="p">,</span> <span class="n">spc_az</span><span class="p">,</span>
+                            <span class="n">floor_origin</span><span class="p">,</span> <span class="n">flr_az</span><span class="p">,</span> <span class="n">glob_az</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert space‐local vertices to global coordinates (feet).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        local_pts (list[Point3D]): Vertices in space-local coords (feet).</span>
+<span class="sd">        space_origin (Point3D): Origin of the space in parent coords.</span>
+<span class="sd">        spc_az (float): Space azimuth in degrees.</span>
+<span class="sd">        floor_origin (Point3D): Origin of the floor in global coords.</span>
+<span class="sd">        flr_az (float): Floor azimuth in degrees.</span>
+<span class="sd">        glob_az (float): Building azimuth in degrees.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[Point3D]: Transformed vertices in global coords (feet).</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">local_pts</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="c1"># Rotate by space azimuth</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">spc_az</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">DOE2_TOLERANCE</span><span class="p">:</span>
+        <span class="n">ang</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">spc_az</span><span class="p">)</span>
+        <span class="n">local_pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">rotate_xy</span><span class="p">(</span><span class="n">ang</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">local_pts</span><span class="p">]</span>
+
+    <span class="c1"># Translate to space origin</span>
+    <span class="n">space_vec</span> <span class="o">=</span> <span class="n">Vector3D</span><span class="p">(</span><span class="n">space_origin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">space_origin</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">space_origin</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">space_vec</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">local_pts</span><span class="p">]</span>
+
+    <span class="c1"># Rotate by floor azimuth</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">flr_az</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">DOE2_TOLERANCE</span><span class="p">:</span>
+        <span class="n">ang</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">flr_az</span><span class="p">)</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">rotate_xy</span><span class="p">(</span><span class="n">ang</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">]</span>
+
+    <span class="c1"># Rotate by building azimuth</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">glob_az</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">DOE2_TOLERANCE</span><span class="p">:</span>
+        <span class="n">ang</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">glob_az</span><span class="p">)</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">rotate_xy</span><span class="p">(</span><span class="n">ang</span><span class="p">,</span> <span class="n">Point3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">]</span>
+
+    <span class="c1"># Translate to floor origin</span>
+    <span class="n">floor_vec</span> <span class="o">=</span> <span class="n">Vector3D</span><span class="p">(</span><span class="n">floor_origin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">floor_origin</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">floor_origin</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">floor_vec</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2026, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

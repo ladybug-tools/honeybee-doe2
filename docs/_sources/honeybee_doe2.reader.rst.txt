@@ -1,0 +1,7 @@
+honeybee\_doe2.reader module
+============================
+
+.. automodule:: honeybee_doe2.reader
+   :members:
+   :undoc-members:
+   :show-inheritance:

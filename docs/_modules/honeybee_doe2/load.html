@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>honeybee_doe2.load &#8212; honeybee-doe2  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e6365d57" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/honeybee.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          honeybee-doe2</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cli/translate.html">translate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate">honeybee-doe2 translate</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-constructions-from-inp">constructions-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-constructions-to-inp">constructions-to-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-materials-from-inp">materials-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-model-from-inp">model-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-model-to-inp">model-to-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-from-inp">schedules-from-inp</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/translate.html#honeybee-doe2-translate-schedules-to-inp">schedules-to-inp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.cli.html">honeybee_doe2.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html">honeybee_doe2.cli.translate module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.constructions_from_inp"><code class="docutils literal notranslate"><span class="pre">constructions_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.constructions_to_inp"><code class="docutils literal notranslate"><span class="pre">constructions_to_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.materials_from_inp"><code class="docutils literal notranslate"><span class="pre">materials_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.model_from_inp"><code class="docutils literal notranslate"><span class="pre">model_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedules_from_inp"><code class="docutils literal notranslate"><span class="pre">schedules_from_inp()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.cli.translate.html#honeybee_doe2.cli.translate.schedules_to_inp"><code class="docutils literal notranslate"><span class="pre">schedules_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.cli.html#module-honeybee_doe2.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.properties.html">honeybee_doe2.properties package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.model.html">honeybee_doe2.properties.model module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties"><code class="docutils literal notranslate"><span class="pre">ModelDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_all"><code class="docutils literal notranslate"><span class="pre">check_all()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_for_extension"><code class="docutils literal notranslate"><span class="pre">check_for_extension()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_generic"><code class="docutils literal notranslate"><span class="pre">check_generic()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.check_no_room_holes"><code class="docutils literal notranslate"><span class="pre">check_no_room_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.ERROR_MAP"><code class="docutils literal notranslate"><span class="pre">ERROR_MAP</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.model.html#honeybee_doe2.properties.model.ModelDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.properties.room.html">honeybee_doe2.properties.room module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties"><code class="docutils literal notranslate"><span class="pre">RoomDoe2Properties</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_dict"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.apply_properties_from_user_data"><code class="docutils literal notranslate"><span class="pre">apply_properties_from_user_data()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.check_no_holes"><code class="docutils literal notranslate"><span class="pre">check_no_holes()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.move"><code class="docutils literal notranslate"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.reflect"><code class="docutils literal notranslate"><span class="pre">reflect()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.rotate_xy"><code class="docutils literal notranslate"><span class="pre">rotate_xy()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.assigned_flow"><code class="docutils literal notranslate"><span class="pre">assigned_flow</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.flow_per_area"><code class="docutils literal notranslate"><span class="pre">flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.hmax_flow_ratio"><code class="docutils literal notranslate"><span class="pre">hmax_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.host"><code class="docutils literal notranslate"><span class="pre">host</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_per_area"><code class="docutils literal notranslate"><span class="pre">min_flow_per_area</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.min_flow_ratio"><code class="docutils literal notranslate"><span class="pre">min_flow_ratio</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../honeybee_doe2.properties.room.html#honeybee_doe2.properties.room.RoomDoe2Properties.space_polygon_geometry"><code class="docutils literal notranslate"><span class="pre">space_polygon_geometry</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.properties.html#module-honeybee_doe2.properties">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.config.html">honeybee_doe2.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.construction.html">honeybee_doe2.construction module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.air_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">air_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.door_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">door_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.extract_all_constructions_from_inp_file"><code class="docutils literal notranslate"><span class="pre">extract_all_constructions_from_inp_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_construction_from_inp"><code class="docutils literal notranslate"><span class="pre">opaque_construction_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_construction_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_material_from_inp"><code class="docutils literal notranslate"><span class="pre">opaque_material_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.opaque_material_to_inp"><code class="docutils literal notranslate"><span class="pre">opaque_material_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.window_construction_from_inp"><code class="docutils literal notranslate"><span class="pre">window_construction_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.construction.html#honeybee_doe2.construction.window_construction_to_inp"><code class="docutils literal notranslate"><span class="pre">window_construction_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.grouping.html">honeybee_doe2.grouping module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_hvac"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_hvac()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.grouping.html#honeybee_doe2.grouping.group_rooms_by_doe2_level"><code class="docutils literal notranslate"><span class="pre">group_rooms_by_doe2_level()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.load.html">honeybee_doe2.load module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_from_inp"><code class="docutils literal notranslate"><span class="pre">electric_equipment_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_to_inp"><code class="docutils literal notranslate"><span class="pre">electric_equipment_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.hot_water_and_gas_to_inp"><code class="docutils literal notranslate"><span class="pre">hot_water_and_gas_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_from_inp"><code class="docutils literal notranslate"><span class="pre">infiltration_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_to_inp"><code class="docutils literal notranslate"><span class="pre">infiltration_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_from_inp"><code class="docutils literal notranslate"><span class="pre">lighting_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_to_inp"><code class="docutils literal notranslate"><span class="pre">lighting_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_from_inp"><code class="docutils literal notranslate"><span class="pre">people_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_to_inp"><code class="docutils literal notranslate"><span class="pre">people_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_from_inp"><code class="docutils literal notranslate"><span class="pre">setpoint_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_to_inp"><code class="docutils literal notranslate"><span class="pre">setpoint_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_from_inp"><code class="docutils literal notranslate"><span class="pre">ventilation_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_to_inp"><code class="docutils literal notranslate"><span class="pre">ventilation_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.programtype.html">honeybee_doe2.programtype module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.program_type_from_inp"><code class="docutils literal notranslate"><span class="pre">program_type_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.program_type_to_inp"><code class="docutils literal notranslate"><span class="pre">program_type_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_space_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_space_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.programtype.html#honeybee_doe2.programtype.switch_dict_to_zone_inp"><code class="docutils literal notranslate"><span class="pre">switch_dict_to_zone_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.reader.html">honeybee_doe2.reader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.command_dict_from_inp"><code class="docutils literal notranslate"><span class="pre">command_dict_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp"><code class="docutils literal notranslate"><span class="pre">model_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.reader.html#honeybee_doe2.reader.model_from_inp_file"><code class="docutils literal notranslate"><span class="pre">model_from_inp_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.schedule.html">honeybee_doe2.schedule module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.build_schedule_dict"><code class="docutils literal notranslate"><span class="pre">build_schedule_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.energy_trans_sch_to_transmittance"><code class="docutils literal notranslate"><span class="pre">energy_trans_sch_to_transmittance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_rules_from_inp_schedule_week"><code class="docutils literal notranslate"><span class="pre">extract_all_rules_from_inp_schedule_week()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.extract_all_schedule_ruleset_from_inp_file"><code class="docutils literal notranslate"><span class="pre">extract_all_schedule_ruleset_from_inp_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.is_library_entry"><code class="docutils literal notranslate"><span class="pre">is_library_entry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.resolve_library_schedule"><code class="docutils literal notranslate"><span class="pre">resolve_library_schedule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.resolve_schedule"><code class="docutils literal notranslate"><span class="pre">resolve_schedule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_day_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_day_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_fixed_interval_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_fixed_interval_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_ruleset_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_ruleset_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_from_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_from_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.schedule.html#honeybee_doe2.schedule.schedule_type_limit_to_inp"><code class="docutils literal notranslate"><span class="pre">schedule_type_limit_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.simulation.html">honeybee_doe2.simulation module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar"><code class="docutils literal notranslate"><span class="pre">SimulationPar</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.run_period"><code class="docutils literal notranslate"><span class="pre">run_period</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.site"><code class="docutils literal notranslate"><span class="pre">site</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SimulationPar.title"><code class="docutils literal notranslate"><span class="pre">title</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData"><code class="docutils literal notranslate"><span class="pre">SiteData</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.ToString"><code class="docutils literal notranslate"><span class="pre">ToString()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.duplicate"><code class="docutils literal notranslate"><span class="pre">duplicate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_dict"><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.to_inp"><code class="docutils literal notranslate"><span class="pre">to_inp()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.SiteData.altitude"><code class="docutils literal notranslate"><span class="pre">altitude</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.simulation.html#honeybee_doe2.simulation.run_period_to_inp"><code class="docutils literal notranslate"><span class="pre">run_period_to_inp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.util.html">honeybee_doe2.util module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.calculate_value_with_global_parameter"><code class="docutils literal notranslate"><span class="pre">calculate_value_with_global_parameter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.child_objects_from_parent"><code class="docutils literal notranslate"><span class="pre">child_objects_from_parent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.clean_inp_file_contents"><code class="docutils literal notranslate"><span class="pre">clean_inp_file_contents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.doe2_object_blocks"><code class="docutils literal notranslate"><span class="pre">doe2_object_blocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.find_user_lib_file"><code class="docutils literal notranslate"><span class="pre">find_user_lib_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string"><code class="docutils literal notranslate"><span class="pre">generate_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.generate_inp_string_list_format"><code class="docutils literal notranslate"><span class="pre">generate_inp_string_list_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_major"><code class="docutils literal notranslate"><span class="pre">header_comment_major()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.header_comment_minor"><code class="docutils literal notranslate"><span class="pre">header_comment_minor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.inp_path_from_folder"><code class="docutils literal notranslate"><span class="pre">inp_path_from_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.parse_inp_string"><code class="docutils literal notranslate"><span class="pre">parse_inp_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.parse_lib_string"><code class="docutils literal notranslate"><span class="pre">parse_lib_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.resolve_defaults"><code class="docutils literal notranslate"><span class="pre">resolve_defaults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.resolve_switch_value"><code class="docutils literal notranslate"><span class="pre">resolve_switch_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.util.html#honeybee_doe2.util.switch_statement_id"><code class="docutils literal notranslate"><span class="pre">switch_statement_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_doe2.writer.html">honeybee_doe2.writer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.aperture_to_inp"><code class="docutils literal notranslate"><span class="pre">aperture_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.door_to_inp"><code class="docutils literal notranslate"><span class="pre">door_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_3d_to_inp_rectangle"><code class="docutils literal notranslate"><span class="pre">face_3d_to_inp_rectangle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.face_to_inp"><code class="docutils literal notranslate"><span class="pre">face_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.model_to_inp"><code class="docutils literal notranslate"><span class="pre">model_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_doe2_conditioning_type"><code class="docutils literal notranslate"><span class="pre">room_doe2_conditioning_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.room_to_inp"><code class="docutils literal notranslate"><span class="pre">room_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_mesh_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_mesh_to_inp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_doe2.writer.html#honeybee_doe2.writer.shade_to_inp"><code class="docutils literal notranslate"><span class="pre">shade_to_inp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_doe2.html#module-honeybee_doe2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI Docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_doe2.html">honeybee_doe2 package</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <h1>Source code for honeybee_doe2.load</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""honeybee-doe2 load translators."""</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">division</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.datatype.area</span><span class="w"> </span><span class="kn">import</span> <span class="n">Area</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.datatype.power</span><span class="w"> </span><span class="kn">import</span> <span class="n">Power</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.datatype.energyflux</span><span class="w"> </span><span class="kn">import</span> <span class="n">EnergyFlux</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.datatype.volumeflowrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">VolumeFlowRate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ladybug.datatype.volumeflowrateintensity</span><span class="w"> </span><span class="kn">import</span> <span class="n">VolumeFlowRateIntensity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_doe2_string</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.load.people</span><span class="w"> </span><span class="kn">import</span> <span class="n">People</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.load.lighting</span><span class="w"> </span><span class="kn">import</span> <span class="n">Lighting</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.load.equipment</span><span class="w"> </span><span class="kn">import</span> <span class="n">ElectricEquipment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.load.infiltration</span><span class="w"> </span><span class="kn">import</span> <span class="n">Infiltration</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.load.setpoint</span><span class="w"> </span><span class="kn">import</span> <span class="n">Setpoint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.load.ventilation</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ventilation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.lib.scheduletypelimits</span><span class="w"> </span><span class="kn">import</span> <span class="n">fractional</span><span class="p">,</span> <span class="n">temperature</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">honeybee_energy.schedule.ruleset</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScheduleRuleset</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">RES_CHARS</span>
+
+<span class="c1"># list of all keywords associated with different load types</span>
+<span class="n">PEOPLE_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'AREA/PERSON'</span><span class="p">,</span> <span class="s1">'PEOPLE-SCHEDULE'</span><span class="p">)</span>
+<span class="n">LIGHTING_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'LIGHTING-W/AREA'</span><span class="p">,</span> <span class="s1">'LIGHTING-SCHEDULE'</span><span class="p">,</span> <span class="s1">'LIGHT-TO-RETURN'</span><span class="p">,</span>
+                 <span class="s1">'LIGHT-RAD-FRAC'</span><span class="p">)</span>
+<span class="n">EQUIP_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'EQUIPMENT-W/AREA'</span><span class="p">,</span> <span class="s1">'EQUIP-SCHEDULE'</span><span class="p">,</span>
+              <span class="s1">'EQUIP-SENSIBLE'</span><span class="p">,</span> <span class="s1">'EQUIP-LATENT'</span><span class="p">,</span> <span class="s1">'EQUIP-RAD-FRAC'</span><span class="p">)</span>
+<span class="n">SOURCE_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'SOURCE-TYPE'</span><span class="p">,</span> <span class="s1">'SOURCE-POWER'</span><span class="p">,</span> <span class="s1">'SOURCE-SCHEDULE'</span><span class="p">,</span>
+               <span class="s1">'SOURCE-SENSIBLE'</span><span class="p">,</span> <span class="s1">'SOURCE-RAD-FRAC'</span><span class="p">,</span> <span class="s1">'SOURCE-LATENT'</span><span class="p">)</span>
+<span class="n">INFILTRATION_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'INF-METHOD'</span><span class="p">,</span> <span class="s1">'INF-FLOW/AREA'</span><span class="p">,</span> <span class="s1">'INF-SCHEDULE'</span><span class="p">)</span>
+<span class="n">SETPOINT_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'DESIGN-HEAT-T'</span><span class="p">,</span> <span class="s1">'DESIGN-COOL-T'</span><span class="p">,</span> <span class="s1">'HEAT-TEMP-SCH'</span><span class="p">,</span> <span class="s1">'COOL-TEMP-SCH'</span><span class="p">)</span>
+<span class="n">VENTILATION_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'OA-FLOW/PER'</span><span class="p">,</span> <span class="s1">'OA-FLOW/AREA'</span><span class="p">,</span> <span class="s1">'OA-CHANGES'</span><span class="p">,</span> <span class="s1">'OUTSIDE-AIR-FLOW'</span><span class="p">,</span>
+                    <span class="s1">'MIN-FLOW-SCH'</span><span class="p">)</span>
+<span class="n">MECH_AIRFLOW_KEYS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'ASSIGNED-FLOW'</span><span class="p">,</span> <span class="s1">'FLOW/AREA'</span><span class="p">,</span> <span class="s1">'MIN-FLOW-RATIO'</span><span class="p">,</span> <span class="s1">'MIN-FLOW/AREA'</span><span class="p">,</span>
+                     <span class="s1">'HMAX-FLOW-RATIO'</span><span class="p">)</span>
+<span class="n">SPACE_KEYS</span> <span class="o">=</span> <span class="n">PEOPLE_KEYS</span> <span class="o">+</span> <span class="n">LIGHTING_KEYS</span> <span class="o">+</span> <span class="n">EQUIP_KEYS</span> <span class="o">+</span> <span class="n">INFILTRATION_KEYS</span> <span class="o">+</span> \
+    <span class="p">(</span><span class="s1">'LIGHTING-SCHEDUL'</span><span class="p">,)</span>  <span class="c1"># include DOE-2 typo for LIGHTING-SCHEDULE</span>
+<span class="n">ZONE_KEYS</span> <span class="o">=</span> <span class="n">SETPOINT_KEYS</span> <span class="o">+</span> <span class="n">VENTILATION_KEYS</span> <span class="o">+</span> <span class="n">MECH_AIRFLOW_KEYS</span>
+<span class="n">SCHEDULE_KEYS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">'PEOPLE-SCHEDULE'</span><span class="p">,</span> <span class="s1">'LIGHTING-SCHEDULE'</span><span class="p">,</span> <span class="s1">'EQUIP-SCHEDULE'</span><span class="p">,</span> <span class="s1">'SOURCE-SCHEDULE'</span><span class="p">,</span>
+    <span class="s1">'INF-SCHEDULE'</span><span class="p">,</span> <span class="s1">'HEAT-TEMP-SCH'</span><span class="p">,</span> <span class="s1">'COOL-TEMP-SCH'</span><span class="p">,</span> <span class="s1">'MIN-FLOW-SCH'</span><span class="p">)</span>
+
+<span class="c1"># TODO: Add methods to map honeybee_energy process loads to SOURCE-TYPE PROCESS</span>
+<span class="c1"># TODO: Add methods to translate daylight sensors</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_clean_schedule_id</span><span class="p">(</span><span class="n">raw_value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Strip quotes and parentheses from a schedule identifier string."""</span>
+    <span class="k">if</span> <span class="n">raw_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'Always On'</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">raw_value</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s2">"'"</span><span class="p">,</span> <span class="s1">'('</span><span class="p">,</span> <span class="s1">')'</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="s1">'Always On'</span>
+
+
+<div class="viewcode-block" id="people_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">people_to_inp</span><span class="p">(</span><span class="n">people</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Translate a People definition into INP (Keywords, Values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        people: A honeybee-energy People definition. None is allowed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements.</span>
+
+<span class="sd">        -   keywords: A tuple of text strings for keywords related to defining</span>
+<span class="sd">            people for a Space.</span>
+
+<span class="sd">        -   values: A tuple of text strings that aligns with the keywords and</span>
+<span class="sd">            denotes the value for each keyword.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">people</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(),</span> <span class="p">()</span>
+    <span class="n">ppl_den</span> <span class="o">=</span> <span class="n">Area</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">people</span><span class="o">.</span><span class="n">area_per_person</span><span class="p">],</span> <span class="s1">'ft2'</span><span class="p">,</span> <span class="s1">'m2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ppl_den</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ppl_den</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">ppl_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">people</span><span class="o">.</span><span class="n">occupancy_schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span>
+                                <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">ppl_sch</span> <span class="o">=</span> <span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ppl_sch</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">PEOPLE_KEYS</span><span class="p">,</span> <span class="p">(</span><span class="n">ppl_den</span><span class="p">,</span> <span class="n">ppl_sch</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="people_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.people_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">people_from_inp</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">occupancy_schedule</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create a People object from resolved INP attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        resolved: A dict of resolved INP key-value pairs</span>
+<span class="sd">           Expected keys: AREA/PERSON, PEOPLE-SCHEDULE</span>
+<span class="sd">        occupancy_schedule: Optional ScheduleRuleset for occupancy.</span>
+<span class="sd">            If None, a constant placeholder schedule is created.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee-energy People object, or None if the data is insufficient.</span>
+<span class="sd">    """</span>
+    <span class="n">area_per_person</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'AREA/PERSON'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">area_per_person</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Convert ft2/person to m2/person</span>
+    <span class="n">area_si</span> <span class="o">=</span> <span class="n">Area</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">area_per_person</span><span class="p">)],</span> <span class="s1">'m2'</span><span class="p">,</span> <span class="s1">'ft2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">people_per_area</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">area_si</span> <span class="k">if</span> <span class="n">area_si</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">sch_id</span> <span class="o">=</span> <span class="n">_clean_schedule_id</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PEOPLE-SCHEDULE'</span><span class="p">,</span> <span class="s1">'Always On'</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">occupancy_schedule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">occupancy_schedule</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">from_constant_value</span><span class="p">(</span>
+            <span class="n">sch_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fractional</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">People</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="n">people_per_area</span><span class="p">,</span> <span class="n">occupancy_schedule</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="lighting_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">lighting_to_inp</span><span class="p">(</span><span class="n">lighting</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Translate a Lighting definition into INP (Keywords, Values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lighting: A honeybee-energy Lighting definition. None is allowed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements.</span>
+
+<span class="sd">        -   keywords: A tuple of text strings for keywords related to defining</span>
+<span class="sd">            lighting for a Space.</span>
+
+<span class="sd">        -   values: A tuple of text strings that aligns with the keywords and</span>
+<span class="sd">            denotes the value for each keyword.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">lighting</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(),</span> <span class="p">()</span>
+    <span class="n">lpd</span> <span class="o">=</span> <span class="n">EnergyFlux</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">lighting</span><span class="o">.</span><span class="n">watts_per_area</span><span class="p">],</span> <span class="s1">'W/ft2'</span><span class="p">,</span> <span class="s1">'W/m2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lpd</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">lpd</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">lgt_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">lighting</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">lgt_sch</span> <span class="o">=</span> <span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lgt_sch</span><span class="p">)</span>
+    <span class="n">ret_fract</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">lighting</span><span class="o">.</span><span class="n">return_air_fraction</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">rad_fract</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">lighting</span><span class="o">.</span><span class="n">radiant_fraction</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">LIGHTING_KEYS</span><span class="p">,</span> <span class="p">(</span><span class="n">lpd</span><span class="p">,</span> <span class="n">lgt_sch</span><span class="p">,</span> <span class="n">ret_fract</span><span class="p">,</span> <span class="n">rad_fract</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="electric_equipment_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">electric_equipment_to_inp</span><span class="p">(</span><span class="n">electric_equip</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Translate an ElectricEquipment into INP (Keywords, Values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        electric_equip: A honeybee-energy ElectricEquipment definition.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements.</span>
+
+<span class="sd">        -   keywords: A tuple of text strings for keywords related to defining</span>
+<span class="sd">            the equipment for a Space.</span>
+
+<span class="sd">        -   values: A tuple of text strings that aligns with the keywords and</span>
+<span class="sd">            denotes the value for each keyword.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">electric_equip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(),</span> <span class="p">()</span>
+    <span class="n">epd</span> <span class="o">=</span> <span class="n">EnergyFlux</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">electric_equip</span><span class="o">.</span><span class="n">watts_per_area</span><span class="p">],</span> <span class="s1">'W/ft2'</span><span class="p">,</span> <span class="s1">'W/m2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">epd</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">epd</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">eqp_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">electric_equip</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">eqp_sch</span> <span class="o">=</span> <span class="s1">'("</span><span class="si">{}</span><span class="s1">")'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eqp_sch</span><span class="p">)</span>
+    <span class="n">sens_fract</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">electric_equip</span><span class="o">.</span><span class="n">latent_fraction</span> <span class="o">-</span> <span class="n">electric_equip</span><span class="o">.</span><span class="n">lost_fraction</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="n">epd</span><span class="p">,</span> <span class="n">eqp_sch</span><span class="p">,</span> <span class="n">sens_fract</span><span class="p">,</span> <span class="n">electric_equip</span><span class="o">.</span><span class="n">latent_fraction</span><span class="p">,</span>
+              <span class="n">electric_equip</span><span class="o">.</span><span class="n">radiant_fraction</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">EQUIP_KEYS</span><span class="p">,</span> <span class="n">values</span></div>
+
+
+
+<div class="viewcode-block" id="hot_water_and_gas_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.hot_water_and_gas_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">hot_water_and_gas_to_inp</span><span class="p">(</span><span class="n">hot_water</span><span class="p">,</span> <span class="n">gas_equip</span><span class="p">,</span> <span class="n">room_floor_area</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Translate a ServiceHotWater and/or GasEquipment into INP (Keywords, Values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hot_water: A honeybee-energy ServiceHotWater definition. None is allowed.</span>
+<span class="sd">            None is allowed.</span>
+<span class="sd">        gas_equip: gas_equip: A honeybee-energy GasEquipment definition.</span>
+<span class="sd">            None is allowed.</span>
+<span class="sd">        room_floor_area: The host Room floor area in square feet, which will</span>
+<span class="sd">            be used to convert the hot water flow per unit floor area to an</span>
+<span class="sd">            absolute load in BTU/h.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements.</span>
+
+<span class="sd">        -   keywords: A tuple of text strings for keywords related to defining</span>
+<span class="sd">            the hot water SOURCE load for a Space.</span>
+
+<span class="sd">        -   values: A tuple of text strings that aligns with the keywords and</span>
+<span class="sd">            denotes the value for each keyword.</span>
+<span class="sd">    """</span>
+    <span class="c1"># first check whether anything is assigned</span>
+    <span class="k">if</span> <span class="n">hot_water</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">gas_equip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(),</span> <span class="p">()</span>
+
+    <span class="c1"># process the hot water and gas into absolute values in Btu/h</span>
+    <span class="n">shw_values</span><span class="p">,</span> <span class="n">gas_values</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">hot_water</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">flow_den</span> <span class="o">=</span> <span class="n">hot_water</span><span class="o">.</span><span class="n">flow_per_area</span>  <span class="c1"># L/h-m2</span>
+        <span class="n">flr_area</span> <span class="o">=</span> <span class="n">Area</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">room_floor_area</span><span class="p">],</span> <span class="s1">'m2'</span><span class="p">,</span> <span class="s1">'ft2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># m2</span>
+        <span class="n">total_flow</span> <span class="o">=</span> <span class="n">flow_den</span> <span class="o">*</span> <span class="n">flr_area</span>  <span class="c1"># L/h</span>
+        <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># assume the water heater must heat water from 10C to 60C</span>
+        <span class="n">c_water</span> <span class="o">=</span> <span class="mf">4.186</span>  <span class="c1"># J/g-C, the specific heat of water</span>
+        <span class="n">shw_heat</span> <span class="o">=</span> <span class="n">total_flow</span> <span class="o">*</span> <span class="n">c_water</span> <span class="o">*</span> <span class="n">delta_t</span>  <span class="c1"># J/h using Q = m * c * deltaT</span>
+        <span class="n">shw_heat</span> <span class="o">=</span> <span class="n">shw_heat</span> <span class="o">/</span> <span class="mf">3600.</span>  <span class="c1"># Watts</span>
+        <span class="n">shw_power</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">Power</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">shw_heat</span><span class="p">],</span> <span class="s1">'Btu/h'</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">shw_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">hot_water</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+        <span class="n">shw_sch</span> <span class="o">=</span> <span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shw_sch</span><span class="p">)</span>
+        <span class="n">sens_fract</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">hot_water</span><span class="o">.</span><span class="n">sensible_fraction</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">lat_fract</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">hot_water</span><span class="o">.</span><span class="n">latent_fraction</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">shw_values</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'HOT-WATER'</span><span class="p">,</span> <span class="n">shw_power</span><span class="p">,</span> <span class="n">shw_sch</span><span class="p">,</span> <span class="n">sens_fract</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">lat_fract</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gas_equip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">epd</span> <span class="o">=</span> <span class="n">EnergyFlux</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">gas_equip</span><span class="o">.</span><span class="n">watts_per_area</span><span class="p">],</span> <span class="s1">'Btu/h-ft2'</span><span class="p">,</span> <span class="s1">'W/m2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">total_power</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">epd</span> <span class="o">*</span> <span class="n">flr_area</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Btu/h</span>
+        <span class="n">eqp_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">gas_equip</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+        <span class="n">eqp_sch</span> <span class="o">=</span> <span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eqp_sch</span><span class="p">)</span>
+        <span class="n">sens_fract</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gas_equip</span><span class="o">.</span><span class="n">latent_fraction</span> <span class="o">-</span> <span class="n">gas_equip</span><span class="o">.</span><span class="n">lost_fraction</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">rad_fract</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">gas_equip</span><span class="o">.</span><span class="n">radiant_fraction</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">lat_fract</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">gas_equip</span><span class="o">.</span><span class="n">latent_fraction</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">gas_values</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'GAS'</span><span class="p">,</span> <span class="n">total_power</span><span class="p">,</span> <span class="n">eqp_sch</span><span class="p">,</span> <span class="n">sens_fract</span><span class="p">,</span> <span class="n">rad_fract</span><span class="p">,</span> <span class="n">lat_fract</span><span class="p">)</span>
+
+    <span class="c1"># if both were specified, format them into a single set of numbers</span>
+    <span class="k">if</span> <span class="n">shw_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">gas_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">total_load</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">shw_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">gas_values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">shw_weight</span> <span class="o">=</span> <span class="n">shw_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_load</span>
+        <span class="n">gas_weight</span> <span class="o">=</span> <span class="n">gas_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_load</span>
+        <span class="k">if</span> <span class="n">gas_weight</span> <span class="o">&gt;</span> <span class="n">shw_weight</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'GAS'</span><span class="p">,</span> <span class="n">total_load</span><span class="p">,</span> <span class="n">gas_values</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'HOT-WATER'</span><span class="p">,</span> <span class="n">total_load</span><span class="p">,</span> <span class="n">shw_values</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">shw_v</span><span class="p">,</span> <span class="n">gas_v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">shw_values</span><span class="p">[</span><span class="mi">3</span><span class="p">:],</span> <span class="n">gas_values</span><span class="p">[</span><span class="mi">3</span><span class="p">:]):</span>
+            <span class="n">new_v</span> <span class="o">=</span> <span class="p">(</span><span class="n">shw_v</span> <span class="o">*</span> <span class="n">shw_weight</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">gas_v</span> <span class="o">*</span> <span class="n">gas_weight</span><span class="p">)</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">new_v</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">shw_values</span> <span class="k">if</span> <span class="n">shw_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">gas_values</span>
+
+    <span class="k">return</span> <span class="n">SOURCE_KEYS</span><span class="p">,</span> <span class="n">values</span></div>
+
+
+
+<div class="viewcode-block" id="infiltration_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">infiltration_to_inp</span><span class="p">(</span><span class="n">infiltration</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Translate an Infiltration definition into INP (Keywords, Values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        infiltration: A honeybee-energy Infiltration definition. None is allowed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements.</span>
+
+<span class="sd">        -   keywords: A tuple of text strings for keywords related to defining</span>
+<span class="sd">            infiltration for a Space.</span>
+
+<span class="sd">        -   values: A tuple of text strings that aligns with the keywords and</span>
+<span class="sd">            denotes the value for each keyword.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">infiltration</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(),</span> <span class="p">()</span>
+    <span class="n">inf_den</span> <span class="o">=</span> <span class="n">infiltration</span><span class="o">.</span><span class="n">flow_per_exterior_area</span>
+    <span class="n">inf_den</span> <span class="o">=</span> <span class="n">VolumeFlowRateIntensity</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">inf_den</span><span class="p">],</span> <span class="s1">'cfm/ft2'</span><span class="p">,</span> <span class="s1">'m3/s-m2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">inf_den</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">inf_den</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">inf_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">infiltration</span><span class="o">.</span><span class="n">schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">inf_sch</span> <span class="o">=</span> <span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inf_sch</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">INFILTRATION_KEYS</span><span class="p">,</span> <span class="p">(</span><span class="s1">'AIR-CHANGE'</span><span class="p">,</span> <span class="n">inf_den</span><span class="p">,</span> <span class="n">inf_sch</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="setpoint_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">setpoint_to_inp</span><span class="p">(</span><span class="n">setpoint</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Translate a Setpoint definition into INP (Keywords, Values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        setpoint: A honeybee-energy Setpoint definition. None is allowed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements.</span>
+
+<span class="sd">        -   keywords: A tuple of text strings for keywords related to defining</span>
+<span class="sd">            setpoints for a Zone.</span>
+
+<span class="sd">        -   values: A tuple of text strings that aligns with the keywords and</span>
+<span class="sd">            denotes the value for each keyword.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">setpoint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># use some default setpoints</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s1">'DESIGN-HEAT-T'</span><span class="p">,</span> <span class="s1">'DESIGN-COOL-T'</span><span class="p">),</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+    <span class="n">heat_setpt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">setpoint</span><span class="o">.</span><span class="n">heating_setpoint</span> <span class="o">*</span> <span class="p">(</span><span class="mf">9.</span> <span class="o">/</span> <span class="mf">5.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">cool_setpt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">setpoint</span><span class="o">.</span><span class="n">cooling_setpoint</span> <span class="o">*</span> <span class="p">(</span><span class="mf">9.</span> <span class="o">/</span> <span class="mf">5.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">heat_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">setpoint</span><span class="o">.</span><span class="n">heating_schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">heat_sch</span> <span class="o">=</span> <span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heat_sch</span><span class="p">)</span>
+    <span class="n">cool_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">setpoint</span><span class="o">.</span><span class="n">cooling_schedule</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+    <span class="n">cool_sch</span> <span class="o">=</span> <span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cool_sch</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">SETPOINT_KEYS</span><span class="p">,</span> <span class="p">(</span><span class="n">heat_setpt</span><span class="p">,</span> <span class="n">cool_setpt</span><span class="p">,</span> <span class="n">heat_sch</span><span class="p">,</span> <span class="n">cool_sch</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ventilation_to_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_to_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ventilation_to_inp</span><span class="p">(</span><span class="n">ventilation</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Translate a Ventilation definition into INP (Keywords, Values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ventilation: A honeybee-energy Ventilation definition. None is allowed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple with two elements.</span>
+
+<span class="sd">        -   keywords: A list of text strings for keywords related to defining</span>
+<span class="sd">            ventilation for a Space.</span>
+
+<span class="sd">        -   values: A list of text strings that aligns with the keywords and</span>
+<span class="sd">            denotes the value for each keyword.</span>
+<span class="sd">    """</span>
+    <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">ventilation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span>
+    <span class="c1"># check the flow per person</span>
+    <span class="n">ppl_den</span> <span class="o">=</span> <span class="n">ventilation</span><span class="o">.</span><span class="n">flow_per_person</span>
+    <span class="k">if</span> <span class="n">ppl_den</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'OA-FLOW/PER'</span><span class="p">)</span>
+        <span class="n">ppl_den</span> <span class="o">=</span> <span class="n">VolumeFlowRate</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">ppl_den</span><span class="p">],</span> <span class="s1">'cfm'</span><span class="p">,</span> <span class="s1">'m3/s'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">ppl_den</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># check the flow per floor area</span>
+    <span class="n">vent_den</span> <span class="o">=</span> <span class="n">ventilation</span><span class="o">.</span><span class="n">flow_per_area</span>
+    <span class="k">if</span> <span class="n">vent_den</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'OA-FLOW/AREA'</span><span class="p">)</span>
+        <span class="n">vent_den</span> <span class="o">=</span> <span class="n">VolumeFlowRateIntensity</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">vent_den</span><span class="p">],</span> <span class="s1">'cfm/ft2'</span><span class="p">,</span> <span class="s1">'m3/s-m2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">vent_den</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># check the air changes per hour</span>
+    <span class="n">ach</span> <span class="o">=</span> <span class="n">ventilation</span><span class="o">.</span><span class="n">air_changes_per_hour</span>
+    <span class="k">if</span> <span class="n">ach</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'OA-CHANGES'</span><span class="p">)</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">ach</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># check the flow per zone</span>
+    <span class="n">total_flow</span> <span class="o">=</span> <span class="n">ventilation</span><span class="o">.</span><span class="n">flow_per_zone</span>
+    <span class="k">if</span> <span class="n">total_flow</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'OUTSIDE-AIR-FLOW'</span><span class="p">)</span>
+        <span class="n">total_flow</span> <span class="o">=</span> <span class="n">VolumeFlowRate</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">total_flow</span><span class="p">],</span> <span class="s1">'cfm'</span><span class="p">,</span> <span class="s1">'m3/s'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">total_flow</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># check the schedule</span>
+    <span class="n">vent_sch</span> <span class="o">=</span> <span class="n">ventilation</span><span class="o">.</span><span class="n">schedule</span>
+    <span class="k">if</span> <span class="n">vent_sch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">keywords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'MIN-FLOW-SCH'</span><span class="p">)</span>
+        <span class="n">vent_sch</span> <span class="o">=</span> <span class="n">clean_doe2_string</span><span class="p">(</span><span class="n">vent_sch</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">RES_CHARS</span><span class="p">)</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'"</span><span class="si">{}</span><span class="s1">"'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vent_sch</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">keywords</span><span class="p">,</span> <span class="n">values</span></div>
+
+
+
+<div class="viewcode-block" id="lighting_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.lighting_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">lighting_from_inp</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create a Lighting object from resolved INP attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        resolved: A dict of resolved INP key-value pairs. Expected keys:</span>
+<span class="sd">            LIGHTING-W/AREA, LIGHTING-SCHEDUL or LIGHTING-SCHEDULE,</span>
+<span class="sd">            LIGHT-TO-RETURN, LIGHT-RAD-FRAC.</span>
+<span class="sd">        schedule: Optional ScheduleRuleset for lighting.</span>
+<span class="sd">            If None, a constant placeholder schedule is created.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee-energy Lighting object, or None if data is insufficient.</span>
+<span class="sd">    """</span>
+    <span class="n">lpd</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LIGHTING-W/AREA'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lpd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Convert W/ft2 to W/m2</span>
+    <span class="n">lpd_si</span> <span class="o">=</span> <span class="n">EnergyFlux</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">lpd</span><span class="p">)],</span> <span class="s1">'W/m2'</span><span class="p">,</span> <span class="s1">'W/ft2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sch_id</span> <span class="o">=</span> <span class="n">_clean_schedule_id</span><span class="p">(</span>
+        <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LIGHTING-SCHEDUL'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LIGHTING-SCHEDULE'</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">schedule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">schedule</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">from_constant_value</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fractional</span><span class="p">)</span>
+    <span class="n">ret_fract</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LIGHT-TO-RETURN'</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">rad_fract</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LIGHT-RAD-FRAC'</span><span class="p">,</span> <span class="mf">0.32</span><span class="p">))</span>
+    <span class="n">vis_fract</span> <span class="o">=</span> <span class="mf">0.25</span>
+    <span class="k">if</span> <span class="n">ret_fract</span> <span class="o">+</span> <span class="n">rad_fract</span> <span class="o">+</span> <span class="n">vis_fract</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">vis_fract</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ret_fract</span> <span class="o">-</span> <span class="n">rad_fract</span>
+    <span class="k">return</span> <span class="n">Lighting</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="n">lpd_si</span><span class="p">,</span> <span class="n">schedule</span><span class="p">,</span> <span class="n">ret_fract</span><span class="p">,</span> <span class="n">rad_fract</span><span class="p">,</span> <span class="n">vis_fract</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="electric_equipment_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.electric_equipment_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">electric_equipment_from_inp</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create an ElectricEquipment object from resolved INP attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        resolved: A dict of resolved INP key-value pairs. Expected keys:</span>
+<span class="sd">            EQUIPMENT-W/AREA, EQUIP-SCHEDULE, EQUIP-SENSIBLE,</span>
+<span class="sd">            EQUIP-LATENT, EQUIP-RAD-FRAC.</span>
+<span class="sd">        schedule: Optional ScheduleRuleset for equipment.</span>
+<span class="sd">            If None, a constant placeholder schedule is created.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee-energy ElectricEquipment object, or None if data is</span>
+<span class="sd">        insufficient.</span>
+<span class="sd">    """</span>
+    <span class="n">epd</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'EQUIPMENT-W/AREA'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">epd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">epd_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">epd</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">epd_val</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Convert W/ft2 to W/m2</span>
+    <span class="n">epd_si</span> <span class="o">=</span> <span class="n">EnergyFlux</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">([</span><span class="n">epd_val</span><span class="p">],</span> <span class="s1">'W/m2'</span><span class="p">,</span> <span class="s1">'W/ft2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sch_id</span> <span class="o">=</span> <span class="n">_clean_schedule_id</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'EQUIP-SCHEDULE'</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">schedule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">schedule</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">from_constant_value</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fractional</span><span class="p">)</span>
+    <span class="n">rad_fract</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'EQUIP-RAD-FRAC'</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">lat_fract</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'EQUIP-LATENT'</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">sens_fract</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'EQUIP-SENSIBLE'</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">lost_fract</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sens_fract</span> <span class="o">-</span> <span class="n">lat_fract</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ElectricEquipment</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="n">epd_si</span><span class="p">,</span> <span class="n">schedule</span><span class="p">,</span> <span class="n">rad_fract</span><span class="p">,</span>
+                             <span class="n">lat_fract</span><span class="p">,</span> <span class="n">lost_fract</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="infiltration_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.infiltration_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">infiltration_from_inp</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create an Infiltration object from resolved INP attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        resolved: A dict of resolved INP key-value pairs. Expected keys:</span>
+<span class="sd">            INF-METHOD, INF-FLOW/AREA, INF-SCHEDULE.</span>
+<span class="sd">        schedule: Optional ScheduleRuleset for infiltration.</span>
+<span class="sd">            If None, a constant placeholder schedule is created.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee-energy Infiltration object, or None if data is</span>
+<span class="sd">        insufficient.</span>
+<span class="sd">    """</span>
+    <span class="n">inf_den</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'INF-FLOW/AREA'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">inf_den</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Convert cfm/ft2 to m3/s-m2</span>
+    <span class="n">inf_si</span> <span class="o">=</span> <span class="n">VolumeFlowRateIntensity</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">(</span>
+        <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">inf_den</span><span class="p">)],</span> <span class="s1">'m3/s-m2'</span><span class="p">,</span> <span class="s1">'cfm/ft2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sch_id</span> <span class="o">=</span> <span class="n">_clean_schedule_id</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'INF-SCHEDULE'</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">schedule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">schedule</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">from_constant_value</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fractional</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Infiltration</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="n">inf_si</span><span class="p">,</span> <span class="n">schedule</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="setpoint_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.setpoint_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">setpoint_from_inp</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">heating_schedule</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cooling_schedule</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create a Setpoint object from resolved INP attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        resolved: A dict of resolved INP key-value pairs. Expected keys:</span>
+<span class="sd">            DESIGN-HEAT-T, DESIGN-COOL-T, HEAT-TEMP-SCH, COOL-TEMP-SCH.</span>
+<span class="sd">        heating_schedule: Optional ScheduleRuleset for heating setpoint.</span>
+<span class="sd">            If None, a constant schedule at design temp is created.</span>
+<span class="sd">        cooling_schedule: Optional ScheduleRuleset for cooling setpoint.</span>
+<span class="sd">            If None, a constant schedule at design temp is created.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee-energy Setpoint object, or None if data is insufficient.</span>
+<span class="sd">    """</span>
+    <span class="n">heat_sch_id</span> <span class="o">=</span> <span class="n">_clean_schedule_id</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEAT-TEMP-SCH'</span><span class="p">))</span>
+    <span class="n">cool_sch_id</span> <span class="o">=</span> <span class="n">_clean_schedule_id</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'COOL-TEMP-SCH'</span><span class="p">))</span>
+    <span class="n">heat_t</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'DESIGN-HEAT-T'</span><span class="p">)</span>
+    <span class="n">cool_t</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'DESIGN-COOL-T'</span><span class="p">)</span>
+    <span class="n">has_sch</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEAT-TEMP-SCH'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'COOL-TEMP-SCH'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">heat_t</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cool_t</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_sch</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Convert F to C for setpoints</span>
+    <span class="n">heat_c</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">heat_t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">9</span> <span class="k">if</span> <span class="n">heat_t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">21</span>
+    <span class="n">cool_c</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">cool_t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">9</span> <span class="k">if</span> <span class="n">cool_t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">24</span>
+    <span class="k">if</span> <span class="n">heating_schedule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">heating_schedule</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">from_constant_value</span><span class="p">(</span>
+            <span class="n">heat_sch_id</span><span class="p">,</span> <span class="n">heat_c</span><span class="p">,</span> <span class="n">temperature</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cooling_schedule</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cooling_schedule</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">from_constant_value</span><span class="p">(</span>
+            <span class="n">cool_sch_id</span><span class="p">,</span> <span class="n">cool_c</span><span class="p">,</span> <span class="n">temperature</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Setpoint</span><span class="p">(</span><span class="n">heat_sch_id</span><span class="p">,</span> <span class="n">heating_schedule</span><span class="p">,</span> <span class="n">cooling_schedule</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ventilation_from_inp">
+<a class="viewcode-back" href="../../honeybee_doe2.load.html#honeybee_doe2.load.ventilation_from_inp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ventilation_from_inp</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create a Ventilation object from resolved INP attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        resolved: A dict of resolved INP key-value pairs. Expected keys:</span>
+<span class="sd">            OA-FLOW/PER, OA-FLOW/AREA, OA-CHANGES, OUTSIDE-AIR-FLOW,</span>
+<span class="sd">            MIN-FLOW-SCH.</span>
+<span class="sd">        schedule: Optional ScheduleRuleset for min outdoor air.</span>
+<span class="sd">            If None, a constant placeholder schedule is created.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A honeybee-energy Ventilation object, or None if data is</span>
+<span class="sd">        insufficient.</span>
+<span class="sd">    """</span>
+    <span class="n">flow_per</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'OA-FLOW/PER'</span><span class="p">)</span>
+    <span class="n">flow_area</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'OA-FLOW/AREA'</span><span class="p">)</span>
+    <span class="n">ach</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'OA-CHANGES'</span><span class="p">)</span>
+    <span class="n">total_flow</span> <span class="o">=</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'OUTSIDE-AIR-FLOW'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">flow_per</span><span class="p">,</span> <span class="n">flow_area</span><span class="p">,</span> <span class="n">ach</span><span class="p">,</span> <span class="n">total_flow</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Convert cfm to m3/s for per-person flow</span>
+    <span class="n">fp_si</span> <span class="o">=</span> <span class="n">VolumeFlowRate</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">(</span>
+        <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">flow_per</span><span class="p">)],</span> <span class="s1">'m3/s'</span><span class="p">,</span> <span class="s1">'cfm'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">flow_per</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="c1"># Convert cfm/ft2 to m3/s-m2 for per-area flow</span>
+    <span class="n">fa_si</span> <span class="o">=</span> <span class="n">VolumeFlowRateIntensity</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">(</span>
+        <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">flow_area</span><span class="p">)],</span> <span class="s1">'m3/s-m2'</span><span class="p">,</span> <span class="s1">'cfm/ft2'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">flow_area</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">ach_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ach</span><span class="p">)</span> <span class="k">if</span> <span class="n">ach</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="c1"># Convert cfm to m3/s for per-zone flow</span>
+    <span class="n">fz_si</span> <span class="o">=</span> <span class="n">VolumeFlowRate</span><span class="p">()</span><span class="o">.</span><span class="n">to_unit</span><span class="p">(</span>
+        <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">total_flow</span><span class="p">)],</span> <span class="s1">'m3/s'</span><span class="p">,</span> <span class="s1">'cfm'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">total_flow</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">sch_id</span> <span class="o">=</span> <span class="n">_clean_schedule_id</span><span class="p">(</span><span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MIN-FLOW-SCH'</span><span class="p">))</span>
+    <span class="c1"># Use provided schedule or create a placeholder</span>
+    <span class="n">vent_sch</span> <span class="o">=</span> <span class="n">schedule</span>
+    <span class="k">if</span> <span class="n">vent_sch</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">resolved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'MIN-FLOW-SCH'</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vent_sch</span> <span class="o">=</span> <span class="n">ScheduleRuleset</span><span class="o">.</span><span class="n">from_constant_value</span><span class="p">(</span>
+            <span class="n">sch_id</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fractional</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Ventilation</span><span class="p">(</span><span class="n">sch_id</span><span class="p">,</span> <span class="n">fp_si</span><span class="p">,</span> <span class="n">fa_si</span><span class="p">,</span> <span class="n">fz_si</span><span class="p">,</span> <span class="n">ach_val</span><span class="p">,</span> <span class="n">vent_sch</span><span class="p">)</span></div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2026, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
