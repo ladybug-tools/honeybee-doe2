@@ -5,6 +5,7 @@ import logging
 import click
 
 from ladybug.commandutil import process_content_to_output
+from ladybug.projectinfo import ProjectInfo
 from honeybee.typing import clean_doe2_string
 from honeybee.model import Model
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
@@ -41,6 +42,13 @@ def translate():
     'default parameters will be generated.', default=None, show_default=True,
     type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True))
 @click.option(
+    '--project-info', '-pi', help='Full path to a ladybug ProjectInfo JSON that '
+    'describes criteria about the project site. This will be used to fill in any '
+    'information that is not described in the --sim-par-json. Otherwise, '
+    '--sim-par-json overrides whatever is specified within the --project-info.',
+    default=None, show_default=True,
+    type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True))
+@click.option(
     '--hvac-mapping', '-hm', help='Text to indicate how HVAC systems should be '
     'assigned to the exported model. Story will assign one HVAC system for each '
     'distinct level polygon, Model will use only one HVAC system for the whole model '
@@ -65,7 +73,7 @@ def translate():
     'of the translation. By default this will be printed out to stdout.',
     type=click.File('w'), default='-', show_default=True)
 def model_to_inp_cli(
-    model_file, sim_par_json, hvac_mapping, include_interior_walls,
+    model_file, sim_par_json, project_info, hvac_mapping, include_interior_walls,
     include_interior_ceilings, equest_version, output_file
 ):
     """Translate a Honeybee Model to an INP file.
@@ -78,7 +86,7 @@ def model_to_inp_cli(
         exclude_interior_walls = not include_interior_walls
         exclude_interior_ceilings = not include_interior_ceilings
         model_to_inp(
-            model_file, sim_par_json, hvac_mapping,
+            model_file, sim_par_json, project_info, hvac_mapping,
             exclude_interior_walls, exclude_interior_ceilings,
             equest_version, output_file)
     except Exception as e:
@@ -89,7 +97,7 @@ def model_to_inp_cli(
 
 
 def model_to_inp(
-        model_file, sim_par_json=None, hvac_mapping='Story',
+        model_file, sim_par_json=None, project_info=None, hvac_mapping='Story',
         exclude_interior_walls=False, exclude_interior_ceilings=False,
         equest_version='3.65', output_file=None,
         include_interior_walls=True, include_interior_ceilings=True):
@@ -100,6 +108,10 @@ def model_to_inp(
         sim_par_json: Full path to a honeybee-doe2 SimulationPar JSON that
             describes all of the settings for the simulation. If None,
             default parameters will be generated. (Default: None).
+        project_info: Full path to a ladybug ProjectInfo JSON that describes criteria
+            about the project site. This will be used to fill in any information that
+            is not described in the sim_par_json. Otherwise, the sim_par_json overrides
+            whatever is specified within the project_info. (Default: None).
         hvac_mapping: Text to indicate how HVAC systems should be assigned to
             the exported model. Story will assign one HVAC system for each distinct
             level polygon, Model will use only one HVAC system for the whole model
@@ -121,12 +133,21 @@ def model_to_inp(
         output_file: Optional INP file path to output the INP string of the
             translation. If None, the string will be returned from this function.
     """
+    # load the project information if it exists
+    if project_info is not None:
+        project_info = ProjectInfo.from_json(project_info)
+
     # load simulation parameters if specified
-    sim_par = None
     if sim_par_json is not None:
         with open(sim_par_json) as json_file:
             data = json.load(json_file)
         sim_par = SimulationPar.from_dict(data)
+        if project_info is not None:
+            sim_par.site.assign_from_project_info(project_info, overwrite=False)
+    else:
+        sim_par = SimulationPar()
+        if project_info is not None:
+            sim_par.site.assign_from_project_info(project_info, overwrite=True)
 
     # re-serialize the Model to Python
     model = Model.from_file(model_file)
