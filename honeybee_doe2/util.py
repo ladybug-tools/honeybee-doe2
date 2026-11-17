@@ -188,7 +188,7 @@ def parse_inp_string(inp_string):
         if current_key is not None:
             keywords.append(current_key)
             values.append('\n'.join(value_lines).strip())
- 
+
         command_type = ''  # Set to empty string for objects without TYPE attrs
         if "TYPE" in keywords:
             type_index = keywords.index("TYPE")
@@ -744,8 +744,9 @@ def parse_lib_string(lib_string, command_type):
     return u_name, keywords, values
 
 
-def child_objects_from_parent(cmd_dict, parent_name, parent_command,
-                              child_command):
+def child_objects_from_parent(
+    cmd_dict, parent_name, parent_command, child_command, other_parent_command=None
+):
     """Return all child_command objects between a parent's line and its next
     sibling.
 
@@ -756,6 +757,8 @@ def child_objects_from_parent(cmd_dict, parent_name, parent_command,
         parent_name: Name of the parent from the object dict.
         parent_command: The command name of the parent.
         child_command: The command of the child objects to return.
+        other_parent_command: Optional other parent command that can interrupt
+            the children.
 
     Returns:
         A dictionary with u_name strings for keys and dictionaries for values.
@@ -783,6 +786,14 @@ def child_objects_from_parent(cmd_dict, parent_name, parent_command,
     # If we cant find the start then return empty dict
     if start_line is None:
         return {}
+
+    # Check if a second_parent_command appears between start_line and end_line
+    if other_parent_command is not None:
+        second_parents = cmd_dict.get(other_parent_command, {})
+        for attrs in second_parents.values():
+            sec_line = attrs.get('__line__', float('inf'))
+            if start_line < sec_line < end_line:
+                end_line = sec_line
 
     # Find children in between the line
     children = cmd_dict.get(child_command, {})
