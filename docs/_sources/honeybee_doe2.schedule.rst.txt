@@ -1,0 +1,7 @@
+honeybee\_doe2.schedule module
+==============================
+
+.. automodule:: honeybee_doe2.schedule
+   :members:
+   :undoc-members:
+   :show-inheritance:

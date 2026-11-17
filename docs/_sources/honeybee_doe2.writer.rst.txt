@@ -1,0 +1,7 @@
+honeybee\_doe2.writer module
+============================
+
+.. automodule:: honeybee_doe2.writer
+   :members:
+   :undoc-members:
+   :show-inheritance:
