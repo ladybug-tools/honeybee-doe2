@@ -230,7 +230,9 @@ def _volume_from_polygons(
     faces = []
     idx = 1
 
+    from ladybug_geometry.bounding import bounding_box
     base_z = spc_pts_global[0].z if spc_pts_global else 0
+    global_origin = bounding_box(spc_pts_global)[0]
 
     for w_name, w_attrs in walls.items():
         plg = (w_attrs.get('POLYGON') or '').strip('"')
@@ -250,9 +252,9 @@ def _volume_from_polygons(
         pts_space = _transform_points(pts, 180.0 - wall_az, (wx, wy, wz))
         pts_global = _transform_space_points(
             pts_space,
-            Point3D(spc_pts_global[0].x, spc_pts_global[0].y, spc_pts_global[0].z),
+            Point3D(0, 0, 0),
             0,
-            flr_origin,
+            global_origin,
             flr_az,
             glob_az
         )
@@ -744,7 +746,7 @@ def _space_height(spc_attrs, flr_attrs):
 
 def _transform_space_points(local_pts, space_origin, spc_az,
                             floor_origin, flr_az, glob_az):
-    """Convert space‐local vertices to global coordinates (feet).
+    """Convert space-local vertices to global coordinates (feet).
 
     Args:
         local_pts (list[Point3D]): Vertices in space-local coords (feet).
