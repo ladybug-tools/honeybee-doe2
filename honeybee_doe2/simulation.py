@@ -1,7 +1,12 @@
 # coding=utf-8
 """honeybee-doe2 simulation parameters."""
 from __future__ import division
+import math
 
+from ladybug_geometry.geometry2d.pointvector import Vector2D
+from ladybug.datatype.distance import Distance
+from ladybug.location import Location
+from ladybug.projectinfo import ProjectInfo
 from honeybee.typing import clean_doe2_string, int_in_range
 from honeybee_energy.simulation.runperiod import RunPeriod
 
@@ -17,7 +22,7 @@ class SimulationPar(object):
         run_period: A honeybee-energy RunPeriod object to describe the time period
             over which to run the simulation. (Default: Run for the whole year).
         site: A SiteData object describing the site where the simulation is
-            run. (Default: HArtford, CT).
+            run. (Default: Hartford, CT).
 
     Properties:
         * title
@@ -162,17 +167,99 @@ class SiteData(object):
     """Object to describe the project site of the simulation.
 
     Args:
-        altitude: A number for the altitude of the location above sea level
-            in Feet. (Default: 150).
+        north_angle: North angle in degrees. A number between -360 and 360 for the
+            counterclockwise difference between the North and the positive Y-axis in
+            degrees. 90 is West and 270 is East (Default: 0).
+        location: An optional Ladybug Location object to describe the exact latitude,
+            longitude, time zone and elevation of the project site. If None
+            the location specified within the EPW file will be used for the
+            simulation. (Default: None).
 
     Properties:
-        * altitude
+        * north_angle
+        * north_vector
+        * location
     """
-    __slots__ = ('_altitude',)
+    __slots__ = ('_north_angle', '_north_vector', '_location')
 
-    def __init__(self, altitude=150):
-        """Initialize SimulationPar."""
-        self.altitude = altitude
+    def __init__(self, north_angle=0, location=None):
+        """Initialize SiteData."""
+        self.north_angle = north_angle
+        self.location = location
+
+    @property
+    def north_angle(self):
+        """Get or set a number between -360 and 360 for the north direction in degrees.
+
+        This is the counterclockwise difference between the North and the positive
+        Y-axis. 90 is West and 270 is East (Default: 0).
+        """
+        return self._north_angle
+
+    @north_angle.setter
+    def north_angle(self, value):
+        self._north_angle = int_in_range(value, -360, 360, 'north angle')
+        self._north_vector = Vector2D(0, 1).rotate(math.radians(self._north_angle))
+
+    @property
+    def north_vector(self):
+        """Get or set a ladybug_geometry Vector2D for the north direction."""
+        return self._north_vector
+
+    @north_vector.setter
+    def north_vector(self, value):
+        assert isinstance(value, Vector2D), \
+            'Expected Vector2D for north_vector. Got {}.'.format(type(value))
+        self._north_vector = value
+        self._north_angle = \
+            math.degrees(self._north_vector.angle_clockwise(Vector2D(0, 1)))
+
+    @property
+    def location(self):
+        """Get or set an optional Location object to override that within the EPW."""
+        return self._location
+
+    @location.setter
+    def location(self, value):
+        if value is not None:
+            assert isinstance(value, Location), 'Expected Location ' \
+                'for SiteData location. Got {}.'.format(type(value))
+        self._location = value
+
+    def assign_from_project_info(self, project_info, overwrite=False):
+        """Assign attributes to this SiteData from a ladybug ProjectInfo.
+
+        Args:
+            project_info: A ladybug ProjectInfo object to be used to set
+                simulation parameters.
+            overwrite: Boolean to note whether existing attributes on this
+                SiteData should be overwritten with the information in the ProjectInfo.
+                When False, the Location will only be assigned if it is not already
+                specified. When True, all existing attributes are overwritten
+                (including the north attribute) is set according to whatever
+                the ProjectInfo dictates.
+        """
+        # check that a ProjectInfo instance has been passes
+        assert isinstance(project_info, ProjectInfo), \
+            'Expected ProjectInfo. Got {}.'.format(type(project_info))
+        if overwrite:  # overwrite existing attributes
+            self.north_angle = project_info.north_angle
+            self.location = project_info.location
+        else:  # only assign attributes if they exist
+            if not self.location:
+                self.location = project_info.location
+
+    @classmethod
+    def from_project_info(cls, project_info):
+        """Create a SimulationParameter object from a ladybug ProjectInfo.
+
+        Args:
+            project_info: A ladybug ProjectInfo object to be used to set
+                simulation parameters.
+        """
+        sim_par = cls()
+        sim_par.assign_from_project_info(project_info, True)
+        return sim_par
 
     @classmethod
     def from_dict(cls, data):
@@ -185,41 +272,47 @@ class SiteData(object):
 
             {
             "type": "SiteData",
-            "altitude": 100  # altitude above sea level (ft)
+            "north_angle": 15, # North angle in degrees
+            "location": {} # Ladybug Location dictionary
             }
         """
         assert data['type'] == 'SiteData', \
             'Expected SiteData dictionary. Got {}.'.format(data['type'])
-        altitude = data['altitude'] if 'altitude' in data else 150
-        return cls(altitude)
-
-    @property
-    def altitude(self):
-        """A number for the altitude of the location above sea level in Feet."""
-        return self._altitude
-
-    @altitude.setter
-    def altitude(self, value):
-        self._altitude = int_in_range(value, input_name='site data altitude')
+        north_angle = 0
+        if 'north_angle' in data and data['north_angle'] is not None:
+            north_angle = data['north_angle']
+        location = None
+        if 'location' in data and data['location'] is not None:
+            location = Location.from_dict(data['location'])
+        return cls(north_angle, location)
 
     def to_inp(self):
         """Get an DOE-2 INP string representation of the SiteData."""
         # create the INP string for the site
-        keywords = ('ALTITUDE', 'C-STATE', 'C-WEATHER-FILE',
-                    'C-COUNTRY', 'C-901-LOCATION')
-        values = (self.altitude, '21', '*TMY2\\HARTFOCT.bin*', '1', '1092')
+        if self.location is None:  # use the default Hartford, CT location
+            keywords = ('ALTITUDE', 'C-STATE', 'C-WEATHER-FILE',
+                        'C-COUNTRY', 'C-901-LOCATION')
+            values = ('150', '21', '*TMY2\\HARTFOCT.bin*', '1', '1092')
+        else:
+            loc = self.location
+            elev = int(Distance().to_unit([loc.elevation], 'ft', 'm')[0])
+            keywords = ('LATITUDE', 'LONGITUDE', 'ALTITUDE', 'TIME-ZONE')
+            values = (round(loc.latitude, 2), round(-loc.longitude, 2), elev, -loc.time_zone)
         site_str = generate_inp_string('Site Data', 'SITE-PARAMETERS', keywords, values)
         # create the INP string for the building data
-        keywords, values = ('HOLIDAYS',), ('"Standard US Holidays"',)
+        keywords = ('AZIMUTH', 'HOLIDAYS')
+        values = (self.north_angle, '"Standard US Holidays"',)
         bldg_str = generate_inp_string(
             'Building Data', 'BUILD-PARAMETERS', keywords, values)
         return site_str + bldg_str
 
     def to_dict(self):
         """SiteData dictionary representation."""
+        loc = self.location.to_dict() if self.location is not None else None
         return {
             'type': 'SiteData',
-            'altitude': self.altitude
+            'north_angle': self.north_angle,
+            'location': loc
         }
 
     def duplicate(self):
@@ -231,11 +324,11 @@ class SiteData(object):
         return self.__repr__()
 
     def __copy__(self):
-        return SiteData(self.altitude)
+        return SiteData(self.north_angle, self.location)
 
     def __key(self):
         """A tuple based on the object properties, useful for hashing."""
-        return (self.altitude,)
+        return (self.north_angle, hash(self.location))
 
     def __hash__(self):
         return hash(self.__key())

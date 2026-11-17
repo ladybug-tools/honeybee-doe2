@@ -16,16 +16,17 @@ DEFAULT_RUN_PERIOD = \
     '   LIBRARY-ENTRY            = "US"\n' \
     '   ..\n'
 DEFAULT_SITE_DATA = \
-        '"Site Data" = SITE-PARAMETERS\n' \
-        '   ALTITUDE                 = 100\n' \
-        '   C-STATE                  = 21\n' \
-        '   C-WEATHER-FILE           = *TMY2\\HARTFOCT.bin*\n' \
-        '   C-COUNTRY                = 1\n' \
-        '   C-901-LOCATION           = 1092\n' \
-        '   ..\n' \
-        '"Building Data" = BUILD-PARAMETERS\n' \
-        '   HOLIDAYS                 = "Standard US Holidays"\n' \
-        '   ..\n'
+    '"Site Data" = SITE-PARAMETERS\n' \
+    '   ALTITUDE                 = 150\n' \
+    '   C-STATE                  = 21\n' \
+    '   C-WEATHER-FILE           = *TMY2\\HARTFOCT.bin*\n' \
+    '   C-COUNTRY                = 1\n' \
+    '   C-901-LOCATION           = 1092\n' \
+    '   ..\n' \
+    '"Building Data" = BUILD-PARAMETERS\n' \
+    '   AZIMUTH                  = 0\n' \
+    '   HOLIDAYS                 = "Standard US Holidays"\n' \
+    '   ..\n'
 
 
 def test_run_period_to_inp():
@@ -37,7 +38,7 @@ def test_run_period_to_inp():
 
 def test_site_data_to_inp():
     """Test the SiteData to_inp method."""
-    site_data = SiteData(100)
+    site_data = SiteData()
     inp_str = site_data.to_inp()
     assert inp_str == DEFAULT_SITE_DATA
 
@@ -46,7 +47,6 @@ def test_simulation_par_to_inp():
     """Test the SimulationPar to_inp method."""
     title = 'Sample Project'
     simulation_par = SimulationPar(title)
-    simulation_par.site.altitude = 100
     inp_str = simulation_par.to_inp()
 
     assert title in inp_str
