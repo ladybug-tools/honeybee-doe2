@@ -1,7 +1,6 @@
 # coding=utf-8
 """Methods to read inp files to Honeybee."""
 from __future__ import division
-
 import os
 import math
 import re
@@ -268,7 +267,7 @@ def _volume_from_polygons(
         t = abs(tilt % 360)
         if t > 180 - DOE2_ANGLE_TOL:
             t = 180 - t
-        if 45 - DOE2_ANGLE_TOL <= t <= 135 + DOE2_ANGLE_TOL:
+        if 90 - DOE2_ANGLE_TOL <= t <= 90 + DOE2_ANGLE_TOL:
             ftype = Wall()
         else:
             if abs((tilt % 360) - 180) < DOE2_ANGLE_TOL:
@@ -479,7 +478,7 @@ def _apertures_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
         return apps
     ux, uy = dx / length, dy / length
 
-    wins = child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'WINDOW')
+    wins = child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'WINDOW', 'ROOF')
     n = 1
     for win in wins.values():
         w = float(win.get('WIDTH', 0) or 0)
@@ -519,7 +518,7 @@ def _doors_from_wall(cmd_dict, w_name, idx, gp1, gp2, z0):
         return doors
     ux, uy = dx / length, dy / length
 
-    drs = child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'DOOR')
+    drs = child_objects_from_parent(cmd_dict, w_name, 'EXTERIOR-WALL', 'DOOR', 'ROOF')
     n = 1
     for d in drs.values():
         w = float(d.get('WIDTH', 3.0) or 3.0)
@@ -623,7 +622,7 @@ def _verts_to_tuples(verts_dict):
 
 
 def _surfaces_from_space(cmd_dict, space_name):
-    """Return all surface‐type child objects (e.g., walls, roofs) for a given SPACE.
+    """Return all surface-type child objects (e.g., walls, roofs) for a given SPACE.
 
     Args:
         cmd_dict: Command dictionary containing all DOE2 objects.
@@ -667,7 +666,7 @@ def _get_wall_tilt(w_attrs):
     """
     loc = (w_attrs.get('LOCATION') or '').upper()
     try:
-        tilt = float(w_attrs.get("TILT", 90) or 90)
+        tilt = float(w_attrs.get("TILT", 90))
     except (TypeError, ValueError):
         tilt = 90
     if loc.startswith('SPACE-V'):
